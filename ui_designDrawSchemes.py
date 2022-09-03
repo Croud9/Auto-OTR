@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file 'designDrawSchemes.ui'
+# Form implementation generated from reading ui file 'c:\PythonPRJCT\autoReportPdf\designDrawSchemes.ui'
 #
 # Created by: PyQt5 UI code generator 5.15.6
 #
@@ -481,7 +481,7 @@ class Ui_WindowDrawSchemes(object):
 "    border-radius: 6;\n"
 "}")
         icon = QtGui.QIcon()
-        icon.addPixmap(QtGui.QPixmap("Data/icon_update.jpg"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        icon.addPixmap(QtGui.QPixmap("c:\\PythonPRJCT\\autoReportPdf\\Data/icon_update.jpg"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         self.btnUpdateMppt.setIcon(icon)
         self.btnUpdateMppt.setObjectName("btnUpdateMppt")
         self.btnUpdateConsole = QtWidgets.QPushButton(self.centralwidget)

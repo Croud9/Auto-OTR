@@ -1,2 +1,2 @@
 # Auto-OTR
-GUI for creating a PDF file using ReportLab, Selenium, Shemdraw
+GUI in PyQt for creating a PDF file using ReportLab, Selenium, Shemdraw

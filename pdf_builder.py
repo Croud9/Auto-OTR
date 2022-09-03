@@ -73,7 +73,7 @@ class docPDF():
         self.styleH2 = ParagraphStyle(name='Heading2', fontName='Helvetica', alignment=TA_JUSTIFY, fontSize = 14, firstLineIndent = 24, wordWrap=True, bulletIndent = 24, leading = 22)
         self.styleH3 = ParagraphStyle(name='Heading3', fontName='Helvetica', fontSize = 14, firstLineIndent = 20)
 
-        self.doc = MyDocTemplate('Data/Report/rep_no_schems/Report.pdf', pagesize=A4,
+        self.doc = MyDocTemplate('Data/Report/Report.pdf', pagesize=A4,
                                 rightMargin=28,leftMargin=70,
                                 topMargin=45,bottomMargin=70)
 
@@ -153,19 +153,6 @@ class docPDF():
             
             balances_and_main_result = text.split('ratio')[-1].split('Legends')[0].strip("\n").split('\n')
         return balances_and_main_result, int_main_result
-
-    # def convert_pdf_to_png(self, path_to_pvsyst):
-    #     # To get better resolution
-    #     zoom_x = 2.0  # horizontal zoom
-    #     zoom_y = 2.0  # vertical zoom
-    #     mat = fitz.Matrix(zoom_x, zoom_y)  # zoom factor 2 in each dimension
-        
-    #     all_files = glob.glob(path_to_pvsyst)
-    #     for filename in all_files:
-    #         with fitz.open(filename) as doc:  
-    #             for page in doc:  # iterate through the pages
-    #                 pix = page.get_pixmap(matrix=mat)  # render page to an image #matrix=mat
-    #                 pix.save(f"Data/Images/PVsyst/page-{page.number + 1}.png")  # store image as a PNG
 
     #титул  
     def title(self, data):
@@ -776,24 +763,19 @@ class docPDF():
         if data["block_8_1"] == False:
             self.story.append(Paragraph("<b>8.1 Отчет по выработке</b>", self.styleH2))
             self.story.append(Spacer(1, 12))
-            
             if data["path_to_pvsyst"] != " ":
-                for i in range(11):
+                patch_imgs_pvsyst = "Data/Images/PVsyst"
+                img_files_pvsyst = [f for f in os.listdir(patch_imgs_pvsyst) if os.path.isfile(os.path.join(patch_imgs_pvsyst, f))]
+                for i in range(len(img_files_pvsyst)):
                     i += 1
-                    fname = f"Data/Images/PVsyst/page-{i}.png"
+                    fname = open(f"Data/Images/PVsyst/page-{i}.png", 'rb')
                     img = Image(fname, 6*inch, 9*inch)
                     self.story.append(img)
-                    # del img
-                    if i != 11:
+                    self.images_pvsyst.append(fname)
+                    if i != len(img_files_pvsyst):
                         self.story.append(PageBreak())
                     else:
                         break
-            # if data["path_to_pvsyst"] != " ":
-            #     for i in data['images_pvsyst']:
-            #         image = ImageReader(io.BytesIO(i))
-            #         img = Image(image, 6*inch, 9*inch)
-            #         self.story.append(img)
-            #         self.story.append(PageBreak())
                 
         if data["block_8_2"] == False:
             self.story.append(PageBreak())
@@ -838,8 +820,9 @@ class docPDF():
     
     def build(self, **data):
         self.data = data
+        self.images_pvsyst = []
         print("параметры", data)
-        if data["path_to_pvsyst"] != " ":
+        if data["path_to_pvsyst"] != " " and data["path_to_pvsyst"] != None:
             # self.convert_pdf_to_png(data["path_to_pvsyst"])
             search_pdf_out = self.search_table_in_pdf(data["path_to_pvsyst"])
             bamr = search_pdf_out[0] # balances_and_main_result таблица с pvsyst
@@ -899,3 +882,10 @@ class docPDF():
             
         # self.schemes()
         self.doc.multiBuild(self.story, canvasmaker=NumberedCanvas)
+        
+        patch_imgs_pvsyst = "Data/Images/PVsyst"
+        img_files_pvsyst = [f for f in os.listdir(patch_imgs_pvsyst) if os.path.isfile(os.path.join(patch_imgs_pvsyst, f))]
+        if len(self.images_pvsyst) != 0:
+            for img in self.images_pvsyst:
+                img.close()
+ 
