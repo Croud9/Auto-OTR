@@ -1701,18 +1701,6 @@ class WindowParse(QtWidgets.QMainWindow, designParsing.Ui_WindowRP5):
         self.btnDwnld_T.clicked.connect(self.parsing_load)
         self.listCity.activated.connect(self.parsing_date)
         # self.parse_params = None
-
-    # def closeEvent(self, event):
-    #     self.statusBar.showMessage('Браузер закрывается, пожалуйста, подождите...')
-    #     self.statusBar.setStyleSheet("background-color:rgb(255, 212, 38)")
-    #     QtWidgets.QApplication.processEvents()
-        
-    #     self.statusBar.setStyleSheet("background-color:rgb(255, 212, 38)")
-        
-    #     # Выполнение загрузки в новом потоке.
-    #     self.parser_close = Parsing(0, 0, "close")
-    #     self.parser_close.finished.connect(self.closeFinished)
-    #     self.parser_close.start()
              
     def checkNet(self):
         num_error = 0
