@@ -77,12 +77,6 @@ class СonvertFiles(QThread):
 
     def run(self):
         if self.flag == 'general':
-            # try:
-            #     with open(filepath_to_pdf_schemes +"/General/generalScheme.pdf", 'w') as fp:
-            #         pass
-            # except PermissionError:
-            #     print("Ошибка доступа к файлу: ", filepath_to_pdf_schemes +"/General/generalScheme.pdf")
-            #     return
             renderPDF.drawToFile(svg2rlg(self.paths[0]), filepath_to_pdf_schemes +"/General/generalScheme.pdf")
         elif self.flag == 'detailed':
             for i in range(len(self.paths)):
@@ -97,22 +91,12 @@ class СonvertFiles(QThread):
             # To get better resolution
             zoom_x = 2.0  # horizontal zoom
             zoom_y = 2.0  # vertical zoom
-            mat = fitz.Matrix(zoom_x, zoom_y)  # zoom factor 2 in each dimension
-            # try:
-            #     shutil.rmtree("Data\Images\PVsyst")
-            #     os.mkdir("Data\Images\PVsyst") 
-            #     print("Directory '%s' has been removed successfully" %self.paths)
-            # except PermissionError as error:
-            #     print("Error found: %s" %error)
-            #     pass            
-            self.images_pvsyst = []
+            mat = fitz.Matrix(zoom_x, zoom_y)  # zoom factor 2 in each dimension         
             all_files = glob.glob(self.paths)
             for filename in all_files:
                 with fitz.open(filename) as doc:  
                     for page in doc:  # iterate through the pages
                         pix = page.get_pixmap(matrix=mat)  # render page to an image #matrix=mat
-                        # print(pix)
-                        # self.images_pvsyst.append(pix)
                         pix.save(f"Data/Images/PVsyst/page-{page.number + 1}.png")  # store image as a PNG  
                                          
 class Parsing(QThread):
@@ -124,6 +108,20 @@ class Parsing(QThread):
 
     def run(self):
         if self.method == "close":
+            fp_general = filepath_to_pdf_schemes + "/General"
+            fp_detailed = filepath_to_pdf_schemes + "/Detailed"
+            patch_imgs_pvsyst = "Data/Images/PVsyst"
+            img_files_pvsyst = [f for f in os.listdir(patch_imgs_pvsyst) if os.path.isfile(os.path.join(patch_imgs_pvsyst, f))]
+            files_in_general = [f for f in os.listdir(fp_general) if isfile(join(fp_general, f))]
+            files_in_detailed = [f for f in os.listdir(fp_detailed) if isfile(join(fp_detailed, f))]
+            if len(files_in_general) != 0:
+                os.remove(fp_general + f"/{files_in_general[0]}")
+            if len(files_in_detailed ) != 0:
+                for file in files_in_detailed:
+                    os.remove(fp_detailed + f"/{file}")   
+            if len(img_files_pvsyst) != 0:
+                for file in img_files_pvsyst:
+                    os.remove(patch_imgs_pvsyst + f"/{file}")  
             parsingSelenium.close_browser()
         elif self.method == "search":
             self.return_search = parsingSelenium.search(self.params)
@@ -173,6 +171,8 @@ class MainApp(QtWidgets.QMainWindow, designRepPDF.Ui_MainWindow):
         
     def input_data(self):
         self.path_pvsyst = " "
+        self.pathes_detail_schemes = " "
+        self.path_general_schemes = " "
         self.browser_status = None
         self.module, self.mppt, self.mppt = "Н/Д"
         self.in_height, self.in_width, self.in_depth = "Н/Д"
@@ -192,7 +192,7 @@ class MainApp(QtWidgets.QMainWindow, designRepPDF.Ui_MainWindow):
         self.listInvertor_folder.addItems(titles_modules)
         
     def open_result_doc(self):
-        os.startfile("Data\Report\General_report.pdf")
+        os.startfile("Data\Report\Auto-OTR.pdf")
       
     def validation(self):
         if self.listRoof.currentText() == "Выберите":
@@ -620,21 +620,29 @@ class MainApp(QtWidgets.QMainWindow, designRepPDF.Ui_MainWindow):
         for select_invertor in self.type_modules:
             if current_invertor in select_invertor: 
                 self.search_invertor_data(self.select_title_invertor, select_invertor)
+                
     def delete_schemes(self, method):
-        files_in_general = [f for f in os.listdir(filepath_to_pdf_schemes + "/General") if isfile(join(filepath_to_pdf_schemes + "/General", f))]
-        files_in_detailed = [f for f in os.listdir(filepath_to_pdf_schemes + "/Detailed") if isfile(join(filepath_to_pdf_schemes + "/Detailed", f))]
+        fp_general = filepath_to_pdf_schemes + "/General"
+        fp_detailed = filepath_to_pdf_schemes + "/Detailed"
+        patch_imgs_pvsyst = "Data/Images/PVsyst"
+        img_files_pvsyst = [f for f in os.listdir(patch_imgs_pvsyst) if os.path.isfile(os.path.join(patch_imgs_pvsyst, f))]
+        files_in_general = [f for f in os.listdir(fp_general) if isfile(join(fp_general, f))]
+        files_in_detailed = [f for f in os.listdir(fp_detailed) if isfile(join(fp_detailed, f))]
 
         if len(files_in_general) != 0 and method == 'general':
-            os.remove(filepath_to_pdf_schemes + f"/General/{files_in_general[0]}")
+            os.remove(fp_general + f"/{files_in_general[0]}")
         if len(files_in_detailed ) != 0 and method == 'detailed':
-            for i in range(len(files_in_detailed)):
-                os.remove(filepath_to_pdf_schemes + f"/Detailed/{files_in_detailed[i]}")  
+            for file in files_in_detailed:
+                os.remove(fp_detailed + f"/{file}")   
+        if len(img_files_pvsyst) != 0 and method == 'pvsyst':
+            for file in img_files_pvsyst:
+                os.remove(patch_imgs_pvsyst + f"/{file}")  
                            
     def pvsyst(self):
         self.path_pvsyst = QtWidgets.QFileDialog.getOpenFileName(self, 'Выберите файл', filepath_to_pdf_pvsyst, "*.pdf")[0] #открытие диалога для выбора файла
-        # shutil.rmtree("Data\Images\PVsyst")
-        # os.mkdir("Data\Images\PVsyst")
+        print(self.path_pvsyst)
         if len(self.path_pvsyst) != 0:
+            self.delete_schemes('pvsyst')
             self.textConsole.append("- Загружен отчет PVsyst")
             self.btnOne.setEnabled(False)
             self.converter_pvsyst = СonvertFiles(self.path_pvsyst, 'pvsyst')
@@ -642,23 +650,24 @@ class MainApp(QtWidgets.QMainWindow, designRepPDF.Ui_MainWindow):
             self.converter_pvsyst.start()
 
     def load_scheme_one(self):
-        paths = QtWidgets.QFileDialog.getOpenFileNames(self, 'Выберите файл', filepath_to_schemes, "*.svg")[0] #открытие диалога для выбора файла
-        if len(paths) != 0:
+        self.pathes_detail_schemes = QtWidgets.QFileDialog.getOpenFileNames(self, 'Выберите файл', filepath_to_schemes, "*.svg")[0] #открытие диалога для выбора файла
+        print(self.pathes_detail_schemes)
+        if len(self.pathes_detail_schemes) != 0:
             self.delete_schemes('detailed')
             self.textConsole.append("- Загружена принципиальная эл.схема")
             self.btnLoadScheme1.setEnabled(False)
-            self.converter1 = СonvertFiles(paths, 'detailed')
+            self.converter1 = СonvertFiles(self.pathes_detail_schemes, 'detailed')
             self.converter1.finished.connect(self.convertOneFinished)
             self.converter1.start()
         
     def load_scheme_two(self):
-        path_scheme_two = QtWidgets.QFileDialog.getOpenFileName(self, 'Выберите файл', filepath_to_schemes, "*.svg")[0] #открытие диалога для выбора файла
-        paths = [path_scheme_two]   
-        if len(path_scheme_two) != 0:
+        self.path_general_schemes = [QtWidgets.QFileDialog.getOpenFileName(self, 'Выберите файл', filepath_to_schemes, "*.svg")[0]] #открытие диалога для выбора файла
+        print( self.path_general_schemes)
+        if len(self.path_general_schemes[0]) != 0:
             self.delete_schemes('general')
             self.textConsole.append("- Загружена структурная эл.схема ")
             self.btnLoadScheme2.setEnabled(False)
-            self.converter2 = СonvertFiles(paths, 'general')
+            self.converter2 = СonvertFiles(self.path_general_schemes, 'general')
             self.converter2.finished.connect(self.convertTwoFinished)
             self.converter2.start()
         
@@ -707,20 +716,23 @@ class MainApp(QtWidgets.QMainWindow, designRepPDF.Ui_MainWindow):
 
     def merge_pdf(self):
         pdf_merger = PdfFileMerger()
-        files_in_general = [f for f in os.listdir(filepath_to_pdf_schemes + "/General") if isfile(join(filepath_to_pdf_schemes + "/General", f))]
-        files_in_detailed = [f for f in os.listdir(filepath_to_pdf_schemes + "/Detailed") if isfile(join(filepath_to_pdf_schemes + "/Detailed", f))]
-
-        pdf_merger.append("Data/Report/rep_no_schems/Report.pdf")
-        if len(files_in_general) != 0:
-            with open(filepath_to_pdf_schemes + f"/General/{files_in_general[0]}", 'rb') as image_fd: 
+        fp_general = filepath_to_pdf_schemes + "/General"
+        fp_detailed = filepath_to_pdf_schemes + "/Detailed"
+        files_in_general = [f for f in os.listdir(fp_general) if isfile(join(fp_general, f))]
+        files_in_detailed = [f for f in os.listdir(fp_detailed) if isfile(join(fp_detailed, f))]
+        with open("Data/Report/Report.pdf", 'rb') as report: 
+            pdf_merger.append(report)
+        if len(files_in_general) != 0 and self.path_general_schemes != " ":
+            with open(fp_general + f"/{files_in_general[0]}", 'rb') as image_fd: 
                 pdf_merger.append(image_fd)
-        if len(files_in_detailed ) != 0:
+        if len(files_in_detailed ) != 0 and self.pathes_detail_schemes != " ":
             for i in range(len(files_in_detailed)):
-                with open(filepath_to_pdf_schemes + f"/Detailed/{files_in_detailed[i]}", 'rb') as image_fd: 
+                with open(fp_detailed + f"/{files_in_detailed[i]}", 'rb') as image_fd: 
                     pdf_merger.append(image_fd)
-        with open("Data/Report/General_report.pdf", 'wb') as output_file:
+        with open("Data/Report/Auto-OTR.pdf", 'wb') as output_file:
             pdf_merger.write(output_file)
-        del pdf_merger      
+        del pdf_merger  
+        os.remove("Data/Report/Report.pdf")      
         
     def out_params(self):
         self.block_1 = True if self.checkBox_1.isChecked() else False
@@ -757,9 +769,9 @@ class MainApp(QtWidgets.QMainWindow, designRepPDF.Ui_MainWindow):
         
     def create_document(self):
         try:
-            with open("Data/Report/rep_no_schems/Report.pdf", 'w') as fp:
+            with open("Data/Report/Report.pdf", 'w') as fp:
                 pass
-            with open("Data/Report/General_report.pdf", 'w') as fp:
+            with open("Data/Report/Auto-OTR.pdf", 'w') as fp:
                 pass
         except PermissionError:
             self.statusBar.showMessage('Открыт pdf файл отчета, закройте его и повторите попытку', 4000)
