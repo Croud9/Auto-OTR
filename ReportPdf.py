@@ -620,7 +620,16 @@ class MainApp(QtWidgets.QMainWindow, designRepPDF.Ui_MainWindow):
         for select_invertor in self.type_modules:
             if current_invertor in select_invertor: 
                 self.search_invertor_data(self.select_title_invertor, select_invertor)
-    
+    def delete_schemes(self, method):
+        files_in_general = [f for f in os.listdir(filepath_to_pdf_schemes + "/General") if isfile(join(filepath_to_pdf_schemes + "/General", f))]
+        files_in_detailed = [f for f in os.listdir(filepath_to_pdf_schemes + "/Detailed") if isfile(join(filepath_to_pdf_schemes + "/Detailed", f))]
+
+        if len(files_in_general) != 0 and method == 'general':
+            os.remove(filepath_to_pdf_schemes + f"/General/{files_in_general[0]}")
+        if len(files_in_detailed ) != 0 and method == 'detailed':
+            for i in range(len(files_in_detailed)):
+                os.remove(filepath_to_pdf_schemes + f"/Detailed/{files_in_detailed[i]}")  
+                           
     def pvsyst(self):
         self.path_pvsyst = QtWidgets.QFileDialog.getOpenFileName(self, 'Выберите файл', filepath_to_pdf_pvsyst, "*.pdf")[0] #открытие диалога для выбора файла
         # shutil.rmtree("Data\Images\PVsyst")
@@ -634,9 +643,8 @@ class MainApp(QtWidgets.QMainWindow, designRepPDF.Ui_MainWindow):
 
     def load_scheme_one(self):
         paths = QtWidgets.QFileDialog.getOpenFileNames(self, 'Выберите файл', filepath_to_schemes, "*.svg")[0] #открытие диалога для выбора файла
-        # shutil.rmtree("Data\PDF in\Shemes\Detailed")
-        # os.mkdir("Data\PDF in\Shemes\Detailed")
         if len(paths) != 0:
+            self.delete_schemes('detailed')
             self.textConsole.append("- Загружена принципиальная эл.схема")
             self.btnLoadScheme1.setEnabled(False)
             self.converter1 = СonvertFiles(paths, 'detailed')
@@ -645,10 +653,9 @@ class MainApp(QtWidgets.QMainWindow, designRepPDF.Ui_MainWindow):
         
     def load_scheme_two(self):
         path_scheme_two = QtWidgets.QFileDialog.getOpenFileName(self, 'Выберите файл', filepath_to_schemes, "*.svg")[0] #открытие диалога для выбора файла
-        paths = [path_scheme_two]
-        # shutil.rmtree("Data\PDF in\Shemes\General")
-        # os.mkdir("Data\PDF in\Shemes\General")
+        paths = [path_scheme_two]   
         if len(path_scheme_two) != 0:
+            self.delete_schemes('general')
             self.textConsole.append("- Загружена структурная эл.схема ")
             self.btnLoadScheme2.setEnabled(False)
             self.converter2 = СonvertFiles(paths, 'general')
@@ -702,7 +709,7 @@ class MainApp(QtWidgets.QMainWindow, designRepPDF.Ui_MainWindow):
         pdf_merger = PdfFileMerger()
         files_in_general = [f for f in os.listdir(filepath_to_pdf_schemes + "/General") if isfile(join(filepath_to_pdf_schemes + "/General", f))]
         files_in_detailed = [f for f in os.listdir(filepath_to_pdf_schemes + "/Detailed") if isfile(join(filepath_to_pdf_schemes + "/Detailed", f))]
-        # onlyfiles = [f for f in os.listdir(filepath_to_pdf_schemes) if isfile(join(filepath_to_pdf_schemes, f))]
+
         pdf_merger.append("Data/Report/rep_no_schems/Report.pdf")
         if len(files_in_general) != 0:
             with open(filepath_to_pdf_schemes + f"/General/{files_in_general[0]}", 'rb') as image_fd: 
@@ -713,14 +720,7 @@ class MainApp(QtWidgets.QMainWindow, designRepPDF.Ui_MainWindow):
                     pdf_merger.append(image_fd)
         with open("Data/Report/General_report.pdf", 'wb') as output_file:
             pdf_merger.write(output_file)
-            
-        del pdf_merger 
-        if len(files_in_general) != 0:
-            os.remove(filepath_to_pdf_schemes + f"/General/{files_in_general[0]}")
-        if len(files_in_detailed ) != 0:
-            for i in range(len(files_in_detailed)):
-                os.remove(filepath_to_pdf_schemes + f"/Detailed/{files_in_detailed[i]}")        
-
+        del pdf_merger      
         
     def out_params(self):
         self.block_1 = True if self.checkBox_1.isChecked() else False
