@@ -1,0 +1,491 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>WindowRP5</class>
+ <widget class="QMainWindow" name="WindowRP5">
+  <property name="enabled">
+   <bool>true</bool>
+  </property>
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>469</width>
+    <height>428</height>
+   </rect>
+  </property>
+  <property name="font">
+   <font>
+    <family>Calibri Light</family>
+   </font>
+  </property>
+  <property name="focusPolicy">
+   <enum>Qt::NoFocus</enum>
+  </property>
+  <property name="windowTitle">
+   <string>Выгрузка с RP5</string>
+  </property>
+  <property name="styleSheet">
+   <string notr="true">QMainWindow {
+	background-color: white
+}
+QScrollBar:vertical {              
+	background: #e5e5ea;
+	border-radius: 3;
+	border: none;
+	max-width: 8px;
+}
+QScrollBar::handle:vertical {
+	background-color: #196dff;
+    border-radius: 3;
+}
+QScrollBar::handle:vertical:hover {
+	background-color: #3b83ff; 
+    min-height: 0px;
+    border-radius: 3;
+}
+QScrollBar::add-line:vertical {
+    height: 0px;
+    subcontrol-position: bottom;
+    subcontrol-origin: margin;
+}
+QScrollBar::sub-line:vertical {
+    height: 0 px;
+    subcontrol-position: top;
+    subcontrol-origin: margin;
+}
+QScrollBar::add-page:vertical, QScrollBar::sub-page:vertical{
+    background: #e5e5ea;
+	border: none;
+}
+QComboBox QAbstractItemView {
+	background: transparent;
+	border-radius: 6;
+    border: none;
+	outline:0px;
+	selection-background-color: white;
+	selection-color: #196dff;
+    padding: 8 0 8 0;
+}</string>
+  </property>
+  <property name="documentMode">
+   <bool>false</bool>
+  </property>
+  <widget class="QWidget" name="centralwidget">
+   <property name="styleSheet">
+    <string notr="true">background-color: #fff;</string>
+   </property>
+   <widget class="QLineEdit" name="inputCity">
+    <property name="geometry">
+     <rect>
+      <x>20</x>
+      <y>17</y>
+      <width>341</width>
+      <height>41</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Arial</family>
+      <weight>75</weight>
+      <bold>true</bold>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QLineEdit{
+	background-color:rgba(229,229,234,1); 
+	border-radius: 6;
+	border: none;
+	padding-left: 8px
+}
+QLineEdit:hover{
+	background-color:rgba(242,242,247,1);
+}
+QLineEdit:pressed{
+	background-color:rgba(188,188,192,1);
+	border-radius: 12;
+}</string>
+    </property>
+    <property name="inputMask">
+     <string/>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+    <property name="placeholderText">
+     <string>Название города</string>
+    </property>
+   </widget>
+   <widget class="QTextBrowser" name="textConsole">
+    <property name="enabled">
+     <bool>true</bool>
+    </property>
+    <property name="geometry">
+     <rect>
+      <x>20</x>
+      <y>219</y>
+      <width>431</width>
+      <height>110</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Arial</family>
+      <weight>50</weight>
+      <bold>false</bold>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QTextBrowser{
+	background-color:rgba(229,229,234,1); 
+	border-radius: 6;
+	border: none;
+	padding: 8 4 8 8;
+}
+</string>
+    </property>
+    <property name="placeholderText">
+     <string>Ход парсинга</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="btnParse">
+    <property name="geometry">
+     <rect>
+      <x>20</x>
+      <y>340</y>
+      <width>131</width>
+      <height>41</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Arial</family>
+      <pointsize>9</pointsize>
+      <weight>75</weight>
+      <bold>true</bold>
+     </font>
+    </property>
+    <property name="cursor">
+     <cursorShape>PointingHandCursor</cursorShape>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QPushButton{
+	background-color: rgba(229,229,234,1);
+	color: #196dff;
+	border: none;
+	border-radius: 12;
+	border-style: outset;
+}
+QPushButton:hover{
+	background-color: #dceaff; 
+}
+QPushButton:pressed{
+	color: rgba(25, 109, 255, 0.7); 
+	border-radius: 12;
+}</string>
+    </property>
+    <property name="text">
+     <string>Скачать архив</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="btnSearch">
+    <property name="geometry">
+     <rect>
+      <x>370</x>
+      <y>16</y>
+      <width>81</width>
+      <height>41</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Arial</family>
+      <pointsize>9</pointsize>
+      <weight>75</weight>
+      <bold>true</bold>
+     </font>
+    </property>
+    <property name="cursor">
+     <cursorShape>PointingHandCursor</cursorShape>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QPushButton{
+	background-color: #196dff;
+	color: white;
+	border: none;
+	border-radius: 12;
+	border-style: outset;
+}
+QPushButton:hover{
+	background-color: #3b83ff; 
+}
+QPushButton:pressed{
+	color: rgba(255, 255, 255, 0.7);
+	border-radius: 12;
+}</string>
+    </property>
+    <property name="text">
+     <string>Найти</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="btnDwnld_T">
+    <property name="geometry">
+     <rect>
+      <x>160</x>
+      <y>340</y>
+      <width>291</width>
+      <height>41</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Arial</family>
+      <pointsize>9</pointsize>
+      <weight>75</weight>
+      <bold>true</bold>
+     </font>
+    </property>
+    <property name="cursor">
+     <cursorShape>PointingHandCursor</cursorShape>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QPushButton{
+	background-color: rgb(60,178,0);
+	color: white;
+	border: none;
+	border-radius: 12;
+	border-style: outset;
+}
+QPushButton:hover{
+	background-color: rgba(60,178,0, 0.85); 
+}
+QPushButton:pressed{
+	color: rgba(255, 255, 255, 0.7);
+	border-radius: 12;
+}</string>
+    </property>
+    <property name="text">
+     <string> Подгрузить температуру</string>
+    </property>
+   </widget>
+   <widget class="QComboBox" name="listCity">
+    <property name="geometry">
+     <rect>
+      <x>20</x>
+      <y>90</y>
+      <width>431</width>
+      <height>41</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Arial</family>
+      <weight>75</weight>
+      <bold>true</bold>
+     </font>
+    </property>
+    <property name="cursor">
+     <cursorShape>PointingHandCursor</cursorShape>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QComboBox{
+	background-color:rgba(229,229,234,1); 
+	border: none;
+	border-radius: 6;
+	padding-left: 8px;
+}
+
+QComboBox:drop-down 
+{
+    width: 0px;
+    height: 0px;
+    border: 0px;
+}
+QComboBox:hover{
+	background-color:rgba(242,242,247,1);
+}
+</string>
+    </property>
+    <property name="inputMethodHints">
+     <set>Qt::ImhNone</set>
+    </property>
+    <property name="editable">
+     <bool>false</bool>
+    </property>
+    <property name="currentText">
+     <string/>
+    </property>
+    <property name="placeholderText">
+     <string>Выберите город из списка</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_11">
+    <property name="enabled">
+     <bool>true</bool>
+    </property>
+    <property name="geometry">
+     <rect>
+      <x>20</x>
+      <y>65</y>
+      <width>431</width>
+      <height>16</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Arial</family>
+      <pointsize>9</pointsize>
+     </font>
+    </property>
+    <property name="text">
+     <string>Список городов</string>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignCenter</set>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_9">
+    <property name="enabled">
+     <bool>true</bool>
+    </property>
+    <property name="geometry">
+     <rect>
+      <x>21</x>
+      <y>138</y>
+      <width>211</width>
+      <height>17</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Arial</family>
+      <pointsize>9</pointsize>
+     </font>
+    </property>
+    <property name="text">
+     <string>Начало выборки</string>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignCenter</set>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_10">
+    <property name="enabled">
+     <bool>true</bool>
+    </property>
+    <property name="geometry">
+     <rect>
+      <x>239</x>
+      <y>138</y>
+      <width>211</width>
+      <height>17</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Arial</family>
+      <pointsize>9</pointsize>
+     </font>
+    </property>
+    <property name="text">
+     <string>Конец выборки</string>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignCenter</set>
+    </property>
+   </widget>
+   <widget class="QDateEdit" name="dateEdit_start">
+    <property name="geometry">
+     <rect>
+      <x>21</x>
+      <y>166</y>
+      <width>211</width>
+      <height>41</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Arial</family>
+      <weight>75</weight>
+      <bold>true</bold>
+     </font>
+    </property>
+    <property name="cursor">
+     <cursorShape>PointingHandCursor</cursorShape>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QDateEdit{
+	background-color:rgba(229,229,234,1); 
+	border-radius: 6;
+	border: none;
+	padding-left: 8px
+}
+QDateEdit:hover{
+	background-color:rgba(242,242,247,1);
+}
+QDateEdit:pressed{
+	background-color:rgba(188,188,192,1);
+	border-radius: 6;
+}
+QDateEdit:up-button, QDateEdit:down-button{
+    width: 0px;
+    height: 0px;
+    border: 0px;
+}</string>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignCenter</set>
+    </property>
+   </widget>
+   <widget class="QDateEdit" name="dateEdit_end">
+    <property name="geometry">
+     <rect>
+      <x>239</x>
+      <y>166</y>
+      <width>211</width>
+      <height>41</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Arial</family>
+      <weight>75</weight>
+      <bold>true</bold>
+      <kerning>true</kerning>
+     </font>
+    </property>
+    <property name="cursor">
+     <cursorShape>PointingHandCursor</cursorShape>
+    </property>
+    <property name="mouseTracking">
+     <bool>false</bool>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QDateEdit{
+	background-color:rgba(229,229,234,1); 
+	border-radius: 6;
+	border: none;
+	padding-left: 8px
+}
+QDateEdit:hover{
+	background-color:rgba(242,242,247,1);
+}
+QDateEdit:pressed{
+	background-color:rgba(188,188,192,1);
+	border-radius: 6;
+}
+QDateEdit:up-button, QDateEdit:down-button{
+    width: 0px;
+    height: 0px;
+    border: 0px;
+}</string>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignCenter</set>
+    </property>
+   </widget>
+  </widget>
+  <widget class="QStatusBar" name="statusBar"/>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>

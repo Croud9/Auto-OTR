@@ -1,0 +1,2082 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>MainWindow</class>
+ <widget class="QMainWindow" name="MainWindow">
+  <property name="enabled">
+   <bool>true</bool>
+  </property>
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>812</width>
+    <height>408</height>
+   </rect>
+  </property>
+  <property name="font">
+   <font>
+    <family>Arial</family>
+    <weight>50</weight>
+    <bold>false</bold>
+   </font>
+  </property>
+  <property name="focusPolicy">
+   <enum>Qt::NoFocus</enum>
+  </property>
+  <property name="windowTitle">
+   <string>Auto Report</string>
+  </property>
+  <property name="styleSheet">
+   <string notr="true">QMainWindow {
+	background-color: white
+}
+QScrollBar:vertical {              
+	background: #e5e5ea;
+	border-radius: 3;
+	border: none;
+	max-width: 8px;
+}
+QScrollBar::handle:vertical {
+	background-color: #196dff;
+    border-radius: 3;
+}
+QScrollBar::handle:vertical:hover {
+	background-color: #3b83ff; 
+    min-height: 0px;
+    border-radius: 3;
+}
+QScrollBar::add-line:vertical {
+    height: 0px;
+    subcontrol-position: bottom;
+    subcontrol-origin: margin;
+}
+QScrollBar::sub-line:vertical {
+    height: 0 px;
+    subcontrol-position: top;
+    subcontrol-origin: margin;
+}
+QScrollBar::add-page:vertical, QScrollBar::sub-page:vertical{
+    background: #e5e5ea;
+	border: none;
+}
+QComboBox QAbstractItemView {
+	background: transparent;
+	border-radius: 6;
+    border: none;
+	outline:0px;
+	selection-background-color: white;
+	selection-color: #196dff;
+    padding: 8 0 8 0;
+}</string>
+  </property>
+  <property name="documentMode">
+   <bool>false</bool>
+  </property>
+  <widget class="QWidget" name="centralwidget">
+   <property name="styleSheet">
+    <string notr="true">background-color: #fff;</string>
+   </property>
+   <widget class="QTextBrowser" name="textConsole">
+    <property name="enabled">
+     <bool>true</bool>
+    </property>
+    <property name="geometry">
+     <rect>
+      <x>20</x>
+      <y>153</y>
+      <width>181</width>
+      <height>201</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Arial</family>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QTextBrowser{
+	background-color:rgba(229,229,234,1); 
+	border-radius: 6;
+	border: none;
+	padding: 8 4 52 8;
+}
+</string>
+    </property>
+    <property name="placeholderText">
+     <string>Ход формирования файла </string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="btnTwo">
+    <property name="geometry">
+     <rect>
+      <x>112</x>
+      <y>90</y>
+      <width>101</width>
+      <height>41</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Arial</family>
+      <pointsize>9</pointsize>
+      <weight>75</weight>
+      <bold>true</bold>
+     </font>
+    </property>
+    <property name="cursor">
+     <cursorShape>PointingHandCursor</cursorShape>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QPushButton{
+	background-color: rgba(229,229,234,1);
+	color: #196dff;
+	border: none;
+	border-radius: 12;
+	border-style: outset;
+}
+QPushButton:hover{
+	background-color: #dceaff; 
+}
+QPushButton:pressed{
+	color: rgba(25, 109, 255, 0.7); 
+	border-radius: 12;
+}</string>
+    </property>
+    <property name="text">
+     <string>Инвертор</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="btnOne">
+    <property name="geometry">
+     <rect>
+      <x>14</x>
+      <y>40</y>
+      <width>121</width>
+      <height>41</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Arial</family>
+      <pointsize>9</pointsize>
+      <weight>75</weight>
+      <bold>true</bold>
+     </font>
+    </property>
+    <property name="cursor">
+     <cursorShape>PointingHandCursor</cursorShape>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QPushButton{
+	background-color: #196dff;
+	color: white;
+	border: none;
+	border-radius: 12;
+	border-style: outset;
+}
+QPushButton:hover{
+	background-color: #3b83ff; 
+}
+QPushButton:pressed{
+	color: rgba(255, 255, 255, 0.7);
+	border-radius: 12;
+}</string>
+    </property>
+    <property name="text">
+     <string>PVsyst</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="btnFour">
+    <property name="geometry">
+     <rect>
+      <x>332</x>
+      <y>90</y>
+      <width>111</width>
+      <height>41</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Arial</family>
+      <pointsize>9</pointsize>
+      <weight>75</weight>
+      <bold>true</bold>
+     </font>
+    </property>
+    <property name="cursor">
+     <cursorShape>PointingHandCursor</cursorShape>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QPushButton{
+	background-color: rgba(229,229,234,1);
+	color: #196dff;
+	border: none;
+	border-radius: 12;
+	border-style: outset;
+}
+QPushButton:hover{
+	background-color: #dceaff; 
+}
+QPushButton:pressed{
+	color: rgba(25, 109, 255, 0.7); 
+	border-radius: 12;
+}</string>
+    </property>
+    <property name="text">
+     <string>Доп</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="btnThree">
+    <property name="geometry">
+     <rect>
+      <x>222</x>
+      <y>90</y>
+      <width>101</width>
+      <height>41</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Arial</family>
+      <pointsize>9</pointsize>
+      <weight>75</weight>
+      <bold>true</bold>
+     </font>
+    </property>
+    <property name="cursor">
+     <cursorShape>PointingHandCursor</cursorShape>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QPushButton{
+	background-color: rgba(229,229,234,1);
+	color: #196dff;
+	border: none;
+	border-radius: 12;
+	border-style: outset;
+}
+QPushButton:hover{
+	background-color: #dceaff; 
+}
+QPushButton:pressed{
+	color: rgba(25, 109, 255, 0.7); 
+	border-radius: 12;
+}</string>
+    </property>
+    <property name="text">
+     <string>Фэм</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label">
+    <property name="geometry">
+     <rect>
+      <x>20</x>
+      <y>10</y>
+      <width>761</width>
+      <height>21</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Arial</family>
+      <pointsize>11</pointsize>
+      <weight>75</weight>
+      <bold>true</bold>
+      <underline>false</underline>
+      <strikeout>false</strikeout>
+      <kerning>true</kerning>
+     </font>
+    </property>
+    <property name="text">
+     <string>Загрузка данных</string>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_for_slide">
+    <property name="geometry">
+     <rect>
+      <x>260</x>
+      <y>344</y>
+      <width>151</width>
+      <height>20</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Arial</family>
+      <pointsize>9</pointsize>
+      <weight>75</weight>
+      <bold>true</bold>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string>background-color: rgba(255,255,255,1); 
+border-radius: 5;
+border: none;
+padding: 2;</string>
+    </property>
+    <property name="text">
+     <string>Данные</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="btnForm">
+    <property name="geometry">
+     <rect>
+      <x>20</x>
+      <y>335</y>
+      <width>181</width>
+      <height>41</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Arial</family>
+      <pointsize>9</pointsize>
+      <weight>75</weight>
+      <bold>true</bold>
+     </font>
+    </property>
+    <property name="cursor">
+     <cursorShape>PointingHandCursor</cursorShape>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QPushButton{
+	background-color: rgb(60,178,0);
+	color: white;
+	border: none;
+	border-radius: 12;
+	border-style: outset;
+}
+QPushButton:hover{
+	background-color: rgba(60,178,0, 0.85); 
+}
+QPushButton:pressed{
+	color: rgba(255, 255, 255, 0.7);
+	border-radius: 12;
+}</string>
+    </property>
+    <property name="text">
+     <string>Сформировать PDF</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="btnRP5">
+    <property name="geometry">
+     <rect>
+      <x>430</x>
+      <y>40</y>
+      <width>111</width>
+      <height>41</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Arial</family>
+      <pointsize>9</pointsize>
+      <weight>75</weight>
+      <bold>true</bold>
+     </font>
+    </property>
+    <property name="cursor">
+     <cursorShape>PointingHandCursor</cursorShape>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QPushButton{
+	background-color: #196dff;
+	color: white;
+	border: none;
+	border-radius: 12;
+	border-style: outset;
+}
+QPushButton:hover{
+	background-color: #3b83ff; 
+}
+QPushButton:pressed{
+	color: rgba(255, 255, 255, 0.7);
+	border-radius: 12;
+}</string>
+    </property>
+    <property name="text">
+     <string>RP5</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="btnDrawScheme">
+    <property name="geometry">
+     <rect>
+      <x>550</x>
+      <y>90</y>
+      <width>114</width>
+      <height>41</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Arial</family>
+      <pointsize>9</pointsize>
+      <weight>75</weight>
+      <bold>true</bold>
+     </font>
+    </property>
+    <property name="cursor">
+     <cursorShape>PointingHandCursor</cursorShape>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QPushButton{
+	background-color: rgba(229,229,234,1);
+	color: #196dff;
+	border: none;
+	border-radius: 12;
+	border-style: outset;
+}
+QPushButton:hover{
+	background-color: #dceaff; 
+}
+QPushButton:pressed{
+	color: rgba(25, 109, 255, 0.7); 
+	border-radius: 12;
+}</string>
+    </property>
+    <property name="text">
+     <string>Схема №1</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="btnDrawSchemeTwo">
+    <property name="geometry">
+     <rect>
+      <x>673</x>
+      <y>90</y>
+      <width>115</width>
+      <height>41</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Arial</family>
+      <pointsize>9</pointsize>
+      <weight>75</weight>
+      <bold>true</bold>
+     </font>
+    </property>
+    <property name="cursor">
+     <cursorShape>PointingHandCursor</cursorShape>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QPushButton{
+	background-color: rgba(229,229,234,1);
+	color: #196dff;
+	border: none;
+	border-radius: 12;
+	border-style: outset;
+}
+QPushButton:hover{
+	background-color: #dceaff; 
+}
+QPushButton:pressed{
+	color: rgba(25, 109, 255, 0.7); 
+	border-radius: 12;
+}</string>
+    </property>
+    <property name="text">
+     <string>Схема №2</string>
+    </property>
+   </widget>
+   <widget class="QLineEdit" name="inputTitleProject">
+    <property name="geometry">
+     <rect>
+      <x>359</x>
+      <y>153</y>
+      <width>429</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Arial</family>
+      <weight>75</weight>
+      <bold>true</bold>
+     </font>
+    </property>
+    <property name="toolTip">
+     <string>Количество MPPT в инверторе</string>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QLineEdit{
+	background-color:rgba(229,229,234,1); 
+	border-radius: 6;
+	border: none;
+	padding-left: 8px
+}
+QLineEdit:hover{
+	background-color:rgba(242,242,247,1);
+}
+QLineEdit:pressed{
+	background-color:rgba(188,188,192,1);
+	border-radius: 12;
+}</string>
+    </property>
+    <property name="inputMask">
+     <string/>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+    <property name="placeholderText">
+     <string/>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_2">
+    <property name="geometry">
+     <rect>
+      <x>211</x>
+      <y>160</y>
+      <width>131</width>
+      <height>16</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Arial</family>
+      <pointsize>9</pointsize>
+     </font>
+    </property>
+    <property name="text">
+     <string>Название проекта</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_4">
+    <property name="geometry">
+     <rect>
+      <x>211</x>
+      <y>237</y>
+      <width>91</width>
+      <height>16</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Arial</family>
+      <pointsize>9</pointsize>
+     </font>
+    </property>
+    <property name="text">
+     <string>Заказчик</string>
+    </property>
+   </widget>
+   <widget class="QLineEdit" name="inputClient">
+    <property name="geometry">
+     <rect>
+      <x>359</x>
+      <y>230</y>
+      <width>429</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Arial</family>
+      <weight>75</weight>
+      <bold>true</bold>
+     </font>
+    </property>
+    <property name="toolTip">
+     <string>Количество MPPT в инверторе</string>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QLineEdit{
+	background-color:rgba(229,229,234,1); 
+	border-radius: 6;
+	border: none;
+	padding-left: 8px
+}
+QLineEdit:hover{
+	background-color:rgba(242,242,247,1);
+}
+QLineEdit:pressed{
+	background-color:rgba(188,188,192,1);
+	border-radius: 12;
+}</string>
+    </property>
+    <property name="inputMask">
+     <string/>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+    <property name="placeholderText">
+     <string/>
+    </property>
+   </widget>
+   <widget class="QComboBox" name="listRoof">
+    <property name="geometry">
+     <rect>
+      <x>359</x>
+      <y>267</y>
+      <width>429</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Arial</family>
+      <weight>75</weight>
+      <bold>true</bold>
+     </font>
+    </property>
+    <property name="cursor">
+     <cursorShape>PointingHandCursor</cursorShape>
+    </property>
+    <property name="autoFillBackground">
+     <bool>false</bool>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QComboBox{
+	background-color:rgba(229,229,234,1); 
+	border: none;
+	border-radius: 6;
+	padding-left: 8px;
+}
+
+QComboBox:drop-down 
+{
+    width: 0px;
+    height: 0px;
+    border: 0px;
+}
+QComboBox:hover{
+	background-color:rgba(242,242,247,1);
+}
+</string>
+    </property>
+    <property name="inputMethodHints">
+     <set>Qt::ImhNone</set>
+    </property>
+    <property name="editable">
+     <bool>false</bool>
+    </property>
+    <property name="currentText">
+     <string/>
+    </property>
+    <property name="placeholderText">
+     <string/>
+    </property>
+    <property name="modelColumn">
+     <number>0</number>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_5">
+    <property name="geometry">
+     <rect>
+      <x>211</x>
+      <y>273</y>
+      <width>91</width>
+      <height>16</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Arial</family>
+      <pointsize>9</pointsize>
+     </font>
+    </property>
+    <property name="text">
+     <string>Крыша</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="btnSchemes">
+    <property name="geometry">
+     <rect>
+      <x>548</x>
+      <y>40</y>
+      <width>241</width>
+      <height>41</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Arial</family>
+      <pointsize>9</pointsize>
+      <weight>75</weight>
+      <bold>true</bold>
+     </font>
+    </property>
+    <property name="cursor">
+     <cursorShape>PointingHandCursor</cursorShape>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QPushButton{
+	background-color: #196dff;
+	color: white;
+	border: none;
+	border-radius: 12;
+	border-style: outset;
+}
+QPushButton:hover{
+	background-color: #3b83ff; 
+}
+QPushButton:pressed{
+	color: rgba(255, 255, 255, 0.7);
+	border-radius: 12;
+}</string>
+    </property>
+    <property name="text">
+     <string>Схемы</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="btnDevice">
+    <property name="geometry">
+     <rect>
+      <x>142</x>
+      <y>40</y>
+      <width>281</width>
+      <height>41</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Arial</family>
+      <pointsize>9</pointsize>
+      <weight>75</weight>
+      <bold>true</bold>
+      <kerning>true</kerning>
+     </font>
+    </property>
+    <property name="cursor">
+     <cursorShape>PointingHandCursor</cursorShape>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QPushButton{
+	background-color: #196dff;
+	color: white;
+	border: none;
+	border-radius: 12;
+	border-style: outset;
+}
+QPushButton:hover{
+	background-color: #3b83ff; 
+}
+QPushButton:pressed{
+	color: rgba(255, 255, 255, 0.7);
+	border-radius: 12;
+}</string>
+    </property>
+    <property name="text">
+     <string>Оборудование</string>
+    </property>
+   </widget>
+   <widget class="QCheckBox" name="checkBox_8_1">
+    <property name="geometry">
+     <rect>
+      <x>739</x>
+      <y>197</y>
+      <width>51</width>
+      <height>19</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Arial</family>
+     </font>
+    </property>
+    <property name="toolTip">
+     <string>Отчет по выработке</string>
+    </property>
+    <property name="autoFillBackground">
+     <bool>false</bool>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color: rgba(255,255,255,1); 
+border-radius: 5;
+border: none;
+padding: 2;</string>
+    </property>
+    <property name="text">
+     <string>8.1</string>
+    </property>
+   </widget>
+   <widget class="QCheckBox" name="checkBox_8_2">
+    <property name="geometry">
+     <rect>
+      <x>739</x>
+      <y>216</y>
+      <width>51</width>
+      <height>19</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Arial</family>
+     </font>
+    </property>
+    <property name="toolTip">
+     <string>Структурная схема</string>
+    </property>
+    <property name="autoFillBackground">
+     <bool>false</bool>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color: rgba(255,255,255,1); 
+border-radius: 5;
+border: none;
+padding: 2;</string>
+    </property>
+    <property name="text">
+     <string>8.2</string>
+    </property>
+   </widget>
+   <widget class="QCheckBox" name="checkBox_8_4">
+    <property name="geometry">
+     <rect>
+      <x>739</x>
+      <y>254</y>
+      <width>51</width>
+      <height>19</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Arial</family>
+     </font>
+    </property>
+    <property name="toolTip">
+     <string>Схема постоянного тока</string>
+    </property>
+    <property name="autoFillBackground">
+     <bool>false</bool>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color: rgba(255,255,255,1); 
+border-radius: 5;
+border: none;
+padding: 2;</string>
+    </property>
+    <property name="text">
+     <string>8.4</string>
+    </property>
+   </widget>
+   <widget class="QCheckBox" name="checkBox_8_3">
+    <property name="geometry">
+     <rect>
+      <x>739</x>
+      <y>235</y>
+      <width>51</width>
+      <height>19</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Arial</family>
+     </font>
+    </property>
+    <property name="toolTip">
+     <string>Схема электрическая принципиальная</string>
+    </property>
+    <property name="autoFillBackground">
+     <bool>false</bool>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color: rgba(255,255,255,1); 
+border-radius: 5;
+border: none;
+padding: 2;</string>
+    </property>
+    <property name="text">
+     <string>8.3</string>
+    </property>
+   </widget>
+   <widget class="QCheckBox" name="checkBox_5_1_3">
+    <property name="geometry">
+     <rect>
+      <x>631</x>
+      <y>243</y>
+      <width>61</width>
+      <height>19</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Arial</family>
+     </font>
+    </property>
+    <property name="toolTip">
+     <string>Инверторное оборудование</string>
+    </property>
+    <property name="autoFillBackground">
+     <bool>false</bool>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color: rgba(255,255,255,1); 
+border-radius: 5;
+border: none;
+padding: 2;</string>
+    </property>
+    <property name="text">
+     <string>5.1.3</string>
+    </property>
+   </widget>
+   <widget class="QCheckBox" name="checkBox_3_1">
+    <property name="geometry">
+     <rect>
+      <x>465</x>
+      <y>196</y>
+      <width>51</width>
+      <height>19</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Arial</family>
+     </font>
+    </property>
+    <property name="toolTip">
+     <string>Описание границ участка</string>
+    </property>
+    <property name="autoFillBackground">
+     <bool>false</bool>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color: rgba(255,255,255,1); 
+border-radius: 5;
+border: none;
+padding: 2;</string>
+    </property>
+    <property name="text">
+     <string>3.1</string>
+    </property>
+   </widget>
+   <widget class="QCheckBox" name="checkBox_8_5">
+    <property name="geometry">
+     <rect>
+      <x>739</x>
+      <y>273</y>
+      <width>51</width>
+      <height>19</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Arial</family>
+     </font>
+    </property>
+    <property name="toolTip">
+     <string>План размещения</string>
+    </property>
+    <property name="autoFillBackground">
+     <bool>false</bool>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color: rgba(255,255,255,1); 
+border-radius: 5;
+border: none;
+padding: 2;</string>
+    </property>
+    <property name="text">
+     <string>8.5</string>
+    </property>
+   </widget>
+   <widget class="QCheckBox" name="checkBox_8_6">
+    <property name="geometry">
+     <rect>
+      <x>739</x>
+      <y>292</y>
+      <width>51</width>
+      <height>19</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Arial</family>
+     </font>
+    </property>
+    <property name="toolTip">
+     <string>Проект ТЗ на СЭС</string>
+    </property>
+    <property name="autoFillBackground">
+     <bool>false</bool>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color: rgba(255,255,255,1); 
+border-radius: 5;
+border: none;
+padding: 2;</string>
+    </property>
+    <property name="text">
+     <string>8.6</string>
+    </property>
+   </widget>
+   <widget class="QCheckBox" name="checkBox_5_3">
+    <property name="geometry">
+     <rect>
+      <x>575</x>
+      <y>236</y>
+      <width>51</width>
+      <height>19</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Arial</family>
+     </font>
+    </property>
+    <property name="toolTip">
+     <string>Электротехнические решения</string>
+    </property>
+    <property name="autoFillBackground">
+     <bool>false</bool>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color: rgba(255,255,255,1); 
+border-radius: 5;
+border: none;
+padding: 2;</string>
+    </property>
+    <property name="text">
+     <string>5.3</string>
+    </property>
+   </widget>
+   <widget class="QCheckBox" name="checkBox_5_4">
+    <property name="geometry">
+     <rect>
+      <x>575</x>
+      <y>256</y>
+      <width>51</width>
+      <height>19</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Arial</family>
+     </font>
+    </property>
+    <property name="toolTip">
+     <string>Система заземления и молниезащиты</string>
+    </property>
+    <property name="autoFillBackground">
+     <bool>false</bool>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color: rgba(255,255,255,1); 
+border-radius: 5;
+border: none;
+padding: 2;</string>
+    </property>
+    <property name="text">
+     <string>5.4</string>
+    </property>
+   </widget>
+   <widget class="QCheckBox" name="checkBox_5_5">
+    <property name="geometry">
+     <rect>
+      <x>575</x>
+      <y>276</y>
+      <width>51</width>
+      <height>19</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Arial</family>
+     </font>
+    </property>
+    <property name="toolTip">
+     <string>Выбор оптимальных показателей сравнение вариантов</string>
+    </property>
+    <property name="autoFillBackground">
+     <bool>false</bool>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color: rgba(255,255,255,1); 
+border-radius: 5;
+border: none;
+padding: 2;</string>
+    </property>
+    <property name="text">
+     <string>5.5</string>
+    </property>
+   </widget>
+   <widget class="QCheckBox" name="checkBox_3_3">
+    <property name="geometry">
+     <rect>
+      <x>465</x>
+      <y>236</y>
+      <width>51</width>
+      <height>19</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Arial</family>
+     </font>
+    </property>
+    <property name="toolTip">
+     <string>Топография площадки</string>
+    </property>
+    <property name="autoFillBackground">
+     <bool>false</bool>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color: rgba(255,255,255,1); 
+border-radius: 5;
+border: none;
+padding: 2;</string>
+    </property>
+    <property name="text">
+     <string>3.3</string>
+    </property>
+   </widget>
+   <widget class="QCheckBox" name="checkBox_5_6">
+    <property name="geometry">
+     <rect>
+      <x>575</x>
+      <y>296</y>
+      <width>51</width>
+      <height>19</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Arial</family>
+     </font>
+    </property>
+    <property name="toolTip">
+     <string>Индикативный анализ стоимости</string>
+    </property>
+    <property name="autoFillBackground">
+     <bool>false</bool>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color: rgba(255,255,255,1); 
+border-radius: 5;
+border: none;
+padding: 2;</string>
+    </property>
+    <property name="text">
+     <string>5.6</string>
+    </property>
+   </widget>
+   <widget class="QCheckBox" name="checkBox_5_1_2">
+    <property name="geometry">
+     <rect>
+      <x>631</x>
+      <y>224</y>
+      <width>61</width>
+      <height>19</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Arial</family>
+     </font>
+    </property>
+    <property name="toolTip">
+     <string>Опорные конструкции</string>
+    </property>
+    <property name="autoFillBackground">
+     <bool>false</bool>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color: rgba(255,255,255,1); 
+border-radius: 5;
+border: none;
+padding: 2;</string>
+    </property>
+    <property name="text">
+     <string>5.1.2</string>
+    </property>
+   </widget>
+   <widget class="QCheckBox" name="checkBox_5_1_4">
+    <property name="geometry">
+     <rect>
+      <x>631</x>
+      <y>262</y>
+      <width>61</width>
+      <height>19</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Arial</family>
+     </font>
+    </property>
+    <property name="toolTip">
+     <string>Другое силовое оборудование</string>
+    </property>
+    <property name="autoFillBackground">
+     <bool>false</bool>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color: rgba(255,255,255,1); 
+border-radius: 5;
+border: none;
+padding: 2;</string>
+    </property>
+    <property name="text">
+     <string>5.1.4</string>
+    </property>
+   </widget>
+   <widget class="QCheckBox" name="checkBox_5_2">
+    <property name="geometry">
+     <rect>
+      <x>575</x>
+      <y>216</y>
+      <width>51</width>
+      <height>19</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Arial</family>
+     </font>
+    </property>
+    <property name="toolTip">
+     <string>Планировочное решение</string>
+    </property>
+    <property name="autoFillBackground">
+     <bool>false</bool>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color: rgba(255,255,255,1); 
+border-radius: 5;
+border: none;
+padding: 2;</string>
+    </property>
+    <property name="text">
+     <string>5.2</string>
+    </property>
+   </widget>
+   <widget class="QCheckBox" name="checkBox_3_4">
+    <property name="geometry">
+     <rect>
+      <x>465</x>
+      <y>257</y>
+      <width>51</width>
+      <height>19</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Arial</family>
+     </font>
+    </property>
+    <property name="toolTip">
+     <string>Точка подключения объекта</string>
+    </property>
+    <property name="autoFillBackground">
+     <bool>false</bool>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color: rgba(255,255,255,1); 
+border-radius: 5;
+border: none;
+padding: 2;</string>
+    </property>
+    <property name="text">
+     <string>3.4</string>
+    </property>
+   </widget>
+   <widget class="QCheckBox" name="checkBox_3_2">
+    <property name="geometry">
+     <rect>
+      <x>465</x>
+      <y>216</y>
+      <width>51</width>
+      <height>19</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Arial</family>
+     </font>
+    </property>
+    <property name="toolTip">
+     <string>Климатические условия</string>
+    </property>
+    <property name="autoFillBackground">
+     <bool>false</bool>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color: rgba(255,255,255,1); 
+border-radius: 5;
+border: none;
+padding: 2;</string>
+    </property>
+    <property name="text">
+     <string>3.2</string>
+    </property>
+   </widget>
+   <widget class="QCheckBox" name="checkBox_5_1_1">
+    <property name="geometry">
+     <rect>
+      <x>631</x>
+      <y>205</y>
+      <width>61</width>
+      <height>19</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Arial</family>
+     </font>
+    </property>
+    <property name="toolTip">
+     <string>ФЭМ</string>
+    </property>
+    <property name="autoFillBackground">
+     <bool>false</bool>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color: rgba(255,255,255,1); 
+border-radius: 5;
+border: none;
+padding: 2;</string>
+    </property>
+    <property name="text">
+     <string>5.1.1</string>
+    </property>
+   </widget>
+   <widget class="QCheckBox" name="checkBox_5_1">
+    <property name="geometry">
+     <rect>
+      <x>575</x>
+      <y>196</y>
+      <width>51</width>
+      <height>19</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Arial</family>
+     </font>
+    </property>
+    <property name="toolTip">
+     <string>Назначение и состав СЭС</string>
+    </property>
+    <property name="autoFillBackground">
+     <bool>false</bool>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color: rgba(255,255,255,1); 
+border-radius: 5;
+border: none;
+padding: 2;</string>
+    </property>
+    <property name="text">
+     <string>5.1</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="btnLoadScheme2">
+    <property name="geometry">
+     <rect>
+      <x>717</x>
+      <y>120</y>
+      <width>31</width>
+      <height>20</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Arial</family>
+      <pointsize>9</pointsize>
+      <weight>75</weight>
+      <bold>true</bold>
+     </font>
+    </property>
+    <property name="cursor">
+     <cursorShape>PointingHandCursor</cursorShape>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QPushButton{
+	background-color: rgba(229,229,234,1);
+	color: #196dff;
+	border: none;
+	border-radius: 6;
+	border-style: outset;
+}
+QPushButton:hover{
+	background-color: #dceaff; 
+}
+QPushButton:pressed{
+	color: rgba(25, 109, 255, 0.7); 
+	border-radius: 6;
+}</string>
+    </property>
+    <property name="text">
+     <string>▼</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="btnLoadScheme1">
+    <property name="geometry">
+     <rect>
+      <x>592</x>
+      <y>120</y>
+      <width>31</width>
+      <height>20</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Arial</family>
+      <pointsize>9</pointsize>
+      <weight>75</weight>
+      <bold>true</bold>
+     </font>
+    </property>
+    <property name="cursor">
+     <cursorShape>PointingHandCursor</cursorShape>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QPushButton{
+	background-color: rgba(229,229,234,1);
+	color: #196dff;
+	border: none;
+	border-radius: 6;
+	border-style: outset;
+}
+QPushButton:hover{
+	background-color: #dceaff; 
+}
+QPushButton:pressed{
+	color: rgba(25, 109, 255, 0.7); 
+	border-radius: 6;
+}</string>
+    </property>
+    <property name="text">
+     <string>▼</string>
+    </property>
+   </widget>
+   <widget class="QComboBox" name="listInvertor_folder">
+    <property name="geometry">
+     <rect>
+      <x>359</x>
+      <y>304</y>
+      <width>91</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Arial</family>
+      <weight>75</weight>
+      <bold>true</bold>
+     </font>
+    </property>
+    <property name="cursor">
+     <cursorShape>PointingHandCursor</cursorShape>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QComboBox{
+	background-color:rgba(229,229,234,1); 
+	border: none;
+	border-radius: 6;
+	padding-left: 8px;
+}
+
+QComboBox:drop-down 
+{
+    width: 0px;
+    height: 0px;
+    border: 0px;
+}
+QComboBox:hover{
+	background-color:rgba(242,242,247,1);
+}
+</string>
+    </property>
+    <property name="inputMethodHints">
+     <set>Qt::ImhNone</set>
+    </property>
+    <property name="editable">
+     <bool>false</bool>
+    </property>
+    <property name="currentText">
+     <string/>
+    </property>
+    <property name="placeholderText">
+     <string/>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_6">
+    <property name="geometry">
+     <rect>
+      <x>211</x>
+      <y>310</y>
+      <width>91</width>
+      <height>16</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Arial</family>
+      <pointsize>9</pointsize>
+     </font>
+    </property>
+    <property name="text">
+     <string>Инвертор</string>
+    </property>
+   </widget>
+   <widget class="QComboBox" name="listInvertor_file">
+    <property name="geometry">
+     <rect>
+      <x>459</x>
+      <y>304</y>
+      <width>329</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Arial</family>
+      <pointsize>8</pointsize>
+      <weight>75</weight>
+      <bold>true</bold>
+     </font>
+    </property>
+    <property name="cursor">
+     <cursorShape>PointingHandCursor</cursorShape>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QComboBox{
+	background-color:rgba(229,229,234,1); 
+	border: none;
+	border-radius: 6;
+	padding-left: 8px;
+}
+
+QComboBox:drop-down 
+{
+    width: 0px;
+    height: 0px;
+    border: 0px;
+}
+QComboBox:hover{
+	background-color:rgba(242,242,247,1);
+}
+</string>
+    </property>
+    <property name="inputMethodHints">
+     <set>Qt::ImhNone</set>
+    </property>
+    <property name="editable">
+     <bool>false</bool>
+    </property>
+    <property name="currentText">
+     <string/>
+    </property>
+    <property name="placeholderText">
+     <string/>
+    </property>
+   </widget>
+   <widget class="QLineEdit" name="inputCodeProject">
+    <property name="geometry">
+     <rect>
+      <x>359</x>
+      <y>191</y>
+      <width>429</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Arial</family>
+      <weight>75</weight>
+      <bold>true</bold>
+     </font>
+    </property>
+    <property name="toolTip">
+     <string>Количество MPPT в инверторе</string>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QLineEdit{
+	background-color:rgba(229,229,234,1); 
+	border-radius: 6;
+	border: none;
+	padding-left: 8px
+}
+QLineEdit:hover{
+	background-color:rgba(242,242,247,1);
+}
+QLineEdit:pressed{
+	background-color:rgba(188,188,192,1);
+	border-radius: 12;
+}</string>
+    </property>
+    <property name="inputMask">
+     <string/>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+    <property name="placeholderText">
+     <string/>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_3">
+    <property name="geometry">
+     <rect>
+      <x>211</x>
+      <y>198</y>
+      <width>131</width>
+      <height>16</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Arial</family>
+      <pointsize>9</pointsize>
+     </font>
+    </property>
+    <property name="text">
+     <string>Код проекта</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="btnSlideMenu">
+    <property name="geometry">
+     <rect>
+      <x>212</x>
+      <y>339</y>
+      <width>41</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Arial</family>
+      <pointsize>11</pointsize>
+      <weight>75</weight>
+      <bold>true</bold>
+     </font>
+    </property>
+    <property name="cursor">
+     <cursorShape>PointingHandCursor</cursorShape>
+    </property>
+    <property name="toolTip">
+     <string>Нажмите для перехода к другому меню</string>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QPushButton{
+	background-color: rgba(229,229,234,1);
+	color: #196dff;
+	border: none;
+	border-radius: 6;
+	border-style: outset;
+}
+QPushButton:hover{
+	background-color: #dceaff; 
+}
+QPushButton:pressed{
+	color: rgba(25, 109, 255, 0.7); 
+	border-radius: 6;
+}</string>
+    </property>
+    <property name="text">
+     <string>⮂</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="btnShow3">
+    <property name="geometry">
+     <rect>
+      <x>459</x>
+      <y>177</y>
+      <width>31</width>
+      <height>16</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Arial</family>
+      <pointsize>8</pointsize>
+      <weight>50</weight>
+      <italic>false</italic>
+      <bold>false</bold>
+      <underline>false</underline>
+      <strikeout>false</strikeout>
+      <stylestrategy>PreferAntialias</stylestrategy>
+      <kerning>true</kerning>
+     </font>
+    </property>
+    <property name="cursor">
+     <cursorShape>PointingHandCursor</cursorShape>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QPushButton{
+	background-color:rgba(112, 215, 255, 0);
+	color:rgba(0, 0, 0, 0.5);
+	border: none;
+	border-radius: 5;
+	border-style: outset;
+}
+QPushButton:hover{
+	color: black;
+}
+</string>
+    </property>
+    <property name="text">
+     <string>▼</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="btnShow5">
+    <property name="geometry">
+     <rect>
+      <x>559</x>
+      <y>177</y>
+      <width>51</width>
+      <height>16</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Arial</family>
+      <pointsize>8</pointsize>
+      <weight>50</weight>
+      <bold>false</bold>
+     </font>
+    </property>
+    <property name="cursor">
+     <cursorShape>PointingHandCursor</cursorShape>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QPushButton{
+	background-color:rgba(112, 215, 255, 0);
+	color:rgba(0, 0, 0, 0.5);
+	border: none;
+	border-radius: 5;
+	border-style: outset;
+}
+QPushButton:hover{
+	color: black;
+}</string>
+    </property>
+    <property name="text">
+     <string>▼</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="btnShow8">
+    <property name="geometry">
+     <rect>
+      <x>719</x>
+      <y>177</y>
+      <width>57</width>
+      <height>16</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Arial</family>
+      <pointsize>8</pointsize>
+      <weight>50</weight>
+      <bold>false</bold>
+     </font>
+    </property>
+    <property name="cursor">
+     <cursorShape>PointingHandCursor</cursorShape>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QPushButton{
+	background-color:rgba(112, 215, 255, 0);
+	color:rgba(0, 0, 0, 0.5);
+	border: none;
+	border-radius: 5;
+	border-style: outset;
+}
+QPushButton:hover{
+	color: black;
+}</string>
+    </property>
+    <property name="text">
+     <string>▼</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_slide_title">
+    <property name="geometry">
+     <rect>
+      <x>211</x>
+      <y>160</y>
+      <width>131</width>
+      <height>16</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Arial</family>
+      <pointsize>9</pointsize>
+     </font>
+    </property>
+    <property name="text">
+     <string>Номер раздела</string>
+    </property>
+   </widget>
+   <widget class="QCheckBox" name="checkBox_7">
+    <property name="geometry">
+     <rect>
+      <x>685</x>
+      <y>158</y>
+      <width>34</width>
+      <height>20</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Arial</family>
+     </font>
+    </property>
+    <property name="toolTip">
+     <string>Перечень НТД</string>
+    </property>
+    <property name="text">
+     <string>7</string>
+    </property>
+   </widget>
+   <widget class="QCheckBox" name="checkBox_8">
+    <property name="geometry">
+     <rect>
+      <x>740</x>
+      <y>158</y>
+      <width>34</width>
+      <height>20</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Arial</family>
+     </font>
+    </property>
+    <property name="toolTip">
+     <string>Приложения:</string>
+    </property>
+    <property name="text">
+     <string>8</string>
+    </property>
+   </widget>
+   <widget class="QCheckBox" name="checkBox_2">
+    <property name="geometry">
+     <rect>
+      <x>413</x>
+      <y>158</y>
+      <width>34</width>
+      <height>20</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Arial</family>
+     </font>
+    </property>
+    <property name="toolTip">
+     <string>Исходные данные</string>
+    </property>
+    <property name="text">
+     <string>2</string>
+    </property>
+   </widget>
+   <widget class="QCheckBox" name="checkBox_4">
+    <property name="geometry">
+     <rect>
+      <x>522</x>
+      <y>158</y>
+      <width>34</width>
+      <height>20</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Arial</family>
+     </font>
+    </property>
+    <property name="toolTip">
+     <string>Анализ ресурсов (инсоляция)</string>
+    </property>
+    <property name="text">
+     <string>4</string>
+    </property>
+   </widget>
+   <widget class="QCheckBox" name="checkBox_5">
+    <property name="geometry">
+     <rect>
+      <x>576</x>
+      <y>158</y>
+      <width>38</width>
+      <height>20</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Arial</family>
+     </font>
+    </property>
+    <property name="toolTip">
+     <string>Основные параметры СЭС</string>
+    </property>
+    <property name="text">
+     <string>5 </string>
+    </property>
+   </widget>
+   <widget class="QCheckBox" name="checkBox_6">
+    <property name="geometry">
+     <rect>
+      <x>631</x>
+      <y>158</y>
+      <width>34</width>
+      <height>20</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Arial</family>
+     </font>
+    </property>
+    <property name="toolTip">
+     <string>Выводы и результаты</string>
+    </property>
+    <property name="text">
+     <string>6</string>
+    </property>
+   </widget>
+   <widget class="QCheckBox" name="checkBox_3">
+    <property name="geometry">
+     <rect>
+      <x>467</x>
+      <y>158</y>
+      <width>34</width>
+      <height>20</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Arial</family>
+     </font>
+    </property>
+    <property name="toolTip">
+     <string>Место размещения объекта</string>
+    </property>
+    <property name="text">
+     <string>3</string>
+    </property>
+   </widget>
+   <widget class="QCheckBox" name="checkBox_1">
+    <property name="geometry">
+     <rect>
+      <x>358</x>
+      <y>158</y>
+      <width>34</width>
+      <height>20</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Arial</family>
+     </font>
+    </property>
+    <property name="toolTip">
+     <string>Термины и сокращения</string>
+    </property>
+    <property name="text">
+     <string>1</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="btnOpenPDF">
+    <property name="geometry">
+     <rect>
+      <x>30</x>
+      <y>300</y>
+      <width>161</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Arial</family>
+      <pointsize>9</pointsize>
+      <weight>75</weight>
+      <italic>false</italic>
+      <bold>true</bold>
+      <underline>false</underline>
+      <strikeout>false</strikeout>
+      <stylestrategy>PreferAntialias</stylestrategy>
+      <kerning>true</kerning>
+     </font>
+    </property>
+    <property name="cursor">
+     <cursorShape>PointingHandCursor</cursorShape>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QPushButton{
+	background-color:rgba(112, 215, 255, 0);
+	color:rgba(0, 0, 0, 0.5);
+	border: none;
+	border-radius: 5;
+	border-style: outset;
+}
+QPushButton:hover{
+	color: black;
+}
+</string>
+    </property>
+    <property name="text">
+     <string>Открыть</string>
+    </property>
+   </widget>
+   <zorder>inputTitleProject</zorder>
+   <zorder>checkBox_7</zorder>
+   <zorder>checkBox_8</zorder>
+   <zorder>checkBox_2</zorder>
+   <zorder>checkBox_4</zorder>
+   <zorder>checkBox_5</zorder>
+   <zorder>checkBox_6</zorder>
+   <zorder>checkBox_3</zorder>
+   <zorder>checkBox_1</zorder>
+   <zorder>label_3</zorder>
+   <zorder>inputCodeProject</zorder>
+   <zorder>listInvertor_file</zorder>
+   <zorder>listInvertor_folder</zorder>
+   <zorder>label_6</zorder>
+   <zorder>label_for_slide</zorder>
+   <zorder>btnDrawScheme</zorder>
+   <zorder>btnFour</zorder>
+   <zorder>btnTwo</zorder>
+   <zorder>btnThree</zorder>
+   <zorder>textConsole</zorder>
+   <zorder>btnOne</zorder>
+   <zorder>label</zorder>
+   <zorder>btnForm</zorder>
+   <zorder>label_2</zorder>
+   <zorder>label_4</zorder>
+   <zorder>inputClient</zorder>
+   <zorder>listRoof</zorder>
+   <zorder>label_5</zorder>
+   <zorder>btnDevice</zorder>
+   <zorder>btnRP5</zorder>
+   <zorder>checkBox_3_1</zorder>
+   <zorder>checkBox_8_5</zorder>
+   <zorder>checkBox_8_6</zorder>
+   <zorder>checkBox_5_3</zorder>
+   <zorder>checkBox_5_4</zorder>
+   <zorder>checkBox_5_5</zorder>
+   <zorder>checkBox_3_3</zorder>
+   <zorder>checkBox_5_6</zorder>
+   <zorder>checkBox_5_1_4</zorder>
+   <zorder>checkBox_5_2</zorder>
+   <zorder>checkBox_3_4</zorder>
+   <zorder>checkBox_3_2</zorder>
+   <zorder>btnDrawSchemeTwo</zorder>
+   <zorder>btnSchemes</zorder>
+   <zorder>checkBox_5_1_2</zorder>
+   <zorder>checkBox_5_1</zorder>
+   <zorder>checkBox_8_3</zorder>
+   <zorder>checkBox_8_1</zorder>
+   <zorder>btnLoadScheme2</zorder>
+   <zorder>checkBox_8_2</zorder>
+   <zorder>btnLoadScheme1</zorder>
+   <zorder>checkBox_5_1_1</zorder>
+   <zorder>checkBox_8_4</zorder>
+   <zorder>checkBox_5_1_3</zorder>
+   <zorder>btnSlideMenu</zorder>
+   <zorder>btnShow3</zorder>
+   <zorder>btnShow5</zorder>
+   <zorder>btnShow8</zorder>
+   <zorder>label_slide_title</zorder>
+   <zorder>btnOpenPDF</zorder>
+  </widget>
+  <widget class="QStatusBar" name="statusBar"/>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>
