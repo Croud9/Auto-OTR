@@ -4,6 +4,7 @@ import schemdraw.elements as elm
 from svglib.svglib import svg2rlg
 from reportlab.graphics import renderPDF
 from fontTools.ttLib import TTFont
+import gost_frame
 
 def closer(slr):
     slr += elm.Line().left().length(0.125)
@@ -392,11 +393,12 @@ def top_counter(slr, three_phase, counter, names):
         slr += elm.Line().right().length(5).label("Wh \n Счетчик э/э двунаправленный", "center", ofst=(0,-1))
         slr += elm.Line().down().length(1.5)
 
-def draw(all_params):
+def draw(all_params, gost_frame_params):
+    print('paraaaaaams',gost_frame_params)
     schemdraw.config(fontsize = 10)
     with schemdraw.Drawing(file=f'Data/Schemes/connect_system.svg', show = False, scale = 0.5, lw = 0.7, font = 'sans-serif') as slr:
         module_offset = 5 # начало чертежа модулей
-
+        count_all_modules = all_params[0][3] + all_params[1][4]
         yzip = all_params[3][0]# УЗИП
         counter = all_params[3][1] # Счетчик
         three_phase = all_params[3][2] #Трёхфазная система?
@@ -503,29 +505,9 @@ def draw(all_params):
 
         slr.here = (module_offset, -7.125)
         general_line(slr, three_phase)
-    # image_bytes = slr.get_imagedata('svg')
-    # # print(image_bytes)
-    
-    # f = open('testt.html','wb')  # открытие в режиме записи
-    # f.write(image_bytes)
-    # f.close()
-    
-    # import pdfkit
-
-    # options = {
-    #     # 'page-size':'A2',
-    #     # 'dpi': 400,
-    #     # 'disable-smart-shrinking': '',
-    #     # '--disable-smart-shrinking',
-    #     'page-height': '490',
-    #     'page-width': '400',
-    #     'encoding':'utf-8', 
-    #     'margin-top':'0cm',
-    #     'margin-bottom':'0cm',
-    #     'margin-left':'0cm',
-    #     'margin-right':'0cm'
-    #     }
-    # html = image_bytes.decode('utf-8')
-    # path_wkhtmltopdf = r"Data/ConvertLib/wkhtmltox/bin/wkhtmltopdf.exe"
-    # config = pdfkit.configuration(wkhtmltopdf=path_wkhtmltopdf)
-    # pdfkit.from_string(html, "out.pdf", configuration=config, options=options)
+        width = 30.5 if count_all_modules == 1 else 30.5 + ((count_all_modules - 1) * 5)
+        height = 29
+        slr.here = (-1, 5)
+        data = {'width': width, 'height': height, 'title_prjct': gost_frame_params['title_project'],
+                'code_prjct': gost_frame_params['code_project'], 'type_scheme': 'Cхема электрическая \n принципиальная'}
+        gost_frame.all_frame(slr, **data)
