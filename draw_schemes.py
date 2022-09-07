@@ -1,5 +1,6 @@
 import schemdraw
 import schemdraw.elements as elm
+import gost_frame
 from svglib.svglib import svg2rlg
 from reportlab.graphics import renderPDF
 from fontTools.ttLib import TTFont
@@ -675,7 +676,7 @@ def calculation(slr, fem_offset, use_y_connector, use_all_mppt, count_diffirent_
         # fem_plus_chain.append(num_error)
     return num_error, fem_plus_chain, max_input, max_input_y
 
-def draw(input_parametrs, parametrs, i):
+def draw(input_parametrs, parametrs, i, gost_frame_params):
     global two_num
     global number_mppt
     global num
@@ -685,7 +686,10 @@ def draw(input_parametrs, parametrs, i):
 
     schemdraw.config(fontsize = 10)
     with schemdraw.Drawing(file=f'Data/Schemes/invertor{i}.svg', show=False, scale = 0.5, lw = 0.7, font = 'sans-serif') as slr:
-
+        if int(input_parametrs[2]) % 2 == 0:
+            solar_count_on_the_chain = (int(input_parametrs[2]) // 2) * 1.5 if int(input_parametrs[2]) != 1 else 1.5
+        else:
+            solar_count_on_the_chain = (int(input_parametrs[2]) // 2 + 1) * 1.5 if int(input_parametrs[2]) != 1 else 1.5
         fem_offset = 0 # начало чертежа
 
         # использовать Y коннекторы Да(True) Нет(False)?
@@ -708,13 +712,21 @@ def draw(input_parametrs, parametrs, i):
             return fem_plus_chain[0], 0
 
         # Построение общей рамки и правой части
-        slr += (bot_line_invertor := elm.Line().right().at(fem_plus_chain[1][1][-1].center, dy = -5).length(5))
+        slr += (bot_line_invertor := elm.Line().right().at(fem_plus_chain[1][1][-1].center, dy = -4).length(5))
         slr.here = (0, 3)
 
         names = [parametrs[0], f"{parametrs[1]} {str(i)}", parametrs[2], parametrs[3], parametrs[4]]
         generate_frame(slr, names, bot_line_invertor, three_phase, five_line, len_title)
+            
+        width = 28.5 + solar_count_on_the_chain
+        height = (fem_plus_chain[1][0] - 3) * -1
+        slr.here = (-4 - solar_count_on_the_chain, 3)
+
+        data = {'width': width, 'height': height, 'title_prjct': gost_frame_params['title_project'],
+                'code_prjct': gost_frame_params['code_project'], 'type_scheme': 'Cхема постоянного тока'}
+        gost_frame.all_frame(slr, **data)
+        
         print("Чертеж построен")
         print("Всего цепочек:", two_num)
 
         return 0, two_num, fem_plus_chain[1][2]
-

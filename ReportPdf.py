@@ -41,22 +41,24 @@ data = ""
 graf = ""
         
 class DrawOne(QThread):
-    def __init__(self, params, parametrs, i):
+    def __init__(self, params, parametrs, i, gost_frame_params):
         super().__init__()
         self.params = params
         self.parametrs = parametrs
         self.i = i
+        self.gost_frame_params = gost_frame_params
 
     def run(self):
-        self.num_error = draw_schemes.draw(self.params, self.parametrs , self.i)
+        self.num_error = draw_schemes.draw(self.params, self.parametrs , self.i, self.gost_frame_params)
 
 class DrawTwo(QThread):
-    def __init__(self, params):
+    def __init__(self, params, gost_frame_params):
         super().__init__()
         self.params = params
+        self.gost_frame_params = gost_frame_params
 
     def run(self):
-        draw_schemes2.draw(self.params)
+        draw_schemes2.draw(self.params, self.gost_frame_params)
         
 class BuildDoc(QThread):
     def __init__(self, params_1, params_2, params_3):
@@ -1328,12 +1330,16 @@ class WindowDrawTwo(QtWidgets.QMainWindow, designDrawSchemesTwo.Ui_WindowDrawSch
         self.all_params.append(self.checkbox_params)
         print(self.all_params)
         
+        title_project = window.inputTitleProject.text()
+        code_project = window.inputCodeProject.text() 
+        gost_frame_params = {'title_project': title_project, 'code_project': code_project}   
+            
         self.btnDraw.setEnabled(False)
         self.btnDraw.setText('Построение чертежа...')
         self.statusBar.showMessage('Пожалуйста, подождите...')
         self.statusBar.setStyleSheet("background-color:rgb(255, 212, 38)")
         # Выполнение загрузки в новом потоке.
-        self.painter = DrawTwo(self.all_params)
+        self.painter = DrawTwo(self.all_params, gost_frame_params)
         # Qt вызовет метод `drawFinished()`, когда поток завершится.
 
         self.painter.finished.connect(self.drawFinished)
@@ -1345,7 +1351,6 @@ class WindowDrawTwo(QtWidgets.QMainWindow, designDrawSchemesTwo.Ui_WindowDrawSch
         # self.to_utf8(srcfile, trgfile)
         
     def drawFinished(self):
-        
         self.all_params.clear()
         self.invertor_params.clear()
         self.other_params.clear()
@@ -1639,13 +1644,17 @@ class WindowDraw(QtWidgets.QMainWindow, designDrawSchemes.Ui_WindowDrawSchemes):
             self.textConsoleDraw.append(f"Номер инвертора: {i}")
             if self.checkUse_CloneInvertor.isChecked() != 0:
                 self.input_params = save_input_params.copy()
-                
+            
             self.btnDraw.setEnabled(False)
             self.btnDraw.setText('Построение чертежа...')
             self.statusBar.showMessage('Пожалуйста, подождите...')
             self.statusBar.setStyleSheet("background-color:rgb(255, 212, 38)")
+            
+            title_project = window.inputTitleProject.text()
+            code_project = window.inputCodeProject.text()            
+            gost_frame_params = {'title_project': title_project, 'code_project': code_project} 
             # Выполнение загрузки в новом потоке.
-            self.painter_draw_one = DrawOne(self.input_params, parametrs, i)
+            self.painter_draw_one = DrawOne(self.input_params, parametrs, i, gost_frame_params)
             # Qt вызовет метод `drawFinished()`, когда поток завершится.
 
             self.painter_draw_one.finished.connect(self.drawFinished)
@@ -1998,6 +2007,7 @@ class WindowParse(QtWidgets.QMainWindow, designParsing.Ui_WindowRP5):
         del self.parser_close
 
 def main():
+    global window
     app = QtWidgets.QApplication(sys.argv)  # Новый экземпляр QApplication
     window = MainApp()  # Создаём объект класса ExampleApp
     window.setWindowIcon(QtGui.QIcon('Data/icons/graficon.png'))
