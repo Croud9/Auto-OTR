@@ -32,9 +32,12 @@ from PyQt5.QtCore import *
 import subprocess
 import shutil
 
-filepath_to_pdf_pvsyst = "Data/PDF in/PVsyst"
-filepath_to_pdf_schemes = "Data/PDF in/Shemes"
-filepath_to_schemes = "Data/Schemes"
+path_to_pdf_pvsyst = "Data/PDF in/PVsyst"
+path_to_pdf_schemes = "Data/PDF in/Shemes"
+path_to_schemes = "Data/Schemes"
+path_to_invertors = "Data/Modules/Invertors"
+path_to_PV = "Data/Modules/PV's"
+path_to_KTP = "Data/Modules/KTP's" 
 csv = ""
 img = ""
 data = ""
@@ -79,16 +82,10 @@ class СonvertFiles(QThread):
 
     def run(self):
         if self.flag == 'general':
-            renderPDF.drawToFile(svg2rlg(self.paths[0]), filepath_to_pdf_schemes +"/General/generalScheme.pdf")
+            renderPDF.drawToFile(svg2rlg(self.paths[0]), path_to_pdf_schemes +"/General/generalScheme.pdf")
         elif self.flag == 'detailed':
             for i in range(len(self.paths)):
-                # try:
-                #     with open(filepath_to_pdf_schemes + f"/Detailed/detailed{i}.pdf", 'w') as fp:
-                #         pass
-                # except PermissionError:
-                #     print("Ошибка доступа к файлу: ", filepath_to_pdf_schemes + f"/Detailed/detailed{i}.pdf")
-                #     return
-                renderPDF.drawToFile(svg2rlg(self.paths[i]), filepath_to_pdf_schemes + f"/Detailed/detailed{i}.pdf")
+                renderPDF.drawToFile(svg2rlg(self.paths[i]), path_to_pdf_schemes + f"/Detailed/detailed{i}.pdf")
         elif self.flag == 'pvsyst':
             # To get better resolution
             zoom_x = 2.0  # horizontal zoom
@@ -110,8 +107,8 @@ class Parsing(QThread):
 
     def run(self):
         if self.method == "close":
-            fp_general = filepath_to_pdf_schemes + "/General"
-            fp_detailed = filepath_to_pdf_schemes + "/Detailed"
+            fp_general = path_to_pdf_schemes + "/General"
+            fp_detailed = path_to_pdf_schemes + "/Detailed"
             patch_imgs_pvsyst = "Data/Images/PVsyst"
             img_files_pvsyst = [f for f in os.listdir(patch_imgs_pvsyst) if os.path.isfile(os.path.join(patch_imgs_pvsyst, f))]
             files_in_general = [f for f in os.listdir(fp_general) if isfile(join(fp_general, f))]
@@ -166,6 +163,8 @@ class MainApp(QtWidgets.QMainWindow, designRepPDF.Ui_MainWindow):
         # self.btnForm.hover.connect(self.validation)
         self.listRoof.activated.connect(self.roof_select)
         self.listInvertor_folder.activated.connect(self.invertor_select)
+        self.listPV_folder.activated.connect(self.pv_select)
+        self.listKTP_folder.activated.connect(self.ktp_select)
         self.listInvertor_file.activated.connect(self.invertor_load)
         self.w2 = WindowParse()
         self.w3 = WindowDraw()
@@ -176,7 +175,7 @@ class MainApp(QtWidgets.QMainWindow, designRepPDF.Ui_MainWindow):
         self.pathes_detail_schemes = " "
         self.path_general_schemes = " "
         self.browser_status = None
-        self.module, self.mppt, self.mppt = "Н/Д"
+        self.module, self.mppt = "Н/Д"
         self.in_height, self.in_width, self.in_depth = "Н/Д"
         self.weight, self.v_mpp_min, self.v_mpp_max = "Н/Д"
         
@@ -184,14 +183,25 @@ class MainApp(QtWidgets.QMainWindow, designRepPDF.Ui_MainWindow):
         self.inputCodeProject.setText("2215ШЛБ-СЭС-ОТР")
         self.inputClient.setText("ООО «Рэдалит Шлюмберже»")
         
+        self.inputUDotIn.setText("0.4")
+        self.inputAddress.setText("г. Екатеринбург, ул. Анатолия Мехренцева, 36.")
+        self.inputAddressLat.setText("55.587562")
+        self.inputAddressLong.setText("37.908986")
+        self.inputObjectType.setText("Многоквартирный жилой дом")
+        
         self.listRoof.addItem("Выберите")
         roofs = ["Плоская", "Скатная", "Фикс"]
         self.listRoof.addItems(roofs)
 
-        modules_folder = 'Data/Modules/'
         self.listInvertor_folder.addItem("Выберите")
-        titles_modules = sorted(os.listdir(modules_folder))
-        self.listInvertor_folder.addItems(titles_modules)
+        self.listPV_folder.addItem("Выберите")
+        self.listKTP_folder.addItem("Выберите")
+        company_invertor = sorted(os.listdir(path_to_invertors))
+        company_pv = sorted(os.listdir(path_to_PV))
+        company_ktp = sorted(os.listdir(path_to_KTP))
+        self.listInvertor_folder.addItems(company_invertor)
+        self.listPV_folder.addItems(company_pv)
+        self.listKTP_folder.addItems(company_ktp)
         
     def open_result_doc(self):
         os.startfile("Data\Report\Auto-OTR.pdf")
@@ -267,12 +277,54 @@ class MainApp(QtWidgets.QMainWindow, designRepPDF.Ui_MainWindow):
         self.checkBox_8_6.hide()
         self.btnLoadScheme1.hide()
         self.btnLoadScheme2.hide()
+        # Паспорт объекта
+        self.inputUDotIn.hide()
+        self.inputAddress.hide()
+        self.inputAddressLat.hide()
+        self.inputAddressLong.hide()
+        self.inputObjectType.hide()
+        self.inputTitleProject.hide()
+        self.inputCodeProject.hide()
+        self.inputClient.hide()
+        self.label_6.hide()
+        # Оборудование
+        self.spinBox_numInvertor.hide()
+        self.spinBox_numPV.hide()
+        self.spinBox_numKTP.hide()
 
     def slide_menu(self):
-        if self.checkBox_1.isHidden():
-            self.btnSlideMenu.setText("⮀")
+        if self.label_for_slide.text() == "Паспорт объекта":
+            self.btnSlideMenu.setText("⮂")
             self.label_for_slide.setText("Удаление раздела")
-            
+            # Паспорт объекта
+            self.label_2.hide()
+            self.label_3.hide()
+            self.label_4.hide()
+            self.label_5.hide()
+            self.label_6.hide()
+            self.inputUDotIn.hide()
+            self.inputAddress.hide()
+            self.inputAddressLat.hide()
+            self.inputAddressLong.hide()
+            self.inputObjectType.hide()
+            self.inputTitleProject.hide()
+            self.inputCodeProject.hide()
+            self.inputClient.hide()
+            # Оборудование
+            self.listInvertor_folder.hide()
+            self.listInvertor_file.hide()
+            self.listPV_folder.hide()
+            self.listPV_file.hide()
+            self.listKTP_folder.hide()
+            self.listKTP_file.hide()
+            self.listRoof.hide()
+            self.spinBox_numInvertor.hide()
+            self.spinBox_numPV.hide()
+            self.spinBox_numKTP.hide()
+            self.btnAddInvertor.hide()
+            self.btnAddPV.hide()
+            self.btnAddKTP.hide()
+            # Удаление разделов
             self.checkBox_1.show()
             self.checkBox_2.show()
             self.checkBox_3.show()
@@ -284,7 +336,6 @@ class MainApp(QtWidgets.QMainWindow, designRepPDF.Ui_MainWindow):
             self.btnShow3.show()
             self.btnShow5.show()
             self.btnShow8.show()
-            
             if self.btnShow3.text() == "▲":
                 self.checkBox_3_1.show()
                 self.checkBox_3_2.show()
@@ -307,25 +358,13 @@ class MainApp(QtWidgets.QMainWindow, designRepPDF.Ui_MainWindow):
                 self.checkBox_8_3.show()
                 self.checkBox_8_4.show()
                 self.checkBox_8_5.show()
-                self.checkBox_8_6.show()
-                
+                self.checkBox_8_6.show()  
             self.label_slide_title.show()
             self.label_slide_title.setText("Номер раздела")
-            
-            self.label_2.hide()
-            self.label_3.hide()
-            self.label_4.hide()
-            self.label_5.hide()
-            self.label_6.hide()
-            self.inputTitleProject.hide()
-            self.inputCodeProject.hide()
-            self.inputClient.hide()
-            self.listRoof.hide()
-            self.listInvertor_folder.hide()
-            self.listInvertor_file.hide()
-        else:
+        elif self.label_for_slide.text() == "Удаление раздела":
             self.btnSlideMenu.setText("⮂")
-            self.label_for_slide.setText("Данные")
+            self.label_for_slide.setText("Оборудование")
+            # Удаление разделов
             self.label_slide_title.hide()
             self.checkBox_1.hide()
             self.checkBox_2.hide()
@@ -358,19 +397,106 @@ class MainApp(QtWidgets.QMainWindow, designRepPDF.Ui_MainWindow):
             self.checkBox_8_4.hide()
             self.checkBox_8_5.hide()
             self.checkBox_8_6.hide()
-            
+            # Паспорт объекта
+            self.inputUDotIn.hide()
+            self.inputAddress.hide()
+            self.inputAddressLat.hide()
+            self.inputAddressLong.hide()
+            self.inputObjectType.hide()
+            self.inputTitleProject.hide()
+            self.inputCodeProject.hide()
+            self.inputClient.hide()
+            self.label_6.hide()
+            # Оборудование
+            self.btnAddInvertor.show()
+            self.btnAddPV.show()
+            self.btnAddKTP.show()
+            self.label_2.setText("Инвертор")
             self.label_2.show()
+            self.label_3.setText("ФЭМ")
             self.label_3.show()
+            self.label_4.setText("КТП")
             self.label_4.show()
+            self.label_5.setText("Тип крыши")
             self.label_5.show()
-            self.label_6.show()
-            self.inputTitleProject.show()
-            self.inputCodeProject.show()
-            self.inputClient.show()
             self.listRoof.show()
             self.listInvertor_folder.show()
             self.listInvertor_file.show()
-    
+            self.listPV_folder.show()
+            self.listPV_file.show()
+            self.listKTP_folder.show()
+            self.listKTP_file.show()
+            self.listRoof.show()
+        elif self.label_for_slide.text() == "Оборудование":
+            self.btnSlideMenu.setText("⮀")
+            self.label_for_slide.setText("Паспорт объекта")
+            # Удаление разделов
+            self.label_slide_title.hide()
+            self.checkBox_1.hide()
+            self.checkBox_2.hide()
+            self.checkBox_3.hide()
+            self.checkBox_4.hide()
+            self.checkBox_5.hide()
+            self.checkBox_6.hide()
+            self.checkBox_7.hide()
+            self.checkBox_8.hide()
+            self.btnShow3.hide()
+            self.btnShow5.hide()
+            self.btnShow8.hide()
+            self.checkBox_3_1.hide()
+            self.checkBox_3_2.hide()
+            self.checkBox_3_3.hide()
+            self.checkBox_3_4.hide()
+            self.checkBox_5_1.hide()
+            self.checkBox_5_1_1.hide()
+            self.checkBox_5_1_2.hide()
+            self.checkBox_5_1_3.hide()
+            self.checkBox_5_1_4.hide()
+            self.checkBox_5_2.hide()
+            self.checkBox_5_3.hide()
+            self.checkBox_5_4.hide()
+            self.checkBox_5_5.hide()
+            self.checkBox_5_6.hide()
+            self.checkBox_8_1.hide()
+            self.checkBox_8_2.hide()
+            self.checkBox_8_3.hide()
+            self.checkBox_8_4.hide()
+            self.checkBox_8_5.hide()
+            self.checkBox_8_6.hide()
+            # Оборудование
+            self.listInvertor_folder.hide()
+            self.listInvertor_file.hide()
+            self.listPV_folder.hide()
+            self.listPV_file.hide()
+            self.listKTP_folder.hide()
+            self.listKTP_file.hide()
+            self.listRoof.hide()
+            self.spinBox_numInvertor.hide()
+            self.spinBox_numPV.hide()
+            self.spinBox_numKTP.hide()
+            self.btnAddInvertor.hide()
+            self.btnAddPV.hide()
+            self.btnAddKTP.hide()   
+            # Паспорт объекта
+            self.label_2.setText("Название проекта")
+            self.label_2.show()
+            self.label_3.setText("Тип объекта")
+            self.label_3.show()
+            self.label_4.setText("Заказчик")
+            self.label_4.show()
+            self.label_5.setText("Адрес")
+            self.label_5.show()
+            self.label_6.setText("U подключения, кВ")
+            self.label_6.show()
+            self.inputUDotIn.show()
+            self.inputAddress.show()
+            self.inputAddressLat.show()
+            self.inputAddressLong.show()
+            self.inputObjectType.show()
+            self.inputTitleProject.show()
+            self.inputCodeProject.show()
+            self.inputClient.show()
+            
     def show_btn_cbox3(self):
         if self.checkBox_3_1.isHidden():
             self.btnShow3.setText("▲")
@@ -572,7 +698,7 @@ class MainApp(QtWidgets.QMainWindow, designRepPDF.Ui_MainWindow):
         self.current_roof = self.listRoof.currentIndex()
  
     def search_invertor_data(self, path_folder, path_file):
-        with open(rf"Data/Modules/{path_folder}/{path_file}", 'r') as fp:
+        with open(rf"{path_to_invertors}/{path_folder}/{path_file}", 'r') as fp:
             for l_no, line in enumerate(fp):
                 # search string
                 if 'Model=' in line:
@@ -610,12 +736,34 @@ class MainApp(QtWidgets.QMainWindow, designRepPDF.Ui_MainWindow):
         self.listInvertor_file.clear()
         if self.listInvertor_folder.currentText() != "Выберите":
             self.select_title_invertor = self.listInvertor_folder.currentText() 
-            modules_file = f'Data/Modules/{self.select_title_invertor}'
+            modules_file = f'{path_to_invertors}/{self.select_title_invertor}'
             self.type_modules = sorted(os.listdir(modules_file))
             names_modules = []
             for name in self.type_modules:
                 names_modules.append(name.split(".")[0])
             self.listInvertor_file.addItems(names_modules)
+            
+    def pv_select(self):
+        self.listPV_file.clear()
+        if self.listPV_folder.currentText() != "Выберите":
+            self.select_title_pv = self.listPV_folder.currentText() 
+            modules_file = f'{path_to_PV}/{self.select_title_pv}'
+            self.type_pv_modules = sorted(os.listdir(modules_file))
+            names_modules = []
+            for name in self.type_pv_modules:
+                names_modules.append(name.split(".")[0])
+            self.listPV_file.addItems(names_modules)
+            
+    def ktp_select(self):
+        self.listKTP_file.clear()
+        if self.listInvertor_folder.currentText() != "Выберите":
+            self.select_title_ktp = self.listKTP_folder.currentText() 
+            modules_file = f'{path_to_KTP}/{self.select_title_ktp}'
+            self.type_ktp_modules = sorted(os.listdir(modules_file))
+            names_modules = []
+            for name in self.type_ktp_modules:
+                names_modules.append(name.split(".")[0])
+            self.listKTP_file.addItems(names_modules)
             
     def invertor_load(self):
         current_invertor = self.listInvertor_file.currentText()
@@ -624,8 +772,8 @@ class MainApp(QtWidgets.QMainWindow, designRepPDF.Ui_MainWindow):
                 self.search_invertor_data(self.select_title_invertor, select_invertor)
                 
     def delete_schemes(self, method):
-        fp_general = filepath_to_pdf_schemes + "/General"
-        fp_detailed = filepath_to_pdf_schemes + "/Detailed"
+        fp_general = path_to_pdf_schemes + "/General"
+        fp_detailed = path_to_pdf_schemes + "/Detailed"
         patch_imgs_pvsyst = "Data/Images/PVsyst"
         img_files_pvsyst = [f for f in os.listdir(patch_imgs_pvsyst) if os.path.isfile(os.path.join(patch_imgs_pvsyst, f))]
         files_in_general = [f for f in os.listdir(fp_general) if isfile(join(fp_general, f))]
@@ -641,7 +789,7 @@ class MainApp(QtWidgets.QMainWindow, designRepPDF.Ui_MainWindow):
                 os.remove(patch_imgs_pvsyst + f"/{file}")  
                            
     def pvsyst(self):
-        self.path_pvsyst = QtWidgets.QFileDialog.getOpenFileName(self, 'Выберите файл', filepath_to_pdf_pvsyst, "*.pdf")[0] #открытие диалога для выбора файла
+        self.path_pvsyst = QtWidgets.QFileDialog.getOpenFileName(self, 'Выберите файл', path_to_pdf_pvsyst, "*.pdf")[0] #открытие диалога для выбора файла
         print(self.path_pvsyst)
         if len(self.path_pvsyst) != 0:
             self.delete_schemes('pvsyst')
@@ -652,7 +800,7 @@ class MainApp(QtWidgets.QMainWindow, designRepPDF.Ui_MainWindow):
             self.converter_pvsyst.start()
 
     def load_scheme_one(self):
-        self.pathes_detail_schemes = QtWidgets.QFileDialog.getOpenFileNames(self, 'Выберите файл', filepath_to_schemes, "*.svg")[0] #открытие диалога для выбора файла
+        self.pathes_detail_schemes = QtWidgets.QFileDialog.getOpenFileNames(self, 'Выберите файл', path_to_schemes, "*.svg")[0] #открытие диалога для выбора файла
         print(self.pathes_detail_schemes)
         if len(self.pathes_detail_schemes) != 0:
             self.delete_schemes('detailed')
@@ -663,7 +811,7 @@ class MainApp(QtWidgets.QMainWindow, designRepPDF.Ui_MainWindow):
             self.converter1.start()
         
     def load_scheme_two(self):
-        self.path_general_schemes = [QtWidgets.QFileDialog.getOpenFileName(self, 'Выберите файл', filepath_to_schemes, "*.svg")[0]] #открытие диалога для выбора файла
+        self.path_general_schemes = [QtWidgets.QFileDialog.getOpenFileName(self, 'Выберите файл', path_to_schemes, "*.svg")[0]] #открытие диалога для выбора файла
         print( self.path_general_schemes)
         if len(self.path_general_schemes[0]) != 0:
             self.delete_schemes('general')
@@ -689,10 +837,10 @@ class MainApp(QtWidgets.QMainWindow, designRepPDF.Ui_MainWindow):
     def in_two_block(self):
         global img
 
-        img_path = QtWidgets.QFileDialog.getOpenFileName(self, 'Выберите файл', filepath_to_pdf_pvsyst, "*.png *.jpg")[0] #открытие диалога для выбора файла
+        img_path = QtWidgets.QFileDialog.getOpenFileName(self, 'Выберите файл', path_to_pdf_pvsyst, "*.png *.jpg")[0] #открытие диалога для выбора файла
 
     def in_three_block(self):
-        fname = QtWidgets.QFileDialog.getOpenFileName(self, 'Выберите файл', filepath_to_pdf_pvsyst, "*.PAN *.txt")[0] #открытие диалога для выбора файла
+        fname = QtWidgets.QFileDialog.getOpenFileName(self, 'Выберите файл', path_to_pdf_pvsyst, "*.PAN *.txt")[0] #открытие диалога для выбора файла
 
         if fname != '':
             with open(fname, 'r') as file: #поиск в файле нужных нам данных
@@ -700,7 +848,7 @@ class MainApp(QtWidgets.QMainWindow, designRepPDF.Ui_MainWindow):
                     pass
 
     def in_four_block(self):
-        fname = QtWidgets.QFileDialog.getOpenFileName(self, 'Выберите файл', filepath_to_pdf_pvsyst, "*.PAN *.txt")[0] #открытие диалога для выбора файла
+        fname = QtWidgets.QFileDialog.getOpenFileName(self, 'Выберите файл', path_to_pdf_pvsyst, "*.PAN *.txt")[0] #открытие диалога для выбора файла
 
         if fname != '':
             with open(fname, 'r') as file: #поиск в файле нужных нам данных
@@ -718,8 +866,8 @@ class MainApp(QtWidgets.QMainWindow, designRepPDF.Ui_MainWindow):
 
     def merge_pdf(self):
         pdf_merger = PdfFileMerger()
-        fp_general = filepath_to_pdf_schemes + "/General"
-        fp_detailed = filepath_to_pdf_schemes + "/Detailed"
+        fp_general = path_to_pdf_schemes + "/General"
+        fp_detailed = path_to_pdf_schemes + "/Detailed"
         files_in_general = [f for f in os.listdir(fp_general) if isfile(join(fp_general, f))]
         files_in_detailed = [f for f in os.listdir(fp_detailed) if isfile(join(fp_detailed, f))]
         with open("Data/Report/Report.pdf", 'rb') as report: 

@@ -9,7 +9,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>812</width>
+    <width>1423</width>
     <height>408</height>
    </rect>
   </property>
@@ -85,7 +85,7 @@ QComboBox QAbstractItemView {
       <x>20</x>
       <y>153</y>
       <width>181</width>
-      <height>201</height>
+      <height>204</height>
      </rect>
     </property>
     <property name="font">
@@ -297,7 +297,7 @@ QPushButton:pressed{
     <property name="geometry">
      <rect>
       <x>260</x>
-      <y>344</y>
+      <y>351</y>
       <width>151</width>
       <height>20</height>
      </rect>
@@ -317,14 +317,14 @@ border: none;
 padding: 2;</string>
     </property>
     <property name="text">
-     <string>Данные</string>
+     <string>Оборудование</string>
     </property>
    </widget>
    <widget class="QPushButton" name="btnForm">
     <property name="geometry">
      <rect>
       <x>20</x>
-      <y>335</y>
+      <y>340</y>
       <width>181</width>
       <height>41</height>
      </rect>
@@ -483,9 +483,9 @@ QPushButton:pressed{
    <widget class="QLineEdit" name="inputTitleProject">
     <property name="geometry">
      <rect>
-      <x>359</x>
+      <x>358</x>
       <y>153</y>
-      <width>429</width>
+      <width>428</width>
       <height>31</height>
      </rect>
     </property>
@@ -540,7 +540,7 @@ QLineEdit:pressed{
      </font>
     </property>
     <property name="text">
-     <string>Название проекта</string>
+     <string>Инвертор</string>
     </property>
    </widget>
    <widget class="QLabel" name="label_4">
@@ -559,13 +559,13 @@ QLineEdit:pressed{
      </font>
     </property>
     <property name="text">
-     <string>Заказчик</string>
+     <string>КТП</string>
     </property>
    </widget>
    <widget class="QLineEdit" name="inputClient">
     <property name="geometry">
      <rect>
-      <x>359</x>
+      <x>358</x>
       <y>230</y>
       <width>429</width>
       <height>31</height>
@@ -609,8 +609,8 @@ QLineEdit:pressed{
    <widget class="QComboBox" name="listRoof">
     <property name="geometry">
      <rect>
-      <x>359</x>
-      <y>267</y>
+      <x>358</x>
+      <y>270</y>
       <width>429</width>
       <height>31</height>
      </rect>
@@ -667,7 +667,7 @@ QComboBox:hover{
     <property name="geometry">
      <rect>
       <x>211</x>
-      <y>273</y>
+      <y>277</y>
       <width>91</width>
       <height>16</height>
      </rect>
@@ -679,7 +679,7 @@ QComboBox:hover{
      </font>
     </property>
     <property name="text">
-     <string>Крыша</string>
+     <string>Тип крыши</string>
     </property>
    </widget>
    <widget class="QPushButton" name="btnSchemes">
@@ -1446,8 +1446,8 @@ QPushButton:pressed{
    <widget class="QComboBox" name="listInvertor_folder">
     <property name="geometry">
      <rect>
-      <x>359</x>
-      <y>304</y>
+      <x>358</x>
+      <y>153</y>
       <width>91</width>
       <height>31</height>
      </rect>
@@ -1498,8 +1498,8 @@ QComboBox:hover{
     <property name="geometry">
      <rect>
       <x>211</x>
-      <y>310</y>
-      <width>91</width>
+      <y>316</y>
+      <width>141</width>
       <height>16</height>
      </rect>
     </property>
@@ -1510,14 +1510,14 @@ QComboBox:hover{
      </font>
     </property>
     <property name="text">
-     <string>Инвертор</string>
+     <string/>
     </property>
    </widget>
    <widget class="QComboBox" name="listInvertor_file">
     <property name="geometry">
      <rect>
-      <x>459</x>
-      <y>304</y>
+      <x>458</x>
+      <y>153</y>
       <width>329</width>
       <height>31</height>
      </rect>
@@ -1525,7 +1525,7 @@ QComboBox:hover{
     <property name="font">
      <font>
       <family>Arial</family>
-      <pointsize>8</pointsize>
+      <pointsize>9</pointsize>
       <weight>75</weight>
       <bold>true</bold>
      </font>
@@ -1568,9 +1568,9 @@ QComboBox:hover{
    <widget class="QLineEdit" name="inputCodeProject">
     <property name="geometry">
      <rect>
-      <x>359</x>
-      <y>191</y>
-      <width>429</width>
+      <x>447</x>
+      <y>310</y>
+      <width>339</width>
       <height>31</height>
      </rect>
     </property>
@@ -1582,7 +1582,7 @@ QComboBox:hover{
      </font>
     </property>
     <property name="toolTip">
-     <string>Количество MPPT в инверторе</string>
+     <string>Код проекта</string>
     </property>
     <property name="styleSheet">
      <string notr="true">QLineEdit{
@@ -1625,14 +1625,14 @@ QLineEdit:pressed{
      </font>
     </property>
     <property name="text">
-     <string>Код проекта</string>
+     <string>ФЭМ</string>
     </property>
    </widget>
    <widget class="QPushButton" name="btnSlideMenu">
     <property name="geometry">
      <rect>
       <x>212</x>
-      <y>339</y>
+      <y>346</y>
       <width>41</width>
       <height>31</height>
      </rect>
@@ -1976,7 +1976,7 @@ QPushButton:hover{
     <property name="geometry">
      <rect>
       <x>30</x>
-      <y>300</y>
+      <y>305</y>
       <width>161</width>
       <height>31</height>
      </rect>
@@ -2014,19 +2014,761 @@ QPushButton:hover{
      <string>Открыть</string>
     </property>
    </widget>
+   <widget class="QComboBox" name="listPV_file">
+    <property name="geometry">
+     <rect>
+      <x>458</x>
+      <y>191</y>
+      <width>329</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Arial</family>
+      <pointsize>9</pointsize>
+      <weight>75</weight>
+      <bold>true</bold>
+     </font>
+    </property>
+    <property name="cursor">
+     <cursorShape>PointingHandCursor</cursorShape>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QComboBox{
+	background-color:rgba(229,229,234,1); 
+	border: none;
+	border-radius: 6;
+	padding-left: 8px;
+}
+
+QComboBox:drop-down 
+{
+    width: 0px;
+    height: 0px;
+    border: 0px;
+}
+QComboBox:hover{
+	background-color:rgba(242,242,247,1);
+}
+</string>
+    </property>
+    <property name="inputMethodHints">
+     <set>Qt::ImhNone</set>
+    </property>
+    <property name="editable">
+     <bool>false</bool>
+    </property>
+    <property name="currentText">
+     <string/>
+    </property>
+    <property name="placeholderText">
+     <string/>
+    </property>
+   </widget>
+   <widget class="QComboBox" name="listPV_folder">
+    <property name="geometry">
+     <rect>
+      <x>358</x>
+      <y>191</y>
+      <width>91</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Arial</family>
+      <weight>75</weight>
+      <bold>true</bold>
+     </font>
+    </property>
+    <property name="cursor">
+     <cursorShape>PointingHandCursor</cursorShape>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QComboBox{
+	background-color:rgba(229,229,234,1); 
+	border: none;
+	border-radius: 6;
+	padding-left: 8px;
+}
+
+QComboBox:drop-down 
+{
+    width: 0px;
+    height: 0px;
+    border: 0px;
+}
+QComboBox:hover{
+	background-color:rgba(242,242,247,1);
+}
+</string>
+    </property>
+    <property name="inputMethodHints">
+     <set>Qt::ImhNone</set>
+    </property>
+    <property name="editable">
+     <bool>false</bool>
+    </property>
+    <property name="currentText">
+     <string/>
+    </property>
+    <property name="placeholderText">
+     <string/>
+    </property>
+   </widget>
+   <widget class="QComboBox" name="listKTP_folder">
+    <property name="geometry">
+     <rect>
+      <x>358</x>
+      <y>230</y>
+      <width>91</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Arial</family>
+      <weight>75</weight>
+      <bold>true</bold>
+     </font>
+    </property>
+    <property name="cursor">
+     <cursorShape>PointingHandCursor</cursorShape>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QComboBox{
+	background-color:rgba(229,229,234,1); 
+	border: none;
+	border-radius: 6;
+	padding-left: 8px;
+}
+
+QComboBox:drop-down 
+{
+    width: 0px;
+    height: 0px;
+    border: 0px;
+}
+QComboBox:hover{
+	background-color:rgba(242,242,247,1);
+}
+</string>
+    </property>
+    <property name="inputMethodHints">
+     <set>Qt::ImhNone</set>
+    </property>
+    <property name="editable">
+     <bool>false</bool>
+    </property>
+    <property name="currentText">
+     <string/>
+    </property>
+    <property name="placeholderText">
+     <string/>
+    </property>
+   </widget>
+   <widget class="QComboBox" name="listKTP_file">
+    <property name="geometry">
+     <rect>
+      <x>458</x>
+      <y>230</y>
+      <width>329</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Arial</family>
+      <pointsize>9</pointsize>
+      <weight>75</weight>
+      <bold>true</bold>
+     </font>
+    </property>
+    <property name="cursor">
+     <cursorShape>PointingHandCursor</cursorShape>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QComboBox{
+	background-color:rgba(229,229,234,1); 
+	border: none;
+	border-radius: 6;
+	padding-left: 8px;
+}
+
+QComboBox:drop-down 
+{
+    width: 0px;
+    height: 0px;
+    border: 0px;
+}
+QComboBox:hover{
+	background-color:rgba(242,242,247,1);
+}
+</string>
+    </property>
+    <property name="inputMethodHints">
+     <set>Qt::ImhNone</set>
+    </property>
+    <property name="editable">
+     <bool>false</bool>
+    </property>
+    <property name="currentText">
+     <string/>
+    </property>
+    <property name="placeholderText">
+     <string/>
+    </property>
+   </widget>
+   <widget class="QLineEdit" name="inputUDotIn">
+    <property name="geometry">
+     <rect>
+      <x>359</x>
+      <y>310</y>
+      <width>80</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Arial</family>
+      <weight>75</weight>
+      <bold>true</bold>
+     </font>
+    </property>
+    <property name="toolTip">
+     <string>Количество MPPT в инверторе</string>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QLineEdit{
+	background-color:rgba(229,229,234,1); 
+	border-radius: 6;
+	border: none;
+	padding-left: 8px
+}
+QLineEdit:hover{
+	background-color:rgba(242,242,247,1);
+}
+QLineEdit:pressed{
+	background-color:rgba(188,188,192,1);
+	border-radius: 12;
+}</string>
+    </property>
+    <property name="inputMask">
+     <string/>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+    <property name="placeholderText">
+     <string/>
+    </property>
+   </widget>
+   <widget class="QLineEdit" name="inputAddress">
+    <property name="geometry">
+     <rect>
+      <x>358</x>
+      <y>270</y>
+      <width>249</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Arial</family>
+      <weight>75</weight>
+      <bold>true</bold>
+     </font>
+    </property>
+    <property name="toolTip">
+     <string>Количество MPPT в инверторе</string>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QLineEdit{
+	background-color:rgba(229,229,234,1); 
+	border-radius: 6;
+	border: none;
+	padding-left: 8px
+}
+QLineEdit:hover{
+	background-color:rgba(242,242,247,1);
+}
+QLineEdit:pressed{
+	background-color:rgba(188,188,192,1);
+	border-radius: 12;
+}</string>
+    </property>
+    <property name="inputMask">
+     <string/>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+    <property name="placeholderText">
+     <string/>
+    </property>
+   </widget>
+   <widget class="QLineEdit" name="inputObjectType">
+    <property name="geometry">
+     <rect>
+      <x>358</x>
+      <y>191</y>
+      <width>429</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Arial</family>
+      <weight>75</weight>
+      <bold>true</bold>
+     </font>
+    </property>
+    <property name="toolTip">
+     <string>Количество MPPT в инверторе</string>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QLineEdit{
+	background-color:rgba(229,229,234,1); 
+	border-radius: 6;
+	border: none;
+	padding-left: 8px
+}
+QLineEdit:hover{
+	background-color:rgba(242,242,247,1);
+}
+QLineEdit:pressed{
+	background-color:rgba(188,188,192,1);
+	border-radius: 12;
+}</string>
+    </property>
+    <property name="inputMask">
+     <string/>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+    <property name="placeholderText">
+     <string/>
+    </property>
+   </widget>
+   <widget class="QLineEdit" name="inputAddressLat">
+    <property name="geometry">
+     <rect>
+      <x>616</x>
+      <y>270</y>
+      <width>81</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Arial</family>
+      <weight>75</weight>
+      <bold>true</bold>
+     </font>
+    </property>
+    <property name="toolTip">
+     <string>Широта</string>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QLineEdit{
+	background-color:rgba(229,229,234,1); 
+	border-radius: 6;
+	border: none;
+	padding-left: 8px
+}
+QLineEdit:hover{
+	background-color:rgba(242,242,247,1);
+}
+QLineEdit:pressed{
+	background-color:rgba(188,188,192,1);
+	border-radius: 12;
+}</string>
+    </property>
+    <property name="inputMask">
+     <string/>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+    <property name="placeholderText">
+     <string/>
+    </property>
+   </widget>
+   <widget class="QLineEdit" name="inputAddressLong">
+    <property name="geometry">
+     <rect>
+      <x>706</x>
+      <y>270</y>
+      <width>81</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Arial</family>
+      <weight>75</weight>
+      <bold>true</bold>
+     </font>
+    </property>
+    <property name="toolTip">
+     <string>Долгота</string>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QLineEdit{
+	background-color:rgba(229,229,234,1); 
+	border-radius: 6;
+	border: none;
+	padding-left: 8px
+}
+QLineEdit:hover{
+	background-color:rgba(242,242,247,1);
+}
+QLineEdit:pressed{
+	background-color:rgba(188,188,192,1);
+	border-radius: 12;
+}</string>
+    </property>
+    <property name="inputMask">
+     <string/>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+    <property name="placeholderText">
+     <string/>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="btnAddInvertor">
+    <property name="geometry">
+     <rect>
+      <x>781</x>
+      <y>153</y>
+      <width>31</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Arial</family>
+      <pointsize>14</pointsize>
+      <weight>75</weight>
+      <bold>true</bold>
+     </font>
+    </property>
+    <property name="cursor">
+     <cursorShape>PointingHandCursor</cursorShape>
+    </property>
+    <property name="toolTip">
+     <string>Добавить MPPT</string>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QPushButton{
+	background-color:rgba(112, 215, 255, 0);
+	color:rgba(0, 0, 0, 0.5);
+	border: none;
+	border-radius: 5;
+	border-style: outset;
+}
+QPushButton:hover{
+	color: black;
+}
+</string>
+    </property>
+    <property name="text">
+     <string>+</string>
+    </property>
+   </widget>
+   <widget class="QSpinBox" name="spinBox_numInvertor">
+    <property name="geometry">
+     <rect>
+      <x>746</x>
+      <y>153</y>
+      <width>41</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Arial</family>
+      <weight>75</weight>
+      <bold>true</bold>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QSpinBox{
+	background-color:rgba(229,229,234,1); 
+	border-radius: 6;
+	border: none;
+	padding-left: 8px
+}
+QSpinBox:hover{
+	background-color:rgba(242,242,247,1);
+}
+QSpinBox:up-button:hover{
+	background-color:rgba(25,109,255, 0.7);
+	border-top-right-radius: 6;
+}
+QSpinBox:up-button:pressed{
+	background-color:rgba(25,109,255, 0.5);
+	border-top-right-radius: 6;
+}
+QSpinBox:up-button{
+	background-color:rgba(229,229,234,1); 
+	border-top-right-radius: 6;
+	border: none;
+	border-left: 1px solid rgba(0,0,0,0.3);
+}
+
+QSpinBox:down-button:hover{
+	background-color:rgba(25,109,255, 0.7);
+	border-bottom-right-radius: 6;
+}
+QSpinBox:down-button:pressed{
+	background-color:rgba(25,109,255, 0.5);
+	border-bottom-right-radius: 6;
+}
+QSpinBox:down-button{
+	background-color:rgba(229,229,234,1); 
+	border-bottom-right-radius: 6;
+	border-left: 1px solid rgba(0,0,0,0.3);
+
+}</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="btnAddPV">
+    <property name="geometry">
+     <rect>
+      <x>781</x>
+      <y>190</y>
+      <width>31</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Arial</family>
+      <pointsize>14</pointsize>
+      <weight>75</weight>
+      <bold>true</bold>
+     </font>
+    </property>
+    <property name="cursor">
+     <cursorShape>PointingHandCursor</cursorShape>
+    </property>
+    <property name="toolTip">
+     <string>Добавить MPPT</string>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QPushButton{
+	background-color:rgba(112, 215, 255, 0);
+	color:rgba(0, 0, 0, 0.5);
+	border: none;
+	border-radius: 5;
+	border-style: outset;
+}
+QPushButton:hover{
+	color: black;
+}
+</string>
+    </property>
+    <property name="text">
+     <string>+</string>
+    </property>
+   </widget>
+   <widget class="QSpinBox" name="spinBox_numPV">
+    <property name="geometry">
+     <rect>
+      <x>746</x>
+      <y>190</y>
+      <width>41</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Arial</family>
+      <weight>75</weight>
+      <bold>true</bold>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QSpinBox{
+	background-color:rgba(229,229,234,1); 
+	border-radius: 6;
+	border: none;
+	padding-left: 8px
+}
+QSpinBox:hover{
+	background-color:rgba(242,242,247,1);
+}
+QSpinBox:up-button:hover{
+	background-color:rgba(25,109,255, 0.7);
+	border-top-right-radius: 6;
+}
+QSpinBox:up-button:pressed{
+	background-color:rgba(25,109,255, 0.5);
+	border-top-right-radius: 6;
+}
+QSpinBox:up-button{
+	background-color:rgba(229,229,234,1); 
+	border-top-right-radius: 6;
+	border: none;
+	border-left: 1px solid rgba(0,0,0,0.3);
+}
+
+QSpinBox:down-button:hover{
+	background-color:rgba(25,109,255, 0.7);
+	border-bottom-right-radius: 6;
+}
+QSpinBox:down-button:pressed{
+	background-color:rgba(25,109,255, 0.5);
+	border-bottom-right-radius: 6;
+}
+QSpinBox:down-button{
+	background-color:rgba(229,229,234,1); 
+	border-bottom-right-radius: 6;
+	border-left: 1px solid rgba(0,0,0,0.3);
+
+}</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="btnAddKTP">
+    <property name="geometry">
+     <rect>
+      <x>782</x>
+      <y>230</y>
+      <width>31</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Arial</family>
+      <pointsize>14</pointsize>
+      <weight>75</weight>
+      <bold>true</bold>
+     </font>
+    </property>
+    <property name="cursor">
+     <cursorShape>PointingHandCursor</cursorShape>
+    </property>
+    <property name="toolTip">
+     <string>Добавить MPPT</string>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QPushButton{
+	background-color:rgba(112, 215, 255, 0);
+	color:rgba(0, 0, 0, 0.5);
+	border: none;
+	border-radius: 5;
+	border-style: outset;
+}
+QPushButton:hover{
+	color: black;
+}
+</string>
+    </property>
+    <property name="text">
+     <string>+</string>
+    </property>
+   </widget>
+   <widget class="QSpinBox" name="spinBox_numKTP">
+    <property name="geometry">
+     <rect>
+      <x>747</x>
+      <y>230</y>
+      <width>41</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Arial</family>
+      <weight>75</weight>
+      <bold>true</bold>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QSpinBox{
+	background-color:rgba(229,229,234,1); 
+	border-radius: 6;
+	border: none;
+	padding-left: 8px
+}
+QSpinBox:hover{
+	background-color:rgba(242,242,247,1);
+}
+QSpinBox:up-button:hover{
+	background-color:rgba(25,109,255, 0.7);
+	border-top-right-radius: 6;
+}
+QSpinBox:up-button:pressed{
+	background-color:rgba(25,109,255, 0.5);
+	border-top-right-radius: 6;
+}
+QSpinBox:up-button{
+	background-color:rgba(229,229,234,1); 
+	border-top-right-radius: 6;
+	border: none;
+	border-left: 1px solid rgba(0,0,0,0.3);
+}
+
+QSpinBox:down-button:hover{
+	background-color:rgba(25,109,255, 0.7);
+	border-bottom-right-radius: 6;
+}
+QSpinBox:down-button:pressed{
+	background-color:rgba(25,109,255, 0.5);
+	border-bottom-right-radius: 6;
+}
+QSpinBox:down-button{
+	background-color:rgba(229,229,234,1); 
+	border-bottom-right-radius: 6;
+	border-left: 1px solid rgba(0,0,0,0.3);
+
+}</string>
+    </property>
+   </widget>
+   <zorder>inputObjectType</zorder>
    <zorder>inputTitleProject</zorder>
+   <zorder>listInvertor_folder</zorder>
+   <zorder>listInvertor_file</zorder>
+   <zorder>label_slide_title</zorder>
    <zorder>checkBox_7</zorder>
-   <zorder>checkBox_8</zorder>
-   <zorder>checkBox_2</zorder>
+   <zorder>checkBox_5_1_1</zorder>
+   <zorder>btnShow3</zorder>
+   <zorder>checkBox_3_2</zorder>
    <zorder>checkBox_4</zorder>
-   <zorder>checkBox_5</zorder>
+   <zorder>btnShow8</zorder>
+   <zorder>checkBox_8_5</zorder>
+   <zorder>checkBox_5_1</zorder>
+   <zorder>checkBox_5_6</zorder>
    <zorder>checkBox_6</zorder>
-   <zorder>checkBox_3</zorder>
+   <zorder>checkBox_5</zorder>
+   <zorder>checkBox_5_1_2</zorder>
+   <zorder>btnShow5</zorder>
+   <zorder>checkBox_3_1</zorder>
+   <zorder>checkBox_3_3</zorder>
+   <zorder>checkBox_2</zorder>
+   <zorder>checkBox_5_3</zorder>
+   <zorder>checkBox_5_2</zorder>
+   <zorder>checkBox_5_1_4</zorder>
+   <zorder>checkBox_5_5</zorder>
    <zorder>checkBox_1</zorder>
+   <zorder>checkBox_3_4</zorder>
+   <zorder>checkBox_8_3</zorder>
+   <zorder>checkBox_3</zorder>
+   <zorder>checkBox_5_4</zorder>
+   <zorder>checkBox_8</zorder>
+   <zorder>checkBox_8_4</zorder>
+   <zorder>checkBox_8_1</zorder>
+   <zorder>checkBox_8_2</zorder>
+   <zorder>checkBox_5_1_3</zorder>
+   <zorder>checkBox_8_6</zorder>
    <zorder>label_3</zorder>
    <zorder>inputCodeProject</zorder>
-   <zorder>listInvertor_file</zorder>
-   <zorder>listInvertor_folder</zorder>
    <zorder>label_6</zorder>
    <zorder>label_for_slide</zorder>
    <zorder>btnDrawScheme</zorder>
@@ -2044,36 +2786,26 @@ QPushButton:hover{
    <zorder>label_5</zorder>
    <zorder>btnDevice</zorder>
    <zorder>btnRP5</zorder>
-   <zorder>checkBox_3_1</zorder>
-   <zorder>checkBox_8_5</zorder>
-   <zorder>checkBox_8_6</zorder>
-   <zorder>checkBox_5_3</zorder>
-   <zorder>checkBox_5_4</zorder>
-   <zorder>checkBox_5_5</zorder>
-   <zorder>checkBox_3_3</zorder>
-   <zorder>checkBox_5_6</zorder>
-   <zorder>checkBox_5_1_4</zorder>
-   <zorder>checkBox_5_2</zorder>
-   <zorder>checkBox_3_4</zorder>
-   <zorder>checkBox_3_2</zorder>
    <zorder>btnDrawSchemeTwo</zorder>
    <zorder>btnSchemes</zorder>
-   <zorder>checkBox_5_1_2</zorder>
-   <zorder>checkBox_5_1</zorder>
-   <zorder>checkBox_8_3</zorder>
-   <zorder>checkBox_8_1</zorder>
    <zorder>btnLoadScheme2</zorder>
-   <zorder>checkBox_8_2</zorder>
    <zorder>btnLoadScheme1</zorder>
-   <zorder>checkBox_5_1_1</zorder>
-   <zorder>checkBox_8_4</zorder>
-   <zorder>checkBox_5_1_3</zorder>
    <zorder>btnSlideMenu</zorder>
-   <zorder>btnShow3</zorder>
-   <zorder>btnShow5</zorder>
-   <zorder>btnShow8</zorder>
-   <zorder>label_slide_title</zorder>
    <zorder>btnOpenPDF</zorder>
+   <zorder>listPV_file</zorder>
+   <zorder>listPV_folder</zorder>
+   <zorder>listKTP_folder</zorder>
+   <zorder>listKTP_file</zorder>
+   <zorder>inputUDotIn</zorder>
+   <zorder>inputAddress</zorder>
+   <zorder>inputAddressLat</zorder>
+   <zorder>inputAddressLong</zorder>
+   <zorder>btnAddInvertor</zorder>
+   <zorder>spinBox_numInvertor</zorder>
+   <zorder>btnAddPV</zorder>
+   <zorder>spinBox_numPV</zorder>
+   <zorder>btnAddKTP</zorder>
+   <zorder>spinBox_numKTP</zorder>
   </widget>
   <widget class="QStatusBar" name="statusBar"/>
  </widget>
