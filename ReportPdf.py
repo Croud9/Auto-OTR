@@ -175,9 +175,9 @@ class MainApp(QtWidgets.QMainWindow, designRepPDF.Ui_MainWindow):
         self.pathes_detail_schemes = " "
         self.path_general_schemes = " "
         self.browser_status = None
-        self.module, self.mppt = "Н/Д"
-        self.in_height, self.in_width, self.in_depth = "Н/Д"
-        self.weight, self.v_mpp_min, self.v_mpp_max = "Н/Д"
+        # self.module, self.mppt = "Н/Д"
+        # self.in_height, self.in_width, self.in_depth = "Н/Д"
+        # self.weight, self.v_mpp_min, self.v_mpp_max = "Н/Д"
         
         self.inputTitleProject.setText("ШЛЮМБЕРЖЕ. ЛИПЕЦК. СЭС 363,4 КВТ")
         self.inputCodeProject.setText("2215ШЛБ-СЭС-ОТР")
