@@ -8,10 +8,12 @@ from reportlab.pdfbase import pdfmetrics
 from reportlab.pdfbase.ttfonts import TTFont
 from reportlab.pdfbase.pdfmetrics import registerFontFamily
 from reportlab.lib.units import inch, mm
+from reportlab.lib.utils import ImageReader
 from reportlab.pdfgen import canvas
 import re, fitz, glob
-from reportlab.lib.utils import ImageReader
 import io, os
+from svglib.svglib import svg2rlg
+from reportlab.graphics import renderPDF
 
 class NumberedCanvas(canvas.Canvas):
     def __init__(self, *args, **kwargs):
@@ -32,7 +34,7 @@ class NumberedCanvas(canvas.Canvas):
         canvas.Canvas.save(self)
 
     def draw_page_number(self, page_count):
-        self.setFont("Helvetica", 8)
+        self.setFont('Arial', 8)
         if self._pageNumber == 2:
             self.drawRightString(197*mm,23*mm, "%d" % (page_count))
 
@@ -61,17 +63,17 @@ class MyDocTemplate(BaseDocTemplate):
 
 class docPDF():
     def __init__(self):
-        pdfmetrics.registerFont(TTFont('Helvetica', 'Data/Font/Helvetica-Regular.ttf', 'UTF-8'))
-        pdfmetrics.registerFont(TTFont('Helvetica-Bold', 'Data/Font/Helvetica-Bold.ttf', 'UTF-8'))
-        pdfmetrics.registerFont(TTFont('Helvetica-Italic', 'Data/Font/Helvetica-Italic.ttf', 'UTF-8'))
-        registerFontFamily('Helvetica', normal='Helvetica', bold='Helvetica-Bold', italic='Helvetica-Italic')
+        pdfmetrics.registerFont(TTFont('Arial', 'Data/Font/arial.ttf', 'UTF-8'))
+        pdfmetrics.registerFont(TTFont('Arial-Bold', 'Data/Font/arialbd.ttf', 'UTF-8'))
+        pdfmetrics.registerFont(TTFont('Arial-Italic', 'Data/Font/ariali.ttf', 'UTF-8'))
+        registerFontFamily('Arial', normal='Arial', bold='Arial-Bold', italic='Arial-Italic')
 
-        self.styleCenter = ParagraphStyle('Center', alignment=TA_CENTER, fontName='Helvetica', fontSize = 14, leading = 22)
-        self.styleNormal = ParagraphStyle(name='Normal', fontName='Helvetica', alignment=TA_JUSTIFY, fontSize = 14, firstLineIndent = 24, wordWrap=True, bulletIndent = 24, leading = 22)
-        self.styleNormalTable = ParagraphStyle(name='NormalTable', fontName='Helvetica', fontSize = 12)
-        self.styleH1 = ParagraphStyle(name='Heading1', fontName='Helvetica', fontSize = 16, firstLineIndent = 20)
-        self.styleH2 = ParagraphStyle(name='Heading2', fontName='Helvetica', alignment=TA_JUSTIFY, fontSize = 14, firstLineIndent = 24, wordWrap=True, bulletIndent = 24, leading = 22)
-        self.styleH3 = ParagraphStyle(name='Heading3', fontName='Helvetica', fontSize = 14, firstLineIndent = 20)
+        self.styleCenter = ParagraphStyle('Center', alignment=TA_CENTER, fontName='Arial', fontSize = 14, leading = 22)
+        self.styleNormal = ParagraphStyle(name='Normal', fontName='Arial', alignment=TA_JUSTIFY, fontSize = 14, firstLineIndent = 24, wordWrap=True, bulletIndent = 24, leading = 22)
+        self.styleNormalTable = ParagraphStyle(name='NormalTable', fontName='Arial', fontSize = 12)
+        self.styleH1 = ParagraphStyle(name='Heading1', fontName='Arial', fontSize = 16, firstLineIndent = 20)
+        self.styleH2 = ParagraphStyle(name='Heading2', fontName='Arial', alignment=TA_JUSTIFY, fontSize = 14, firstLineIndent = 24, wordWrap=True, bulletIndent = 24, leading = 22)
+        self.styleH3 = ParagraphStyle(name='Heading3', fontName='Arial', fontSize = 14, firstLineIndent = 20)
 
         self.doc = MyDocTemplate('Data/Report/Report.pdf', pagesize=A4,
                                 rightMargin=28,leftMargin=70,
@@ -90,13 +92,13 @@ class docPDF():
         canvas.saveState()
         width, height = A4
         canvas.drawInlineImage("Data/small_frame.png", x=0, y=0, width=width, height=height)
-        canvas.setFont('Helvetica', 14)
+        canvas.setFont('Arial', 14)
         canvas.drawString(100*mm,13*mm,f"{self.data['code_project']}")
-        canvas.setFont('Helvetica', 10)
+        canvas.setFont('Arial', 10)
         width_position = 196.5 if doc.page < 10 else 195.5
         height_position = 11
         canvas.drawString(width_position*mm, height_position*mm, " %d " % doc.page)
-        canvas.setFont('Helvetica', 8)
+        canvas.setFont('Arial', 8)
         canvas.drawString(21.5*mm,8.5*mm,"Изм.")
         canvas.drawString(29.7*mm,8.5*mm,"Кол. уч.")
         canvas.drawString(41.5*mm,8.5*mm,"Лист")
@@ -110,9 +112,9 @@ class docPDF():
         canvas.saveState()
         width, height = A4
         canvas.drawInlineImage("Data/large_frame.png", x=0, y=0, width=width, height=height)
-        canvas.setFont('Helvetica', 12, leading = None)
+        canvas.setFont('Arial', 12, leading = None)
         canvas.drawString(100*mm,38*mm,f"{self.data['code_project']}")
-        canvas.setFont('Helvetica', 8)
+        canvas.setFont('Arial', 8)
         canvas.drawString(21*mm,33*mm,"Изм.")
         canvas.drawString(30*mm,33*mm,"Кол. уч.")
         canvas.drawString(42*mm,33*mm,"Лист")
@@ -153,6 +155,9 @@ class docPDF():
             
             balances_and_main_result = text.split('ratio')[-1].split('Legends')[0].strip("\n").split('\n')
         return balances_and_main_result, int_main_result
+
+    def convert_to_pdf(self, file_svg, file_pdf):
+        renderPDF.drawToFile(svg2rlg(file_svg), file_pdf, self.styleNormal)
 
     #титул  
     def title(self, data):

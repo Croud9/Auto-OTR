@@ -5,6 +5,7 @@ from svglib.svglib import svg2rlg
 from reportlab.graphics import renderPDF
 from fontTools.ttLib import TTFont
 import gost_frame
+import encode_file
 
 def closer(slr):
     slr += elm.Line().left().length(0.125)
@@ -258,12 +259,12 @@ def top_counter(slr, three_phase, counter, names):
     slr += elm.Switch().at(bottom_yellow_line.end).length(1)
     slr += (top_yellow_line := elm.Line().up().length(1).color('yellow'))
 
-    slr += (antenna := elm.Antenna().flip().at(bottom_blue_line.end, dy=1, dx=-0.5).color("lightgray"))
+    slr += (antenna := elm.Antenna().flip().at(bottom_blue_line.end, dy=1, dx=-0.5).color("gray"))
     slr += (antenna_end := elm.Line().up().at(antenna.end, dy=-0.65).length(0.05))
     slr += elm.Line().endpoints(antenna_end.end, bottom_blue_line.end).color('blue')
     slr += elm.Line().endpoints(antenna_end.end, top_yellow_line.end).color('yellow')
     slr += elm.Line().endpoints(antenna_end.end, bottom_black_line.end).color('black').linestyle('--')
-    slr += (last_line := elm.Line().up().at(antenna.end).length(5).color("lightgray"))
+    slr += (last_line := elm.Line().up().at(antenna.end).length(5).color("gray"))
     slr += elm.Label().at(last_line.center).label(names[0], ofst=(0,2), rotate = 90)
     slr += elm.Label().at(last_line.center).label(names[1], ofst=(0,1.4), rotate = 90)
     slr += elm.Label().at(last_line.center).label(names[2], ofst=(0,0.6), rotate = 90)
@@ -396,7 +397,7 @@ def top_counter(slr, three_phase, counter, names):
 def draw(all_params, gost_frame_params):
     print('paraaaaaams',gost_frame_params)
     schemdraw.config(fontsize = 10)
-    with schemdraw.Drawing(file=f'Data/Schemes/connect_system.svg', show = False, scale = 0.5, lw = 0.7, font = 'sans-serif') as slr:
+    with schemdraw.Drawing(file=f'Data/Schemes/connect_system.svg', show = False, scale = 0.5, lw = 0.7) as slr:
         module_offset = 5 # начало чертежа модулей
         count_all_modules = all_params[0][3] + all_params[1][4]
         yzip = all_params[3][0]# УЗИП
@@ -511,3 +512,6 @@ def draw(all_params, gost_frame_params):
         data = {'width': width, 'height': height, 'title_prjct': gost_frame_params['title_project'],
                 'code_prjct': gost_frame_params['code_project'], 'type_scheme': 'Cхема электрическая \n принципиальная'}
         gost_frame.all_frame(slr, **data)
+    srcfile = 'Data/Schemes/connect_system.svg'
+    trgfile = 'Data/Schemes/connect_system_codec.svg'
+    encode_file.to_utf8(srcfile, trgfile)

@@ -13,6 +13,7 @@ import parsingSelenium
 import draw_schemes
 import draw_schemes2
 import pdf_builder
+import encode_file
 import glob, fitz, re, requests, sys, os # загрузка модулей
 from svglib.svglib import svg2rlg
 from reportlab.graphics import renderPDF
@@ -31,6 +32,7 @@ from PyQt5.QtGui import *
 from PyQt5.QtCore import *
 import subprocess
 import shutil
+
 
 path_to_pdf_pvsyst = "Data/PDF in/PVsyst"
 path_to_pdf_schemes = "Data/PDF in/Shemes"
@@ -82,10 +84,18 @@ class СonvertFiles(QThread):
 
     def run(self):
         if self.flag == 'general':
-            renderPDF.drawToFile(svg2rlg(self.paths[0]), path_to_pdf_schemes +"/General/generalScheme.pdf")
+            # srcfile = 'Data/Schemes/connect_system.svg'
+            # trgfile = 'Data/Schemes/connect_system_codec.svg'
+            # encode_file.to_utf8(srcfile, trgfile)
+            rew = pdf_builder.docPDF()
+            rew.convert_to_pdf(self.paths[0], path_to_pdf_schemes +"/General/generalScheme.pdf")
+            # renderPDF.drawToFile(svg2rlg(self.paths[0]), path_to_pdf_schemes +"/General/generalScheme.pdf")
         elif self.flag == 'detailed':
             for i in range(len(self.paths)):
                 renderPDF.drawToFile(svg2rlg(self.paths[i]), path_to_pdf_schemes + f"/Detailed/detailed{i}.pdf")
+                # srcfile = path_to_pdf_schemes + f"/Detailed/detailed{i}.pdf"
+                # trgfile = path_to_pdf_schemes + f"/Detailed/detailed{i}-codec.pdf"
+                # encode_file.to_utf8(srcfile, trgfile)
         elif self.flag == 'pvsyst':
             # To get better resolution
             zoom_x = 2.0  # horizontal zoom
@@ -771,7 +781,7 @@ class MainApp(QtWidgets.QMainWindow, designRepPDF.Ui_MainWindow):
             if current_invertor in select_invertor: 
                 self.search_invertor_data(self.select_title_invertor, select_invertor)
                 
-    def delete_schemes(self, method):
+    def delete_pdf(self, method):
         fp_general = path_to_pdf_schemes + "/General"
         fp_detailed = path_to_pdf_schemes + "/Detailed"
         patch_imgs_pvsyst = "Data/Images/PVsyst"
@@ -792,7 +802,7 @@ class MainApp(QtWidgets.QMainWindow, designRepPDF.Ui_MainWindow):
         self.path_pvsyst = QtWidgets.QFileDialog.getOpenFileName(self, 'Выберите файл', path_to_pdf_pvsyst, "*.pdf")[0] #открытие диалога для выбора файла
         print(self.path_pvsyst)
         if len(self.path_pvsyst) != 0:
-            self.delete_schemes('pvsyst')
+            self.delete_pdf('pvsyst')
             self.textConsole.append("- Загружен отчет PVsyst")
             self.btnOne.setEnabled(False)
             self.converter_pvsyst = СonvertFiles(self.path_pvsyst, 'pvsyst')
@@ -803,7 +813,7 @@ class MainApp(QtWidgets.QMainWindow, designRepPDF.Ui_MainWindow):
         self.pathes_detail_schemes = QtWidgets.QFileDialog.getOpenFileNames(self, 'Выберите файл', path_to_schemes, "*.svg")[0] #открытие диалога для выбора файла
         print(self.pathes_detail_schemes)
         if len(self.pathes_detail_schemes) != 0:
-            self.delete_schemes('detailed')
+            self.delete_pdf('detailed')
             self.textConsole.append("- Загружена принципиальная эл.схема")
             self.btnLoadScheme1.setEnabled(False)
             self.converter1 = СonvertFiles(self.pathes_detail_schemes, 'detailed')
@@ -814,7 +824,7 @@ class MainApp(QtWidgets.QMainWindow, designRepPDF.Ui_MainWindow):
         self.path_general_schemes = [QtWidgets.QFileDialog.getOpenFileName(self, 'Выберите файл', path_to_schemes, "*.svg")[0]] #открытие диалога для выбора файла
         print( self.path_general_schemes)
         if len(self.path_general_schemes[0]) != 0:
-            self.delete_schemes('general')
+            self.delete_pdf('general')
             self.textConsole.append("- Загружена структурная эл.схема ")
             self.btnLoadScheme2.setEnabled(False)
             self.converter2 = СonvertFiles(self.path_general_schemes, 'general')
@@ -1386,18 +1396,6 @@ class WindowDrawTwo(QtWidgets.QMainWindow, designDrawSchemesTwo.Ui_WindowDrawSch
         self.statusBar.showMessage('', 100)
         # self.statusBar.setStyleSheet("background-color:rgb(48, 219, 91)")
 
-    def to_utf8(self, srcfile, trgfile):
-        try:
-            with open(srcfile, 'r') as f, open(trgfile, 'w', encoding="utf-8") as e:
-                text = f.read() # for small files, for big use chunks
-                e.write(text)
-            os.remove(srcfile) # remove old encoding file
-            os.rename(trgfile, srcfile) # rename new encoding
-        except UnicodeDecodeError:
-            print('Decode Error')
-        except UnicodeEncodeError:
-            print('Encode Error')
-
     def draw(self):
         num_error = self.check_imput_params()
         if num_error != 0:
@@ -1492,11 +1490,6 @@ class WindowDrawTwo(QtWidgets.QMainWindow, designDrawSchemesTwo.Ui_WindowDrawSch
 
         self.painter.finished.connect(self.drawFinished)
         self.painter.start()
-
-
-        srcfile = 'Data/Schemes/connect_system.svg'
-        trgfile = 'Data/Schemes/connect_system_codec.svg'
-        # self.to_utf8(srcfile, trgfile)
         
     def drawFinished(self):
         self.all_params.clear()
@@ -1742,18 +1735,6 @@ class WindowDraw(QtWidgets.QMainWindow, designDrawSchemes.Ui_WindowDrawSchemes):
         self.textConsoleDraw.append(f"-Максимальное кол-во входов c Y: {max_input_y}")
         # print(self.input_params)
 
-    def to_utf8(self, srcfile, trgfile):
-        try:
-            with open(srcfile, 'r') as f, open(trgfile, 'w', encoding="utf-8") as e:
-                text = f.read() # for small files, for big use chunks
-                e.write(text)
-            os.remove(srcfile) # remove old encoding file
-            os.rename(trgfile, srcfile) # rename new encoding
-        except UnicodeDecodeError:
-            print('Decode Error')
-        except UnicodeEncodeError:
-            print('Encode Error')
-
     def draw(self):
         num_error = self.check_imput_params()
         if num_error != 0:
@@ -1809,15 +1790,11 @@ class WindowDraw(QtWidgets.QMainWindow, designDrawSchemes.Ui_WindowDrawSchemes):
             self.painter_draw_one.start()
 
     def drawFinished(self):
-        
         if self.painter_draw_one.num_error[0] == 0:
             self.textConsoleDraw.append("----------------------------")
             self.textConsoleDraw.append("РЕЗУЛЬТАТЫ:")
             self.textConsoleDraw.append(f" Всего цепочек: {self.painter_draw_one.num_error[1]}")
             self.textConsoleDraw.append(f" Всего модулей: {self.painter_draw_one.num_error[2]}")
-            # srcfile = f'Data/Schemes/invertor{i}.svg'
-            # trgfile = f'Data/Schemes/invertor{i}_codec.svg'
-            # self.to_utf8(srcfile, trgfile)
             self.statusBar.showMessage('Чертеж успешно построен', 4000)
             self.statusBar.setStyleSheet("background-color:rgb(48, 219, 91)")
             QTimer.singleShot(4000, lambda: self.statusBar.setStyleSheet("background-color:rgb(255, 255, 255)"))

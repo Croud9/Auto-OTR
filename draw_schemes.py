@@ -1,6 +1,7 @@
 import schemdraw
 import schemdraw.elements as elm
 import gost_frame
+import encode_file
 from svglib.svglib import svg2rlg
 from reportlab.graphics import renderPDF
 from fontTools.ttLib import TTFont
@@ -729,4 +730,7 @@ def draw(input_parametrs, parametrs, i, gost_frame_params):
         print("Чертеж построен")
         print("Всего цепочек:", two_num)
 
-        return 0, two_num, fem_plus_chain[1][2]
+    srcfile = f'Data/Schemes/invertor{i}.svg'
+    trgfile = f'Data/Schemes/invertor{i}_codec.svg'
+    encode_file.to_utf8(srcfile, trgfile)
+    return 0, two_num, fem_plus_chain[1][2]
