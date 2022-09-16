@@ -13,6 +13,7 @@ import parsingSelenium
 import draw_schemes
 import draw_schemes2
 import pdf_builder
+import search_data
 import encode_file
 import glob, fitz, re, requests, sys, os # загрузка модулей
 from svglib.svglib import svg2rlg
@@ -66,10 +67,9 @@ class DrawTwo(QThread):
         draw_schemes2.draw(self.params, self.gost_frame_params)
         
 class BuildDoc(QThread):
-    def __init__(self, params_1, params_2, params_3):
+    def __init__(self, params):
         super().__init__()
-        self.params = {**params_1, **params_2, **params_3}
-        print('potok: ',self.params)
+        self.params = params
 
     def run(self):
         pdf_doc = pdf_builder.docPDF()
@@ -84,20 +84,15 @@ class СonvertFiles(QThread):
 
     def run(self):
         if self.flag == 'general':
-            # srcfile = 'Data/Schemes/connect_system.svg'
-            # trgfile = 'Data/Schemes/connect_system_codec.svg'
-            # encode_file.to_utf8(srcfile, trgfile)
             rew = pdf_builder.docPDF()
             rew.convert_to_pdf(self.paths[0], path_to_pdf_schemes +"/General/generalScheme.pdf")
             # renderPDF.drawToFile(svg2rlg(self.paths[0]), path_to_pdf_schemes +"/General/generalScheme.pdf")
         elif self.flag == 'detailed':
             for i in range(len(self.paths)):
                 renderPDF.drawToFile(svg2rlg(self.paths[i]), path_to_pdf_schemes + f"/Detailed/detailed{i}.pdf")
-                # srcfile = path_to_pdf_schemes + f"/Detailed/detailed{i}.pdf"
-                # trgfile = path_to_pdf_schemes + f"/Detailed/detailed{i}-codec.pdf"
-                # encode_file.to_utf8(srcfile, trgfile)
         elif self.flag == 'pvsyst':
             # To get better resolution
+            self.found_pdf = search_data.search_in_pdf(self.paths)
             zoom_x = 2.0  # horizontal zoom
             zoom_y = 2.0  # vertical zoom
             mat = fitz.Matrix(zoom_x, zoom_y)  # zoom factor 2 in each dimension         
@@ -154,9 +149,6 @@ class MainApp(QtWidgets.QMainWindow, designRepPDF.Ui_MainWindow):
         self.btnSchemes.clicked.connect(self.show_and_hide_schemes_button)
         self.btnOpenPDF.clicked.connect(self.open_result_doc)
         self.btnOne.clicked.connect(self.pvsyst)
-        self.btnTwo.clicked.connect(self.in_two_block)
-        self.btnThree.clicked.connect(self.in_three_block)
-        self.btnFour.clicked.connect(self.in_four_block)
         self.btnForm.clicked.connect(self.create_document)
         self.btnRP5.clicked.connect(self.show_window_parse)
         self.btnDrawScheme.clicked.connect(self.show_window_draw)
@@ -185,9 +177,6 @@ class MainApp(QtWidgets.QMainWindow, designRepPDF.Ui_MainWindow):
         self.pathes_detail_schemes = " "
         self.path_general_schemes = " "
         self.browser_status = None
-        # self.module, self.mppt = "Н/Д"
-        # self.in_height, self.in_width, self.in_depth = "Н/Д"
-        # self.weight, self.v_mpp_min, self.v_mpp_max = "Н/Д"
         
         self.inputTitleProject.setText("ШЛЮМБЕРЖЕ. ЛИПЕЦК. СЭС 363,4 КВТ")
         self.inputCodeProject.setText("2215ШЛБ-СЭС-ОТР")
@@ -243,7 +232,6 @@ class MainApp(QtWidgets.QMainWindow, designRepPDF.Ui_MainWindow):
         self.parser_close.start()    
         
     def closeFinished(self):
-        # Удаление потока после его использования.
         del self.parser_close   
         
     def hide(self):
@@ -706,41 +694,6 @@ class MainApp(QtWidgets.QMainWindow, designRepPDF.Ui_MainWindow):
 
     def roof_select(self):
         self.current_roof = self.listRoof.currentIndex()
- 
-    def search_invertor_data(self, path_folder, path_file):
-        with open(rf"{path_to_invertors}/{path_folder}/{path_file}", 'r') as fp:
-            for l_no, line in enumerate(fp):
-                # search string
-                if 'Model=' in line:
-                    model = line.split('=')[1].replace('\n', '') #Модель 
-                if 'Manufacturer=' in line:
-                    title = line.split('=')[1].replace('\n', '') #Фирма 
-                if 'NbInputs=' in line:
-                    inputs_x_2 = int(line.split('=')[1].replace('\n', '')) #Кол-во входов до деления 
-                if 'NbMPPT=' in line:  
-                    self.mppt = int(line.split('=')[1].replace('\n', '')) #Кол-во мппт 
-                if 'PMaxOUT=' in line:  
-                    self.p_max = float(line.split('=')[1].replace('\n', '')) #Максимальная мощность
-                if 'IMaxAC=' in line:  
-                    self.i_max = float(line.split('=')[1].replace('\n', '')) #Максимальный ток
-                if 'Width=' in line:  
-                    self.in_width = float(line.split('=')[1].replace('\n', '')) * 1000 #ширина
-                if 'Height=' in line:  
-                    self.in_height = float(line.split('=')[1].replace('\n', '')) * 1000 #высота
-                if 'Depth=' in line:  
-                    self.in_depth = float(line.split('=')[1].replace('\n', '')) * 1000 #глубина
-                if 'Weight=' in line:  
-                    self.weight = float(line.split('=')[1].replace('\n', '')) #вес
-                if 'VMppMin=' in line:  
-                    self.v_mpp_min = int(line.split('=')[1].replace('\n', '')) #напряжение минимальное
-                if 'VMPPMax=' in line:  
-                    self.v_mpp_max = int(line.split('=')[1].replace('\n', '')) #напряжение максимальное
-         
-        self.module = " ".join([title, model])
-        self.inputs = inputs_x_2 // self.mppt
-         
-        self.w3.set_invertor_params(self.module, self.mppt, self.inputs) # вставка параметров в окно первой схемы
-        self.w4.set_invertor_params(self.module, self.p_max, self.i_max) # вставка параметров в окно второй схемы
               
     def invertor_select(self):
         self.listInvertor_file.clear()
@@ -779,7 +732,9 @@ class MainApp(QtWidgets.QMainWindow, designRepPDF.Ui_MainWindow):
         current_invertor = self.listInvertor_file.currentText()
         for select_invertor in self.type_modules:
             if current_invertor in select_invertor: 
-                self.search_invertor_data(self.select_title_invertor, select_invertor)
+                self.found_txt = search_data.search_in_txt(f"{path_to_invertors}/{self.select_title_invertor}/{select_invertor}") 
+                self.w3.set_invertor_params(self.found_txt['module'], self.found_txt['mppt'], self.found_txt['inputs']) # вставка параметров в окно первой схемы
+                self.w4.set_invertor_params(self.found_txt['module'], self.found_txt['p_max'], self.found_txt['i_out_max']) # вставка параметров в окно второй схемы
                 
     def delete_pdf(self, method):
         fp_general = path_to_pdf_schemes + "/General"
@@ -840,39 +795,9 @@ class MainApp(QtWidgets.QMainWindow, designRepPDF.Ui_MainWindow):
         del self.converter2
                        
     def convertPvsystFinished(self):
+        self.found_pdf = self.converter_pvsyst.found_pdf 
         self.btnOne.setEnabled(True)
-        # self.images_pvsyst = self.converter_pvsyst.images_pvsyst.copy()
         del self.converter_pvsyst
-        
-    def in_two_block(self):
-        global img
-
-        img_path = QtWidgets.QFileDialog.getOpenFileName(self, 'Выберите файл', path_to_pdf_pvsyst, "*.png *.jpg")[0] #открытие диалога для выбора файла
-
-    def in_three_block(self):
-        fname = QtWidgets.QFileDialog.getOpenFileName(self, 'Выберите файл', path_to_pdf_pvsyst, "*.PAN *.txt")[0] #открытие диалога для выбора файла
-
-        if fname != '':
-            with open(fname, 'r') as file: #поиск в файле нужных нам данных
-                for line in file:
-                    pass
-
-    def in_four_block(self):
-        fname = QtWidgets.QFileDialog.getOpenFileName(self, 'Выберите файл', path_to_pdf_pvsyst, "*.PAN *.txt")[0] #открытие диалога для выбора файла
-
-        if fname != '':
-            with open(fname, 'r') as file: #поиск в файле нужных нам данных
-                for line in file:
-                    pass
-
-    def four_block_content(self, story):
-        if self.checkBox_4.isChecked():
-            self.textConsole.append("Блок №4 исключен из отчета")
-        elif graf == "":
-            self.textConsole.append("Блок №4 не загружен")
-        else:
-            self.textConsole.append("Блок №4 сформирован")
-            return story
 
     def merge_pdf(self):
         pdf_merger = PdfFileMerger()
@@ -895,37 +820,47 @@ class MainApp(QtWidgets.QMainWindow, designRepPDF.Ui_MainWindow):
         os.remove("Data/Report/Report.pdf")      
         
     def out_params(self):
-        self.block_1 = True if self.checkBox_1.isChecked() else False
-        self.block_2 = True if self.checkBox_2.isChecked() else False
-        self.block_3 = True if self.checkBox_3.isChecked() else False
-        self.block_3_1 = True if self.checkBox_3_1.isChecked() else False
-        self.block_3_2 = True if self.checkBox_3_2.isChecked() else False
-        self.block_3_3 = True if self.checkBox_3_3.isChecked() else False
-        self.block_3_4 = True if self.checkBox_3_4.isChecked() else False
-        self.block_4 = True if self.checkBox_4.isChecked() else False
-        self.block_5 = True if self.checkBox_5.isChecked() else False
-        self.block_5_1 = True if self.checkBox_5_1.isChecked() else False
-        self.block_5_1_1 = True if self.checkBox_5_1_1.isChecked() else False
-        self.block_5_1_2 = True if self.checkBox_5_1_2.isChecked() else False
-        self.block_5_1_3 = True if self.checkBox_5_1_3.isChecked() else False
-        self.block_5_1_4 = True if self.checkBox_5_1_4.isChecked() else False
-        self.block_5_2 = True if self.checkBox_5_2.isChecked() else False
-        self.block_5_3 = True if self.checkBox_5_3.isChecked() else False
-        self.block_5_4 = True if self.checkBox_5_4.isChecked() else False
-        self.block_5_5 = True if self.checkBox_5_5.isChecked() else False
-        self.block_5_6 = True if self.checkBox_5_6.isChecked() else False
-        self.block_6 = True if self.checkBox_6.isChecked() else False
-        self.block_7 = True if self.checkBox_7.isChecked() else False
-        self.block_8 = True if self.checkBox_8.isChecked() else False
-        self.block_8_1 = True if self.checkBox_8_1.isChecked() else False
-        self.block_8_2 = True if self.checkBox_8_2.isChecked() else False
-        self.block_8_3 = True if self.checkBox_8_3.isChecked() else False
-        self.block_8_4 = True if self.checkBox_8_4.isChecked() else False
-        self.block_8_5 = True if self.checkBox_8_5.isChecked() else False
-        self.block_8_6 = True if self.checkBox_8_6.isChecked() else False
-        self.title_project = self.inputTitleProject.text()
-        self.code_project = self.inputCodeProject.text()
-        self.client = self.inputClient.text()
+        block_1 = True if self.checkBox_1.isChecked() else False
+        block_2 = True if self.checkBox_2.isChecked() else False
+        block_3 = True if self.checkBox_3.isChecked() else False
+        block_3_1 = True if self.checkBox_3_1.isChecked() else False
+        block_3_2 = True if self.checkBox_3_2.isChecked() else False
+        block_3_3 = True if self.checkBox_3_3.isChecked() else False
+        block_3_4 = True if self.checkBox_3_4.isChecked() else False
+        block_4 = True if self.checkBox_4.isChecked() else False
+        block_5 = True if self.checkBox_5.isChecked() else False
+        block_5_1 = True if self.checkBox_5_1.isChecked() else False
+        block_5_1_1 = True if self.checkBox_5_1_1.isChecked() else False
+        block_5_1_2 = True if self.checkBox_5_1_2.isChecked() else False
+        block_5_1_3 = True if self.checkBox_5_1_3.isChecked() else False
+        block_5_1_4 = True if self.checkBox_5_1_4.isChecked() else False
+        block_5_2 = True if self.checkBox_5_2.isChecked() else False
+        block_5_3 = True if self.checkBox_5_3.isChecked() else False
+        block_5_4 = True if self.checkBox_5_4.isChecked() else False
+        block_5_5 = True if self.checkBox_5_5.isChecked() else False
+        block_5_6 = True if self.checkBox_5_6.isChecked() else False
+        block_6 = True if self.checkBox_6.isChecked() else False
+        block_7 = True if self.checkBox_7.isChecked() else False
+        block_8 = True if self.checkBox_8.isChecked() else False
+        block_8_1 = True if self.checkBox_8_1.isChecked() else False
+        block_8_2 = True if self.checkBox_8_2.isChecked() else False
+        block_8_3 = True if self.checkBox_8_3.isChecked() else False
+        block_8_4 = True if self.checkBox_8_4.isChecked() else False
+        block_8_5 = True if self.checkBox_8_5.isChecked() else False
+        block_8_6 = True if self.checkBox_8_6.isChecked() else False
+        title_project = self.inputTitleProject.text()
+        code_project = self.inputCodeProject.text()
+        client = self.inputClient.text()
+        u_dot_in = self.inputUDotIn.text()
+        self.object_passport = {'title_project': title_project, 'code_project': code_project, 'client': client, 'u_dot_in': u_dot_in}
+        self.blocks = {'block_1': block_1, 'block_2': block_2, 'block_3': block_3, 
+                    'block_3_1': block_3_1, 'block_3_2': block_3_2, 'block_3_3': block_3_3, 'block_3_4': block_3_4, 
+                    'block_4': block_4, 'block_5': block_5, 'block_5_1': block_5_1, 'block_5_1_1': block_5_1_1, 
+                    'block_5_1_2': block_5_1_2, 'block_5_1_3': block_5_1_3, 'block_5_1_4': block_5_1_4, 
+                    'block_5_2': block_5_2, 'block_5_3': block_5_3, 'block_5_4': block_5_4, 'block_5_5': block_5_5, 
+                    'block_5_6': block_5_6, 'block_6': block_6, 'block_7': block_7, 'block_8': block_8,
+                    'block_8_1': block_8_1, 'block_8_2': block_8_2, 'block_8_3': block_8_3, 
+                    'block_8_4': block_8_4, 'block_8_5': block_8_5, 'block_8_6': block_8_6,}
         
     def create_document(self):
         try:
@@ -945,42 +880,30 @@ class MainApp(QtWidgets.QMainWindow, designRepPDF.Ui_MainWindow):
             self.btnOpenPDF.hide()
             QtWidgets.QApplication.processEvents()
             self.out_params()
-            main_params = {'block_1': self.block_1, 'block_2': self.block_2, 'block_3': self.block_3, 
-                        'block_3_1': self.block_3_1, 'block_3_2': self.block_3_2, 'block_3_3': self.block_3_3, 'block_3_4': self.block_3_4, 
-                        'block_4': self.block_4, 'block_5': self.block_5, 
-                        'block_5_1': self.block_5_1, 'block_5_1_1': self.block_5_1_1, 'block_5_1_2': self.block_5_1_2, 
-                        'block_5_1_3': self.block_5_1_3, 'block_5_1_4': self.block_5_1_4, 'block_5_2': self.block_5_2, 
-                        'block_5_3': self.block_5_3, 'block_5_4': self.block_5_4, 'block_5_5': self.block_5_5, 'block_5_6': self.block_5_6,
-                        'block_6': self.block_6, 'block_7': self.block_7, 'block_8': self.block_8,
-                        'block_8_1': self.block_8_1, 'block_8_2': self.block_8_2, 'block_8_3': self.block_8_3, 
-                        'block_8_4': self.block_8_4, 'block_8_5': self.block_8_5, 'block_8_6': self.block_8_6,
-                        'path_to_pvsyst': self.path_pvsyst, 'module': self.module, 'mppt': self.mppt,
-                        'height': self.in_height, 'width': self.in_width, 'depth': self.in_depth, 'weight': self.weight,
-                        'v_mpp_min': self.v_mpp_min, 'v_mpp_max': self.v_mpp_max, 'roof': self.current_roof,
-                        'title_project': self.title_project, 'code_project': self.code_project, 'client': self.client}
-                        # 'images_pvsyst': self.images_pvsyst
-            
-            parse_params = {'num_error': "Н/Д", 'min_temp': "Н/Д", 'date_min_temp': "Н/Д", 'num_weather_station': "Н/Д",
-                'max_temp': "Н/Д", 'date_max_temp': "Н/Д", 'all_range': "Н/Д", 'average_temp': "Н/Д",
-                'number_of_observations': "Н/Д", 'average_pressure': "Н/Д", 'average_humidity': "Н/Д", 'main_wind': "Н/Д", 
-                'average_speed_wind': "Н/Д", 'max_speed_wind': "Н/Д", 'precipitation_on_12_hour': "Н/Д",
-                'average_height_snow': "Н/Д", 'max_height_snow': "Н/Д", 'first_date_snow': "Н/Д", 'last_date_snow': "Н/Д"}
-            
-            weather_station_params = {'view_city': "Н/Д", 'strt_monit': "Н/Д", 'num_weather_station': "Н/Д"}
-            
+            name_weather_station_params = ('view_city', 'strt_monit', 'num_weather_station')
+            name_parse_params = ('num_error', 'min_temp', 'date_min_temp', 'num_weather_station',
+                            'max_temp', 'date_max_temp', 'all_range', 'average_temp', 'number_of_observations', 
+                            'average_pressure', 'average_humidity', 'main_wind', 'average_speed_wind', 
+                            'max_speed_wind', 'precipitation_on_12_hour', 'average_height_snow', 'max_height_snow', 
+                            'first_date_snow', 'last_date_snow')
+            parse_params = dict.fromkeys(name_parse_params, 'Н/Д')
+            weather_station_params = dict.fromkeys(name_weather_station_params, 'Н/Д')
+
+            weather = self.w2.parse_params if hasattr(self.w2, 'parse_params') else parse_params
             weather_station = self.w2.parse_params_current_city if hasattr(self.w2, 'parse_params_current_city') else weather_station_params
             print( weather_station)
             
-            weather = self.w2.parse_params if hasattr(self.w2, 'parse_params') else parse_params
-                       
+            main_params = {'path_to_pvsyst': self.path_pvsyst, 'roof': self.current_roof, 
+                            **self.blocks, **self.object_passport, **self.found_txt, 
+                            **weather, **weather_station, **self.found_pdf}
+            print(main_params)
+            
             self.btnForm.setEnabled(False)
             self.btnForm.setText('Формирование отчета...')
             self.statusBar.showMessage('Пожалуйста, подождите...')
             self.statusBar.setStyleSheet("background-color:rgb(255, 212, 38)")
             # Выполнение загрузки в новом потоке.
-            self.builder = BuildDoc(main_params, weather, weather_station)
-            # Qt вызовет метод `drawFinished()`, когда поток завершится.
-
+            self.builder = BuildDoc(main_params)
             self.builder.finished.connect(self.buildFinished)
             self.builder.start()
         
@@ -1586,28 +1509,24 @@ class WindowDraw(QtWidgets.QMainWindow, designDrawSchemes.Ui_WindowDrawSchemes):
         self.inputAll_chain.setValidator(QRegExpValidator(reg_ex, self.inputAll_chain))
 
     def validate_input(self): #валидация вводимых данных
-        
+        false_value = ['Н/Д', '']
         # creating a opacity effect
         self.opacity_effect = QGraphicsOpacityEffect()
         self.opacity_effect.setOpacity(0.6)
-        
         use_all_mppt = True if self.checkUse_all_mppt.isChecked() else False
-        use_y_connector = True if self.checkUse_y_connector.isChecked() else False
-        if self.inputCount_input_mppt.text() != '':    
-            count_input_mppt = int(self.inputCount_input_mppt.text())
-        if self.inputCount_mppt.text() != '':
-            self.count_mppt =  int(self.inputCount_mppt.text())
-        if self.inputAll_chain.text() != '':
-            self.all_chain =  int(self.inputAll_chain.text())
+        use_y_connector = True if self.checkUse_y_connector.isChecked() else False   
             
-        if self.inputCount_mppt.text() != '' and self.inputCount_input_mppt.text() != '':   
+        if not self.inputCount_mppt.text() in false_value and not self.inputCount_input_mppt.text() in false_value:
+            count_input_mppt = int(self.inputCount_input_mppt.text())
+            self.count_mppt = int(self.inputCount_mppt.text())   
             self.textConsoleCurrent.clear()         
             max_input = count_input_mppt * self.count_mppt
             max_input_y = count_input_mppt * self.count_mppt * 2
             self.textConsoleCurrent.append(f"Макс. кол-во входов без Y коннектора: {max_input}")
             self.textConsoleCurrent.append(f"Макс. кол-во входов c Y коннектором: {max_input_y}")
             
-            if self.inputAll_chain.text() != '':
+            if not self.inputAll_chain.text() in false_value:
+                self.all_chain = int(self.inputAll_chain.text())
                 if self.all_chain < self.count_mppt and use_all_mppt == True:
                     # self.textConsoleCurrent.append("")
                     self.textConsoleCurrent.append("ПРЕДУПРЕЖДЕНИЕ:")
@@ -1639,6 +1558,8 @@ class WindowDraw(QtWidgets.QMainWindow, designDrawSchemes.Ui_WindowDrawSchemes):
                 else:
                     self.btnDraw.setEnabled(True)
                     self.btnDraw.setGraphicsEffect(self.opacity_effect.setOpacity(1))
+        else:
+            self.textConsoleCurrent.clear() 
             
     def check_imput_params(self):
         self.parametrs()

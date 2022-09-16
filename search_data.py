@@ -1,19 +1,19 @@
-from queue import Empty
 import fitz
 import re
 
 def cut(line):
     return line.split('=')[1].replace('\n', '')
 
-def search_in_txt():
-    found_txt = {'module':'Н/Д', 'inputs_x_2':'Н/Д', 'model':'Н/Д', 'title':'Н/Д', 
-        'inputs':'Н/Д', 'mppt':'Н/Д', 'p_max':'Н/Д', 'i_max':'Н/Д', 'width':'Н/Д', 
-        'height':'Н/Д', 'depth':'Н/Д', 'weight':'Н/Д', 'v_mpp_min':'Н/Д', 'v_mpp_max':'Н/Д', 
-        'tp_nom':'Н/Д', 'p_nom':'Н/Д', 'tp_lim':'Н/Д', 'p_lim':'Н/Д', 'tp_lim_abs':'Н/Д', 
-        'p_lim_abs':'Н/Д', 'phase':'Н/Д', 'v_out':'Н/Д', 'i_out_max':'Н/Д', 'kpd_max':'Н/Д',
-        'kpd_euro':'Н/Д', 'v_abs_max':'Н/Д', 'protect':'Н/Д'}
+def search_in_txt(path):
+    name_params = ('module', 'inputs_x_2', 'model', 'title', 'inputs', 
+                    'mppt', 'p_max', 'width', 'height', 
+                    'depth', 'weight', 'v_mpp_min', 'v_mpp_max', 
+                    'tp_nom', 'p_nom', 'tp_lim', 'p_lim', 'tp_lim_abs', 
+                    'p_lim_abs', 'phase', 'v_out', 'i_out_max', 
+                    'kpd_max', 'kpd_euro', 'v_abs_max', 'protect')
+    found_txt = dict.fromkeys(name_params, 'Н/Д')
 
-    with open(r"Data/Modules/Invertors/Sungrow/Sungrow_SG110CX_Pvsyst668.OND", 'r') as fp:
+    with open(path, 'r') as fp:
         for l_no, line in enumerate(fp):
             if 'NbInputs=' in line: found_txt['inputs_x_2'] = cut(line) #Кол-во входов до деления int
             if 'TPLimAbs=' in line: found_txt['tp_lim_abs'] = cut(line) #температура окружающей среды
@@ -33,7 +33,6 @@ def search_in_txt():
             if 'Weight=' in line: found_txt['weight'] = cut(line) #вес
             if 'MonoTri=' in line: found_txt['phase'] = cut(line) #Фаза
             if 'TPLim1=' in line: found_txt['tp_lim'] = cut(line) #температура окружающей среды
-            if 'IMaxAC=' in line: found_txt['i_max'] = cut(line) #Максимальный ток
             if 'TPNom=' in line: found_txt['tp_nom'] = cut(line) #температура окружающей среды
             if 'NbMPPT=' in line: found_txt['mppt'] = cut(line) #Кол-во мппт int
             if 'Width=' in line: found_txt['width'] = cut(line) # * 1000 ширина float
@@ -52,42 +51,63 @@ def search_in_txt():
         found_txt['height'] = float(found_txt['height']) * 1000     
     if not found_txt['depth'] in false_value:
         found_txt['depth'] = float(found_txt['depth']) * 1000     
-    print(found_txt)
+    if not found_txt['protect'] in false_value:
+        found_txt['protect'] = found_txt['protect'].split(':')[1].lstrip()
+    if not found_txt['phase'] in false_value:
+        if found_txt['phase'] == 'Tri': found_txt['phase'] = 3
+        if found_txt['phase'] == 'Mono': found_txt['phase'] = 1 
+    print(found_txt['protect'])
     return found_txt
 
-def search_in_pdf():
-    with fitz.open("Data/PDF in/PVsyst/PVsyst_отчет3.pdf") as doc: 
-        for page in doc:
-            content_end = page.search_for("January")
-            if len(content_end) != 0:
-                num_page_end = page.number
-                break
-            
+def search_in_pdf(path):
+    name_params = ('produced_energy', 'specific_production', 'lati', 'longi', 
+                    'nb_PV', 'pnom_PV', 'nb_inverters', 'pnom_inverters', 'perf_ratio', 'balances_and_main') 
+    found_pdf = dict.fromkeys(name_params, 'Н/Д')
+
+    with fitz.open(path) as doc: 
         for page in doc:
             content_begin = page.search_for("summary")
             if len(content_begin) != 0:
                 num_page_begin = page.number
                 break
-            
+        for page in doc:
+            content_end = page.search_for("January")
+            if len(content_end) != 0:
+                num_page_end = page.number
+                break
+                 
         content_begin = doc[num_page_begin].get_text()
         content_end = doc[num_page_end].get_text()
-        
-        # print(content_begin.split('information')[1].split('Results')[0])
-        content_begin_result = content_begin.split('information')[1].split('Results')[0].strip("\n").replace('\n', ' ').split(' ')
-        int_content_begin_result = list(filter(lambda x: re.search('^[1-9]\d*(\.\d+)?$', x), content_begin_result))
-        print(content_begin_result)
-        print(int_content_begin_result)
 
-        content_end_result = content_end.split('Production')[1].split('Normalized')[0].strip("\n").replace('\n', ' ').split(' ')
-        int_content_end_result = list(filter(lambda x: re.search('^[1-9]\d*(\.\d+)?$', x), content_end_result))
-        int_content = list(filter(lambda x: re.search('P[0-9]', x), content_end_result))
-        print(content_end_result)
-        print(int_content_end_result)
-        print(int_content)
+        situation = content_begin.split('Situation')[1].split('Project')[0].strip("\n").replace('\n', ' ').split(' ')
+        situation_int = list(filter(lambda x: re.search('^[1-9]\d*(\.\d+)?$', x), situation))
+        found_pdf['lati'] = situation_int[0]
+        found_pdf['longi'] = situation_int[1]
+
+        bgn_system_info = content_begin.split('information')[1].split('Results')[0].strip("\n").replace('\n', ' ').split(' ')
+        bgn_system_info_int = list(filter(lambda x: re.search('^[1-9]\d*(\.\d+)?$', x), bgn_system_info))
+        found_pdf['nb_PV'] = bgn_system_info_int[0]
+        found_pdf['pnom_PV'] = bgn_system_info_int[1]
+        found_pdf['nb_inverters'] = bgn_system_info_int[2]
+        found_pdf['pnom_inverters'] = bgn_system_info_int[3]
+
+        main_result = content_end.split('Production')[1].split('Normalized')[0].strip("\n").replace('\n', ' ').split(' ')
+        main_result_int = list(filter(lambda x: re.search('^[1-9]\d*(\.\d+)?$', x), main_result))
+        main_result_P = list(filter(lambda x: re.search('P[0-9]', x), main_result))
+
+        if len(main_result_P) != 0:
+            step = (len(main_result_P) // 2) 
+            del main_result_P[step:]
+            found_pdf['produced_energy'] = dict(zip(main_result_P, main_result_int[0:step]))
+            found_pdf['specific_production'] = dict(zip(main_result_P, main_result_int[step:-1]))
+            found_pdf['perf_ratio'] = main_result_int[-1]             
+        else:
+            found_pdf['produced_energy'] = main_result_int[0]
+            found_pdf['specific_production'] = main_result_int[1]
+            found_pdf['perf_ratio'] = main_result_int[2]         
         
-        balances_and_main_result = content_end.split('ratio')[-1].split('Legends')[0].strip("\n").split('\n')
-        # print(balances_and_main_result)
+        found_pdf['balances_and_main'] = content_end.split('ratio')[-1].split('Legends')[0].strip("\n").split('\n')
+    return found_pdf
         
-        
-# search_in_txt()
-search_in_pdf()
+# search_in_txt("Data/Modules/Invertors/Sungrow/Sungrow_SG110CX_Pvsyst668.OND")
+# search_in_pdf("Data/PDF in/PVsyst/PVsyst_отчет3.pdf")

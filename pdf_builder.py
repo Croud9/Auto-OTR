@@ -301,7 +301,7 @@ class docPDF():
             self.story.append(Paragraph("<b>3.4	 Точка подключения объекта</b>", self.styleH2))
             self.story.append(Spacer(1, 12))
             # Настроить отступы
-            self.story.append(Paragraph('Подключение инверторов производится в существующую сеть объекта на напряжение ___ кВ согласно схеме присоединения:', self.styleNormal))
+            self.story.append(Paragraph(f'Подключение инверторов производится в существующую сеть объекта на напряжение {data["u_dot_in"]} кВ согласно схеме присоединения:', self.styleNormal))
             self.story.append(Spacer(1, 12))
             self.story.append(Paragraph("Удаленность инверторов от соответствующих точек присоединения представлено в таблице ниже:", self.styleNormal))
 
@@ -332,7 +332,7 @@ class docPDF():
         self.story.append(img)
 
     # Раздел 5
-    def section_5(self, imr, data):
+    def section_5(self, data):
         self.story.append(PageBreak())
         self.story.append(Paragraph("<b>5 Основные параметры СЭС</b>", self.styleH1))
         self.story.append(Spacer(1, 12))
@@ -342,7 +342,7 @@ class docPDF():
             self.story.append(Spacer(1, 12))
             self.story.append(Paragraph(f"Назначение СЭС – выработка электрической энергии путем фотоэлектрического преобразования \
                                     солнечной энергии поступающей на фотоэлектрические модули (ФЭМ) в электрическую с помощью инверторной установки, \
-                                    выдача мощности во {'<b>внутреннюю сеть 0,4 кВ</b>'}, а также мониторинг работы СЭС, \
+                                    выдача мощности во внутреннюю сеть {data['u_dot_in']} кВ, а также мониторинг работы СЭС, \
                                     и в случае необходимости, ограничение выработки СЭС.", self.styleNormal))
             self.story.append(Paragraph(f"СЭС имеет установленную мощность ФЭМ {'<b>____ кВт</b>'}. \
                                     Режим работы СЭС периодический – преобразование световой энергии солнца \
@@ -350,8 +350,8 @@ class docPDF():
                                     Работа оборудования СЭС осуществляется в автоматическом режиме.", self.styleNormal))
             self.story.append(Paragraph("Фотоэлектрическая система состоит из следующих элементов:", self.styleNormal))
             self.story.append(Paragraph("<bullet>&bull;</bullet> опорных конструкций, к которым крепятся ФЭМ;", self.styleNormal))
-            self.story.append(Paragraph("<bullet>&bull;</bullet> инверторного оборудования, к которому подключены ФЭМ кабельными линиями постоянного тока. \
-                                    Инвертор подключен кабелем переменного тока к ячейке 0.4 кВ;", self.styleNormal))
+            self.story.append(Paragraph(f"<bullet>&bull;</bullet> инверторного оборудования, к которому подключены ФЭМ кабельными линиями постоянного тока. \
+                                    Инвертор подключен кабелем переменного тока к ячейке {data['u_dot_in']} кВ;", self.styleNormal))
             self.story.append(Paragraph("<bullet>&bull;</bullet> оборудования для мониторинга выработки мощности;", self.styleNormal))
             self.story.append(Spacer(1, 12))
             self.story.append(Paragraph("Массив ФЭМ состоит из _ цепочек, собранных суммарно из _ ФЭМ. \
@@ -360,8 +360,16 @@ class docPDF():
             self.story.append(Paragraph("Информацию о работе системы и её состоянии обслуживающий персонал получает с помощью облачного сервиса.", self.styleNormal))
             self.story.append(Paragraph("Основные технико-экономические параметры работы СЭС представлены в таблице 5.1.", self.styleNormal))
             self.story.append(Paragraph("Таблица 5.1 — Основные технологические характеристики СЭС", self.styleNormal))
-
-            use_set_power = round(8765 / int(imr[1]) * 100, 2) if imr[1] != 'Н/Д' else 'Н/Д'
+            print(len(data['specific_production']) is dict)
+            if data['specific_production'] != 'Н/Д' and not len(data['specific_production']) is dict:
+                use_set_power = round(8765 / int(data['specific_production']) * 100, 2)
+            elif data['specific_production'] != 'Н/Д' and len(data['specific_production']) is dict:
+                use_set_P = []
+                for k, v in data['specific_production'].items():
+                    use_set_P.append(k + f"{round(8765 / int(v) * 100, 2)}")
+                use_set_power = ', '.join(use_set_P)
+            else: 
+                use_set_power = 'Н/Д'
 
             table_ses_params = Table(
             [
@@ -477,9 +485,9 @@ class docPDF():
             self.story.append(PageBreak())
             self.story.append(Paragraph("<b>5.1.3 Инверторное оборудование</b>", self.styleH2))
             self.story.append(Spacer(1, 12))
-            self.story.append(Paragraph("На проектируемой солнечной электростанции для преобразования энергии постоянного тока (от ФЭМ) \
-                                    в переменное 3-х фазное напряжение, использованы инверторы. Для преобразования постоянного тока \
-                                    в переменный к установке приняты инверторы Sungrow SG110CX.", self.styleNormal))
+            self.story.append(Paragraph(f"На проектируемой солнечной электростанции для преобразования энергии постоянного тока (от ФЭМ) \
+                                    в переменное {data['phase']}-х фазное напряжение, использованы инверторы. Для преобразования постоянного тока \
+                                    в переменный к установке приняты инверторы {data['module']}.", self.styleNormal))
             self.story.append(Paragraph("Схемы объединения ФЭМ в цепочки и подключение к инвертору представлены на чертежах ___.", self.styleNormal))
             img = Image(path_to_image + "Инверторы/Sungrow_Invertor.png", 5*inch, 4*inch)
             self.story.append(img)
@@ -490,15 +498,20 @@ class docPDF():
             table_invertor_params = Table(
             [
             [Paragraph('<b>Характеристики</b>', self.styleNormalTable), Paragraph(f'<b>Инвертор {data["module"]}</b>', self.styleNormalTable)],
-            [Paragraph('Максимальная выходная мощность долговременной работы: <br/> \
-                        - температура окружающей среды: 45°С <br/> - температура окружающей среды: 50°С', self.styleNormalTable), Paragraph('__ кВА <br/> __ кВА', self.styleNormalTable)],
-            [Paragraph('Диапазон выходного напряжения переменного тока', self.styleNormalTable), Paragraph('3 ф., __ - __ В', self.styleNormalTable)],
-            [Paragraph('Максимальный выходной ток', self.styleNormalTable), Paragraph('≤ __ В', self.styleNormalTable)],
-            [Paragraph('Максимальный КПД преобразования', self.styleNormalTable), Paragraph('__%', self.styleNormalTable)],
-            [Paragraph('Европейский показатель КПД', self.styleNormalTable), Paragraph('__%', self.styleNormalTable)],
+            [Paragraph(f'Максимальная выходная мощность долговременной работы: <br/> \
+                        - t окружающей среды: {data["tp_nom"]}°С <br/> \
+                        - t окружающей среды: {data["tp_lim"]}°С <br/> \
+                        - t окружающей среды: {data["tp_lim_abs"]}°С', self.styleNormalTable), 
+                        Paragraph(f'{data["p_nom"]} кВА <br/> \
+                                    {data["p_lim"]} кВА <br/> \
+                                    {data["p_lim_abs"]} кВА', self.styleNormalTable)],
+            [Paragraph('Диапазон выходного напряжения переменного тока', self.styleNormalTable), Paragraph(f'{data["phase"]} ф., {data["v_out"]} В', self.styleNormalTable)],
+            [Paragraph('Максимальный выходной ток', self.styleNormalTable), Paragraph(f'≤ {data["i_out_max"]} В', self.styleNormalTable)],
+            [Paragraph('Максимальный КПД преобразования', self.styleNormalTable), Paragraph(f'{data["kpd_max"]}%', self.styleNormalTable)],
+            [Paragraph('Европейский показатель КПД', self.styleNormalTable), Paragraph(f'{data["kpd_euro"]}%', self.styleNormalTable)],
             [Paragraph('Диапазон выходной частоты', self.styleNormalTable), Paragraph('55 – 65 Гц', self.styleNormalTable)],
-            [Paragraph('Минимальное напряжение цепочки ФЭМ', self.styleNormalTable), Paragraph('__ В', self.styleNormalTable)],
-            [Paragraph('Максимальное напряжение цепочки ФЭМ', self.styleNormalTable), Paragraph('__ В', self.styleNormalTable)],
+            [Paragraph('Минимальное напряжение цепочки ФЭМ', self.styleNormalTable), Paragraph(f'{data["v_mpp_min"]} В', self.styleNormalTable)],
+            [Paragraph('Максимальное напряжение цепочки ФЭМ', self.styleNormalTable), Paragraph(f'{data["v_abs_max"]} В', self.styleNormalTable)],
             [Paragraph('Диапазон рабочего входного напряжения MPPT', self.styleNormalTable), Paragraph(f'{data["v_mpp_min"]}...{data["v_mpp_max"]} В', self.styleNormalTable)],
             [Paragraph('Количество МРРТ', self.styleNormalTable), Paragraph(f'{data["mppt"]} шт.', self.styleNormalTable)],
             [Paragraph('Суммарный коэф. гармонических искажений', self.styleNormalTable), Paragraph('<3% (номинальная мощность)', self.styleNormalTable)],
@@ -506,7 +519,7 @@ class docPDF():
             [Paragraph('Условия автоматического включения', self.styleNormalTable), Paragraph('Если напряжение на стороне постоянного тока и сеть переменного тока отвечают требованиям, \
                                                                                             инвертор автоматически переходит в режим работы', self.styleNormalTable)],
             [Paragraph('Размер инвертора', self.styleNormalTable), Paragraph(f'{data["height"]} х {data["width"]} х {data["depth"]} мм (Д х Ш х Г)', self.styleNormalTable)],
-            [Paragraph('Степень защиты', self.styleNormalTable), Paragraph('IP__', self.styleNormalTable)],
+            [Paragraph('Степень защиты', self.styleNormalTable), Paragraph(f'{data["protect"]}', self.styleNormalTable)],
             [Paragraph('Вес', self.styleNormalTable), Paragraph(f'{data["weight"]} кг', self.styleNormalTable)],
             ]
             )
@@ -618,7 +631,7 @@ class docPDF():
             self.story.append(img)
 
     # Раздел 6
-    def section_6(self, bamr, imr):
+    def section_6(self, bamr, data):
         self.story.append(PageBreak())
         self.story.append(Paragraph("<b>6 Выводы и результаты</b>", self.styleH1))
         self.story.append(Spacer(1, 12))
@@ -680,9 +693,9 @@ class docPDF():
         self.story.append(table_ses_output)
 
         self.story.append(Spacer(1, 12))
-        self.story.append(Paragraph(f"На основании расчета подтверждено, что годовая выработка составляет {imr[0]} МВтч/ год \
-                                и годовая удельная выработка СЭС составляет {imr[1]} кВтч / кВт / \
-                                год при средней производительности {imr[2]}%.", self.styleNormal))
+        self.story.append(Paragraph(f"На основании расчета подтверждено, что годовая выработка составляет {data['produced_energy']} МВтч/ год \
+                                и годовая удельная выработка СЭС составляет {data['specific_production']} кВтч / кВт / \
+                                год при средней производительности {data['perf_ratio']}%.", self.styleNormal))
         self.story.append(Spacer(1, 12))
         self.story.append(Paragraph("После ввода в эксплуатацию СЭС поведение всех её компонентов, а также естественные \
                                 и ускоренные изменения в их характеристиках можно отследить только путем проведения \
@@ -828,19 +841,12 @@ class docPDF():
         self.images_pvsyst = []
         print("параметры", data)
         if data["path_to_pvsyst"] != " " and data["path_to_pvsyst"] != None:
-            # self.convert_pdf_to_png(data["path_to_pvsyst"])
-            search_pdf_out = self.search_table_in_pdf(data["path_to_pvsyst"])
-            bamr = search_pdf_out[0] # balances_and_main_result таблица с pvsyst
-            imr = search_pdf_out[1] # int_main_result   
+            bamr = data['balances_and_main'] # balances_and_main_result таблица с pvsyst
             print(len(bamr))
-            print(len(imr))
         else:
             bamr = []
-            imr = []
             for i in range(120):
                 bamr.append('Н/Д')  
-            for i in range(10):
-                imr.append('Н/Д')
                   
         self.title(data)
         self.table_of_content()
@@ -866,12 +872,12 @@ class docPDF():
             print("Блок 4 отсутствует")
             
         if data["block_5"] == False:
-            self.section_5(imr, data)
+            self.section_5(data)
         else:
             print("Блок 5 отсутствует")
             
         if data["block_6"] == False:
-            self.section_6(bamr, imr)
+            self.section_6(bamr, data)
         else:
             print("Блок 6 отсутствует")
             
