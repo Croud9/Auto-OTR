@@ -12,6 +12,7 @@ import logicUIOneScheme
 import logicUITwoScheme
 import search_data
 import encode_file
+import geocoding
 import glob, fitz, requests, sys, os # загрузка модулей
 from os.path import isfile, join
 from svglib.svglib import svg2rlg
@@ -135,7 +136,7 @@ class MainApp(QtWidgets.QMainWindow, designRepPDF.Ui_MainWindow):
         self.listInvertor_folder.addItems(company_invertor)
         self.listPV_folder.addItems(company_pv)
         self.listKTP_folder.addItems(company_ktp)
-        
+       
     def open_result_doc(self):
         os.startfile("Data\Report\Auto-OTR.pdf")
       
@@ -853,8 +854,10 @@ class MainApp(QtWidgets.QMainWindow, designRepPDF.Ui_MainWindow):
                        
     def convertPvsystFinished(self):
         self.found_pdf = self.converter_pvsyst.found_pdf 
-        latitude = self.inputAddressLat.setText(self.found_pdf['lati_pdf'])
-        longitude = self.inputAddressLong.setText(self.found_pdf['longi_pdf'])
+        self.inputAddressLat.setText(self.found_pdf['lati_pdf'])
+        self.inputAddressLong.setText(self.found_pdf['longi_pdf'])
+        full_address = geocoding.get_full_address_by_coordinates(self.found_pdf['lati_pdf'], self.found_pdf['longi_pdf'])
+        self.inputAddress.setText(full_address)
         self.btnOne.setEnabled(True)
         del self.converter_pvsyst
 
