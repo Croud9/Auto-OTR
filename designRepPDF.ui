@@ -16,7 +16,6 @@
   <property name="font">
    <font>
     <family>Arial</family>
-    <weight>50</weight>
     <bold>false</bold>
    </font>
   </property>
@@ -119,7 +118,6 @@ QComboBox QAbstractItemView {
      <font>
       <family>Arial</family>
       <pointsize>9</pointsize>
-      <weight>75</weight>
       <bold>true</bold>
      </font>
     </property>
@@ -159,7 +157,6 @@ QPushButton:pressed{
      <font>
       <family>Arial</family>
       <pointsize>9</pointsize>
-      <weight>75</weight>
       <bold>true</bold>
      </font>
     </property>
@@ -199,7 +196,6 @@ QPushButton:pressed{
      <font>
       <family>Arial</family>
       <pointsize>9</pointsize>
-      <weight>75</weight>
       <bold>true</bold>
      </font>
     </property>
@@ -239,7 +235,6 @@ QPushButton:pressed{
      <font>
       <family>Arial</family>
       <pointsize>9</pointsize>
-      <weight>75</weight>
       <bold>true</bold>
      </font>
     </property>
@@ -279,7 +274,6 @@ QPushButton:pressed{
      <font>
       <family>Arial</family>
       <pointsize>11</pointsize>
-      <weight>75</weight>
       <bold>true</bold>
       <underline>false</underline>
       <strikeout>false</strikeout>
@@ -306,7 +300,6 @@ QPushButton:pressed{
      <font>
       <family>Arial</family>
       <pointsize>9</pointsize>
-      <weight>75</weight>
       <bold>true</bold>
      </font>
     </property>
@@ -333,7 +326,6 @@ padding: 2;</string>
      <font>
       <family>Arial</family>
       <pointsize>9</pointsize>
-      <weight>75</weight>
       <bold>true</bold>
      </font>
     </property>
@@ -373,7 +365,6 @@ QPushButton:pressed{
      <font>
       <family>Arial</family>
       <pointsize>9</pointsize>
-      <weight>75</weight>
       <bold>true</bold>
      </font>
     </property>
@@ -413,7 +404,6 @@ QPushButton:pressed{
      <font>
       <family>Arial</family>
       <pointsize>9</pointsize>
-      <weight>75</weight>
       <bold>true</bold>
      </font>
     </property>
@@ -453,7 +443,6 @@ QPushButton:pressed{
      <font>
       <family>Arial</family>
       <pointsize>9</pointsize>
-      <weight>75</weight>
       <bold>true</bold>
      </font>
     </property>
@@ -492,7 +481,6 @@ QPushButton:pressed{
     <property name="font">
      <font>
       <family>Arial</family>
-      <weight>75</weight>
       <bold>true</bold>
      </font>
     </property>
@@ -574,7 +562,6 @@ QLineEdit:pressed{
     <property name="font">
      <font>
       <family>Arial</family>
-      <weight>75</weight>
       <bold>true</bold>
      </font>
     </property>
@@ -618,7 +605,6 @@ QLineEdit:pressed{
     <property name="font">
      <font>
       <family>Arial</family>
-      <weight>75</weight>
       <bold>true</bold>
      </font>
     </property>
@@ -695,7 +681,6 @@ QComboBox:hover{
      <font>
       <family>Arial</family>
       <pointsize>9</pointsize>
-      <weight>75</weight>
       <bold>true</bold>
      </font>
     </property>
@@ -735,7 +720,6 @@ QPushButton:pressed{
      <font>
       <family>Arial</family>
       <pointsize>9</pointsize>
-      <weight>75</weight>
       <bold>true</bold>
       <kerning>true</kerning>
      </font>
@@ -1376,7 +1360,6 @@ padding: 2;</string>
      <font>
       <family>Arial</family>
       <pointsize>9</pointsize>
-      <weight>75</weight>
       <bold>true</bold>
      </font>
     </property>
@@ -1416,7 +1399,6 @@ QPushButton:pressed{
      <font>
       <family>Arial</family>
       <pointsize>9</pointsize>
-      <weight>75</weight>
       <bold>true</bold>
      </font>
     </property>
@@ -1455,7 +1437,6 @@ QPushButton:pressed{
     <property name="font">
      <font>
       <family>Arial</family>
-      <weight>75</weight>
       <bold>true</bold>
      </font>
     </property>
@@ -1526,7 +1507,6 @@ QComboBox:hover{
      <font>
       <family>Arial</family>
       <pointsize>9</pointsize>
-      <weight>75</weight>
       <bold>true</bold>
      </font>
     </property>
@@ -1577,7 +1557,6 @@ QComboBox:hover{
     <property name="font">
      <font>
       <family>Arial</family>
-      <weight>75</weight>
       <bold>true</bold>
      </font>
     </property>
@@ -1641,7 +1620,6 @@ QLineEdit:pressed{
      <font>
       <family>Arial</family>
       <pointsize>11</pointsize>
-      <weight>75</weight>
       <bold>true</bold>
      </font>
     </property>
@@ -1684,7 +1662,6 @@ QPushButton:pressed{
      <font>
       <family>Arial</family>
       <pointsize>8</pointsize>
-      <weight>50</weight>
       <italic>false</italic>
       <bold>false</bold>
       <underline>false</underline>
@@ -1726,7 +1703,6 @@ QPushButton:hover{
      <font>
       <family>Arial</family>
       <pointsize>8</pointsize>
-      <weight>50</weight>
       <bold>false</bold>
      </font>
     </property>
@@ -1762,7 +1738,6 @@ QPushButton:hover{
      <font>
       <family>Arial</family>
       <pointsize>8</pointsize>
-      <weight>50</weight>
       <bold>false</bold>
      </font>
     </property>
@@ -1985,7 +1960,6 @@ QPushButton:hover{
      <font>
       <family>Arial</family>
       <pointsize>9</pointsize>
-      <weight>75</weight>
       <italic>false</italic>
       <bold>true</bold>
       <underline>false</underline>
@@ -2027,7 +2001,6 @@ QPushButton:hover{
      <font>
       <family>Arial</family>
       <pointsize>9</pointsize>
-      <weight>75</weight>
       <bold>true</bold>
      </font>
     </property>
@@ -2078,7 +2051,6 @@ QComboBox:hover{
     <property name="font">
      <font>
       <family>Arial</family>
-      <weight>75</weight>
       <bold>true</bold>
      </font>
     </property>
@@ -2129,7 +2101,6 @@ QComboBox:hover{
     <property name="font">
      <font>
       <family>Arial</family>
-      <weight>75</weight>
       <bold>true</bold>
      </font>
     </property>
@@ -2181,7 +2152,6 @@ QComboBox:hover{
      <font>
       <family>Arial</family>
       <pointsize>9</pointsize>
-      <weight>75</weight>
       <bold>true</bold>
      </font>
     </property>
@@ -2232,7 +2202,6 @@ QComboBox:hover{
     <property name="font">
      <font>
       <family>Arial</family>
-      <weight>75</weight>
       <bold>true</bold>
      </font>
     </property>
@@ -2276,7 +2245,6 @@ QLineEdit:pressed{
     <property name="font">
      <font>
       <family>Arial</family>
-      <weight>75</weight>
       <bold>true</bold>
      </font>
     </property>
@@ -2320,7 +2288,6 @@ QLineEdit:pressed{
     <property name="font">
      <font>
       <family>Arial</family>
-      <weight>75</weight>
       <bold>true</bold>
      </font>
     </property>
@@ -2364,7 +2331,6 @@ QLineEdit:pressed{
     <property name="font">
      <font>
       <family>Arial</family>
-      <weight>75</weight>
       <bold>true</bold>
      </font>
     </property>
@@ -2408,7 +2374,6 @@ QLineEdit:pressed{
     <property name="font">
      <font>
       <family>Arial</family>
-      <weight>75</weight>
       <bold>true</bold>
      </font>
     </property>
@@ -2453,7 +2418,6 @@ QLineEdit:pressed{
      <font>
       <family>Arial</family>
       <pointsize>14</pointsize>
-      <weight>75</weight>
       <bold>true</bold>
      </font>
     </property>
@@ -2492,7 +2456,6 @@ QPushButton:hover{
     <property name="font">
      <font>
       <family>Arial</family>
-      <weight>75</weight>
       <bold>true</bold>
      </font>
     </property>
@@ -2550,7 +2513,6 @@ QSpinBox:down-button{
      <font>
       <family>Arial</family>
       <pointsize>14</pointsize>
-      <weight>75</weight>
       <bold>true</bold>
      </font>
     </property>
@@ -2589,7 +2551,6 @@ QPushButton:hover{
     <property name="font">
      <font>
       <family>Arial</family>
-      <weight>75</weight>
       <bold>true</bold>
      </font>
     </property>
@@ -2647,7 +2608,6 @@ QSpinBox:down-button{
      <font>
       <family>Arial</family>
       <pointsize>14</pointsize>
-      <weight>75</weight>
       <bold>true</bold>
      </font>
     </property>
@@ -2686,7 +2646,6 @@ QPushButton:hover{
     <property name="font">
      <font>
       <family>Arial</family>
-      <weight>75</weight>
       <bold>true</bold>
      </font>
     </property>

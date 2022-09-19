@@ -6,6 +6,7 @@ from selenium.webdriver.support import expected_conditions as EC
 from selenium.common.exceptions import NoSuchElementException, JavascriptException, TimeoutException
 from selenium.webdriver.chrome.service import Service as ChromeService
 from subprocess import CREATE_NO_WINDOW
+from urllib import error
 import requests
 import time
 
@@ -31,14 +32,14 @@ def ones():
     chrome_options.add_argument("--headless")
     chrome_options.add_argument('--disable-infobars')
     chrome_options.add_experimental_option('excludeSwitches', ['enable-logging'])
-    num_error = 0
-    serv = ChromeService(chromedriver_autoinstaller.install())
-    serv.creationflags = CREATE_NO_WINDOW
 
-    # try:
-    #     browser.quit()
-    # except NameError:
-    #     print("Первый поиск")
+    try:
+        serv = ChromeService(chromedriver_autoinstaller.install())
+    except error.URLError:
+        print("Удаленный хост принудительно разорвал существующее подключение'")
+        return 1
+
+    serv.creationflags = CREATE_NO_WINDOW
 
     browser = webdriver.Chrome(service=serv, options=chrome_options)
     browser.execute_script("Object.defineProperty(navigator, 'webdriver', {get: () => undefined})")
@@ -50,8 +51,7 @@ def ones():
     except Exception:
         browser.quit()
         print("ИНТЕРНЕТ ЛЁГ")
-        num_error = 1
-        return num_error
+        return 1
 
 def search(city):
     global start

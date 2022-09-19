@@ -4,14 +4,32 @@ import re
 def cut(line):
     return line.split('=')[1].replace('\n', '')
 
-def search_in_txt(path):
-    name_params = ('module', 'inputs_x_2', 'model', 'title', 'inputs', 
-                    'mppt', 'p_max', 'width', 'height', 
-                    'depth', 'weight', 'v_mpp_min', 'v_mpp_max', 
-                    'tp_nom', 'p_nom', 'tp_lim', 'p_lim', 'tp_lim_abs', 
-                    'p_lim_abs', 'phase', 'v_out', 'i_out_max', 
-                    'kpd_max', 'kpd_euro', 'v_abs_max', 'protect')
-    found_txt = dict.fromkeys(name_params, 'Н/Д')
+def null_search_params(type_file):
+    if type_file == 'invertor':
+        name_params = ('module', 'inputs_x_2', 'model', 'title', 'inputs', 
+                        'mppt', 'p_max', 'width', 'height', 
+                        'depth', 'weight', 'v_mpp_min', 'v_mpp_max', 
+                        'tp_nom', 'p_nom', 'tp_lim', 'p_lim', 'tp_lim_abs', 
+                        'p_lim_abs', 'phase', 'v_out', 'i_out_max', 
+                        'kpd_max', 'kpd_euro', 'v_abs_max', 'protect')               
+    elif type_file == 'pv':
+        name_params = ('module_pv', 'title_pv', 'model_pv', 'width_pv','height_pv', 'depth_pv', 
+                        'weight_pv', 'p_nom_pv','isc_pv', 'voc_pv', 'imp_pv', 'vmp_pv', 'square_pv')               
+    elif type_file == 'pvsyst':
+        name_params = ('produced_energy', 'specific_production', 'lati_pdf', 'longi_pdf', 
+                        'nb_PV', 'pnom_PV', 'nb_inverters', 'pnom_inverters', 'perf_ratio', 'balances_and_main')             
+    elif type_file == 'weather_station':
+        name_params = ('view_city', 'strt_monit', 'num_weather_station')
+    elif type_file == 'weather':
+        name_params = ('num_error', 'min_temp', 'date_min_temp', 'num_weather_station',
+                        'max_temp', 'date_max_temp', 'all_range', 'average_temp', 'number_of_observations', 
+                        'average_pressure', 'average_humidity', 'main_wind', 'average_speed_wind', 
+                        'max_speed_wind', 'precipitation_on_12_hour', 'average_height_snow', 'max_height_snow', 
+                        'first_date_snow', 'last_date_snow')
+    return dict.fromkeys(name_params, 'Н/Д')
+
+def search_in_invertor(path):
+    found_txt = null_search_params('invertor')
 
     with open(path, 'r') as fp:
         for l_no, line in enumerate(fp):
@@ -56,13 +74,40 @@ def search_in_txt(path):
     if not found_txt['phase'] in false_value:
         if found_txt['phase'] == 'Tri': found_txt['phase'] = 3
         if found_txt['phase'] == 'Mono': found_txt['phase'] = 1 
-    print(found_txt['protect'])
     return found_txt
 
-def search_in_pdf(path):
-    name_params = ('produced_energy', 'specific_production', 'lati', 'longi', 
-                    'nb_PV', 'pnom_PV', 'nb_inverters', 'pnom_inverters', 'perf_ratio', 'balances_and_main') 
-    found_pdf = dict.fromkeys(name_params, 'Н/Д')
+def search_in_pv(path):
+    found_txt = null_search_params('pv')
+
+    with open(path, 'r') as fp:
+        for l_no, line in enumerate(fp):
+            if 'Manufacturer=' in line: found_txt['title_pv'] = cut(line) #Фирма  
+            if 'Model=' in line: found_txt['model_pv'] = cut(line) #Модель  
+            if 'Width=' in line: found_txt['width_pv'] = cut(line) # * 1000 ширина float
+            if 'Height=' in line: found_txt['height_pv'] = cut(line) # * 1000 высота float
+            if 'Depth=' in line: found_txt['depth_pv'] = cut(line) # * 1000 глубина float
+            if 'Weight=' in line: found_txt['weight_pv'] = cut(line) #вес
+            if 'PNom=' in line: found_txt['p_nom_pv'] = cut(line) #Максимальная мощность
+            if 'Isc=' in line: found_txt['isc_pv'] = cut(line) #Ток короткого замыкания
+            if 'Voc=' in line: found_txt['voc_pv'] = cut(line) #Напряжение холостого хода
+            if 'Imp=' in line: found_txt['imp_pv'] = cut(line) #Сила тока при максимальной мощности
+            if 'Vmp=' in line: found_txt['vmp_pv'] = cut(line) #Напряжение при номинальной мощности
+
+    false_value = ['Н/Д', '']
+    found_txt['module_pv'] = " ".join([found_txt['title_pv'], found_txt['model_pv']])
+
+    if not found_txt['height_pv'] in false_value and not found_txt['width_pv'] in false_value: 
+        found_txt['square_pv'] = round(float(found_txt['height_pv']) * float(found_txt['width_pv']), 3)
+    if not found_txt['width_pv'] in false_value:
+        found_txt['width_pv'] = float(found_txt['width_pv']) * 1000     
+    if not found_txt['height_pv'] in false_value:
+        found_txt['height_pv'] = float(found_txt['height_pv']) * 1000     
+    if not found_txt['depth_pv'] in false_value:
+        found_txt['depth_pv'] = float(found_txt['depth_pv']) * 1000  
+    return found_txt
+
+def search_in_pdf(path): 
+    found_pdf = null_search_params('pvsyst')
 
     with fitz.open(path) as doc: 
         for page in doc:
@@ -81,8 +126,8 @@ def search_in_pdf(path):
 
         situation = content_begin.split('Situation')[1].split('Project')[0].strip("\n").replace('\n', ' ').split(' ')
         situation_int = list(filter(lambda x: re.search('^[1-9]\d*(\.\d+)?$', x), situation))
-        found_pdf['lati'] = situation_int[0]
-        found_pdf['longi'] = situation_int[1]
+        found_pdf['lati_pdf'] = situation_int[0]
+        found_pdf['longi_pdf'] = situation_int[1]
 
         bgn_system_info = content_begin.split('information')[1].split('Results')[0].strip("\n").replace('\n', ' ').split(' ')
         bgn_system_info_int = list(filter(lambda x: re.search('^[1-9]\d*(\.\d+)?$', x), bgn_system_info))
@@ -109,5 +154,6 @@ def search_in_pdf(path):
         found_pdf['balances_and_main'] = content_end.split('ratio')[-1].split('Legends')[0].strip("\n").split('\n')
     return found_pdf
         
-# search_in_txt("Data/Modules/Invertors/Sungrow/Sungrow_SG110CX_Pvsyst668.OND")
+# search_in_invertor("Data/Modules/Invertors/Sungrow/Sungrow_SG110CX_Pvsyst668.OND")
+# search_in_pv("Data/Modules/PV's/Hevel/HJT 390 m2+ (08.2020).PAN")
 # search_in_pdf("Data/PDF in/PVsyst/PVsyst_отчет3.pdf")

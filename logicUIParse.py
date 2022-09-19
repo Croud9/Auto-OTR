@@ -54,21 +54,18 @@ class WindowParse(QtWidgets.QMainWindow, designParsing.Ui_WindowRP5):
         self.btnParse.clicked.connect(self.parsing_download)
         self.btnDwnld_T.clicked.connect(self.parsing_load)
         self.listCity.activated.connect(self.parsing_date)
-        # self.parse_params = None
              
     def checkNet(self):
-        num_error = 0
         try:
             response = requests.get("http://www.google.com")
             # print("response code: ", response.status_code)
             self.statusBar.setStyleSheet("background-color:rgb(255, 255, 255)")
-            num_error += 1
-            return num_error
+            return 1
         except requests.ConnectionError:
             self.statusBar.showMessage('Нет подключения к интернету', 10000)
             self.statusBar.setStyleSheet("background-color:rgb(255, 105, 97)")
             print("Could not connect")
-            return num_error
+            return 0
    
     def opacity(self, button, enabled):
         count_opacity = 0.6 if enabled == False else 1
@@ -78,7 +75,6 @@ class WindowParse(QtWidgets.QMainWindow, designParsing.Ui_WindowRP5):
         button.setEnabled(enabled)
 
     def check_inCity(self):
-        num_error = 0
         internet = self.checkNet()
         c = self.inputCity.text()
         if c is None or c == '' or len(c) == 0:
@@ -90,7 +86,7 @@ class WindowParse(QtWidgets.QMainWindow, designParsing.Ui_WindowRP5):
             self.btnParse.setText('Скачать архив')
             self.btnDwnld_T.setText('Подгрузить температуру')
             self.btnSearch.setText('Найти')
-            return num_error
+            return 0
         elif len(c) == 1:
             self.statusBar.showMessage('Слишком короткий запрос!', 5000)
             self.statusBar.setStyleSheet("background-color:rgb(255, 105, 97)")
@@ -100,13 +96,12 @@ class WindowParse(QtWidgets.QMainWindow, designParsing.Ui_WindowRP5):
             self.btnParse.setText('Скачать архив')
             self.btnDwnld_T.setText('Подгрузить температуру')
             self.btnSearch.setText('Найти')
-            return num_error
+            return 0
         elif internet == 0:
-            return num_error
+            return 0
         else:
-            self.statusBar.setStyleSheet("background-color:rgb(255, 255, 255)")
-            num_error += 1
-            return num_error
+            # self.statusBar.setStyleSheet("background-color:rgb(255, 255, 255)")
+            return 1
 
     def parsing_search(self):
         self.btnSearch.setEnabled(False)
@@ -141,7 +136,7 @@ class WindowParse(QtWidgets.QMainWindow, designParsing.Ui_WindowRP5):
         self.textConsole.append("Подгрузка дополнительной информации о населенном пункте...")
         self.statusBar.showMessage('Пожалуйста, подождите...')
         self.statusBar.setStyleSheet("background-color:rgb(255, 212, 38)")
-        QtWidgets.QApplication.processEvents()
+        # QtWidgets.QApplication.processEvents()
 
         list_city = self.listCity.currentIndex()
         
@@ -210,8 +205,6 @@ class WindowParse(QtWidgets.QMainWindow, designParsing.Ui_WindowRP5):
         self.parser_download.start()
 
     def parsing_load(self):
-        self.statusBar.showMessage('Пожалуйста, подождите...')
-        self.statusBar.setStyleSheet("background-color:rgb(255, 212, 38)")
         self.opacity(self.btnDwnld_T, False)
         self.btnDwnld_T.setText('Подгрузка...')
         QtWidgets.QApplication.processEvents()
@@ -222,8 +215,6 @@ class WindowParse(QtWidgets.QMainWindow, designParsing.Ui_WindowRP5):
 
         self.textConsole.append("...")
         self.textConsole.append("Выполняется подгрузка...")
-        self.statusBar.showMessage('Пожалуйста, подождите...')
-        self.statusBar.setStyleSheet("background-color:rgb(255, 212, 38)")
         QtWidgets.QApplication.processEvents()
         
         # Выполнение загрузки в новом потоке.
@@ -336,6 +327,5 @@ class WindowParse(QtWidgets.QMainWindow, designParsing.Ui_WindowRP5):
         del self.parser_search
 
     def closeFinished(self):
-        # Удаление потока после его использования.
         del self.parser_close
 

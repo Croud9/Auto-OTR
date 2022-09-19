@@ -24,8 +24,8 @@ path_to_pdf_pvsyst = "Data/PDF in/PVsyst"
 path_to_pdf_schemes = "Data/PDF in/Shemes"
 path_to_schemes = "Data/Schemes"
 path_to_invertors = "Data/Modules/Invertors"
-path_to_PV = "Data/Modules/PV's"
-path_to_KTP = "Data/Modules/KTP's" 
+path_to_pv = "Data/Modules/PV's"
+path_to_ktp = "Data/Modules/KTP's" 
 
 class BuildDoc(QThread):
     def __init__(self, params):
@@ -94,6 +94,7 @@ class MainApp(QtWidgets.QMainWindow, designRepPDF.Ui_MainWindow):
         self.listPV_folder.activated.connect(self.pv_select)
         self.listKTP_folder.activated.connect(self.ktp_select)
         self.listInvertor_file.activated.connect(self.invertor_load)
+        self.listPV_file.activated.connect(self.pv_load)
 
     def instance_ofter_class(self, instance_of_main_window): 
         self.w2 = logicUIParse.WindowParse()
@@ -104,6 +105,11 @@ class MainApp(QtWidgets.QMainWindow, designRepPDF.Ui_MainWindow):
         self.path_pvsyst = " "
         self.pathes_detail_schemes = " "
         self.path_general_schemes = " "
+        self.found_invertor = search_data.null_search_params('invertor')
+        self.found_pv = search_data.null_search_params('pv')
+        self.found_pdf = search_data.null_search_params('pvsyst')
+        self.parse_params = search_data.null_search_params('weather')
+        self.weather_station_params = search_data.null_search_params('weather_station')
         self.browser_status = None
         
         self.inputTitleProject.setText("ШЛЮМБЕРЖЕ. ЛИПЕЦК. СЭС 363,4 КВТ")
@@ -124,8 +130,8 @@ class MainApp(QtWidgets.QMainWindow, designRepPDF.Ui_MainWindow):
         self.listPV_folder.addItem("Выберите")
         self.listKTP_folder.addItem("Выберите")
         company_invertor = sorted(os.listdir(path_to_invertors))
-        company_pv = sorted(os.listdir(path_to_PV))
-        company_ktp = sorted(os.listdir(path_to_KTP))
+        company_pv = sorted(os.listdir(path_to_pv))
+        company_ktp = sorted(os.listdir(path_to_ktp))
         self.listInvertor_folder.addItems(company_invertor)
         self.listPV_folder.addItems(company_pv)
         self.listKTP_folder.addItems(company_ktp)
@@ -142,6 +148,17 @@ class MainApp(QtWidgets.QMainWindow, designRepPDF.Ui_MainWindow):
         else:
             self.set_style_default()
 
+    def checkNet(self):
+        try:
+            response = requests.get("http://www.google.com")
+            self.statusBar.setStyleSheet("background-color:rgb(255, 255, 255)")
+            return 1
+        except requests.ConnectionError:
+            self.statusBar.showMessage('Нет подключения к интернету', 5000)
+            self.statusBar.setStyleSheet("background-color:rgb(255, 105, 97)")
+            QTimer.singleShot(5000, lambda: self.statusBar.setStyleSheet("background-color:rgb(255, 255, 255)"))
+            return 0
+
     def set_style_default(self):
         self.listRoof.setStyleSheet("QComboBox{\n	background-color:rgba(229,229,234,1); \n	border: none;\n	border-radius: 6;\n	padding-left: 8px;\n}\n\nQComboBox:drop-down \n{\n    width: 0px;\n    height: 0px;\n    border: 0px;\n}\nQComboBox:hover{\n	background-color:rgba(242,242,247,1);\n}\n")
         self.statusBar.setStyleSheet("background-color:rgb(255, 255, 255)")
@@ -152,15 +169,10 @@ class MainApp(QtWidgets.QMainWindow, designRepPDF.Ui_MainWindow):
         self.statusBar.setStyleSheet("background-color:rgb(255, 212, 38)")
         QtWidgets.QApplication.processEvents()
         
-        self.statusBar.setStyleSheet("background-color:rgb(255, 212, 38)")
-        
         # Выполнение загрузки в новом потоке.
         self.parser_close = logicUIParse.Parsing(0, 0, "close")
         self.parser_close.finished.connect(self.closeFinished)
-        self.parser_close.start()    
-        
-    def closeFinished(self):
-        del self.parser_close   
+        self.parser_close.start()     
         
     def hide(self):
         self.btnOpenPDF.hide()
@@ -558,23 +570,21 @@ class MainApp(QtWidgets.QMainWindow, designRepPDF.Ui_MainWindow):
         
     def show_window_parse(self):  # открытие 2  окна
         QtWidgets.QApplication.processEvents()
-        internet = self.checkNet()
-        if internet == 0:
-            return
-        if self.w2.isHidden():
-            # self.w2.setWindowFlag(QtCore.Qt.WindowStaysOnTopHint)
+        if self.browser_status == None:
+            if self.checkNet() == 0:
+                return
+            # self.btnRP5
+            self.btnRP5.setEnabled(False)
+            self.btnRP5.setText('Запуск..')
+            self.statusBar.showMessage('Идет первоначальный запуск браузера, пожалуйста, подождите...')
+            self.statusBar.setStyleSheet("background-color:rgb(255, 212, 38)")
+            self.parser_open = logicUIParse.Parsing(0, 0, "open")
+            self.parser_open.finished.connect(self.showParserFinished)
+            self.parser_open.start()
+        elif self.w2.isHidden():
             self.w2.setWindowIcon(QtGui.QIcon('Data/icons/graficon.png'))
             self.w2.show()
             self.w2.setFixedSize(470, 430)
-            # Выполнение загрузки в новом потоке.
-            if self.browser_status == None:
-                self.parser_open = logicUIParse.Parsing(0, 0, "open")
-                self.parser_open.finished.connect(self.showParserFinished)
-                self.parser_open.start()
-    
-    def showParserFinished(self):
-        self.browser_status = self.parser_open.browser_status
-        del self.parser_open
 
     def show_window_draw(self):  # открытие   окна рисования первой схемы
         self.w3.setWindowIcon(QtGui.QIcon('Data/icons/graficon.png'))
@@ -607,22 +617,10 @@ class MainApp(QtWidgets.QMainWindow, designRepPDF.Ui_MainWindow):
             self.btnDrawSchemeTwo.hide()
             self.btnLoadScheme1.hide()
             self.btnLoadScheme2.hide()
-            
-    def checkNet(self):
-        num_error = 0
-        try:
-            response = requests.get("http://www.google.com")
-            self.statusBar.setStyleSheet("background-color:rgb(255, 255, 255)")
-            num_error += 1
-            return num_error
-        except requests.ConnectionError:
-            self.statusBar.showMessage('Нет подключения к интернету', 10000)
-            self.statusBar.setStyleSheet("background-color:rgb(255, 105, 97)")
-            return num_error
 
     def roof_select(self):
         self.current_roof = self.listRoof.currentIndex()
-              
+
     def invertor_select(self):
         self.listInvertor_file.clear()
         if self.listInvertor_folder.currentText() != "Выберите":
@@ -638,7 +636,7 @@ class MainApp(QtWidgets.QMainWindow, designRepPDF.Ui_MainWindow):
         self.listPV_file.clear()
         if self.listPV_folder.currentText() != "Выберите":
             self.select_title_pv = self.listPV_folder.currentText() 
-            modules_file = f'{path_to_PV}/{self.select_title_pv}'
+            modules_file = f'{path_to_pv}/{self.select_title_pv}'
             self.type_pv_modules = sorted(os.listdir(modules_file))
             names_modules = []
             for name in self.type_pv_modules:
@@ -649,7 +647,7 @@ class MainApp(QtWidgets.QMainWindow, designRepPDF.Ui_MainWindow):
         self.listKTP_file.clear()
         if self.listInvertor_folder.currentText() != "Выберите":
             self.select_title_ktp = self.listKTP_folder.currentText() 
-            modules_file = f'{path_to_KTP}/{self.select_title_ktp}'
+            modules_file = f'{path_to_ktp}/{self.select_title_ktp}'
             self.type_ktp_modules = sorted(os.listdir(modules_file))
             names_modules = []
             for name in self.type_ktp_modules:
@@ -660,9 +658,15 @@ class MainApp(QtWidgets.QMainWindow, designRepPDF.Ui_MainWindow):
         current_invertor = self.listInvertor_file.currentText()
         for select_invertor in self.type_modules:
             if current_invertor in select_invertor: 
-                self.found_txt = search_data.search_in_txt(f"{path_to_invertors}/{self.select_title_invertor}/{select_invertor}") 
-                self.w3.set_invertor_params(self.found_txt['module'], self.found_txt['mppt'], self.found_txt['inputs']) # вставка параметров в окно первой схемы
-                self.w4.set_invertor_params(self.found_txt['module'], self.found_txt['p_max'], self.found_txt['i_out_max']) # вставка параметров в окно второй схемы
+                self.found_invertor = search_data.search_in_invertor(f"{path_to_invertors}/{self.select_title_invertor}/{select_invertor}") 
+                self.w3.set_invertor_params(self.found_invertor['module'], self.found_invertor['mppt'], self.found_invertor['inputs']) # вставка параметров в окно первой схемы
+                self.w4.set_invertor_params(self.found_invertor['module'], self.found_invertor['p_max'], self.found_invertor['i_out_max']) # вставка параметров в окно второй схемы
+                
+    def pv_load(self):
+        current_pv = self.listPV_file.currentText()
+        for select_pv in self.type_pv_modules:
+            if current_pv in select_pv: 
+                self.found_pv = search_data.search_in_pv(f"{path_to_pv}/{self.select_title_pv}/{select_pv}") 
                 
     def delete_pdf(self, method):
         fp_general = path_to_pdf_schemes + "/General"
@@ -713,19 +717,6 @@ class MainApp(QtWidgets.QMainWindow, designRepPDF.Ui_MainWindow):
             self.converter2 = СonvertFiles(self.path_general_schemes, 'general')
             self.converter2.finished.connect(self.convertTwoFinished)
             self.converter2.start()
-        
-    def convertOneFinished(self):
-        self.btnLoadScheme1.setEnabled(True)
-        del self.converter1
-        
-    def convertTwoFinished(self):
-        self.btnLoadScheme2.setEnabled(True)
-        del self.converter2
-                       
-    def convertPvsystFinished(self):
-        self.found_pdf = self.converter_pvsyst.found_pdf 
-        self.btnOne.setEnabled(True)
-        del self.converter_pvsyst
 
     def merge_pdf(self):
         pdf_merger = PdfFileMerger()
@@ -780,7 +771,12 @@ class MainApp(QtWidgets.QMainWindow, designRepPDF.Ui_MainWindow):
         code_project = self.inputCodeProject.text()
         client = self.inputClient.text()
         u_dot_in = self.inputUDotIn.text()
-        self.object_passport = {'title_project': title_project, 'code_project': code_project, 'client': client, 'u_dot_in': u_dot_in}
+        address = self.inputAddress.text()
+        type_object = self.inputObjectType.text()
+        latitude = self.inputAddressLat.text()
+        longitude = self.inputAddressLong.text()
+        self.object_passport = {'title_project': title_project, 'code_project': code_project, 'client': client, 'u_dot_in': u_dot_in,
+                                'address': address, 'type_object': type_object, 'lati_ui': latitude, 'longi_ui': longitude}
         self.blocks = {'block_1': block_1, 'block_2': block_2, 'block_3': block_3, 
                     'block_3_1': block_3_1, 'block_3_2': block_3_2, 'block_3_3': block_3_3, 'block_3_4': block_3_4, 
                     'block_4': block_4, 'block_5': block_5, 'block_5_1': block_5_1, 'block_5_1_1': block_5_1_1, 
@@ -789,6 +785,8 @@ class MainApp(QtWidgets.QMainWindow, designRepPDF.Ui_MainWindow):
                     'block_5_6': block_5_6, 'block_6': block_6, 'block_7': block_7, 'block_8': block_8,
                     'block_8_1': block_8_1, 'block_8_2': block_8_2, 'block_8_3': block_8_3, 
                     'block_8_4': block_8_4, 'block_8_5': block_8_5, 'block_8_6': block_8_6,}
+        self.weather = self.w2.parse_params if hasattr(self.w2, 'parse_params') else self.parse_params
+        self.weather_station = self.w2.parse_params_current_city if hasattr(self.w2, 'parse_params_current_city') else self.weather_station_params
         
     def create_document(self):
         try:
@@ -808,22 +806,10 @@ class MainApp(QtWidgets.QMainWindow, designRepPDF.Ui_MainWindow):
             self.btnOpenPDF.hide()
             QtWidgets.QApplication.processEvents()
             self.out_params()
-            name_weather_station_params = ('view_city', 'strt_monit', 'num_weather_station')
-            name_parse_params = ('num_error', 'min_temp', 'date_min_temp', 'num_weather_station',
-                            'max_temp', 'date_max_temp', 'all_range', 'average_temp', 'number_of_observations', 
-                            'average_pressure', 'average_humidity', 'main_wind', 'average_speed_wind', 
-                            'max_speed_wind', 'precipitation_on_12_hour', 'average_height_snow', 'max_height_snow', 
-                            'first_date_snow', 'last_date_snow')
-            parse_params = dict.fromkeys(name_parse_params, 'Н/Д')
-            weather_station_params = dict.fromkeys(name_weather_station_params, 'Н/Д')
-
-            weather = self.w2.parse_params if hasattr(self.w2, 'parse_params') else parse_params
-            weather_station = self.w2.parse_params_current_city if hasattr(self.w2, 'parse_params_current_city') else weather_station_params
-            print( weather_station)
             
             main_params = {'path_to_pvsyst': self.path_pvsyst, 'roof': self.current_roof, 
-                            **self.blocks, **self.object_passport, **self.found_txt, 
-                            **weather, **weather_station, **self.found_pdf}
+                            **self.blocks, **self.object_passport, **self.found_invertor, 
+                            **self.weather, **self.weather_station, **self.found_pdf, **self.found_pv}
             print(main_params)
             
             self.btnForm.setEnabled(False)
@@ -834,7 +820,44 @@ class MainApp(QtWidgets.QMainWindow, designRepPDF.Ui_MainWindow):
             self.builder = BuildDoc(main_params)
             self.builder.finished.connect(self.buildFinished)
             self.builder.start()
+
+    def showParserFinished(self):
+        self.browser_status = self.parser_open.browser_status
+        if self.browser_status == 0:
+            self.w2.setWindowIcon(QtGui.QIcon('Data/icons/graficon.png'))
+            self.w2.show()
+            self.w2.setFixedSize(470, 430)
+
+            self.statusBar.showMessage('Успешно!', 4000)
+            self.statusBar.setStyleSheet("background-color:rgb(48, 219, 91)")
+            QTimer.singleShot(4000, lambda: self.statusBar.setStyleSheet("background-color:rgb(255, 255, 255)"))
+            self.btnRP5.setEnabled(True)
+            self.btnRP5.setText('RP5')
+        else:
+            self.statusBar.showMessage('Что-то пошло не так с браузером, попробуйте запустить снова')
+            self.statusBar.setStyleSheet("background-color:rgb(255, 212, 38)")
+            self.btnRP5.setEnabled(True)
+            self.btnRP5.setText('RP5')
+        del self.parser_open
+
+    def closeFinished(self):
+        del self.parser_close  
+
+    def convertOneFinished(self):
+        self.btnLoadScheme1.setEnabled(True)
+        del self.converter1
         
+    def convertTwoFinished(self):
+        self.btnLoadScheme2.setEnabled(True)
+        del self.converter2
+                       
+    def convertPvsystFinished(self):
+        self.found_pdf = self.converter_pvsyst.found_pdf 
+        latitude = self.inputAddressLat.setText(self.found_pdf['lati_pdf'])
+        longitude = self.inputAddressLong.setText(self.found_pdf['longi_pdf'])
+        self.btnOne.setEnabled(True)
+        del self.converter_pvsyst
+
     def buildFinished(self):
         self.textConsole.append("Отчет сформирован!")
         self.statusBar.showMessage('Отчет сформирован!', 4000)

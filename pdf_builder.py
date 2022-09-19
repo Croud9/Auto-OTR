@@ -1,19 +1,19 @@
 from reportlab.lib import colors
-from reportlab.platypus import Paragraph, Table, TableStyle, BaseDocTemplate, Frame, PageTemplate, NextPageTemplate, Image, Spacer, PageBreak
-from reportlab.platypus.tableofcontents import TableOfContents
-from reportlab.lib.styles import getSampleStyleSheet, ParagraphStyle
 from reportlab.lib.pagesizes import A4
 from reportlab.lib.enums import TA_JUSTIFY, TA_CENTER
+from reportlab.lib.units import inch, mm
+from reportlab.lib.styles import ParagraphStyle
+from reportlab.platypus import Paragraph, Table, TableStyle, BaseDocTemplate, Frame, PageTemplate, NextPageTemplate, Image, Spacer, PageBreak
+from reportlab.platypus.tableofcontents import TableOfContents
 from reportlab.pdfbase import pdfmetrics
 from reportlab.pdfbase.ttfonts import TTFont
 from reportlab.pdfbase.pdfmetrics import registerFontFamily
-from reportlab.lib.units import inch, mm
-from reportlab.lib.utils import ImageReader
 from reportlab.pdfgen import canvas
-import re, fitz, glob
-import io, os
-from svglib.svglib import svg2rlg
 from reportlab.graphics import renderPDF
+import re, fitz, os
+from svglib.svglib import svg2rlg
+
+# from symbol import parameters
 
 class NumberedCanvas(canvas.Canvas):
     def __init__(self, *args, **kwargs):
@@ -235,8 +235,8 @@ class docPDF():
             self.story.append(Spacer(1, 12))
             # Настроить отступы
             self.story.append(Paragraph(f"По данным предпроектного обследования и,согласно исходным данным, \
-                                    объект – {'<b>многоквартирный жилой дом</b>'}, расположенный по адресу: {'<b>г. Екатеринбург, ул. Анатолия Мехренцева, 36.</b>'} \
-                                    Координаты - {'<b>55.587562, 37.908986.</b>'}", self.styleNormal))
+                                    объект – {data['type_object']}, расположенный по адресу: {data['address']} \
+                                    Координаты - {data['lati_ui']}, {data['longi_ui']}", self.styleNormal))
             self.story.append(Paragraph("<b>Вручную описать инфраструктуру территории или выписать данные из отчета ППО.</b>", self.styleNormal))
             self.story.append(Spacer(1, 24))
             
@@ -344,7 +344,7 @@ class docPDF():
                                     солнечной энергии поступающей на фотоэлектрические модули (ФЭМ) в электрическую с помощью инверторной установки, \
                                     выдача мощности во внутреннюю сеть {data['u_dot_in']} кВ, а также мониторинг работы СЭС, \
                                     и в случае необходимости, ограничение выработки СЭС.", self.styleNormal))
-            self.story.append(Paragraph(f"СЭС имеет установленную мощность ФЭМ {'<b>____ кВт</b>'}. \
+            self.story.append(Paragraph(f"СЭС имеет установленную мощность ФЭМ {data['pnom_PV']} кВт. \
                                     Режим работы СЭС периодический – преобразование световой энергии солнца \
                                     в электрическую энергию будет производиться только в дневное время суток. \
                                     Работа оборудования СЭС осуществляется в автоматическом режиме.", self.styleNormal))
@@ -354,55 +354,74 @@ class docPDF():
                                     Инвертор подключен кабелем переменного тока к ячейке {data['u_dot_in']} кВ;", self.styleNormal))
             self.story.append(Paragraph("<bullet>&bull;</bullet> оборудования для мониторинга выработки мощности;", self.styleNormal))
             self.story.append(Spacer(1, 12))
-            self.story.append(Paragraph("Массив ФЭМ состоит из _ цепочек, собранных суммарно из _ ФЭМ. \
+            self.story.append(Paragraph(f"Массив ФЭМ состоит из <b>????</b> цепочек, собранных суммарно из {data['nb_PV']} ФЭМ. \
                                     Цепочки подключаются к инвертору солнечным кабелем постоянного тока, \
                                     изоляция которого обладает повышенной стойкостью к воздействию ультрафиолета.", self.styleNormal))
             self.story.append(Paragraph("Информацию о работе системы и её состоянии обслуживающий персонал получает с помощью облачного сервиса.", self.styleNormal))
             self.story.append(Paragraph("Основные технико-экономические параметры работы СЭС представлены в таблице 5.1.", self.styleNormal))
             self.story.append(Paragraph("Таблица 5.1 — Основные технологические характеристики СЭС", self.styleNormal))
-            print(len(data['specific_production']) is dict)
-            if data['specific_production'] != 'Н/Д' and not len(data['specific_production']) is dict:
-                use_set_power = round(8765 / int(data['specific_production']) * 100, 2)
-            elif data['specific_production'] != 'Н/Д' and len(data['specific_production']) is dict:
-                use_set_P = []
-                for k, v in data['specific_production'].items():
-                    use_set_P.append(k + f"{round(8765 / int(v) * 100, 2)}")
-                use_set_power = ', '.join(use_set_P)
-            else: 
-                use_set_power = 'Н/Д'
 
-            table_ses_params = Table(
-            [
+            ses_params = [
             [Paragraph('<b>Наименование показателя</b>', self.styleNormalTable), Paragraph('<b>Единица измерения</b>', self.styleNormalTable), Paragraph('<b>Величина</b>', self.styleNormalTable)],
-            [Paragraph('Установленная мощность СЭС по ФЭМ', self.styleNormalTable), Paragraph('кВт', self.styleNormalTable), Paragraph('-', self.styleNormalTable)],
-            [Paragraph('Максимальная мощность СЭС по инверторам', self.styleNormalTable), Paragraph('кВт', self.styleNormalTable), Paragraph('-', self.styleNormalTable)],
-            [Paragraph('Количество устанавливаемых ФЭМ', self.styleNormalTable), Paragraph('шт', self.styleNormalTable), Paragraph('-', self.styleNormalTable)],
-            [Paragraph('Выработка электроэнергии в год (P50)*', self.styleNormalTable), Paragraph('МВт*ч', self.styleNormalTable), Paragraph('-', self.styleNormalTable)],
-            [Paragraph('Коэффициент использования установленной мощности (P50)*', self.styleNormalTable), Paragraph('%', self.styleNormalTable), 
-                Paragraph(f'{use_set_power}', self.styleNormalTable)],
+            [Paragraph('Установленная мощность СЭС по ФЭМ', self.styleNormalTable), Paragraph('кВт', self.styleNormalTable), Paragraph(data['pnom_PV'], self.styleNormalTable)],
+            [Paragraph('Максимальная мощность СЭС по инверторам', self.styleNormalTable), Paragraph('кВт', self.styleNormalTable), Paragraph(data['pnom_inverters'], self.styleNormalTable)],
+            [Paragraph('Количество устанавливаемых ФЭМ', self.styleNormalTable), Paragraph('шт', self.styleNormalTable), Paragraph(data['nb_PV'], self.styleNormalTable)]
             ]
-            )
+            print(type(data['produced_energy']) is dict)
 
-            table_ses_params.setStyle(TableStyle([('ALIGN',(1,1),(-1,-1),'CENTRE'),
+            description_for_P = "* - модельное значение выработки электроэнергии с вероятностью: "
+
+            if data['produced_energy'] != 'Н/Д':
+                if not type(data['produced_energy']) is dict:
+                    ses_params.append([Paragraph('Выработка электроэнергии в год', self.styleNormalTable), 
+                                        Paragraph('МВт*ч / год', self.styleNormalTable), Paragraph(data['produced_energy'], self.styleNormalTable)])
+                if type(data['produced_energy']) is dict:
+                    for key, val in data['produced_energy'].items():
+                        ses_params.append([Paragraph(f"Выработка электроэнергии в год {key}*", self.styleNormalTable), 
+                                            Paragraph('МВт*ч / год', self.styleNormalTable), Paragraph(f'{val}', self.styleNormalTable)])
+            else: 
+                ses_params.append([Paragraph('Выработка электроэнергии в год', self.styleNormalTable), 
+                                    Paragraph('МВт*ч / год', self.styleNormalTable), Paragraph(data['produced_energy'], self.styleNormalTable)])
+
+            if data['specific_production'] != 'Н/Д':
+                if not type(data['specific_production']) is dict:
+                    ses_params.append([Paragraph(f"Коэффициент использования установленной мощности", self.styleNormalTable), 
+                                        Paragraph('%', self.styleNormalTable), 
+                                        Paragraph(f"{round(8765 / int(data['specific_production']) * 100, 2)}", self.styleNormalTable)])
+                    description_for_P = ""
+                if type(data['specific_production']) is dict:
+                    for key, val in data['specific_production'].items():
+                        ses_params.append([Paragraph(f"Коэффициент использования установленной мощности {key}*", self.styleNormalTable), 
+                                            Paragraph('%', self.styleNormalTable), 
+                                            Paragraph(f'{round(8765 / int(val) * 100, 2)}', self.styleNormalTable)])
+                        description_for_P = description_for_P + key.replace('(P', '').replace(')', '') + '%, '
+                    description_for_P = description_for_P[:-2] + '.'
+            else: 
+                ses_params.append([Paragraph(f"Коэффициент использования установленной мощности", self.styleNormalTable), 
+                                    Paragraph('%', self.styleNormalTable), Paragraph(data['specific_production'], self.styleNormalTable)])
+                description_for_P = ""
+
+            table_ses_params = Table(ses_params, colWidths=[None, 1.2*inch, 1.2*inch], style = [('ALIGN',(1,1),(-1,-1),'CENTRE'),
             ('INNERGRID', (0,0), (-1,-1), 0.25, colors.black),
             ('BOX', (0,0), (-1,-1), 0.25, colors.black),
-            ]))
+            ])
+
             self.story.append(table_ses_params)
-            self.story.append(Paragraph("* - модельное значение выработки электроэнергии с вероятностью 50%.", self.styleNormal))
+            self.story.append(Paragraph(description_for_P, self.styleNormal))
 
         if data["block_5_1_1"] == False:
             self.story.append(PageBreak())
             self.story.append(Paragraph("<b>5.1.1 ФЭМ</b>", self.styleH2))
             self.story.append(Spacer(1, 12))
-            self.story.append(Paragraph("Для преобразования энергии солнечного света в электрическую предусмотрено устройство массива фотоэлектрических модулей. \
-                                    ФЭМ изготовлены в виде прямоугольных пластин размером ____х____х__ мм. ФЭМ состоит из нескольких основных элементов – \
+            self.story.append(Paragraph(f"Для преобразования энергии солнечного света в электрическую предусмотрено устройство массива фотоэлектрических модулей. \
+                                    ФЭМ изготовлены в виде прямоугольных пластин размером {data['height_pv']} х {data['width_pv']} х {data['depth_pv']} мм (Д х Ш х Г). ФЭМ состоит из нескольких основных элементов – \
                                     элементов каркаса, фоточувствительных ячеек, электрической коммутации элементов, подложки, ламинирующей пленки и закаленного стекла. \
                                     ФЭМ является комплектным изделием и не подлежит разборке и самостоятельному ремонту. \
                                     Световой поток при инсоляции проходит через закаленное стекло и прозрачную ламинирующую пленку и попадает на светочувствительные ячейки, \
                                     воздействуя на полупроводниковый материал, в результате воздействия возникает электрический ток, \
                                     который образует разность потенциалов на выводах полупроводникового элемента. С помощью электрической коммутации \
-                                    (последовательного и параллельного соединения ячеек) значение напряжения в режиме холостого хода на выводах ФЭМ составляет __ В, \
-                                    а ток в режиме короткого замыкания составляет __ А.", self.styleNormal))
+                                    (последовательного и параллельного соединения ячеек) значение напряжения в режиме холостого хода на выводах ФЭМ составляет {data['voc_pv']} В, \
+                                    а ток в режиме короткого замыкания составляет {data['isc_pv']} А.", self.styleNormal))
             self.story.append(Paragraph("ФЭМ закрепляются на специальные несущие конструкции, заземляются и выставляются на определенные расчетом углы работы. \
                                     Данное закрепление позволяет выдерживать ветровые и снеговые нагрузки, \
                                     действующие на массив ФЭМ в течении всего срока эксплуатации станции. ", self.styleNormal))
@@ -411,15 +430,15 @@ class docPDF():
 
             table_fem_params = Table(
             [
-            [Paragraph('<b>Наименование показателя</b>', self.styleNormalTable), Paragraph('<b>Единица измерения</b>', self.styleNormalTable), Paragraph('<b>HJT 395 M2+</b>', self.styleNormalTable)],
-            [Paragraph('Максимальная мощность', self.styleNormalTable), Paragraph('Вт', self.styleNormalTable), Paragraph('-', self.styleNormalTable)],
-            [Paragraph('Напряжение при номинальной мощности', self.styleNormalTable), Paragraph('В', self.styleNormalTable), Paragraph('-', self.styleNormalTable)],
-            [Paragraph('Сила тока при максимальной мощности', self.styleNormalTable), Paragraph('А', self.styleNormalTable), Paragraph('-', self.styleNormalTable)],
-            [Paragraph('Напряжение холостого хода', self.styleNormalTable), Paragraph('В', self.styleNormalTable), Paragraph('-', self.styleNormalTable)],
-            [Paragraph('Ток короткого замыкания', self.styleNormalTable), Paragraph('А', self.styleNormalTable), Paragraph('-', self.styleNormalTable)],
-            [Paragraph('Габариты', self.styleNormalTable), Paragraph('мм', self.styleNormalTable), Paragraph('-', self.styleNormalTable)],
-            [Paragraph('Площадь', self.styleNormalTable), Paragraph('м2', self.styleNormalTable), Paragraph('-', self.styleNormalTable)],
-            [Paragraph('Вес', self.styleNormalTable), Paragraph('кг', self.styleNormalTable), Paragraph('-', self.styleNormalTable)],
+            [Paragraph('<b>Наименование показателя</b>', self.styleNormalTable), Paragraph('<b>Единица измерения</b>', self.styleNormalTable), Paragraph(f"<b>{data['module_pv']}</b>", self.styleNormalTable)],
+            [Paragraph('Максимальная мощность', self.styleNormalTable), Paragraph('Вт', self.styleNormalTable), Paragraph(f"{data['p_nom_pv']}", self.styleNormalTable)],
+            [Paragraph('Напряжение при номинальной мощности', self.styleNormalTable), Paragraph('В', self.styleNormalTable), Paragraph(f"{data['vmp_pv']}", self.styleNormalTable)],
+            [Paragraph('Сила тока при максимальной мощности', self.styleNormalTable), Paragraph('А', self.styleNormalTable), Paragraph(f"{data['imp_pv']}", self.styleNormalTable)],
+            [Paragraph('Напряжение холостого хода', self.styleNormalTable), Paragraph('В', self.styleNormalTable), Paragraph(f"{data['voc_pv']}", self.styleNormalTable)],
+            [Paragraph('Ток короткого замыкания', self.styleNormalTable), Paragraph('А', self.styleNormalTable), Paragraph(f"{data['isc_pv']}", self.styleNormalTable)],
+            [Paragraph('Габариты', self.styleNormalTable), Paragraph('мм (Д х Ш х Г)', self.styleNormalTable), Paragraph(f"{data['height_pv']} х {data['width_pv']} х {data['depth_pv']}", self.styleNormalTable)],
+            [Paragraph('Площадь', self.styleNormalTable), Paragraph('м2', self.styleNormalTable), Paragraph(f"{data['square_pv']}", self.styleNormalTable)],
+            [Paragraph('Вес', self.styleNormalTable), Paragraph('кг', self.styleNormalTable), Paragraph(f"{data['weight_pv']}", self.styleNormalTable)],
             ]
             )
 
@@ -431,6 +450,7 @@ class docPDF():
             self.story.append(Spacer(1, 12))
             self.story.append(Paragraph("Характеристики даны при стандартных тестовых условиях: (удельный световой поток 1000Вт/м2, \
                                     температура модуля 25ºС, атмосферная масса 1,5).", self.styleNormal))
+
         if data["block_5_1_2"] == False:
             self.story.append(PageBreak())
             self.story.append(Paragraph("<b>5.1.2 Опорные конструкции</b>", self.styleH2))
@@ -612,6 +632,7 @@ class docPDF():
             self.story.append(Paragraph("Соединение элементов заземляющего устройства выполнять болтовым. Соединение элементов устройства уравнивания \
                                     потенциалов выполнять сварным. Сварные швы для полосовой стали выполнить по ГОСТ 5264-80*, для круглой стали - по ГОСТ 14098-91. \
                                     Катет шва принять по наименьшей толщине свариваемых элементов.", self.styleNormal))
+
         if data["block_5_5"] == False:
             self.story.append(PageBreak())
             self.story.append(Paragraph("<b> 5.5 Выбор оптимальных показателей сравнение вариантов</b>", self.styleH2))
@@ -692,9 +713,19 @@ class docPDF():
         ]))
         self.story.append(table_ses_output)
 
+        if data['produced_energy'] != 'Н/Д' and type(data['produced_energy']) is dict:
+            produced_energy = ', '.join('{}: {}'.format(key, val) for key, val in data['produced_energy'].items()) 
+        else:
+            produced_energy = data['produced_energy']
+
+        if data['specific_production'] != 'Н/Д' and type(data['specific_production']) is dict:
+            specific_production = ', '.join('{}: {}'.format(key, val) for key, val in data['specific_production'].items()) 
+        else:
+            specific_production = data['specific_production']
+
         self.story.append(Spacer(1, 12))
-        self.story.append(Paragraph(f"На основании расчета подтверждено, что годовая выработка составляет {data['produced_energy']} МВтч/ год \
-                                и годовая удельная выработка СЭС составляет {data['specific_production']} кВтч / кВт / \
+        self.story.append(Paragraph(f"На основании расчета подтверждено, что годовая выработка составляет {produced_energy} МВтч/ год \
+                                и годовая удельная выработка СЭС составляет {specific_production} кВтч / кВт / \
                                 год при средней производительности {data['perf_ratio']}%.", self.styleNormal))
         self.story.append(Spacer(1, 12))
         self.story.append(Paragraph("После ввода в эксплуатацию СЭС поведение всех её компонентов, а также естественные \
@@ -894,8 +925,6 @@ class docPDF():
         # self.schemes()
         self.doc.multiBuild(self.story, canvasmaker=NumberedCanvas)
         
-        patch_imgs_pvsyst = "Data/Images/PVsyst"
-        img_files_pvsyst = [f for f in os.listdir(patch_imgs_pvsyst) if os.path.isfile(os.path.join(patch_imgs_pvsyst, f))]
         if len(self.images_pvsyst) != 0:
             for img in self.images_pvsyst:
                 img.close()
