@@ -19,7 +19,9 @@ from svglib.svglib import svg2rlg
 from reportlab.graphics import renderPDF
 from PyPDF2 import PdfFileMerger
 from PyQt5 import QtWidgets, QtGui
+from PyQt5.QtGui import *
 from PyQt5.QtCore import QTimer, QThread
+from datetime import date
 
 path_to_pdf_pvsyst = "Data/PDF in/PVsyst"
 path_to_pdf_schemes = "Data/PDF in/Shemes"
@@ -96,6 +98,12 @@ class MainApp(QtWidgets.QMainWindow, designRepPDF.Ui_MainWindow):
         self.listKTP_folder.activated.connect(self.ktp_select)
         self.listInvertor_file.activated.connect(self.invertor_load)
         self.listPV_file.activated.connect(self.pv_load)
+        self.inputAddress.selectionChanged.connect(self.show_button_coordinates)
+        self.btnSearchCoordinates.clicked.connect(self.coordinate_by_address)
+        self.inputTitleProject.textChanged.connect(self.generate_code_project)
+        self.btnDelPvsystData.clicked.connect(self.del_pvsyst)
+        self.btnDelSchemeOneData.clicked.connect(self.del_scheme_one)
+        self.btnDelSchemeTwoData.clicked.connect(self.del_scheme_two)
 
     def instance_ofter_class(self, instance_of_main_window): 
         self.w2 = logicUIParse.WindowParse()
@@ -103,9 +111,9 @@ class MainApp(QtWidgets.QMainWindow, designRepPDF.Ui_MainWindow):
         self.w4 = logicUITwoScheme.WindowDrawTwo(instance_of_main_window)
 
     def input_data(self):
-        self.path_pvsyst = " "
-        self.pathes_detail_schemes = " "
-        self.path_general_schemes = " "
+        self.path_pvsyst = ''
+        self.pathes_detail_schemes = []
+        self.path_general_schemes = ['']
         self.found_invertor = search_data.null_search_params('invertor')
         self.found_pv = search_data.null_search_params('pv')
         self.found_pdf = search_data.null_search_params('pvsyst')
@@ -114,7 +122,7 @@ class MainApp(QtWidgets.QMainWindow, designRepPDF.Ui_MainWindow):
         self.browser_status = None
         
         self.inputTitleProject.setText("ШЛЮМБЕРЖЕ. ЛИПЕЦК. СЭС 363,4 КВТ")
-        self.inputCodeProject.setText("2215ШЛБ-СЭС-ОТР")
+        self.inputCodeProject.setText("ШЛМ2022")
         self.inputClient.setText("ООО «Рэдалит Шлюмберже»")
         
         self.inputUDotIn.setText("0.4")
@@ -139,7 +147,29 @@ class MainApp(QtWidgets.QMainWindow, designRepPDF.Ui_MainWindow):
        
     def open_result_doc(self):
         os.startfile("Data\Report\Auto-OTR.pdf")
-      
+
+    def hide_del_button(self):
+        fp_general = path_to_pdf_schemes + "/General"
+        fp_detailed = path_to_pdf_schemes + "/Detailed"
+        patch_imgs_pvsyst = "Data/Images/PVsyst"
+        img_files_pvsyst = [f for f in os.listdir(patch_imgs_pvsyst) if os.path.isfile(os.path.join(patch_imgs_pvsyst, f))]
+        files_in_detailed = [f for f in os.listdir(fp_detailed) if isfile(join(fp_detailed, f))]
+        files_in_general = [f for f in os.listdir(fp_general) if isfile(join(fp_general, f))]
+        if len(img_files_pvsyst) == 0:
+            self.btnDelPvsystData.hide()
+        else: 
+            self.btnDelPvsystData.show()
+            
+        if len(files_in_detailed) == 0:
+            self.btnDelSchemeOneData.hide()
+        else: 
+            self.btnDelSchemeOneData.show()
+
+        if len(files_in_general) == 0:
+            self.btnDelSchemeTwoData.hide()
+        else: 
+            self.btnDelSchemeTwoData.show()
+
     def validation(self):
         if self.listRoof.currentText() == "Выберите":
             self.statusBar.showMessage('Выберите тип крыши', 5000)
@@ -174,9 +204,36 @@ class MainApp(QtWidgets.QMainWindow, designRepPDF.Ui_MainWindow):
         self.parser_close = logicUIParse.Parsing(0, 0, "close")
         self.parser_close.finished.connect(self.closeFinished)
         self.parser_close.start()     
-        
+
+    def coordinate_by_address(self):
+        coord = geocoding.get_coordinates_by_full_address(self.inputAddress.text())
+        if not 'error' in coord:
+            self.inputAddressLat.setText(coord['latitude'])
+            self.inputAddressLong.setText(coord['longitude'])
+            self.inputAddress.setText(coord['full_address'])
+            self.w2.inputCity.setText(coord['city'])
+
+        else:
+            self.statusBar.showMessage(coord['error'], 4000)
+            self.statusBar.setStyleSheet("background-color:rgba(255, 169, 31, 0.89)")
+            QTimer.singleShot(4000, lambda: self.statusBar.setStyleSheet("background-color:rgb(255, 255, 255)"))
+
+    def show_button_coordinates(self):
+        if self.btnSearchCoordinates.isHidden():
+            self.btnSearchCoordinates.show()
+
+    def generate_code_project(self):
+        full_title = self.inputTitleProject.text()
+        not_vowels_and_num = ''.join([letter for letter in full_title if letter not in 'ьЬъЪ-ауоыиэяюёеАУОЫИЭЯЮЁЕ0123456789,. ']).upper()
+        current_year = str(date.today().year)
+        self.inputCodeProject.setText(not_vowels_and_num[:3] + current_year)
+
     def hide(self):
-        self.btnOpenPDF.hide()
+        self.btnOpenPDF.hide() 
+        self.btnSearchCoordinates.hide()
+        self.btnDelPvsystData.hide()
+        self.btnDelSchemeOneData.hide()
+        self.btnDelSchemeTwoData.hide()
         self.btnTwo.hide()
         self.btnThree.hide()
         self.btnFour.hide()
@@ -236,6 +293,7 @@ class MainApp(QtWidgets.QMainWindow, designRepPDF.Ui_MainWindow):
             self.btnSlideMenu.setText("⮂")
             self.label_for_slide.setText("Удаление раздела")
             # Паспорт объекта
+            self.btnSearchCoordinates.hide()
             self.label_2.hide()
             self.label_3.hide()
             self.label_4.hide()
@@ -303,6 +361,7 @@ class MainApp(QtWidgets.QMainWindow, designRepPDF.Ui_MainWindow):
         elif self.label_for_slide.text() == "Удаление раздела":
             self.btnSlideMenu.setText("⮂")
             self.label_for_slide.setText("Оборудование")
+            
             # Удаление разделов
             self.label_slide_title.hide()
             self.checkBox_1.hide()
@@ -337,6 +396,7 @@ class MainApp(QtWidgets.QMainWindow, designRepPDF.Ui_MainWindow):
             self.checkBox_8_5.hide()
             self.checkBox_8_6.hide()
             # Паспорт объекта
+            self.btnSearchCoordinates.hide()
             self.inputUDotIn.hide()
             self.inputAddress.hide()
             self.inputAddressLat.hide()
@@ -417,6 +477,7 @@ class MainApp(QtWidgets.QMainWindow, designRepPDF.Ui_MainWindow):
             self.btnAddPV.hide()
             self.btnAddKTP.hide()   
             # Паспорт объекта
+            self.btnSearchCoordinates.hide()
             self.label_2.setText("Название проекта")
             self.label_2.show()
             self.label_3.setText("Тип объекта")
@@ -613,11 +674,14 @@ class MainApp(QtWidgets.QMainWindow, designRepPDF.Ui_MainWindow):
             self.btnDrawSchemeTwo.show()
             self.btnLoadScheme1.show()
             self.btnLoadScheme2.show()
+            self.hide_del_button()
         else:   
             self.btnDrawScheme.hide()
             self.btnDrawSchemeTwo.hide()
             self.btnLoadScheme1.hide()
             self.btnLoadScheme2.hide()
+            self.btnDelSchemeOneData.hide()
+            self.btnDelSchemeTwoData.hide()
 
     def roof_select(self):
         self.current_roof = self.listRoof.currentIndex()
@@ -668,7 +732,7 @@ class MainApp(QtWidgets.QMainWindow, designRepPDF.Ui_MainWindow):
         for select_pv in self.type_pv_modules:
             if current_pv in select_pv: 
                 self.found_pv = search_data.search_in_pv(f"{path_to_pv}/{self.select_title_pv}/{select_pv}") 
-                
+
     def delete_pdf(self, method):
         fp_general = path_to_pdf_schemes + "/General"
         fp_detailed = path_to_pdf_schemes + "/Detailed"
@@ -685,10 +749,34 @@ class MainApp(QtWidgets.QMainWindow, designRepPDF.Ui_MainWindow):
         if len(img_files_pvsyst) != 0 and method == 'pvsyst':
             for file in img_files_pvsyst:
                 os.remove(patch_imgs_pvsyst + f"/{file}")  
-                           
+
+    def del_pvsyst(self):
+        self.delete_pdf('pvsyst')
+        self.found_pdf = search_data.null_search_params('pvsyst')
+        self.path_pvsyst = ''
+        self.hide_del_button()
+        self.statusBar.showMessage('Файл PVsyst исключен из отчета', 2500)
+        self.statusBar.setStyleSheet("background-color: rgba(229,229,234,1); color:  #3b83ff; font-weight: bold;")
+        QTimer.singleShot(2500, lambda: self.statusBar.setStyleSheet("background-color:rgb(255, 255, 255)"))
+
+    def del_scheme_one(self):
+        self.delete_pdf('detailed')
+        self.hide_del_button()
+        self.statusBar.showMessage('Файл первого чертежа исключен из отчета', 2500)
+        self.statusBar.setStyleSheet("background-color: rgba(229,229,234,1); color:  #3b83ff; font-weight: bold;")
+        QTimer.singleShot(2500, lambda: self.statusBar.setStyleSheet("background-color:rgb(255, 255, 255)"))
+
+    def del_scheme_two(self):
+        self.delete_pdf('general')
+        self.hide_del_button()
+        self.statusBar.showMessage('Файл второго чертежа исключен из отчета', 2500)
+        self.statusBar.setStyleSheet("background-color: rgba(229,229,234,1); color:  #3b83ff; font-weight: bold;")
+        QTimer.singleShot(2500, lambda: self.statusBar.setStyleSheet("background-color:rgb(255, 255, 255)"))
+        
     def pvsyst(self):
         self.path_pvsyst = QtWidgets.QFileDialog.getOpenFileName(self, 'Выберите файл', path_to_pdf_pvsyst, "*.pdf")[0] #открытие диалога для выбора файла
         print(self.path_pvsyst)
+        self.hide_del_button()
         if len(self.path_pvsyst) != 0:
             self.delete_pdf('pvsyst')
             self.textConsole.append("- Загружен отчет PVsyst")
@@ -700,6 +788,7 @@ class MainApp(QtWidgets.QMainWindow, designRepPDF.Ui_MainWindow):
     def load_scheme_one(self):
         self.pathes_detail_schemes = QtWidgets.QFileDialog.getOpenFileNames(self, 'Выберите файл', path_to_schemes, "*.svg")[0] #открытие диалога для выбора файла
         print(self.pathes_detail_schemes)
+        self.hide_del_button()
         if len(self.pathes_detail_schemes) != 0:
             self.delete_pdf('detailed')
             self.textConsole.append("- Загружена принципиальная эл.схема")
@@ -711,6 +800,7 @@ class MainApp(QtWidgets.QMainWindow, designRepPDF.Ui_MainWindow):
     def load_scheme_two(self):
         self.path_general_schemes = [QtWidgets.QFileDialog.getOpenFileName(self, 'Выберите файл', path_to_schemes, "*.svg")[0]] #открытие диалога для выбора файла
         print( self.path_general_schemes)
+        self.hide_del_button()
         if len(self.path_general_schemes[0]) != 0:
             self.delete_pdf('general')
             self.textConsole.append("- Загружена структурная эл.схема ")
@@ -846,10 +936,12 @@ class MainApp(QtWidgets.QMainWindow, designRepPDF.Ui_MainWindow):
 
     def convertOneFinished(self):
         self.btnLoadScheme1.setEnabled(True)
+        self.hide_del_button()
         del self.converter1
         
     def convertTwoFinished(self):
         self.btnLoadScheme2.setEnabled(True)
+        self.hide_del_button()
         del self.converter2
                        
     def convertPvsystFinished(self):
@@ -857,8 +949,10 @@ class MainApp(QtWidgets.QMainWindow, designRepPDF.Ui_MainWindow):
         self.inputAddressLat.setText(self.found_pdf['lati_pdf'])
         self.inputAddressLong.setText(self.found_pdf['longi_pdf'])
         full_address = geocoding.get_full_address_by_coordinates(self.found_pdf['lati_pdf'], self.found_pdf['longi_pdf'])
-        self.inputAddress.setText(full_address)
+        self.inputAddress.setText(full_address['full_address'])
+        self.w2.inputCity.setText(full_address['city_point'])
         self.btnOne.setEnabled(True)
+        self.hide_del_button()
         del self.converter_pvsyst
 
     def buildFinished(self):

@@ -19,49 +19,10 @@ class Ui_MainWindow(object):
         font = QtGui.QFont()
         font.setFamily("Arial")
         font.setBold(False)
+        font.setWeight(50)
         MainWindow.setFont(font)
         MainWindow.setFocusPolicy(QtCore.Qt.NoFocus)
-        MainWindow.setStyleSheet("QMainWindow {\n"
-"    background-color: white\n"
-"}\n"
-"QScrollBar:vertical {              \n"
-"    background: #e5e5ea;\n"
-"    border-radius: 3;\n"
-"    border: none;\n"
-"    max-width: 8px;\n"
-"}\n"
-"QScrollBar::handle:vertical {\n"
-"    background-color: #196dff;\n"
-"    border-radius: 3;\n"
-"}\n"
-"QScrollBar::handle:vertical:hover {\n"
-"    background-color: #3b83ff; \n"
-"    min-height: 0px;\n"
-"    border-radius: 3;\n"
-"}\n"
-"QScrollBar::add-line:vertical {\n"
-"    height: 0px;\n"
-"    subcontrol-position: bottom;\n"
-"    subcontrol-origin: margin;\n"
-"}\n"
-"QScrollBar::sub-line:vertical {\n"
-"    height: 0 px;\n"
-"    subcontrol-position: top;\n"
-"    subcontrol-origin: margin;\n"
-"}\n"
-"QScrollBar::add-page:vertical, QScrollBar::sub-page:vertical{\n"
-"    background: #e5e5ea;\n"
-"    border: none;\n"
-"}\n"
-"QComboBox QAbstractItemView {\n"
-"    background: transparent;\n"
-"    border-radius: 6;\n"
-"    border: none;\n"
-"    outline:0px;\n"
-"    selection-background-color: white;\n"
-"    selection-color: #196dff;\n"
-"    padding: 8 0 8 0;\n"
-"}")
+        MainWindow.setStyleSheet("")
         MainWindow.setDocumentMode(False)
         self.centralwidget = QtWidgets.QWidget(MainWindow)
         self.centralwidget.setStyleSheet("background-color: #fff;")
@@ -86,6 +47,7 @@ class Ui_MainWindow(object):
         font.setFamily("Arial")
         font.setPointSize(9)
         font.setBold(True)
+        font.setWeight(75)
         self.btnTwo.setFont(font)
         self.btnTwo.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
         self.btnTwo.setStyleSheet("QPushButton{\n"
@@ -109,6 +71,7 @@ class Ui_MainWindow(object):
         font.setFamily("Arial")
         font.setPointSize(9)
         font.setBold(True)
+        font.setWeight(75)
         self.btnOne.setFont(font)
         self.btnOne.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
         self.btnOne.setStyleSheet("QPushButton{\n"
@@ -132,6 +95,7 @@ class Ui_MainWindow(object):
         font.setFamily("Arial")
         font.setPointSize(9)
         font.setBold(True)
+        font.setWeight(75)
         self.btnFour.setFont(font)
         self.btnFour.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
         self.btnFour.setStyleSheet("QPushButton{\n"
@@ -155,6 +119,7 @@ class Ui_MainWindow(object):
         font.setFamily("Arial")
         font.setPointSize(9)
         font.setBold(True)
+        font.setWeight(75)
         self.btnThree.setFont(font)
         self.btnThree.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
         self.btnThree.setStyleSheet("QPushButton{\n"
@@ -179,6 +144,7 @@ class Ui_MainWindow(object):
         font.setPointSize(11)
         font.setBold(True)
         font.setUnderline(False)
+        font.setWeight(75)
         font.setStrikeOut(False)
         font.setKerning(True)
         self.label.setFont(font)
@@ -190,6 +156,7 @@ class Ui_MainWindow(object):
         font.setFamily("Arial")
         font.setPointSize(9)
         font.setBold(True)
+        font.setWeight(75)
         self.label_for_slide.setFont(font)
         self.label_for_slide.setObjectName("label_for_slide")
         self.btnForm = QtWidgets.QPushButton(self.centralwidget)
@@ -198,6 +165,7 @@ class Ui_MainWindow(object):
         font.setFamily("Arial")
         font.setPointSize(9)
         font.setBold(True)
+        font.setWeight(75)
         self.btnForm.setFont(font)
         self.btnForm.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
         self.btnForm.setStyleSheet("QPushButton{\n"
@@ -221,6 +189,7 @@ class Ui_MainWindow(object):
         font.setFamily("Arial")
         font.setPointSize(9)
         font.setBold(True)
+        font.setWeight(75)
         self.btnRP5.setFont(font)
         self.btnRP5.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
         self.btnRP5.setStyleSheet("QPushButton{\n"
@@ -244,6 +213,7 @@ class Ui_MainWindow(object):
         font.setFamily("Arial")
         font.setPointSize(9)
         font.setBold(True)
+        font.setWeight(75)
         self.btnDrawScheme.setFont(font)
         self.btnDrawScheme.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
         self.btnDrawScheme.setStyleSheet("QPushButton{\n"
@@ -267,6 +237,7 @@ class Ui_MainWindow(object):
         font.setFamily("Arial")
         font.setPointSize(9)
         font.setBold(True)
+        font.setWeight(75)
         self.btnDrawSchemeTwo.setFont(font)
         self.btnDrawSchemeTwo.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
         self.btnDrawSchemeTwo.setStyleSheet("QPushButton{\n"
@@ -289,6 +260,7 @@ class Ui_MainWindow(object):
         font = QtGui.QFont()
         font.setFamily("Arial")
         font.setBold(True)
+        font.setWeight(75)
         self.inputTitleProject.setFont(font)
         self.inputTitleProject.setStyleSheet("QLineEdit{\n"
 "    background-color:rgba(229,229,234,1); \n"
@@ -326,6 +298,7 @@ class Ui_MainWindow(object):
         font = QtGui.QFont()
         font.setFamily("Arial")
         font.setBold(True)
+        font.setWeight(75)
         self.inputClient.setFont(font)
         self.inputClient.setStyleSheet("QLineEdit{\n"
 "    background-color:rgba(229,229,234,1); \n"
@@ -349,6 +322,7 @@ class Ui_MainWindow(object):
         font = QtGui.QFont()
         font.setFamily("Arial")
         font.setBold(True)
+        font.setWeight(75)
         self.listRoof.setFont(font)
         self.listRoof.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
         self.listRoof.setAutoFillBackground(False)
@@ -372,8 +346,8 @@ class Ui_MainWindow(object):
         self.listRoof.setInputMethodHints(QtCore.Qt.ImhNone)
         self.listRoof.setEditable(False)
         self.listRoof.setCurrentText("")
-        self.listRoof.setPlaceholderText("")
         self.listRoof.setModelColumn(0)
+        self.listRoof.setProperty("placeholderText", "")
         self.listRoof.setObjectName("listRoof")
         self.label_5 = QtWidgets.QLabel(self.centralwidget)
         self.label_5.setGeometry(QtCore.QRect(211, 277, 91, 16))
@@ -388,6 +362,7 @@ class Ui_MainWindow(object):
         font.setFamily("Arial")
         font.setPointSize(9)
         font.setBold(True)
+        font.setWeight(75)
         self.btnSchemes.setFont(font)
         self.btnSchemes.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
         self.btnSchemes.setStyleSheet("QPushButton{\n"
@@ -411,6 +386,7 @@ class Ui_MainWindow(object):
         font.setFamily("Arial")
         font.setPointSize(9)
         font.setBold(True)
+        font.setWeight(75)
         font.setKerning(True)
         self.btnDevice.setFont(font)
         self.btnDevice.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
@@ -655,6 +631,7 @@ class Ui_MainWindow(object):
         font.setFamily("Arial")
         font.setPointSize(9)
         font.setBold(True)
+        font.setWeight(75)
         self.btnLoadScheme2.setFont(font)
         self.btnLoadScheme2.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
         self.btnLoadScheme2.setStyleSheet("QPushButton{\n"
@@ -678,6 +655,7 @@ class Ui_MainWindow(object):
         font.setFamily("Arial")
         font.setPointSize(9)
         font.setBold(True)
+        font.setWeight(75)
         self.btnLoadScheme1.setFont(font)
         self.btnLoadScheme1.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
         self.btnLoadScheme1.setStyleSheet("QPushButton{\n"
@@ -700,6 +678,7 @@ class Ui_MainWindow(object):
         font = QtGui.QFont()
         font.setFamily("Arial")
         font.setBold(True)
+        font.setWeight(75)
         self.listInvertor_folder.setFont(font)
         self.listInvertor_folder.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
         self.listInvertor_folder.setStyleSheet("QComboBox{\n"
@@ -722,7 +701,7 @@ class Ui_MainWindow(object):
         self.listInvertor_folder.setInputMethodHints(QtCore.Qt.ImhNone)
         self.listInvertor_folder.setEditable(False)
         self.listInvertor_folder.setCurrentText("")
-        self.listInvertor_folder.setPlaceholderText("")
+        self.listInvertor_folder.setProperty("placeholderText", "")
         self.listInvertor_folder.setObjectName("listInvertor_folder")
         self.label_6 = QtWidgets.QLabel(self.centralwidget)
         self.label_6.setGeometry(QtCore.QRect(211, 316, 141, 16))
@@ -738,6 +717,7 @@ class Ui_MainWindow(object):
         font.setFamily("Arial")
         font.setPointSize(9)
         font.setBold(True)
+        font.setWeight(75)
         self.listInvertor_file.setFont(font)
         self.listInvertor_file.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
         self.listInvertor_file.setStyleSheet("QComboBox{\n"
@@ -760,13 +740,14 @@ class Ui_MainWindow(object):
         self.listInvertor_file.setInputMethodHints(QtCore.Qt.ImhNone)
         self.listInvertor_file.setEditable(False)
         self.listInvertor_file.setCurrentText("")
-        self.listInvertor_file.setPlaceholderText("")
+        self.listInvertor_file.setProperty("placeholderText", "")
         self.listInvertor_file.setObjectName("listInvertor_file")
         self.inputCodeProject = QtWidgets.QLineEdit(self.centralwidget)
         self.inputCodeProject.setGeometry(QtCore.QRect(447, 310, 339, 31))
         font = QtGui.QFont()
         font.setFamily("Arial")
         font.setBold(True)
+        font.setWeight(75)
         self.inputCodeProject.setFont(font)
         self.inputCodeProject.setStyleSheet("QLineEdit{\n"
 "    background-color:rgba(229,229,234,1); \n"
@@ -798,6 +779,7 @@ class Ui_MainWindow(object):
         font.setFamily("Arial")
         font.setPointSize(11)
         font.setBold(True)
+        font.setWeight(75)
         self.btnSlideMenu.setFont(font)
         self.btnSlideMenu.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
         self.btnSlideMenu.setStyleSheet("QPushButton{\n"
@@ -823,6 +805,7 @@ class Ui_MainWindow(object):
         font.setBold(False)
         font.setItalic(False)
         font.setUnderline(False)
+        font.setWeight(50)
         font.setStrikeOut(False)
         font.setKerning(True)
         font.setStyleStrategy(QtGui.QFont.PreferAntialias)
@@ -846,6 +829,7 @@ class Ui_MainWindow(object):
         font.setFamily("Arial")
         font.setPointSize(8)
         font.setBold(False)
+        font.setWeight(50)
         self.btnShow5.setFont(font)
         self.btnShow5.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
         self.btnShow5.setStyleSheet("QPushButton{\n"
@@ -865,6 +849,7 @@ class Ui_MainWindow(object):
         font.setFamily("Arial")
         font.setPointSize(8)
         font.setBold(False)
+        font.setWeight(50)
         self.btnShow8.setFont(font)
         self.btnShow8.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
         self.btnShow8.setStyleSheet("QPushButton{\n"
@@ -941,6 +926,7 @@ class Ui_MainWindow(object):
         font.setBold(True)
         font.setItalic(False)
         font.setUnderline(False)
+        font.setWeight(75)
         font.setStrikeOut(False)
         font.setKerning(True)
         font.setStyleStrategy(QtGui.QFont.PreferAntialias)
@@ -964,6 +950,7 @@ class Ui_MainWindow(object):
         font.setFamily("Arial")
         font.setPointSize(9)
         font.setBold(True)
+        font.setWeight(75)
         self.listPV_file.setFont(font)
         self.listPV_file.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
         self.listPV_file.setStyleSheet("QComboBox{\n"
@@ -986,13 +973,14 @@ class Ui_MainWindow(object):
         self.listPV_file.setInputMethodHints(QtCore.Qt.ImhNone)
         self.listPV_file.setEditable(False)
         self.listPV_file.setCurrentText("")
-        self.listPV_file.setPlaceholderText("")
+        self.listPV_file.setProperty("placeholderText", "")
         self.listPV_file.setObjectName("listPV_file")
         self.listPV_folder = QtWidgets.QComboBox(self.centralwidget)
         self.listPV_folder.setGeometry(QtCore.QRect(358, 191, 91, 31))
         font = QtGui.QFont()
         font.setFamily("Arial")
         font.setBold(True)
+        font.setWeight(75)
         self.listPV_folder.setFont(font)
         self.listPV_folder.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
         self.listPV_folder.setStyleSheet("QComboBox{\n"
@@ -1015,13 +1003,14 @@ class Ui_MainWindow(object):
         self.listPV_folder.setInputMethodHints(QtCore.Qt.ImhNone)
         self.listPV_folder.setEditable(False)
         self.listPV_folder.setCurrentText("")
-        self.listPV_folder.setPlaceholderText("")
+        self.listPV_folder.setProperty("placeholderText", "")
         self.listPV_folder.setObjectName("listPV_folder")
         self.listKTP_folder = QtWidgets.QComboBox(self.centralwidget)
         self.listKTP_folder.setGeometry(QtCore.QRect(358, 230, 91, 31))
         font = QtGui.QFont()
         font.setFamily("Arial")
         font.setBold(True)
+        font.setWeight(75)
         self.listKTP_folder.setFont(font)
         self.listKTP_folder.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
         self.listKTP_folder.setStyleSheet("QComboBox{\n"
@@ -1044,7 +1033,7 @@ class Ui_MainWindow(object):
         self.listKTP_folder.setInputMethodHints(QtCore.Qt.ImhNone)
         self.listKTP_folder.setEditable(False)
         self.listKTP_folder.setCurrentText("")
-        self.listKTP_folder.setPlaceholderText("")
+        self.listKTP_folder.setProperty("placeholderText", "")
         self.listKTP_folder.setObjectName("listKTP_folder")
         self.listKTP_file = QtWidgets.QComboBox(self.centralwidget)
         self.listKTP_file.setGeometry(QtCore.QRect(458, 230, 329, 31))
@@ -1052,6 +1041,7 @@ class Ui_MainWindow(object):
         font.setFamily("Arial")
         font.setPointSize(9)
         font.setBold(True)
+        font.setWeight(75)
         self.listKTP_file.setFont(font)
         self.listKTP_file.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
         self.listKTP_file.setStyleSheet("QComboBox{\n"
@@ -1074,13 +1064,14 @@ class Ui_MainWindow(object):
         self.listKTP_file.setInputMethodHints(QtCore.Qt.ImhNone)
         self.listKTP_file.setEditable(False)
         self.listKTP_file.setCurrentText("")
-        self.listKTP_file.setPlaceholderText("")
+        self.listKTP_file.setProperty("placeholderText", "")
         self.listKTP_file.setObjectName("listKTP_file")
         self.inputUDotIn = QtWidgets.QLineEdit(self.centralwidget)
         self.inputUDotIn.setGeometry(QtCore.QRect(359, 310, 80, 31))
         font = QtGui.QFont()
         font.setFamily("Arial")
         font.setBold(True)
+        font.setWeight(75)
         self.inputUDotIn.setFont(font)
         self.inputUDotIn.setStyleSheet("QLineEdit{\n"
 "    background-color:rgba(229,229,234,1); \n"
@@ -1104,6 +1095,7 @@ class Ui_MainWindow(object):
         font = QtGui.QFont()
         font.setFamily("Arial")
         font.setBold(True)
+        font.setWeight(75)
         self.inputAddress.setFont(font)
         self.inputAddress.setStyleSheet("QLineEdit{\n"
 "    background-color:rgba(229,229,234,1); \n"
@@ -1127,6 +1119,7 @@ class Ui_MainWindow(object):
         font = QtGui.QFont()
         font.setFamily("Arial")
         font.setBold(True)
+        font.setWeight(75)
         self.inputObjectType.setFont(font)
         self.inputObjectType.setStyleSheet("QLineEdit{\n"
 "    background-color:rgba(229,229,234,1); \n"
@@ -1150,6 +1143,7 @@ class Ui_MainWindow(object):
         font = QtGui.QFont()
         font.setFamily("Arial")
         font.setBold(True)
+        font.setWeight(75)
         self.inputAddressLat.setFont(font)
         self.inputAddressLat.setStyleSheet("QLineEdit{\n"
 "    background-color:rgba(229,229,234,1); \n"
@@ -1173,6 +1167,7 @@ class Ui_MainWindow(object):
         font = QtGui.QFont()
         font.setFamily("Arial")
         font.setBold(True)
+        font.setWeight(75)
         self.inputAddressLong.setFont(font)
         self.inputAddressLong.setStyleSheet("QLineEdit{\n"
 "    background-color:rgba(229,229,234,1); \n"
@@ -1197,6 +1192,7 @@ class Ui_MainWindow(object):
         font.setFamily("Arial")
         font.setPointSize(14)
         font.setBold(True)
+        font.setWeight(75)
         self.btnAddInvertor.setFont(font)
         self.btnAddInvertor.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
         self.btnAddInvertor.setStyleSheet("QPushButton{\n"
@@ -1216,6 +1212,7 @@ class Ui_MainWindow(object):
         font = QtGui.QFont()
         font.setFamily("Arial")
         font.setBold(True)
+        font.setWeight(75)
         self.spinBox_numInvertor.setFont(font)
         self.spinBox_numInvertor.setStyleSheet("QSpinBox{\n"
 "    background-color:rgba(229,229,234,1); \n"
@@ -1262,6 +1259,7 @@ class Ui_MainWindow(object):
         font.setFamily("Arial")
         font.setPointSize(14)
         font.setBold(True)
+        font.setWeight(75)
         self.btnAddPV.setFont(font)
         self.btnAddPV.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
         self.btnAddPV.setStyleSheet("QPushButton{\n"
@@ -1281,6 +1279,7 @@ class Ui_MainWindow(object):
         font = QtGui.QFont()
         font.setFamily("Arial")
         font.setBold(True)
+        font.setWeight(75)
         self.spinBox_numPV.setFont(font)
         self.spinBox_numPV.setStyleSheet("QSpinBox{\n"
 "    background-color:rgba(229,229,234,1); \n"
@@ -1327,6 +1326,7 @@ class Ui_MainWindow(object):
         font.setFamily("Arial")
         font.setPointSize(14)
         font.setBold(True)
+        font.setWeight(75)
         self.btnAddKTP.setFont(font)
         self.btnAddKTP.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
         self.btnAddKTP.setStyleSheet("QPushButton{\n"
@@ -1346,6 +1346,7 @@ class Ui_MainWindow(object):
         font = QtGui.QFont()
         font.setFamily("Arial")
         font.setBold(True)
+        font.setWeight(75)
         self.spinBox_numKTP.setFont(font)
         self.spinBox_numKTP.setStyleSheet("QSpinBox{\n"
 "    background-color:rgba(229,229,234,1); \n"
@@ -1386,6 +1387,94 @@ class Ui_MainWindow(object):
 "\n"
 "}")
         self.spinBox_numKTP.setObjectName("spinBox_numKTP")
+        self.btnSearchCoordinates = QtWidgets.QPushButton(self.centralwidget)
+        self.btnSearchCoordinates.setGeometry(QtCore.QRect(310, 270, 41, 31))
+        font = QtGui.QFont()
+        font.setFamily("Arial")
+        font.setPointSize(17)
+        font.setBold(True)
+        font.setWeight(75)
+        self.btnSearchCoordinates.setFont(font)
+        self.btnSearchCoordinates.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
+        self.btnSearchCoordinates.setStyleSheet("QPushButton{\n"
+"    background-color: rgba(229,229,234,1);\n"
+"    color: #196dff;\n"
+"    border: none;\n"
+"    border-radius: 6;\n"
+"    border-style: outset;\n"
+"}\n"
+"QPushButton:hover{\n"
+"    background-color: #dceaff; \n"
+"}\n"
+"QPushButton:pressed{\n"
+"    color: rgba(25, 109, 255, 0.7); \n"
+"    border-radius: 6;\n"
+"}")
+        self.btnSearchCoordinates.setObjectName("btnSearchCoordinates")
+        self.btnDelPvsystData = QtWidgets.QPushButton(self.centralwidget)
+        self.btnDelPvsystData.setGeometry(QtCore.QRect(107, 35, 31, 31))
+        font = QtGui.QFont()
+        font.setFamily("Arial")
+        font.setPointSize(11)
+        font.setBold(True)
+        font.setWeight(75)
+        self.btnDelPvsystData.setFont(font)
+        self.btnDelPvsystData.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
+        self.btnDelPvsystData.setStyleSheet("QPushButton{\n"
+"    background-color:rgba(112, 215, 255, 0);\n"
+"    color: rgba(229,229,234,1);\n"
+"    border: none;\n"
+"    border-radius: 5;\n"
+"    border-style: outset;\n"
+"}\n"
+"QPushButton:hover{\n"
+"    color: white;\n"
+"}\n"
+"")
+        self.btnDelPvsystData.setObjectName("btnDelPvsystData")
+        self.btnDelSchemeTwoData = QtWidgets.QPushButton(self.centralwidget)
+        self.btnDelSchemeTwoData.setGeometry(QtCore.QRect(761, 84, 31, 31))
+        font = QtGui.QFont()
+        font.setFamily("Arial")
+        font.setPointSize(11)
+        font.setBold(True)
+        font.setWeight(75)
+        self.btnDelSchemeTwoData.setFont(font)
+        self.btnDelSchemeTwoData.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
+        self.btnDelSchemeTwoData.setStyleSheet("QPushButton{\n"
+"    background-color:rgba(112, 215, 255, 0);\n"
+"    color:  #3b83ff;\n"
+"    border: none;\n"
+"    border-radius: 5;\n"
+"    border-style: outset;\n"
+"}\n"
+"QPushButton:hover{\n"
+"    color:rgba(0, 20, 240, 0.93) ;\n"
+"}\n"
+"")
+        self.btnDelSchemeTwoData.setObjectName("btnDelSchemeTwoData")
+        self.btnDelSchemeOneData = QtWidgets.QPushButton(self.centralwidget)
+        self.btnDelSchemeOneData.setGeometry(QtCore.QRect(637, 84, 31, 31))
+        font = QtGui.QFont()
+        font.setFamily("Arial")
+        font.setPointSize(11)
+        font.setBold(True)
+        font.setWeight(75)
+        self.btnDelSchemeOneData.setFont(font)
+        self.btnDelSchemeOneData.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
+        self.btnDelSchemeOneData.setStyleSheet("QPushButton{\n"
+"    background-color:rgba(112, 215, 255, 0);\n"
+"    color:  #3b83ff;\n"
+"    border: none;\n"
+"    border-radius: 5;\n"
+"    border-style: outset;\n"
+"}\n"
+"QPushButton:hover{\n"
+"    color:rgba(0, 20, 240, 0.93) ;\n"
+"}\n"
+"")
+        self.btnDelSchemeOneData.setObjectName("btnDelSchemeOneData")
+        self.btnSearchCoordinates.raise_()
         self.inputObjectType.raise_()
         self.inputTitleProject.raise_()
         self.listInvertor_folder.raise_()
@@ -1461,6 +1550,9 @@ class Ui_MainWindow(object):
         self.spinBox_numPV.raise_()
         self.btnAddKTP.raise_()
         self.spinBox_numKTP.raise_()
+        self.btnDelPvsystData.raise_()
+        self.btnDelSchemeTwoData.raise_()
+        self.btnDelSchemeOneData.raise_()
         MainWindow.setCentralWidget(self.centralwidget)
         self.statusBar = QtWidgets.QStatusBar(MainWindow)
         self.statusBar.setObjectName("statusBar")
@@ -1572,3 +1664,11 @@ class Ui_MainWindow(object):
         self.btnAddPV.setText(_translate("MainWindow", "+"))
         self.btnAddKTP.setToolTip(_translate("MainWindow", "Добавить MPPT"))
         self.btnAddKTP.setText(_translate("MainWindow", "+"))
+        self.btnSearchCoordinates.setToolTip(_translate("MainWindow", "Нажмите для перехода к другому меню"))
+        self.btnSearchCoordinates.setText(_translate("MainWindow", "ᛃ"))
+        self.btnDelPvsystData.setToolTip(_translate("MainWindow", "Удалить"))
+        self.btnDelPvsystData.setText(_translate("MainWindow", "🞫"))
+        self.btnDelSchemeTwoData.setToolTip(_translate("MainWindow", "Удалить"))
+        self.btnDelSchemeTwoData.setText(_translate("MainWindow", "🞫"))
+        self.btnDelSchemeOneData.setToolTip(_translate("MainWindow", "Удалить"))
+        self.btnDelSchemeOneData.setText(_translate("MainWindow", "🞫"))
