@@ -24,6 +24,8 @@ from PyQt5.QtWidgets import QGraphicsTextItem
 from PyQt5.Qt import *
 from PyQt5.QtCore import QTimer, QThread, Qt
 from datetime import date
+import wikipedia
+wikipedia.set_lang("ru")
 
 path_to_pdf_pvsyst = "Data/PDF in/PVsyst"
 path_to_pdf_schemes = "Data/PDF in/Shemes"
@@ -116,6 +118,9 @@ class MainApp(QtWidgets.QMainWindow, designRepPDF.Ui_MainWindow):
         self.w4 = logicUITwoScheme.WindowDrawTwo(instance_of_main_window)
 
     def input_data(self):
+        climat = wikipedia.page("Оренбург Климат").content
+        if 'Климат' in climat:
+            print(climat)
         # self.spinBox_numInvertor.lineEdit().setDisabled(True) 
         self.path_pvsyst = ''
         self.pathes_detail_schemes = []

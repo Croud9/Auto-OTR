@@ -5,7 +5,9 @@ from datetime import date
 from os.path import isfile, join
 from PyQt5 import QtWidgets
 from PyQt5.QtCore import QTimer, QThread
-
+# import wikipedia
+# wikipedia.set_lang("ru") 
+# print(wikipedia.page("Оренбург").content)
 path_to_pdf_schemes = "Data/PDF in/Shemes"
 
 class Parsing(QThread):
