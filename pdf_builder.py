@@ -502,12 +502,21 @@ class docPDF():
                                         до нижней кромки ОК ФЭМ – __ мм.", self.styleNormal))
             
         if data["block_5_1_3"] == False:
+            phases = []
+            modules = []
+
+            for invertor, params in data['invertors'].items():
+                phases.append(params["phase"])
+                modules.append(params["module"])
+            phases = ', '.join(str(v) for v in phases)
+            modules = ', '.join(str(v) for v in modules)
+
             self.story.append(PageBreak())
             self.story.append(Paragraph("<b>5.1.3 Инверторное оборудование</b>", self.styleH2))
             self.story.append(Spacer(1, 12))
             self.story.append(Paragraph(f"На проектируемой солнечной электростанции для преобразования энергии постоянного тока (от ФЭМ) \
-                                    в переменное {data['phase']}-х фазное напряжение, использованы инверторы. Для преобразования постоянного тока \
-                                    в переменный к установке приняты инверторы {data['module']}.", self.styleNormal))
+                                    в переменное {phases}-х фазное напряжение, использованы инверторы. Для преобразования постоянного тока \
+                                    в переменный к установке приняты инверторы {modules}.", self.styleNormal))
             self.story.append(Paragraph("Схемы объединения ФЭМ в цепочки и подключение к инвертору представлены на чертежах ___.", self.styleNormal))
             img = Image(path_to_image + "Инверторы/Sungrow_Invertor.png", 5*inch, 4*inch)
             self.story.append(img)
@@ -515,40 +524,42 @@ class docPDF():
             self.story.append(Spacer(1, 12))
             self.story.append(Paragraph("Таблица __  – Параметры инверторов", self.styleNormal))
 
-            table_invertor_params = Table(
-            [
-            [Paragraph('<b>Характеристики</b>', self.styleNormalTable), Paragraph(f'<b>Инвертор {data["module"]}</b>', self.styleNormalTable)],
-            [Paragraph(f'Максимальная выходная мощность долговременной работы: <br/> \
-                        - t окружающей среды: {data["tp_nom"]}°С <br/> \
-                        - t окружающей среды: {data["tp_lim"]}°С <br/> \
-                        - t окружающей среды: {data["tp_lim_abs"]}°С', self.styleNormalTable), 
-                        Paragraph(f'{data["p_nom"]} кВА <br/> \
-                                    {data["p_lim"]} кВА <br/> \
-                                    {data["p_lim_abs"]} кВА', self.styleNormalTable)],
-            [Paragraph('Диапазон выходного напряжения переменного тока', self.styleNormalTable), Paragraph(f'{data["phase"]} ф., {data["v_out"]} В', self.styleNormalTable)],
-            [Paragraph('Максимальный выходной ток', self.styleNormalTable), Paragraph(f'≤ {data["i_out_max"]} В', self.styleNormalTable)],
-            [Paragraph('Максимальный КПД преобразования', self.styleNormalTable), Paragraph(f'{data["kpd_max"]}%', self.styleNormalTable)],
-            [Paragraph('Европейский показатель КПД', self.styleNormalTable), Paragraph(f'{data["kpd_euro"]}%', self.styleNormalTable)],
-            [Paragraph('Диапазон выходной частоты', self.styleNormalTable), Paragraph('55 – 65 Гц', self.styleNormalTable)],
-            [Paragraph('Минимальное напряжение цепочки ФЭМ', self.styleNormalTable), Paragraph(f'{data["v_mpp_min"]} В', self.styleNormalTable)],
-            [Paragraph('Максимальное напряжение цепочки ФЭМ', self.styleNormalTable), Paragraph(f'{data["v_abs_max"]} В', self.styleNormalTable)],
-            [Paragraph('Диапазон рабочего входного напряжения MPPT', self.styleNormalTable), Paragraph(f'{data["v_mpp_min"]}...{data["v_mpp_max"]} В', self.styleNormalTable)],
-            [Paragraph('Количество МРРТ', self.styleNormalTable), Paragraph(f'{data["mppt"]} шт.', self.styleNormalTable)],
-            [Paragraph('Суммарный коэф. гармонических искажений', self.styleNormalTable), Paragraph('<3% (номинальная мощность)', self.styleNormalTable)],
-            [Paragraph('Коэффициент мощности', self.styleNormalTable), Paragraph('0,99 (при ном. мощности) <br/> 0,8 (регул. коэф. мощность)', self.styleNormalTable)],
-            [Paragraph('Условия автоматического включения', self.styleNormalTable), Paragraph('Если напряжение на стороне постоянного тока и сеть переменного тока отвечают требованиям, \
-                                                                                            инвертор автоматически переходит в режим работы', self.styleNormalTable)],
-            [Paragraph('Размер инвертора', self.styleNormalTable), Paragraph(f'{data["height"]} х {data["width"]} х {data["depth"]} мм (Д х Ш х Г)', self.styleNormalTable)],
-            [Paragraph('Степень защиты', self.styleNormalTable), Paragraph(f'{data["protect"]}', self.styleNormalTable)],
-            [Paragraph('Вес', self.styleNormalTable), Paragraph(f'{data["weight"]} кг', self.styleNormalTable)],
-            ]
-            )
+            for key, invertor in data['invertors'].items():
+                table_invertor_params = Table(
+                [
+                [Paragraph('<b>Характеристики</b>', self.styleNormalTable), Paragraph(f'<b>Инвертор {invertor["module"]}</b>', self.styleNormalTable)],
+                [Paragraph(f'Максимальная выходная мощность долговременной работы: <br/> \
+                            - t окружающей среды: {invertor["tp_nom"]}°С <br/> \
+                            - t окружающей среды: {invertor["tp_lim"]}°С <br/> \
+                            - t окружающей среды: {invertor["tp_lim_abs"]}°С', self.styleNormalTable), 
+                            Paragraph(f'{invertor["p_nom"]} кВА <br/> \
+                                        {invertor["p_lim"]} кВА <br/> \
+                                        {invertor["p_lim_abs"]} кВА', self.styleNormalTable)],
+                [Paragraph('Диапазон выходного напряжения переменного тока', self.styleNormalTable), Paragraph(f'{invertor["phase"]} ф., {invertor["v_out"]} В', self.styleNormalTable)],
+                [Paragraph('Максимальный выходной ток', self.styleNormalTable), Paragraph(f'≤ {invertor["i_out_max"]} В', self.styleNormalTable)],
+                [Paragraph('Максимальный КПД преобразования', self.styleNormalTable), Paragraph(f'{invertor["kpd_max"]}%', self.styleNormalTable)],
+                [Paragraph('Европейский показатель КПД', self.styleNormalTable), Paragraph(f'{invertor["kpd_euro"]}%', self.styleNormalTable)],
+                [Paragraph('Диапазон выходной частоты', self.styleNormalTable), Paragraph('55 – 65 Гц', self.styleNormalTable)],
+                [Paragraph('Минимальное напряжение цепочки ФЭМ', self.styleNormalTable), Paragraph(f'{invertor["v_mpp_min"]} В', self.styleNormalTable)],
+                [Paragraph('Максимальное напряжение цепочки ФЭМ', self.styleNormalTable), Paragraph(f'{invertor["v_abs_max"]} В', self.styleNormalTable)],
+                [Paragraph('Диапазон рабочего входного напряжения MPPT', self.styleNormalTable), Paragraph(f'{invertor["v_mpp_min"]}...{invertor["v_mpp_max"]} В', self.styleNormalTable)],
+                [Paragraph('Количество МРРТ', self.styleNormalTable), Paragraph(f'{invertor["mppt"]} шт.', self.styleNormalTable)],
+                [Paragraph('Суммарный коэф. гармонических искажений', self.styleNormalTable), Paragraph('<3% (номинальная мощность)', self.styleNormalTable)],
+                [Paragraph('Коэффициент мощности', self.styleNormalTable), Paragraph('0,99 (при ном. мощности) <br/> 0,8 (регул. коэф. мощность)', self.styleNormalTable)],
+                [Paragraph('Условия автоматического включения', self.styleNormalTable), Paragraph('Если напряжение на стороне постоянного тока и сеть переменного тока отвечают требованиям, \
+                                                                                                инвертор автоматически переходит в режим работы', self.styleNormalTable)],
+                [Paragraph('Размер инвертора', self.styleNormalTable), Paragraph(f'{invertor["height"]} х {invertor["width"]} х {invertor["depth"]} мм (Д х Ш х Г)', self.styleNormalTable)],
+                [Paragraph('Степень защиты', self.styleNormalTable), Paragraph(f'{invertor["protect"]}', self.styleNormalTable)],
+                [Paragraph('Вес', self.styleNormalTable), Paragraph(f'{invertor["weight"]} кг', self.styleNormalTable)],
+                ]
+                )
 
-            table_invertor_params.setStyle(TableStyle([('ALIGN',(1,1),(-1,-1),'CENTRE'),
-            ('INNERGRID', (0,0), (-1,-1), 0.25, colors.black),
-            ('BOX', (0,0), (-1,-1), 0.25, colors.black),
-            ]))
-            self.story.append(table_invertor_params)
+                table_invertor_params.setStyle(TableStyle([('ALIGN',(1,1),(-1,-1),'CENTRE'),
+                ('INNERGRID', (0,0), (-1,-1), 0.25, colors.black),
+                ('BOX', (0,0), (-1,-1), 0.25, colors.black),
+                ]))
+                self.story.append(table_invertor_params)
+                self.story.append(Spacer(1, 12))
             
         if data["block_5_1_4"] == False:
             self.story.append(PageBreak())

@@ -715,7 +715,7 @@ class Ui_MainWindow(object):
         self.listInvertor_file.setGeometry(QtCore.QRect(458, 153, 329, 31))
         font = QtGui.QFont()
         font.setFamily("Arial")
-        font.setPointSize(9)
+        font.setPointSize(8)
         font.setBold(True)
         font.setWeight(75)
         self.listInvertor_file.setFont(font)
@@ -1218,7 +1218,7 @@ class Ui_MainWindow(object):
 "    background-color:rgba(229,229,234,1); \n"
 "    border-radius: 6;\n"
 "    border: none;\n"
-"    padding-left: 8px\n"
+"    padding-left: 8px;\n"
 "}\n"
 "QSpinBox:hover{\n"
 "    background-color:rgba(242,242,247,1);\n"
@@ -1245,6 +1245,7 @@ class Ui_MainWindow(object):
 "QSpinBox:down-button:pressed{\n"
 "    background-color:rgba(25,109,255, 0.5);\n"
 "    border-bottom-right-radius: 6;\n"
+"    deselect: True;\n"
 "}\n"
 "QSpinBox:down-button{\n"
 "    background-color:rgba(229,229,234,1); \n"
@@ -1252,6 +1253,7 @@ class Ui_MainWindow(object):
 "    border-left: 1px solid rgba(0,0,0,0.3);\n"
 "\n"
 "}")
+        self.spinBox_numInvertor.setReadOnly(False)
         self.spinBox_numInvertor.setObjectName("spinBox_numInvertor")
         self.btnAddPV = QtWidgets.QPushButton(self.centralwidget)
         self.btnAddPV.setGeometry(QtCore.QRect(781, 190, 31, 31))
@@ -1319,6 +1321,7 @@ class Ui_MainWindow(object):
 "    border-left: 1px solid rgba(0,0,0,0.3);\n"
 "\n"
 "}")
+        self.spinBox_numPV.setReadOnly(False)
         self.spinBox_numPV.setObjectName("spinBox_numPV")
         self.btnAddKTP = QtWidgets.QPushButton(self.centralwidget)
         self.btnAddKTP.setGeometry(QtCore.QRect(782, 230, 31, 31))
@@ -1386,6 +1389,7 @@ class Ui_MainWindow(object):
 "    border-left: 1px solid rgba(0,0,0,0.3);\n"
 "\n"
 "}")
+        self.spinBox_numKTP.setReadOnly(False)
         self.spinBox_numKTP.setObjectName("spinBox_numKTP")
         self.btnSearchCoordinates = QtWidgets.QPushButton(self.centralwidget)
         self.btnSearchCoordinates.setGeometry(QtCore.QRect(310, 270, 41, 31))
@@ -1474,6 +1478,27 @@ class Ui_MainWindow(object):
 "}\n"
 "")
         self.btnDelSchemeOneData.setObjectName("btnDelSchemeOneData")
+        self.btnDelInvertor = QtWidgets.QPushButton(self.centralwidget)
+        self.btnDelInvertor.setGeometry(QtCore.QRect(332, 152, 31, 31))
+        font = QtGui.QFont()
+        font.setFamily("Arial")
+        font.setPointSize(11)
+        font.setBold(True)
+        font.setWeight(75)
+        self.btnDelInvertor.setFont(font)
+        self.btnDelInvertor.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
+        self.btnDelInvertor.setStyleSheet("QPushButton{\n"
+"    background-color:rgba(112, 215, 255, 0);\n"
+"    color:  rgba(0, 0, 0, 0.5);\n"
+"    border: none;\n"
+"    border-radius: 5;\n"
+"    border-style: outset;\n"
+"}\n"
+"QPushButton:hover{\n"
+"    color:rgba(255, 20, 20, 1) ;\n"
+"}\n"
+"")
+        self.btnDelInvertor.setObjectName("btnDelInvertor")
         self.btnSearchCoordinates.raise_()
         self.inputObjectType.raise_()
         self.inputTitleProject.raise_()
@@ -1553,6 +1578,7 @@ class Ui_MainWindow(object):
         self.btnDelPvsystData.raise_()
         self.btnDelSchemeTwoData.raise_()
         self.btnDelSchemeOneData.raise_()
+        self.btnDelInvertor.raise_()
         MainWindow.setCentralWidget(self.centralwidget)
         self.statusBar = QtWidgets.QStatusBar(MainWindow)
         self.statusBar.setObjectName("statusBar")
@@ -1672,3 +1698,5 @@ class Ui_MainWindow(object):
         self.btnDelSchemeTwoData.setText(_translate("MainWindow", "🞫"))
         self.btnDelSchemeOneData.setToolTip(_translate("MainWindow", "Удалить"))
         self.btnDelSchemeOneData.setText(_translate("MainWindow", "🞫"))
+        self.btnDelInvertor.setToolTip(_translate("MainWindow", "Удалить"))
+        self.btnDelInvertor.setText(_translate("MainWindow", "🞫"))
