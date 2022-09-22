@@ -871,7 +871,7 @@ class docPDF():
         self.data = data
         self.images_pvsyst = []
         print("параметры", data)
-        if data["path_to_pvsyst"] != " " and data["path_to_pvsyst"] != None:
+        if data["path_to_pvsyst"] != '' and data["path_to_pvsyst"] != None:
             bamr = data['balances_and_main'] # balances_and_main_result таблица с pvsyst
             print(len(bamr))
         else:

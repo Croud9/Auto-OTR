@@ -16,6 +16,7 @@
   <property name="font">
    <font>
     <family>Arial</family>
+    <weight>50</weight>
     <bold>false</bold>
    </font>
   </property>
@@ -26,47 +27,7 @@
    <string>Auto Report</string>
   </property>
   <property name="styleSheet">
-   <string notr="true">QMainWindow {
-	background-color: white
-}
-QScrollBar:vertical {              
-	background: #e5e5ea;
-	border-radius: 3;
-	border: none;
-	max-width: 8px;
-}
-QScrollBar::handle:vertical {
-	background-color: #196dff;
-    border-radius: 3;
-}
-QScrollBar::handle:vertical:hover {
-	background-color: #3b83ff; 
-    min-height: 0px;
-    border-radius: 3;
-}
-QScrollBar::add-line:vertical {
-    height: 0px;
-    subcontrol-position: bottom;
-    subcontrol-origin: margin;
-}
-QScrollBar::sub-line:vertical {
-    height: 0 px;
-    subcontrol-position: top;
-    subcontrol-origin: margin;
-}
-QScrollBar::add-page:vertical, QScrollBar::sub-page:vertical{
-    background: #e5e5ea;
-	border: none;
-}
-QComboBox QAbstractItemView {
-	background: transparent;
-	border-radius: 6;
-    border: none;
-	outline:0px;
-	selection-background-color: white;
-	selection-color: #196dff;
-    padding: 8 0 8 0;
-}</string>
+   <string notr="true"/>
   </property>
   <property name="documentMode">
    <bool>false</bool>
@@ -118,6 +79,7 @@ QComboBox QAbstractItemView {
      <font>
       <family>Arial</family>
       <pointsize>9</pointsize>
+      <weight>75</weight>
       <bold>true</bold>
      </font>
     </property>
@@ -157,6 +119,7 @@ QPushButton:pressed{
      <font>
       <family>Arial</family>
       <pointsize>9</pointsize>
+      <weight>75</weight>
       <bold>true</bold>
      </font>
     </property>
@@ -196,6 +159,7 @@ QPushButton:pressed{
      <font>
       <family>Arial</family>
       <pointsize>9</pointsize>
+      <weight>75</weight>
       <bold>true</bold>
      </font>
     </property>
@@ -235,6 +199,7 @@ QPushButton:pressed{
      <font>
       <family>Arial</family>
       <pointsize>9</pointsize>
+      <weight>75</weight>
       <bold>true</bold>
      </font>
     </property>
@@ -274,6 +239,7 @@ QPushButton:pressed{
      <font>
       <family>Arial</family>
       <pointsize>11</pointsize>
+      <weight>75</weight>
       <bold>true</bold>
       <underline>false</underline>
       <strikeout>false</strikeout>
@@ -300,6 +266,7 @@ QPushButton:pressed{
      <font>
       <family>Arial</family>
       <pointsize>9</pointsize>
+      <weight>75</weight>
       <bold>true</bold>
      </font>
     </property>
@@ -326,6 +293,7 @@ padding: 2;</string>
      <font>
       <family>Arial</family>
       <pointsize>9</pointsize>
+      <weight>75</weight>
       <bold>true</bold>
      </font>
     </property>
@@ -365,6 +333,7 @@ QPushButton:pressed{
      <font>
       <family>Arial</family>
       <pointsize>9</pointsize>
+      <weight>75</weight>
       <bold>true</bold>
      </font>
     </property>
@@ -404,6 +373,7 @@ QPushButton:pressed{
      <font>
       <family>Arial</family>
       <pointsize>9</pointsize>
+      <weight>75</weight>
       <bold>true</bold>
      </font>
     </property>
@@ -443,6 +413,7 @@ QPushButton:pressed{
      <font>
       <family>Arial</family>
       <pointsize>9</pointsize>
+      <weight>75</weight>
       <bold>true</bold>
      </font>
     </property>
@@ -481,6 +452,7 @@ QPushButton:pressed{
     <property name="font">
      <font>
       <family>Arial</family>
+      <weight>75</weight>
       <bold>true</bold>
      </font>
     </property>
@@ -562,6 +534,7 @@ QLineEdit:pressed{
     <property name="font">
      <font>
       <family>Arial</family>
+      <weight>75</weight>
       <bold>true</bold>
      </font>
     </property>
@@ -605,6 +578,7 @@ QLineEdit:pressed{
     <property name="font">
      <font>
       <family>Arial</family>
+      <weight>75</weight>
       <bold>true</bold>
      </font>
     </property>
@@ -642,11 +616,11 @@ QComboBox:hover{
     <property name="currentText">
      <string/>
     </property>
-    <property name="placeholderText">
-     <string/>
-    </property>
     <property name="modelColumn">
      <number>0</number>
+    </property>
+    <property name="placeholderText" stdset="0">
+     <string/>
     </property>
    </widget>
    <widget class="QLabel" name="label_5">
@@ -681,6 +655,7 @@ QComboBox:hover{
      <font>
       <family>Arial</family>
       <pointsize>9</pointsize>
+      <weight>75</weight>
       <bold>true</bold>
      </font>
     </property>
@@ -720,6 +695,7 @@ QPushButton:pressed{
      <font>
       <family>Arial</family>
       <pointsize>9</pointsize>
+      <weight>75</weight>
       <bold>true</bold>
       <kerning>true</kerning>
      </font>
@@ -1360,6 +1336,7 @@ padding: 2;</string>
      <font>
       <family>Arial</family>
       <pointsize>9</pointsize>
+      <weight>75</weight>
       <bold>true</bold>
      </font>
     </property>
@@ -1399,6 +1376,7 @@ QPushButton:pressed{
      <font>
       <family>Arial</family>
       <pointsize>9</pointsize>
+      <weight>75</weight>
       <bold>true</bold>
      </font>
     </property>
@@ -1437,6 +1415,7 @@ QPushButton:pressed{
     <property name="font">
      <font>
       <family>Arial</family>
+      <weight>75</weight>
       <bold>true</bold>
      </font>
     </property>
@@ -1471,7 +1450,7 @@ QComboBox:hover{
     <property name="currentText">
      <string/>
     </property>
-    <property name="placeholderText">
+    <property name="placeholderText" stdset="0">
      <string/>
     </property>
    </widget>
@@ -1507,6 +1486,7 @@ QComboBox:hover{
      <font>
       <family>Arial</family>
       <pointsize>9</pointsize>
+      <weight>75</weight>
       <bold>true</bold>
      </font>
     </property>
@@ -1541,7 +1521,7 @@ QComboBox:hover{
     <property name="currentText">
      <string/>
     </property>
-    <property name="placeholderText">
+    <property name="placeholderText" stdset="0">
      <string/>
     </property>
    </widget>
@@ -1557,6 +1537,7 @@ QComboBox:hover{
     <property name="font">
      <font>
       <family>Arial</family>
+      <weight>75</weight>
       <bold>true</bold>
      </font>
     </property>
@@ -1620,6 +1601,7 @@ QLineEdit:pressed{
      <font>
       <family>Arial</family>
       <pointsize>11</pointsize>
+      <weight>75</weight>
       <bold>true</bold>
      </font>
     </property>
@@ -1662,6 +1644,7 @@ QPushButton:pressed{
      <font>
       <family>Arial</family>
       <pointsize>8</pointsize>
+      <weight>50</weight>
       <italic>false</italic>
       <bold>false</bold>
       <underline>false</underline>
@@ -1703,6 +1686,7 @@ QPushButton:hover{
      <font>
       <family>Arial</family>
       <pointsize>8</pointsize>
+      <weight>50</weight>
       <bold>false</bold>
      </font>
     </property>
@@ -1738,6 +1722,7 @@ QPushButton:hover{
      <font>
       <family>Arial</family>
       <pointsize>8</pointsize>
+      <weight>50</weight>
       <bold>false</bold>
      </font>
     </property>
@@ -1960,6 +1945,7 @@ QPushButton:hover{
      <font>
       <family>Arial</family>
       <pointsize>9</pointsize>
+      <weight>75</weight>
       <italic>false</italic>
       <bold>true</bold>
       <underline>false</underline>
@@ -2001,6 +1987,7 @@ QPushButton:hover{
      <font>
       <family>Arial</family>
       <pointsize>9</pointsize>
+      <weight>75</weight>
       <bold>true</bold>
      </font>
     </property>
@@ -2035,7 +2022,7 @@ QComboBox:hover{
     <property name="currentText">
      <string/>
     </property>
-    <property name="placeholderText">
+    <property name="placeholderText" stdset="0">
      <string/>
     </property>
    </widget>
@@ -2051,6 +2038,7 @@ QComboBox:hover{
     <property name="font">
      <font>
       <family>Arial</family>
+      <weight>75</weight>
       <bold>true</bold>
      </font>
     </property>
@@ -2085,7 +2073,7 @@ QComboBox:hover{
     <property name="currentText">
      <string/>
     </property>
-    <property name="placeholderText">
+    <property name="placeholderText" stdset="0">
      <string/>
     </property>
    </widget>
@@ -2101,6 +2089,7 @@ QComboBox:hover{
     <property name="font">
      <font>
       <family>Arial</family>
+      <weight>75</weight>
       <bold>true</bold>
      </font>
     </property>
@@ -2135,7 +2124,7 @@ QComboBox:hover{
     <property name="currentText">
      <string/>
     </property>
-    <property name="placeholderText">
+    <property name="placeholderText" stdset="0">
      <string/>
     </property>
    </widget>
@@ -2152,6 +2141,7 @@ QComboBox:hover{
      <font>
       <family>Arial</family>
       <pointsize>9</pointsize>
+      <weight>75</weight>
       <bold>true</bold>
      </font>
     </property>
@@ -2186,7 +2176,7 @@ QComboBox:hover{
     <property name="currentText">
      <string/>
     </property>
-    <property name="placeholderText">
+    <property name="placeholderText" stdset="0">
      <string/>
     </property>
    </widget>
@@ -2202,6 +2192,7 @@ QComboBox:hover{
     <property name="font">
      <font>
       <family>Arial</family>
+      <weight>75</weight>
       <bold>true</bold>
      </font>
     </property>
@@ -2245,6 +2236,7 @@ QLineEdit:pressed{
     <property name="font">
      <font>
       <family>Arial</family>
+      <weight>75</weight>
       <bold>true</bold>
      </font>
     </property>
@@ -2288,6 +2280,7 @@ QLineEdit:pressed{
     <property name="font">
      <font>
       <family>Arial</family>
+      <weight>75</weight>
       <bold>true</bold>
      </font>
     </property>
@@ -2331,6 +2324,7 @@ QLineEdit:pressed{
     <property name="font">
      <font>
       <family>Arial</family>
+      <weight>75</weight>
       <bold>true</bold>
      </font>
     </property>
@@ -2374,6 +2368,7 @@ QLineEdit:pressed{
     <property name="font">
      <font>
       <family>Arial</family>
+      <weight>75</weight>
       <bold>true</bold>
      </font>
     </property>
@@ -2418,6 +2413,7 @@ QLineEdit:pressed{
      <font>
       <family>Arial</family>
       <pointsize>14</pointsize>
+      <weight>75</weight>
       <bold>true</bold>
      </font>
     </property>
@@ -2456,6 +2452,7 @@ QPushButton:hover{
     <property name="font">
      <font>
       <family>Arial</family>
+      <weight>75</weight>
       <bold>true</bold>
      </font>
     </property>
@@ -2513,6 +2510,7 @@ QSpinBox:down-button{
      <font>
       <family>Arial</family>
       <pointsize>14</pointsize>
+      <weight>75</weight>
       <bold>true</bold>
      </font>
     </property>
@@ -2551,6 +2549,7 @@ QPushButton:hover{
     <property name="font">
      <font>
       <family>Arial</family>
+      <weight>75</weight>
       <bold>true</bold>
      </font>
     </property>
@@ -2608,6 +2607,7 @@ QSpinBox:down-button{
      <font>
       <family>Arial</family>
       <pointsize>14</pointsize>
+      <weight>75</weight>
       <bold>true</bold>
      </font>
     </property>
@@ -2646,6 +2646,7 @@ QPushButton:hover{
     <property name="font">
      <font>
       <family>Arial</family>
+      <weight>75</weight>
       <bold>true</bold>
      </font>
     </property>
@@ -2690,6 +2691,170 @@ QSpinBox:down-button{
 }</string>
     </property>
    </widget>
+   <widget class="QPushButton" name="btnSearchCoordinates">
+    <property name="geometry">
+     <rect>
+      <x>310</x>
+      <y>270</y>
+      <width>41</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Arial</family>
+      <pointsize>17</pointsize>
+      <weight>75</weight>
+      <bold>true</bold>
+     </font>
+    </property>
+    <property name="cursor">
+     <cursorShape>PointingHandCursor</cursorShape>
+    </property>
+    <property name="toolTip">
+     <string>Нажмите для перехода к другому меню</string>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QPushButton{
+	background-color: rgba(229,229,234,1);
+	color: #196dff;
+	border: none;
+	border-radius: 6;
+	border-style: outset;
+}
+QPushButton:hover{
+	background-color: #dceaff; 
+}
+QPushButton:pressed{
+	color: rgba(25, 109, 255, 0.7); 
+	border-radius: 6;
+}</string>
+    </property>
+    <property name="text">
+     <string>ᛃ</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="btnDelPvsystData">
+    <property name="geometry">
+     <rect>
+      <x>107</x>
+      <y>35</y>
+      <width>31</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Arial</family>
+      <pointsize>11</pointsize>
+      <weight>75</weight>
+      <bold>true</bold>
+     </font>
+    </property>
+    <property name="cursor">
+     <cursorShape>PointingHandCursor</cursorShape>
+    </property>
+    <property name="toolTip">
+     <string>Удалить</string>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QPushButton{
+	background-color:rgba(112, 215, 255, 0);
+	color: rgba(229,229,234,1);
+	border: none;
+	border-radius: 5;
+	border-style: outset;
+}
+QPushButton:hover{
+	color: white;
+}
+</string>
+    </property>
+    <property name="text">
+     <string>🞫</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="btnDelSchemeTwoData">
+    <property name="geometry">
+     <rect>
+      <x>761</x>
+      <y>84</y>
+      <width>31</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Arial</family>
+      <pointsize>11</pointsize>
+      <weight>75</weight>
+      <bold>true</bold>
+     </font>
+    </property>
+    <property name="cursor">
+     <cursorShape>PointingHandCursor</cursorShape>
+    </property>
+    <property name="toolTip">
+     <string>Удалить</string>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QPushButton{
+	background-color:rgba(112, 215, 255, 0);
+	color:  #3b83ff;
+	border: none;
+	border-radius: 5;
+	border-style: outset;
+}
+QPushButton:hover{
+	color:rgba(0, 20, 240, 0.93) ;
+}
+</string>
+    </property>
+    <property name="text">
+     <string>🞫</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="btnDelSchemeOneData">
+    <property name="geometry">
+     <rect>
+      <x>637</x>
+      <y>84</y>
+      <width>31</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Arial</family>
+      <pointsize>11</pointsize>
+      <weight>75</weight>
+      <bold>true</bold>
+     </font>
+    </property>
+    <property name="cursor">
+     <cursorShape>PointingHandCursor</cursorShape>
+    </property>
+    <property name="toolTip">
+     <string>Удалить</string>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QPushButton{
+	background-color:rgba(112, 215, 255, 0);
+	color:  #3b83ff;
+	border: none;
+	border-radius: 5;
+	border-style: outset;
+}
+QPushButton:hover{
+	color:rgba(0, 20, 240, 0.93) ;
+}
+</string>
+    </property>
+    <property name="text">
+     <string>🞫</string>
+    </property>
+   </widget>
+   <zorder>btnSearchCoordinates</zorder>
    <zorder>inputObjectType</zorder>
    <zorder>inputTitleProject</zorder>
    <zorder>listInvertor_folder</zorder>
@@ -2765,6 +2930,9 @@ QSpinBox:down-button{
    <zorder>spinBox_numPV</zorder>
    <zorder>btnAddKTP</zorder>
    <zorder>spinBox_numKTP</zorder>
+   <zorder>btnDelPvsystData</zorder>
+   <zorder>btnDelSchemeTwoData</zorder>
+   <zorder>btnDelSchemeOneData</zorder>
   </widget>
   <widget class="QStatusBar" name="statusBar"/>
  </widget>
