@@ -20,7 +20,9 @@ from reportlab.graphics import renderPDF
 from PyPDF2 import PdfFileMerger
 from PyQt5 import QtWidgets, QtGui
 from PyQt5.QtGui import *
-from PyQt5.QtCore import QTimer, QThread
+from PyQt5.QtWidgets import QGraphicsTextItem
+from PyQt5.Qt import *
+from PyQt5.QtCore import QTimer, QThread, Qt
 from datetime import date
 
 path_to_pdf_pvsyst = "Data/PDF in/PVsyst"
@@ -104,6 +106,9 @@ class MainApp(QtWidgets.QMainWindow, designRepPDF.Ui_MainWindow):
         self.btnDelPvsystData.clicked.connect(self.del_pvsyst)
         self.btnDelSchemeOneData.clicked.connect(self.del_scheme_one)
         self.btnDelSchemeTwoData.clicked.connect(self.del_scheme_two)
+        self.btnAddInvertor.clicked.connect(self.add_invertor)
+        self.btnDelInvertor.clicked.connect(self.del_invertor)
+        self.spinBox_numInvertor.valueChanged.connect(self.up_down_ivertor_selection)
 
     def instance_ofter_class(self, instance_of_main_window): 
         self.w2 = logicUIParse.WindowParse()
@@ -111,10 +116,14 @@ class MainApp(QtWidgets.QMainWindow, designRepPDF.Ui_MainWindow):
         self.w4 = logicUITwoScheme.WindowDrawTwo(instance_of_main_window)
 
     def input_data(self):
+        # self.spinBox_numInvertor.lineEdit().setDisabled(True) 
         self.path_pvsyst = ''
         self.pathes_detail_schemes = []
         self.path_general_schemes = ['']
-        self.found_invertor = search_data.null_search_params('invertor')
+        self.invertors = {}
+        self.spinBox_numInvertor.setMinimum(1)
+        self.invertors['found_invertor_0'] = search_data.null_search_params('invertor')
+        # self.found_invertor = search_data.null_search_params('invertor')
         self.found_pv = search_data.null_search_params('pv')
         self.found_pdf = search_data.null_search_params('pvsyst')
         self.parse_params = search_data.null_search_params('weather')
@@ -144,7 +153,7 @@ class MainApp(QtWidgets.QMainWindow, designRepPDF.Ui_MainWindow):
         self.listInvertor_folder.addItems(company_invertor)
         self.listPV_folder.addItems(company_pv)
         self.listKTP_folder.addItems(company_ktp)
-       
+
     def open_result_doc(self):
         os.startfile("Data\Report\Auto-OTR.pdf")
 
@@ -229,6 +238,7 @@ class MainApp(QtWidgets.QMainWindow, designRepPDF.Ui_MainWindow):
         self.inputCodeProject.setText(not_vowels_and_num[:3] + current_year)
 
     def hide(self):
+        self.btnDelInvertor.hide() 
         self.btnOpenPDF.hide() 
         self.btnSearchCoordinates.hide()
         self.btnDelPvsystData.hide()
@@ -308,6 +318,7 @@ class MainApp(QtWidgets.QMainWindow, designRepPDF.Ui_MainWindow):
             self.inputCodeProject.hide()
             self.inputClient.hide()
             # Оборудование
+            self.btnDelInvertor.hide() 
             self.listInvertor_folder.hide()
             self.listInvertor_file.hide()
             self.listPV_folder.hide()
@@ -407,6 +418,9 @@ class MainApp(QtWidgets.QMainWindow, designRepPDF.Ui_MainWindow):
             self.inputClient.hide()
             self.label_6.hide()
             # Оборудование
+            if len(self.invertors) > 1:
+                self.spinBox_numInvertor.show()
+                self.btnDelInvertor.show() 
             self.btnAddInvertor.show()
             self.btnAddPV.show()
             self.btnAddKTP.show()
@@ -463,6 +477,7 @@ class MainApp(QtWidgets.QMainWindow, designRepPDF.Ui_MainWindow):
             self.checkBox_8_5.hide()
             self.checkBox_8_6.hide()
             # Оборудование
+            self.btnDelInvertor.hide() 
             self.listInvertor_folder.hide()
             self.listInvertor_file.hide()
             self.listPV_folder.hide()
@@ -718,20 +733,62 @@ class MainApp(QtWidgets.QMainWindow, designRepPDF.Ui_MainWindow):
             for name in self.type_ktp_modules:
                 names_modules.append(name.split(".")[0])
             self.listKTP_file.addItems(names_modules)
-            
+
     def invertor_load(self):
         current_invertor = self.listInvertor_file.currentText()
         for select_invertor in self.type_modules:
             if current_invertor in select_invertor: 
-                self.found_invertor = search_data.search_in_invertor(f"{path_to_invertors}/{self.select_title_invertor}/{select_invertor}") 
-                self.w3.set_invertor_params(self.found_invertor['module'], self.found_invertor['mppt'], self.found_invertor['inputs']) # вставка параметров в окно первой схемы
-                self.w4.set_invertor_params(self.found_invertor['module'], self.found_invertor['p_max'], self.found_invertor['i_out_max']) # вставка параметров в окно второй схемы
+                self.invertors[f'found_invertor_{self.spinBox_numInvertor.value() - 1}'] = search_data.search_in_invertor(f"{path_to_invertors}/{self.select_title_invertor}/{select_invertor}") 
+                current = self.invertors[f'found_invertor_{self.spinBox_numInvertor.value() - 1}']
+                current['file'] = self.listInvertor_file.currentIndex()
+                current['folder'] = self.listInvertor_folder.currentIndex()
+                self.w3.set_invertor_params(current['module'], current['mppt'], current['inputs']) # вставка параметров в окно первой схемы
+                self.w4.set_invertor_params(current['module'], current['p_max'], current['i_out_max']) # вставка параметров в окно второй схемы
+                print(self.invertors)
                 
     def pv_load(self):
         current_pv = self.listPV_file.currentText()
         for select_pv in self.type_pv_modules:
             if current_pv in select_pv: 
                 self.found_pv = search_data.search_in_pv(f"{path_to_pv}/{self.select_title_pv}/{select_pv}") 
+    
+    def add_invertor(self):
+        self.spinBox_numInvertor.show()
+        self.btnDelInvertor.show() 
+        self.listInvertor_file.clear()
+        self.listInvertor_folder.setCurrentIndex(0)
+        self.invertors[f'found_invertor_{len(self.invertors)}'] = search_data.null_search_params('invertor')
+        self.spinBox_numInvertor.setMinimum(1)
+        self.spinBox_numInvertor.setMaximum(len(self.invertors))
+        self.spinBox_numInvertor.setValue(len(self.invertors))
+
+    def del_invertor(self):
+        if len(self.invertors) > 1:
+            del self.invertors[f'found_invertor_{self.spinBox_numInvertor.value() - 1}']
+            self.spinBox_numInvertor.setMaximum(len(self.invertors))
+            self.spinBox_numInvertor.setValue(len(self.invertors))
+            index = 0
+            for key in list(self.invertors.keys()):
+                self.invertors[f'found_invertor_{index}'] = self.invertors.pop(key)
+                index += 1
+            self.up_down_ivertor_selection()
+        if len(self.invertors) == 1:
+            self.btnDelInvertor.hide()
+            self.spinBox_numInvertor.hide()
+
+    def up_down_ivertor_selection(self):
+        # self.spinBox_numInvertor.lineEdit().deselect()
+        current = self.invertors[f'found_invertor_{self.spinBox_numInvertor.value() - 1}']
+        if 'folder' in current:
+            self.listInvertor_folder.setCurrentIndex(current['folder'])
+            self.invertor_select()
+            if 'file' in current:
+                self.listInvertor_file.setCurrentIndex(current['file'])
+            else:
+                self.listInvertor_file.clear()
+        else:
+            self.listInvertor_folder.setCurrentIndex(0)
+            self.listInvertor_file.clear()
 
     def delete_pdf(self, method):
         fp_general = path_to_pdf_schemes + "/General"
@@ -898,8 +955,8 @@ class MainApp(QtWidgets.QMainWindow, designRepPDF.Ui_MainWindow):
             QtWidgets.QApplication.processEvents()
             self.out_params()
             
-            main_params = {'path_to_pvsyst': self.path_pvsyst, 'roof': self.current_roof, 
-                            **self.blocks, **self.object_passport, **self.found_invertor, 
+            main_params = {'path_to_pvsyst': self.path_pvsyst, 'roof': self.current_roof, 'invertors': self.invertors,
+                            **self.blocks, **self.object_passport, 
                             **self.weather, **self.weather_station, **self.found_pdf, **self.found_pv}
             print(main_params)
             
