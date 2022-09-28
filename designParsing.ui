@@ -22,7 +22,7 @@
    <enum>Qt::NoFocus</enum>
   </property>
   <property name="windowTitle">
-   <string>Выгрузка с RP5</string>
+   <string>Загрузка погоды</string>
   </property>
   <property name="styleSheet">
    <string notr="true">QMainWindow {
@@ -314,7 +314,7 @@ QComboBox:hover{
     <property name="currentText">
      <string/>
     </property>
-    <property name="placeholderText">
+    <property name="placeholderText" stdset="0">
      <string>Выберите город из списка</string>
     </property>
    </widget>
