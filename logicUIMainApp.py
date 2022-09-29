@@ -14,6 +14,8 @@ import search_data
 import encode_file
 import geocoding
 import glob, fitz, requests, sys, os # загрузка модулей
+os.environ['path'] += r';Data/file_sys/dlls' # для работы cairosvg
+import cairosvg
 from os.path import isfile, join
 from svglib.svglib import svg2rlg
 from reportlab.graphics import renderPDF
@@ -56,12 +58,10 @@ class СonvertFiles(QThread):
 
     def run(self):
         if self.flag == 'general':
-            # rew = pdf_builder.docPDF()
-            # rew.convert_to_pdf(self.paths[0], path_to_pdf_schemes +"/General/generalScheme.pdf")
-            renderPDF.drawToFile(svg2rlg(self.paths[0]), path_to_pdf_schemes +"/General/generalScheme.pdf")
+            cairosvg.svg2pdf(url = self.paths[0], write_to = path_to_pdf_schemes +"/General/generalScheme.pdf")  
         elif self.flag == 'detailed':
             for i in range(len(self.paths)):
-                renderPDF.drawToFile(svg2rlg(self.paths[i]), path_to_pdf_schemes + f"/Detailed/detailed{i}.pdf")
+                cairosvg.svg2pdf(url = self.paths[i], write_to = path_to_pdf_schemes + f"/Detailed/detailed{i}.pdf")  
         elif self.flag == 'pvsyst':
             # To get better resolution
             self.found_pdf = search_data.search_in_pdf(self.paths)
@@ -792,8 +792,7 @@ class MainApp(QtWidgets.QMainWindow, designRepPDF.Ui_MainWindow):
                 QTimer.singleShot(250, lambda: self.label_11.hide())
                 QTimer.singleShot(250, lambda: self.btnDelPvsystData.hide())
                 QTimer.singleShot(1000, lambda: self.btnOne.hide())
-                
-            
+                      
     def show_and_hide_schemes_button(self):
         x = 843
         x_other = 897
@@ -935,6 +934,15 @@ class MainApp(QtWidgets.QMainWindow, designRepPDF.Ui_MainWindow):
             if current_invertor in select_invertor: 
                 self.invertors[f'found_invertor_{self.spinBox_numInvertor.value() - 1}'] = search_data.search_in_invertor(f"{path_to_invertors}/{self.select_title_invertor}/{select_invertor}") 
                 current = self.invertors[f'found_invertor_{self.spinBox_numInvertor.value() - 1}']
+                print('текущий: ' ,current)
+                if current['broken_file'] == True:
+                    self.statusBar.showMessage('Битый файл, данные не загружены', 4000)
+                    self.statusBar.setStyleSheet("background-color:rgb(255, 212, 38)")
+                    QTimer.singleShot(4000, lambda: self.statusBar.setStyleSheet("background-color:rgb(255, 255, 255)"))
+                else:
+                    self.statusBar.showMessage('', 100)
+                    self.statusBar.setStyleSheet("background-color:rgb(255, 255, 255)")
+
                 current['file'] = self.listInvertor_file.currentIndex()
                 current['folder'] = self.listInvertor_folder.currentIndex()
                 self.w3.set_invertor_params(current['module'], current['mppt'], current['inputs']) # вставка параметров в окно первой схемы
@@ -972,7 +980,6 @@ class MainApp(QtWidgets.QMainWindow, designRepPDF.Ui_MainWindow):
             self.spinBox_numInvertor.hide()
 
     def up_down_ivertor_selection(self):
-        # self.spinBox_numInvertor.lineEdit().deselect()
         current = self.invertors[f'found_invertor_{self.spinBox_numInvertor.value() - 1}']
         if 'folder' in current:
             self.listInvertor_folder.setCurrentIndex(current['folder'])

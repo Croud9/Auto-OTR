@@ -2440,7 +2440,6 @@ QSpinBox:down-button:hover{
 QSpinBox:down-button:pressed{
 	background-color:rgba(25,109,255, 0.5);
 	border-bottom-right-radius: 6;
-	deselect: True;
 }
 QSpinBox:down-button{
 	background-color:rgba(229,229,234,1); 

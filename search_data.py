@@ -32,31 +32,37 @@ def search_in_invertor(path):
     found_txt = null_search_params('invertor')
 
     with open(path, 'r') as fp:
-        for l_no, line in enumerate(fp):
-            if 'NbInputs=' in line: found_txt['inputs_x_2'] = cut(line) #Кол-во входов до деления int
-            if 'TPLimAbs=' in line: found_txt['tp_lim_abs'] = cut(line) #температура окружающей среды
-            if 'Manufacturer=' in line: found_txt['title'] = cut(line) #Фирма  
-            if 'EfficEuro=' in line: found_txt['kpd_euro'] = cut(line) #Европейский показатель КПД
-            if 'Protection:' in line: found_txt['protect'] = cut(line) #Степень защиты
-            if 'VMppMin=' in line: found_txt['v_mpp_min'] = cut(line) #напряжение минимальное
-            if 'VMPPMax=' in line: found_txt['v_mpp_max'] = cut(line) #напряжение максимальное
-            if 'PLimAbs=' in line: found_txt['p_lim_abs'] = cut(line) #выходная мощность долговременной работы
-            if 'VAbsMax=' in line: found_txt['v_abs_max'] = cut(line) #Максимальное напряжение цепочки ФЭМ
-            if 'EfficMax=' in line: found_txt['kpd_max'] = cut(line) #Максимальный КПД преобразования
-            if 'IMaxAC=' in line: found_txt['i_out_max'] = cut(line) #Максимальный выходной ток
-            if 'PNomConv=' in line: found_txt['p_nom'] = cut(line) #выходная мощность долговременной работы
-            if 'VOutConv=' in line: found_txt['v_out'] = cut(line) #выходного напряжения переменного тока
-            if 'Height=' in line: found_txt['height'] = cut(line) # * 1000 высота float
-            if 'PMaxOUT=' in line: found_txt['p_max'] = cut(line) #Максимальная мощность
-            if 'Weight=' in line: found_txt['weight'] = cut(line) #вес
-            if 'MonoTri=' in line: found_txt['phase'] = cut(line) #Фаза
-            if 'TPLim1=' in line: found_txt['tp_lim'] = cut(line) #температура окружающей среды
-            if 'TPNom=' in line: found_txt['tp_nom'] = cut(line) #температура окружающей среды
-            if 'NbMPPT=' in line: found_txt['mppt'] = cut(line) #Кол-во мппт int
-            if 'Width=' in line: found_txt['width'] = cut(line) # * 1000 ширина float
-            if 'Depth=' in line: found_txt['depth'] = cut(line) # * 1000 глубина float
-            if 'Model=' in line: found_txt['model'] = cut(line) #Модель  
-            if 'PLim1=' in line: found_txt['p_lim'] = cut(line) #выходная мощность долговременной работы
+        try:
+            found_txt['broken_file'] = False
+            for l_no, line in enumerate(fp):
+                if 'NbInputs=' in line: found_txt['inputs_x_2'] = cut(line) #Кол-во входов до деления int
+                if 'TPLimAbs=' in line: found_txt['tp_lim_abs'] = cut(line) #температура окружающей среды
+                if 'Manufacturer=' in line: found_txt['title'] = cut(line) #Фирма  
+                if 'EfficEuro=' in line: found_txt['kpd_euro'] = cut(line) #Европейский показатель КПД
+                if 'Protection:' in line: found_txt['protect'] = cut(line) #Степень защиты
+                if 'VMppMin=' in line: found_txt['v_mpp_min'] = cut(line) #напряжение минимальное
+                if 'VMPPMax=' in line: found_txt['v_mpp_max'] = cut(line) #напряжение максимальное
+                if 'PLimAbs=' in line: found_txt['p_lim_abs'] = cut(line) #выходная мощность долговременной работы
+                if 'VAbsMax=' in line: found_txt['v_abs_max'] = cut(line) #Максимальное напряжение цепочки ФЭМ
+                if 'EfficMax=' in line: found_txt['kpd_max'] = cut(line) #Максимальный КПД преобразования
+                if 'IMaxAC=' in line: found_txt['i_out_max'] = cut(line) #Максимальный выходной ток
+                if 'PNomConv=' in line: found_txt['p_nom'] = cut(line) #выходная мощность долговременной работы
+                if 'VOutConv=' in line: found_txt['v_out'] = cut(line) #выходного напряжения переменного тока
+                if 'Height=' in line: found_txt['height'] = cut(line) # * 1000 высота float
+                if 'PMaxOUT=' in line: found_txt['p_max'] = cut(line) #Максимальная мощность
+                if 'Weight=' in line: found_txt['weight'] = cut(line) #вес
+                if 'MonoTri=' in line: found_txt['phase'] = cut(line) #Фаза
+                if 'TPLim1=' in line: found_txt['tp_lim'] = cut(line) #температура окружающей среды
+                if 'TPNom=' in line: found_txt['tp_nom'] = cut(line) #температура окружающей среды
+                if 'NbMPPT=' in line: found_txt['mppt'] = cut(line) #Кол-во мппт int
+                if 'Width=' in line: found_txt['width'] = cut(line) # * 1000 ширина float
+                if 'Depth=' in line: found_txt['depth'] = cut(line) # * 1000 глубина float
+                if 'Model=' in line: found_txt['model'] = cut(line) #Модель  
+                if 'PLim1=' in line: found_txt['p_lim'] = cut(line) #выходная мощность долговременной работы
+        except Exception:
+            found_txt['broken_file'] = True
+
+            
 
     false_value = ['Н/Д', '']
     found_txt['module'] = " ".join([found_txt['title'], found_txt['model']])

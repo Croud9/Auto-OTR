@@ -384,13 +384,13 @@ class docPDF():
                 if not type(data['specific_production']) is dict:
                     ses_params.append([Paragraph(f"Коэффициент использования установленной мощности", self.styleNormalTable), 
                                         Paragraph('%', self.styleNormalTable), 
-                                        Paragraph(f"{round(8765 / int(data['specific_production']) * 100, 2)}", self.styleNormalTable)])
+                                        Paragraph(f"{round((int(data['specific_production']) / 8760) * 100, 2)}", self.styleNormalTable)])
                     description_for_P = ""
                 if type(data['specific_production']) is dict:
                     for key, val in data['specific_production'].items():
                         ses_params.append([Paragraph(f"Коэффициент использования установленной мощности {key}*", self.styleNormalTable), 
                                             Paragraph('%', self.styleNormalTable), 
-                                            Paragraph(f'{round(8765 / int(val) * 100, 2)}', self.styleNormalTable)])
+                                            Paragraph(f'{round((int(val) / 8760) * 100, 2)}', self.styleNormalTable)])
                         description_for_P = description_for_P + key.replace('(P', '').replace(')', '') + '%, '
                     description_for_P = description_for_P[:-2] + '.'
             else: 

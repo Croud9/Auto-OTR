@@ -1241,7 +1241,6 @@ class Ui_MainWindow(object):
 "QSpinBox:down-button:pressed{\n"
 "    background-color:rgba(25,109,255, 0.5);\n"
 "    border-bottom-right-radius: 6;\n"
-"    deselect: True;\n"
 "}\n"
 "QSpinBox:down-button{\n"
 "    background-color:rgba(229,229,234,1); \n"
