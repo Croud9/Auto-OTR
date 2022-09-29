@@ -24,6 +24,12 @@ from PyQt5.QtWidgets import QGraphicsTextItem
 from PyQt5.Qt import *
 from PyQt5.QtCore import QTimer, QThread, Qt
 from datetime import date
+from PyQt5.QtGui import *
+from PyQt5.QtCore import *
+from PyQt5.QtWidgets import QWidget, QGraphicsOpacityEffect
+from PyQt5.QtCore import QPropertyAnimation, QParallelAnimationGroup, QPoint, QEasingCurve
+import wikipedia
+wikipedia.set_lang("ru")
 
 path_to_pdf_pvsyst = "Data/PDF in/PVsyst"
 path_to_pdf_schemes = "Data/PDF in/Shemes"
@@ -90,7 +96,9 @@ class MainApp(QtWidgets.QMainWindow, designRepPDF.Ui_MainWindow):
         self.btnShow3.clicked.connect(self.show_btn_cbox3)
         self.btnShow5.clicked.connect(self.show_btn_cbox5)
         self.btnShow8.clicked.connect(self.show_btn_cbox8)
-        self.btnSlideMenu.clicked.connect(self.slide_menu)
+        self.btnSlideMenuDevices.clicked.connect(self.slide_menu_device)
+        self.btnSlideMenuPassport.clicked.connect(self.slide_menu_passport)
+        self.btnSlideMenuDelete.clicked.connect(self.slide_menu_delete)
         self.btnLoadScheme1.clicked.connect(self.load_scheme_one)
         self.btnLoadScheme2.clicked.connect(self.load_scheme_two)
         # self.btnForm.hover.connect(self.validation)
@@ -110,12 +118,64 @@ class MainApp(QtWidgets.QMainWindow, designRepPDF.Ui_MainWindow):
         self.btnDelInvertor.clicked.connect(self.del_invertor)
         self.spinBox_numInvertor.valueChanged.connect(self.up_down_ivertor_selection)
 
+        self.movie = QMovie('data/cons/loading_gif250trans.gif')
+        self.labelLoading.setMovie(self.movie)
+
+    def startAnimation(self):
+        self.movie.start()
+        self.labelLoading.show()
+  
+    def stopAnimation(self):
+        self.movie.stop()
+        self.labelLoading.hide()
+
+    def animate_button(self, button, x_start, y_start, x_end, y_end):
+        child = button
+        effect = QGraphicsOpacityEffect(child)
+        child.setGraphicsEffect(effect)
+        # self.child.resize(61, 51)
+        anim = QPropertyAnimation(child, b"pos")
+        anim.setStartValue(QPoint(x_start, y_start))
+        anim.setEndValue(QPoint(x_end, y_end))
+        anim.setDuration(1500)
+        # self.anim_2 = QPropertyAnimation(effect, b"opacity")
+        # self.anim_2.setStartValue(0)
+        # self.anim_2.setEndValue(1)
+        # self.anim_2.setDuration(1000)
+        
+        # anim_group = QParallelAnimationGroup()
+        # anim_group.addAnimation(anim)
+        # self.anim_group.addAnimation(self.anim_2)
+        anim.start()  
+
+
     def instance_ofter_class(self, instance_of_main_window): 
         self.w2 = logicUIParse.WindowParse()
         self.w3 = logicUIOneScheme.WindowDraw(instance_of_main_window)
-        self.w4 = logicUITwoScheme.WindowDrawTwo(instance_of_main_window)
-
+        self.w4 = logicUITwoScheme.WindowDrawTwo(instance_of_main_window) 
+                    
     def input_data(self):
+        self.btnDevice.setIcon(QIcon('data/cons/paper-clip.png'))
+        self.btnDevice.setIconSize(QSize(40, 40))
+        self.btnSchemes.setIcon(QIcon('data/cons/dop/wiring-diagram.png'))
+        self.btnSchemes.setIconSize(QSize(50, 50))
+        self.btnRP5.setIcon(QIcon('data/cons/cloud3.png'))
+        self.btnRP5.setIconSize(QSize(50, 50))
+        self.btnForm.setIcon(QIcon('data/cons/dop/analytic.png'))
+        self.btnForm.setIconSize(QSize(50, 50))
+        self.btnOne.setIcon(QIcon('data/cons/pvsyst.png'))
+        self.btnOne.setIconSize(QSize(45, 45))
+        self.btnDrawScheme.setIcon(QIcon('data/cons/dop/electric-panel1.png'))
+        self.btnDrawScheme.setIconSize(QSize(45, 45))
+        self.btnDrawSchemeTwo.setIcon(QIcon('data/cons/dop/solar-panels.png'))
+        self.btnDrawSchemeTwo.setIconSize(QSize(50, 50))
+
+        # try:
+        #     climat = wikipedia.page('Геленджик').section('Климат')
+        #     print(climat)
+        # except wikipedia.exceptions.PageError:
+        #     print('Данной страницы нет')
+         
         # self.spinBox_numInvertor.lineEdit().setDisabled(True) 
         self.path_pvsyst = ''
         self.pathes_detail_schemes = []
@@ -157,27 +217,30 @@ class MainApp(QtWidgets.QMainWindow, designRepPDF.Ui_MainWindow):
     def open_result_doc(self):
         os.startfile("Data\Report\Auto-OTR.pdf")
 
-    def hide_del_button(self):
+    def hide_del_button_schemes(self):
         fp_general = path_to_pdf_schemes + "/General"
         fp_detailed = path_to_pdf_schemes + "/Detailed"
-        patch_imgs_pvsyst = "Data/Images/PVsyst"
-        img_files_pvsyst = [f for f in os.listdir(patch_imgs_pvsyst) if os.path.isfile(os.path.join(patch_imgs_pvsyst, f))]
         files_in_detailed = [f for f in os.listdir(fp_detailed) if isfile(join(fp_detailed, f))]
         files_in_general = [f for f in os.listdir(fp_general) if isfile(join(fp_general, f))]
-        if len(img_files_pvsyst) == 0:
-            self.btnDelPvsystData.hide()
-        else: 
-            self.btnDelPvsystData.show()
-            
+
         if len(files_in_detailed) == 0:
             self.btnDelSchemeOneData.hide()
         else: 
-            self.btnDelSchemeOneData.show()
+            QTimer.singleShot(1100, lambda: self.btnDelSchemeOneData.show())
 
         if len(files_in_general) == 0:
             self.btnDelSchemeTwoData.hide()
         else: 
-            self.btnDelSchemeTwoData.show()
+            QTimer.singleShot(1100, lambda: self.btnDelSchemeTwoData.show())
+
+    def hide_del_button_device(self):
+        patch_imgs_pvsyst = "Data/Images/PVsyst"
+        img_files_pvsyst = [f for f in os.listdir(patch_imgs_pvsyst) if os.path.isfile(os.path.join(patch_imgs_pvsyst, f))]
+
+        if len(img_files_pvsyst) == 0:
+            self.btnDelPvsystData.hide()
+        else: 
+            QTimer.singleShot(1100, lambda: self.btnDelPvsystData.show())
 
     def validation(self):
         if self.listRoof.currentText() == "Выберите":
@@ -238,18 +301,18 @@ class MainApp(QtWidgets.QMainWindow, designRepPDF.Ui_MainWindow):
         self.inputCodeProject.setText(not_vowels_and_num[:3] + current_year)
 
     def hide(self):
+        self.label_11.hide()
+        self.label_12.hide()
+        self.label_13.hide()
+        self.btnOne.hide()
         self.btnDelInvertor.hide() 
         self.btnOpenPDF.hide() 
         self.btnSearchCoordinates.hide()
         self.btnDelPvsystData.hide()
         self.btnDelSchemeOneData.hide()
         self.btnDelSchemeTwoData.hide()
-        self.btnTwo.hide()
-        self.btnThree.hide()
-        self.btnFour.hide()
         self.btnDrawScheme.hide()
         self.btnDrawSchemeTwo.hide()
-        self.label_slide_title.hide()
         self.checkBox_1.hide()
         self.checkBox_2.hide()
         self.checkBox_3.hide()
@@ -298,219 +361,213 @@ class MainApp(QtWidgets.QMainWindow, designRepPDF.Ui_MainWindow):
         self.spinBox_numPV.hide()
         self.spinBox_numKTP.hide()
 
-    def slide_menu(self):
-        if self.label_for_slide.text() == "Паспорт объекта":
-            self.btnSlideMenu.setText("⮂")
-            self.label_for_slide.setText("Удаление раздела")
-            # Паспорт объекта
-            self.btnSearchCoordinates.hide()
-            self.label_2.hide()
-            self.label_3.hide()
-            self.label_4.hide()
-            self.label_5.hide()
-            self.label_6.hide()
-            self.inputUDotIn.hide()
-            self.inputAddress.hide()
-            self.inputAddressLat.hide()
-            self.inputAddressLong.hide()
-            self.inputObjectType.hide()
-            self.inputTitleProject.hide()
-            self.inputCodeProject.hide()
-            self.inputClient.hide()
-            # Оборудование
-            self.btnDelInvertor.hide() 
-            self.listInvertor_folder.hide()
-            self.listInvertor_file.hide()
-            self.listPV_folder.hide()
-            self.listPV_file.hide()
-            self.listKTP_folder.hide()
-            self.listKTP_file.hide()
-            self.listRoof.hide()
-            self.spinBox_numInvertor.hide()
-            self.spinBox_numPV.hide()
-            self.spinBox_numKTP.hide()
-            self.btnAddInvertor.hide()
-            self.btnAddPV.hide()
-            self.btnAddKTP.hide()
-            # Удаление разделов
-            self.checkBox_1.show()
-            self.checkBox_2.show()
-            self.checkBox_3.show()
-            self.checkBox_4.show()
-            self.checkBox_5.show()
-            self.checkBox_6.show()
-            self.checkBox_7.show()
-            self.checkBox_8.show()
-            self.btnShow3.show()
-            self.btnShow5.show()
-            self.btnShow8.show()
-            if self.btnShow3.text() == "▲":
-                self.checkBox_3_1.show()
-                self.checkBox_3_2.show()
-                self.checkBox_3_3.show()
-                self.checkBox_3_4.show()
-            if self.btnShow5.text() == "▲":
-                self.checkBox_5_1.show()
-                self.checkBox_5_1_1.show()
-                self.checkBox_5_1_2.show()
-                self.checkBox_5_1_3.show()
-                self.checkBox_5_1_4.show()
-                self.checkBox_5_2.show()
-                self.checkBox_5_3.show()
-                self.checkBox_5_4.show()
-                self.checkBox_5_5.show()
-                self.checkBox_5_6.show()
-            if self.btnShow8.text() == "▲":
-                self.checkBox_8_1.show()
-                self.checkBox_8_2.show()
-                self.checkBox_8_3.show()
-                self.checkBox_8_4.show()
-                self.checkBox_8_5.show()
-                self.checkBox_8_6.show()  
-            self.label_slide_title.show()
-            self.label_slide_title.setText("Номер раздела")
-        elif self.label_for_slide.text() == "Удаление раздела":
-            self.btnSlideMenu.setText("⮂")
-            self.label_for_slide.setText("Оборудование")
+    def slide_menu_device(self):
+        self.label_for_slide.setText("Оборудование")
+        
+        # Удаление разделов
+        self.checkBox_1.hide()
+        self.checkBox_2.hide()
+        self.checkBox_3.hide()
+        self.checkBox_4.hide()
+        self.checkBox_5.hide()
+        self.checkBox_6.hide()
+        self.checkBox_7.hide()
+        self.checkBox_8.hide()
+        self.btnShow3.hide()
+        self.btnShow5.hide()
+        self.btnShow8.hide()
+        self.checkBox_3_1.hide()
+        self.checkBox_3_2.hide()
+        self.checkBox_3_3.hide()
+        self.checkBox_3_4.hide()
+        self.checkBox_5_1.hide()
+        self.checkBox_5_1_1.hide()
+        self.checkBox_5_1_2.hide()
+        self.checkBox_5_1_3.hide()
+        self.checkBox_5_1_4.hide()
+        self.checkBox_5_2.hide()
+        self.checkBox_5_3.hide()
+        self.checkBox_5_4.hide()
+        self.checkBox_5_5.hide()
+        self.checkBox_5_6.hide()
+        self.checkBox_8_1.hide()
+        self.checkBox_8_2.hide()
+        self.checkBox_8_3.hide()
+        self.checkBox_8_4.hide()
+        self.checkBox_8_5.hide()
+        self.checkBox_8_6.hide()
+        # Паспорт объекта
+        self.btnSearchCoordinates.hide()
+        self.inputUDotIn.hide()
+        self.inputAddress.hide()
+        self.inputAddressLat.hide()
+        self.inputAddressLong.hide()
+        self.inputObjectType.hide()
+        self.inputTitleProject.hide()
+        self.inputCodeProject.hide()
+        self.inputClient.hide()
+        self.label_6.hide()
+        # Оборудование
+        if len(self.invertors) > 1:
+            self.spinBox_numInvertor.show()
+            self.btnDelInvertor.show() 
+        self.btnAddInvertor.show()
+        self.btnAddPV.show()
+        self.btnAddKTP.show()
+        self.label_2.setText("Инвертор")
+        self.label_2.show()
+        self.label_3.setText("ФЭМ")
+        self.label_3.show()
+        self.label_4.setText("КТП")
+        self.label_4.show()
+        self.label_5.setText("Тип крыши")
+        self.label_5.show()
+        self.listRoof.show()
+        self.listInvertor_folder.show()
+        self.listInvertor_file.show()
+        self.listPV_folder.show()
+        self.listPV_file.show()
+        self.listKTP_folder.show()
+        self.listKTP_file.show()
+        self.listRoof.show()
+          
+    def slide_menu_passport(self):
+        self.label_for_slide.setText("Паспорт объекта")
+        # Удаление разделов
+        self.checkBox_1.hide()
+        self.checkBox_2.hide()
+        self.checkBox_3.hide()
+        self.checkBox_4.hide()
+        self.checkBox_5.hide()
+        self.checkBox_6.hide()
+        self.checkBox_7.hide()
+        self.checkBox_8.hide()
+        self.btnShow3.hide()
+        self.btnShow5.hide()
+        self.btnShow8.hide()
+        self.checkBox_3_1.hide()
+        self.checkBox_3_2.hide()
+        self.checkBox_3_3.hide()
+        self.checkBox_3_4.hide()
+        self.checkBox_5_1.hide()
+        self.checkBox_5_1_1.hide()
+        self.checkBox_5_1_2.hide()
+        self.checkBox_5_1_3.hide()
+        self.checkBox_5_1_4.hide()
+        self.checkBox_5_2.hide()
+        self.checkBox_5_3.hide()
+        self.checkBox_5_4.hide()
+        self.checkBox_5_5.hide()
+        self.checkBox_5_6.hide()
+        self.checkBox_8_1.hide()
+        self.checkBox_8_2.hide()
+        self.checkBox_8_3.hide()
+        self.checkBox_8_4.hide()
+        self.checkBox_8_5.hide()
+        self.checkBox_8_6.hide()
+        # Оборудование
+        self.btnDelInvertor.hide() 
+        self.listInvertor_folder.hide()
+        self.listInvertor_file.hide()
+        self.listPV_folder.hide()
+        self.listPV_file.hide()
+        self.listKTP_folder.hide()
+        self.listKTP_file.hide()
+        self.listRoof.hide()
+        self.spinBox_numInvertor.hide()
+        self.spinBox_numPV.hide()
+        self.spinBox_numKTP.hide()
+        self.btnAddInvertor.hide()
+        self.btnAddPV.hide()
+        self.btnAddKTP.hide()   
+        # Паспорт объекта
+        self.btnSearchCoordinates.hide()
+        self.label_2.setText("Название \nпроекта")
+        self.label_2.show()
+        self.label_3.setText("Тип объекта")
+        self.label_3.show()
+        self.label_4.setText("Заказчик")
+        self.label_4.show()
+        self.label_5.setText("U подключения \nКоординаты")
+        self.label_5.show()
+        self.label_6.setText("Адрес")
+        self.label_6.show()
+        self.inputUDotIn.show()
+        self.inputAddress.show()
+        self.inputAddressLat.show()
+        self.inputAddressLong.show()
+        self.inputObjectType.show()
+        self.inputTitleProject.show()
+        self.inputCodeProject.show()
+        self.inputClient.show()
             
-            # Удаление разделов
-            self.label_slide_title.hide()
-            self.checkBox_1.hide()
-            self.checkBox_2.hide()
-            self.checkBox_3.hide()
-            self.checkBox_4.hide()
-            self.checkBox_5.hide()
-            self.checkBox_6.hide()
-            self.checkBox_7.hide()
-            self.checkBox_8.hide()
-            self.btnShow3.hide()
-            self.btnShow5.hide()
-            self.btnShow8.hide()
-            self.checkBox_3_1.hide()
-            self.checkBox_3_2.hide()
-            self.checkBox_3_3.hide()
-            self.checkBox_3_4.hide()
-            self.checkBox_5_1.hide()
-            self.checkBox_5_1_1.hide()
-            self.checkBox_5_1_2.hide()
-            self.checkBox_5_1_3.hide()
-            self.checkBox_5_1_4.hide()
-            self.checkBox_5_2.hide()
-            self.checkBox_5_3.hide()
-            self.checkBox_5_4.hide()
-            self.checkBox_5_5.hide()
-            self.checkBox_5_6.hide()
-            self.checkBox_8_1.hide()
-            self.checkBox_8_2.hide()
-            self.checkBox_8_3.hide()
-            self.checkBox_8_4.hide()
-            self.checkBox_8_5.hide()
-            self.checkBox_8_6.hide()
-            # Паспорт объекта
-            self.btnSearchCoordinates.hide()
-            self.inputUDotIn.hide()
-            self.inputAddress.hide()
-            self.inputAddressLat.hide()
-            self.inputAddressLong.hide()
-            self.inputObjectType.hide()
-            self.inputTitleProject.hide()
-            self.inputCodeProject.hide()
-            self.inputClient.hide()
-            self.label_6.hide()
-            # Оборудование
-            if len(self.invertors) > 1:
-                self.spinBox_numInvertor.show()
-                self.btnDelInvertor.show() 
-            self.btnAddInvertor.show()
-            self.btnAddPV.show()
-            self.btnAddKTP.show()
-            self.label_2.setText("Инвертор")
-            self.label_2.show()
-            self.label_3.setText("ФЭМ")
-            self.label_3.show()
-            self.label_4.setText("КТП")
-            self.label_4.show()
-            self.label_5.setText("Тип крыши")
-            self.label_5.show()
-            self.listRoof.show()
-            self.listInvertor_folder.show()
-            self.listInvertor_file.show()
-            self.listPV_folder.show()
-            self.listPV_file.show()
-            self.listKTP_folder.show()
-            self.listKTP_file.show()
-            self.listRoof.show()
-        elif self.label_for_slide.text() == "Оборудование":
-            self.btnSlideMenu.setText("⮀")
-            self.label_for_slide.setText("Паспорт объекта")
-            # Удаление разделов
-            self.label_slide_title.hide()
-            self.checkBox_1.hide()
-            self.checkBox_2.hide()
-            self.checkBox_3.hide()
-            self.checkBox_4.hide()
-            self.checkBox_5.hide()
-            self.checkBox_6.hide()
-            self.checkBox_7.hide()
-            self.checkBox_8.hide()
-            self.btnShow3.hide()
-            self.btnShow5.hide()
-            self.btnShow8.hide()
-            self.checkBox_3_1.hide()
-            self.checkBox_3_2.hide()
-            self.checkBox_3_3.hide()
-            self.checkBox_3_4.hide()
-            self.checkBox_5_1.hide()
-            self.checkBox_5_1_1.hide()
-            self.checkBox_5_1_2.hide()
-            self.checkBox_5_1_3.hide()
-            self.checkBox_5_1_4.hide()
-            self.checkBox_5_2.hide()
-            self.checkBox_5_3.hide()
-            self.checkBox_5_4.hide()
-            self.checkBox_5_5.hide()
-            self.checkBox_5_6.hide()
-            self.checkBox_8_1.hide()
-            self.checkBox_8_2.hide()
-            self.checkBox_8_3.hide()
-            self.checkBox_8_4.hide()
-            self.checkBox_8_5.hide()
-            self.checkBox_8_6.hide()
-            # Оборудование
-            self.btnDelInvertor.hide() 
-            self.listInvertor_folder.hide()
-            self.listInvertor_file.hide()
-            self.listPV_folder.hide()
-            self.listPV_file.hide()
-            self.listKTP_folder.hide()
-            self.listKTP_file.hide()
-            self.listRoof.hide()
-            self.spinBox_numInvertor.hide()
-            self.spinBox_numPV.hide()
-            self.spinBox_numKTP.hide()
-            self.btnAddInvertor.hide()
-            self.btnAddPV.hide()
-            self.btnAddKTP.hide()   
-            # Паспорт объекта
-            self.btnSearchCoordinates.hide()
-            self.label_2.setText("Название проекта")
-            self.label_2.show()
-            self.label_3.setText("Тип объекта")
-            self.label_3.show()
-            self.label_4.setText("Заказчик")
-            self.label_4.show()
-            self.label_5.setText("Адрес")
-            self.label_5.show()
-            self.label_6.setText("U подключения, кВ")
-            self.label_6.show()
-            self.inputUDotIn.show()
-            self.inputAddress.show()
-            self.inputAddressLat.show()
-            self.inputAddressLong.show()
-            self.inputObjectType.show()
-            self.inputTitleProject.show()
-            self.inputCodeProject.show()
-            self.inputClient.show()
+    def slide_menu_delete(self):
+        self.label_for_slide.setText("Удаление раздела")
+        # Паспорт объекта
+        self.btnSearchCoordinates.hide()
+        self.label_3.hide()
+        self.label_4.hide()
+        self.label_5.hide()
+        self.label_6.hide()
+        self.inputUDotIn.hide()
+        self.inputAddress.hide()
+        self.inputAddressLat.hide()
+        self.inputAddressLong.hide()
+        self.inputObjectType.hide()
+        self.inputTitleProject.hide()
+        self.inputCodeProject.hide()
+        self.inputClient.hide()
+        # Оборудование
+        self.btnDelInvertor.hide() 
+        self.listInvertor_folder.hide()
+        self.listInvertor_file.hide()
+        self.listPV_folder.hide()
+        self.listPV_file.hide()
+        self.listKTP_folder.hide()
+        self.listKTP_file.hide()
+        self.listRoof.hide()
+        self.spinBox_numInvertor.hide()
+        self.spinBox_numPV.hide()
+        self.spinBox_numKTP.hide()
+        self.btnAddInvertor.hide()
+        self.btnAddPV.hide()
+        self.btnAddKTP.hide()
+        # Удаление разделов
+        self.checkBox_1.show()
+        self.checkBox_2.show()
+        self.checkBox_3.show()
+        self.checkBox_4.show()
+        self.checkBox_5.show()
+        self.checkBox_6.show()
+        self.checkBox_7.show()
+        self.checkBox_8.show()
+        self.btnShow3.show()
+        self.btnShow5.show()
+        self.btnShow8.show()
+        if self.btnShow3.text() == "▲":
+            self.checkBox_3_1.show()
+            self.checkBox_3_2.show()
+            self.checkBox_3_3.show()
+            self.checkBox_3_4.show()
+        if self.btnShow5.text() == "▲":
+            self.checkBox_5_1.show()
+            self.checkBox_5_1_1.show()
+            self.checkBox_5_1_2.show()
+            self.checkBox_5_1_3.show()
+            self.checkBox_5_1_4.show()
+            self.checkBox_5_2.show()
+            self.checkBox_5_3.show()
+            self.checkBox_5_4.show()
+            self.checkBox_5_5.show()
+            self.checkBox_5_6.show()
+        if self.btnShow8.text() == "▲":
+            self.checkBox_8_1.show()
+            self.checkBox_8_2.show()
+            self.checkBox_8_3.show()
+            self.checkBox_8_4.show()
+            self.checkBox_8_5.show()
+            self.checkBox_8_6.show()  
+        self.label_2.setText("Номер раздела")
             
     def show_btn_cbox3(self):
         if self.checkBox_3_1.isHidden():
@@ -652,7 +709,8 @@ class MainApp(QtWidgets.QMainWindow, designRepPDF.Ui_MainWindow):
                 return
             # self.btnRP5
             self.btnRP5.setEnabled(False)
-            self.btnRP5.setText('Запуск..')
+            # self.btnRP5.setText('Запуск..')
+            self.startAnimation()
             self.statusBar.showMessage('Идет первоначальный запуск браузера, пожалуйста, подождите...')
             self.statusBar.setStyleSheet("background-color:rgb(255, 212, 38)")
             self.parser_open = logicUIParse.Parsing(0, 0, "open")
@@ -660,8 +718,8 @@ class MainApp(QtWidgets.QMainWindow, designRepPDF.Ui_MainWindow):
             self.parser_open.start()
         elif self.w2.isHidden():
             self.w2.setWindowIcon(QtGui.QIcon('Data/icons/graficon.png'))
+            self.w2.setFixedSize(970, 430)
             self.w2.show()
-            self.w2.setFixedSize(470, 430)
 
     def show_window_draw(self):  # открытие   окна рисования первой схемы
         self.w3.setWindowIcon(QtGui.QIcon('Data/icons/graficon.png'))
@@ -674,29 +732,166 @@ class MainApp(QtWidgets.QMainWindow, designRepPDF.Ui_MainWindow):
         self.w4.setFixedSize(950, 335)
 
     def show_and_hide_device_button(self):
-        if self.btnTwo.isHidden():
-            self.btnTwo.show()
-            self.btnThree.show()
-            self.btnFour.show()
+        x = 843
+        x_other = 897
+        y_start = -50
+        if self.btnDrawScheme.isHidden():
+            self.y_btn = 16 
+            y_title = 71
+            y_del = 25
         else:
-            self.btnTwo.hide()
-            self.btnThree.hide()
-            self.btnFour.hide()
+            self.y_btn = 183
+            y_title = 239
+            y_del = 190
+
+        # y = 16 
+        if self.btnOne.isHidden():
+            self.btnOne.show()
+            self.anim = QPropertyAnimation(self.btnOne, b"pos")
+            self.anim.setEasingCurve(QEasingCurve.InOutCubic)
+            self.anim.setStartValue(QPoint(x, y_start))
+            self.anim.setEndValue(QPoint(x, self.y_btn))
+            self.anim.setDuration(1000)
+            self.anim.start()
+            QTimer.singleShot(1100, lambda: self.label_11.show())
+            self.hide_del_button_device()
+            self.label_11.move(x, y_title)
+            self.btnDelPvsystData.move(x_other, y_del)
+        else:
+            if self.y_one_btn == 100:
+                self.anim1 = QPropertyAnimation(self.btnOne, b"pos")
+                self.anim1.setEasingCurve(QEasingCurve.InOutCubic)
+                self.anim1.setEndValue(QPoint(x, y_start))
+                self.anim1.setDuration(1000)
+                self.anim1.start()
+                QTimer.singleShot(250, lambda: self.label_11.hide())
+                QTimer.singleShot(250, lambda: self.btnDelPvsystData.hide())
+                QTimer.singleShot(1000, lambda: self.btnOne.hide())
+                self.y_one_btn = 16
+                y_two_btn = 100
+                y_one_title = 71
+                y_two_title = 155
+                y_one_del = 20
+                y_two_del = 103
+                y_one_load = 35
+                y_two_load = 118
+                QTimer.singleShot(600, lambda: self.btnDrawScheme.move(x, self.y_one_btn))
+                QTimer.singleShot(600, lambda: self.btnDrawSchemeTwo.move(x, y_two_btn))
+                QTimer.singleShot(600, lambda: self.label_12.move(x, y_one_title))
+                QTimer.singleShot(600, lambda: self.label_13.move(x, y_two_title))
+                QTimer.singleShot(600, lambda: self.btnLoadScheme1.move(x_other, y_one_load))
+                QTimer.singleShot(600, lambda: self.btnLoadScheme2.move(x_other, y_two_load))
+                QTimer.singleShot(600, lambda: self.btnDelSchemeOneData.move(x_other, y_one_del))
+                QTimer.singleShot(600, lambda: self.btnDelSchemeTwoData.move(x_other, y_two_del))
+            else:
+                self.anim1 = QPropertyAnimation(self.btnOne, b"pos")
+                self.anim1.setEasingCurve(QEasingCurve.InOutCubic)
+                self.anim1.setEndValue(QPoint(x, y_start))
+                self.anim1.setDuration(1000)
+                self.anim1.start()
+                QTimer.singleShot(250, lambda: self.label_11.hide())
+                QTimer.singleShot(250, lambda: self.btnDelPvsystData.hide())
+                QTimer.singleShot(1000, lambda: self.btnOne.hide())
+                
             
     def show_and_hide_schemes_button(self):
+        x = 843
+        x_other = 897
+        y_start = -50
+        if self.btnOne.isHidden():
+            self.y_one_btn = 16
+            y_two_btn = 100
+            y_one_title = 71
+            y_two_title = 155
+            y_one_del = 20
+            y_two_del = 103
+            y_one_load = 35
+            y_two_load = 118
+        else:
+            self.y_one_btn = 100
+            y_two_btn = 183
+            y_one_title = 155
+            y_two_title = 239
+            y_one_del = 103
+            y_two_del = 185
+            y_one_load = 118
+            y_two_load = 200
+
+        # y_one = 100
+        # y_two = 183
         if self.btnDrawScheme.isHidden():
             self.btnDrawScheme.show()
             self.btnDrawSchemeTwo.show()
-            self.btnLoadScheme1.show()
-            self.btnLoadScheme2.show()
-            self.hide_del_button()
-        else:   
-            self.btnDrawScheme.hide()
-            self.btnDrawSchemeTwo.hide()
-            self.btnLoadScheme1.hide()
-            self.btnLoadScheme2.hide()
-            self.btnDelSchemeOneData.hide()
-            self.btnDelSchemeTwoData.hide()
+
+            self.anim2 = QPropertyAnimation(self.btnDrawScheme, b"pos")
+            self.anim2.setEasingCurve(QEasingCurve.InOutCubic)
+            self.anim2.setStartValue(QPoint(x, y_start))
+            self.anim2.setEndValue(QPoint(x, self.y_one_btn))
+            self.anim2.setDuration(900)
+            self.anim2.start()
+            self.anima = QPropertyAnimation(self.btnDrawSchemeTwo, b"pos")
+            self.anima.setEasingCurve(QEasingCurve.InOutCubic)
+            self.anima.setStartValue(QPoint(x, y_start))
+            self.anima.setEndValue(QPoint(x, y_two_btn))
+            self.anima.setDuration(800)
+            self.anima.start()
+            QTimer.singleShot(1100, lambda: self.label_12.show())
+            QTimer.singleShot(1100, lambda: self.label_13.show())
+            QTimer.singleShot(1100, lambda: self.btnLoadScheme1.show())
+            QTimer.singleShot(1100, lambda: self.btnLoadScheme2.show())
+            self.hide_del_button_schemes()
+            self.label_12.move(x, y_one_title)
+            self.label_13.move(x, y_two_title)
+            self.btnLoadScheme1.move(x_other, y_one_load)
+            self.btnLoadScheme2.move(x_other, y_two_load)
+            self.btnDelSchemeOneData.move(x_other, y_one_del)
+            self.btnDelSchemeTwoData.move(x_other, y_two_del)
+        else:
+            if self.y_one_btn == 100: 
+                pass
+                self.anim = QPropertyAnimation(self.btnDrawScheme, b"pos")
+                self.anim.setEasingCurve(QEasingCurve.InOutCubic)
+                self.anim.setEndValue(QPoint(x, y_start))
+                self.anim.setDuration(1000)
+                self.anim.start()
+                self.anima = QPropertyAnimation(self.btnDrawSchemeTwo, b"pos")
+                self.anima.setEasingCurve(QEasingCurve.InOutCubic)
+                self.anima.setEndValue(QPoint(x, y_start))
+                self.anima.setDuration(1000)
+                self.anima.start()
+                QTimer.singleShot(1000, lambda: self.btnDrawScheme.hide())
+                QTimer.singleShot(1000, lambda: self.btnDrawSchemeTwo.hide())
+                QTimer.singleShot(250, lambda: self.btnLoadScheme1.hide())
+                QTimer.singleShot(250, lambda: self.btnLoadScheme2.hide())
+                QTimer.singleShot(250, lambda: self.btnDelSchemeOneData.hide())
+                QTimer.singleShot(250, lambda: self.btnDelSchemeTwoData.hide())
+                QTimer.singleShot(250, lambda: self.label_12.hide())
+                QTimer.singleShot(250, lambda: self.label_13.hide())
+                self.y_btn = 16 
+                y_title = 71
+                y_del = 25
+                QTimer.singleShot(800, lambda: self.btnOne.move(x, self.y_btn))
+                QTimer.singleShot(800, lambda: self.label_11.move(x, y_title))
+                QTimer.singleShot(800, lambda: self.btnDelPvsystData.move(x_other, y_del))
+            else: 
+                self.anim = QPropertyAnimation(self.btnDrawScheme, b"pos")
+                self.anim.setEasingCurve(QEasingCurve.InOutCubic)
+                self.anim.setEndValue(QPoint(x, y_start))
+                self.anim.setDuration(1000)
+                self.anim.start()
+                self.anima = QPropertyAnimation(self.btnDrawSchemeTwo, b"pos")
+                self.anima.setEasingCurve(QEasingCurve.InOutCubic)
+                self.anima.setEndValue(QPoint(x, y_start))
+                self.anima.setDuration(1000)
+                self.anima.start()
+                QTimer.singleShot(1000, lambda: self.btnDrawScheme.hide())
+                QTimer.singleShot(1000, lambda: self.btnDrawSchemeTwo.hide())
+                QTimer.singleShot(250, lambda: self.btnLoadScheme1.hide())
+                QTimer.singleShot(250, lambda: self.btnLoadScheme2.hide())
+                QTimer.singleShot(250, lambda: self.btnDelSchemeOneData.hide())
+                QTimer.singleShot(250, lambda: self.btnDelSchemeTwoData.hide())
+                QTimer.singleShot(250, lambda: self.label_12.hide())
+                QTimer.singleShot(250, lambda: self.label_13.hide())
 
     def roof_select(self):
         self.current_roof = self.listRoof.currentIndex()
@@ -811,21 +1006,21 @@ class MainApp(QtWidgets.QMainWindow, designRepPDF.Ui_MainWindow):
         self.delete_pdf('pvsyst')
         self.found_pdf = search_data.null_search_params('pvsyst')
         self.path_pvsyst = ''
-        self.hide_del_button()
+        self.hide_del_button_device()
         self.statusBar.showMessage('Файл PVsyst исключен из отчета', 2500)
         self.statusBar.setStyleSheet("background-color: rgba(229,229,234,1); color:  #3b83ff; font-weight: bold;")
         QTimer.singleShot(2500, lambda: self.statusBar.setStyleSheet("background-color:rgb(255, 255, 255)"))
 
     def del_scheme_one(self):
         self.delete_pdf('detailed')
-        self.hide_del_button()
+        self.hide_del_button_schemes()
         self.statusBar.showMessage('Файл первого чертежа исключен из отчета', 2500)
         self.statusBar.setStyleSheet("background-color: rgba(229,229,234,1); color:  #3b83ff; font-weight: bold;")
         QTimer.singleShot(2500, lambda: self.statusBar.setStyleSheet("background-color:rgb(255, 255, 255)"))
 
     def del_scheme_two(self):
         self.delete_pdf('general')
-        self.hide_del_button()
+        self.hide_del_button_schemes()
         self.statusBar.showMessage('Файл второго чертежа исключен из отчета', 2500)
         self.statusBar.setStyleSheet("background-color: rgba(229,229,234,1); color:  #3b83ff; font-weight: bold;")
         QTimer.singleShot(2500, lambda: self.statusBar.setStyleSheet("background-color:rgb(255, 255, 255)"))
@@ -833,11 +1028,12 @@ class MainApp(QtWidgets.QMainWindow, designRepPDF.Ui_MainWindow):
     def pvsyst(self):
         self.path_pvsyst = QtWidgets.QFileDialog.getOpenFileName(self, 'Выберите файл', path_to_pdf_pvsyst, "*.pdf")[0] #открытие диалога для выбора файла
         print(self.path_pvsyst)
-        self.hide_del_button()
+        self.hide_del_button_device()
         if len(self.path_pvsyst) != 0:
             self.delete_pdf('pvsyst')
             self.textConsole.append("- Загружен отчет PVsyst")
             self.btnOne.setEnabled(False)
+            self.startAnimation()
             self.converter_pvsyst = СonvertFiles(self.path_pvsyst, 'pvsyst')
             self.converter_pvsyst.finished.connect(self.convertPvsystFinished)
             self.converter_pvsyst.start()
@@ -845,7 +1041,7 @@ class MainApp(QtWidgets.QMainWindow, designRepPDF.Ui_MainWindow):
     def load_scheme_one(self):
         self.pathes_detail_schemes = QtWidgets.QFileDialog.getOpenFileNames(self, 'Выберите файл', path_to_schemes, "*.svg")[0] #открытие диалога для выбора файла
         print(self.pathes_detail_schemes)
-        self.hide_del_button()
+        self.hide_del_button_schemes()
         if len(self.pathes_detail_schemes) != 0:
             self.delete_pdf('detailed')
             self.textConsole.append("- Загружена принципиальная эл.схема")
@@ -857,7 +1053,7 @@ class MainApp(QtWidgets.QMainWindow, designRepPDF.Ui_MainWindow):
     def load_scheme_two(self):
         self.path_general_schemes = [QtWidgets.QFileDialog.getOpenFileName(self, 'Выберите файл', path_to_schemes, "*.svg")[0]] #открытие диалога для выбора файла
         print( self.path_general_schemes)
-        self.hide_del_button()
+        self.hide_del_button_schemes()
         if len(self.path_general_schemes[0]) != 0:
             self.delete_pdf('general')
             self.textConsole.append("- Загружена структурная эл.схема ")
@@ -933,7 +1129,11 @@ class MainApp(QtWidgets.QMainWindow, designRepPDF.Ui_MainWindow):
                     'block_5_6': block_5_6, 'block_6': block_6, 'block_7': block_7, 'block_8': block_8,
                     'block_8_1': block_8_1, 'block_8_2': block_8_2, 'block_8_3': block_8_3, 
                     'block_8_4': block_8_4, 'block_8_5': block_8_5, 'block_8_6': block_8_6,}
-        self.weather = self.w2.parse_params if hasattr(self.w2, 'parse_params') else self.parse_params
+        if hasattr(self.w2, 'parse_params'):
+            self.weather = self.w2.parse_params
+            self.weather['climate_info'] = self.w2.textConsoleClimat.toPlainText()
+        else:
+            self.weather = self.parse_params
         self.weather_station = self.w2.parse_params_current_city if hasattr(self.w2, 'parse_params_current_city') else self.weather_station_params
         
     def create_document(self):
@@ -952,6 +1152,9 @@ class MainApp(QtWidgets.QMainWindow, designRepPDF.Ui_MainWindow):
             return
         else:
             self.btnOpenPDF.hide()
+            self.label_10.show()
+            self.label_10.setText('Создание...')
+            self.startAnimation()
             QtWidgets.QApplication.processEvents()
             self.out_params()
             
@@ -961,7 +1164,7 @@ class MainApp(QtWidgets.QMainWindow, designRepPDF.Ui_MainWindow):
             print(main_params)
             
             self.btnForm.setEnabled(False)
-            self.btnForm.setText('Формирование отчета...')
+            # self.btnForm.setText('...')
             self.statusBar.showMessage('Пожалуйста, подождите...')
             self.statusBar.setStyleSheet("background-color:rgb(255, 212, 38)")
             # Выполнение загрузки в новом потоке.
@@ -974,18 +1177,19 @@ class MainApp(QtWidgets.QMainWindow, designRepPDF.Ui_MainWindow):
         if self.browser_status == 0:
             self.w2.setWindowIcon(QtGui.QIcon('Data/icons/graficon.png'))
             self.w2.show()
-            self.w2.setFixedSize(470, 430)
+            self.w2.setFixedSize(915, 430)
 
             self.statusBar.showMessage('Успешно!', 4000)
             self.statusBar.setStyleSheet("background-color:rgb(48, 219, 91)")
             QTimer.singleShot(4000, lambda: self.statusBar.setStyleSheet("background-color:rgb(255, 255, 255)"))
             self.btnRP5.setEnabled(True)
-            self.btnRP5.setText('RP5')
+            # self.btnRP5.setText('RP5')
         else:
             self.statusBar.showMessage('Что-то пошло не так с браузером, попробуйте запустить снова')
             self.statusBar.setStyleSheet("background-color:rgb(255, 212, 38)")
             self.btnRP5.setEnabled(True)
-            self.btnRP5.setText('RP5')
+            # self.btnRP5.setText('RP5')
+        self.stopAnimation()
         del self.parser_open
 
     def closeFinished(self):
@@ -993,12 +1197,12 @@ class MainApp(QtWidgets.QMainWindow, designRepPDF.Ui_MainWindow):
 
     def convertOneFinished(self):
         self.btnLoadScheme1.setEnabled(True)
-        self.hide_del_button()
+        self.hide_del_button_schemes()
         del self.converter1
         
     def convertTwoFinished(self):
         self.btnLoadScheme2.setEnabled(True)
-        self.hide_del_button()
+        self.hide_del_button_schemes()
         del self.converter2
                        
     def convertPvsystFinished(self):
@@ -1009,7 +1213,8 @@ class MainApp(QtWidgets.QMainWindow, designRepPDF.Ui_MainWindow):
         self.inputAddress.setText(full_address['full_address'])
         self.w2.inputCity.setText(full_address['city_point'])
         self.btnOne.setEnabled(True)
-        self.hide_del_button()
+        self.hide_del_button_device()
+        self.stopAnimation()
         del self.converter_pvsyst
 
     def buildFinished(self):
@@ -1017,10 +1222,13 @@ class MainApp(QtWidgets.QMainWindow, designRepPDF.Ui_MainWindow):
         self.statusBar.showMessage('Отчет сформирован!', 4000)
         self.statusBar.setStyleSheet("background-color:rgb(48, 219, 91)")
         self.merge_pdf()
+        self.stopAnimation()
         self.btnOpenPDF.show()
+        self.label_10.setText('Создать')
+        # self.label_10.hide()
         QTimer.singleShot(4000, lambda: self.statusBar.setStyleSheet("background-color:rgb(255, 255, 255)"))
         self.btnForm.setEnabled(True)
-        self.btnForm.setText('Сформировать PDF')
+        # self.btnForm.setText('PDF')
         # Удаление потока после его использования.
         del self.builder
 
@@ -1029,7 +1237,7 @@ def main():
     window = MainApp()  # Создаём объект класса ExampleApp
     window.setWindowIcon(QtGui.QIcon('Data/icons/graficon.png'))
     window.show()  # Показываем окно
-    window.setFixedSize(820,420)
+    window.setFixedSize(950,370)
     window.instance_ofter_class(window)
     app.exec_()  # и запускаем приложение
 

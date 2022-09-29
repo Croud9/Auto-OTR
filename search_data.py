@@ -25,7 +25,7 @@ def null_search_params(type_file):
                         'max_temp', 'date_max_temp', 'all_range', 'average_temp', 'number_of_observations', 
                         'average_pressure', 'average_humidity', 'main_wind', 'average_speed_wind', 
                         'max_speed_wind', 'precipitation_on_12_hour', 'average_height_snow', 'max_height_snow', 
-                        'first_date_snow', 'last_date_snow')
+                        'first_date_snow', 'last_date_snow', 'climate_info')
     return dict.fromkeys(name_params, 'Н/Д')
 
 def search_in_invertor(path):

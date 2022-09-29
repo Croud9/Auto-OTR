@@ -252,10 +252,7 @@ class docPDF():
         if data["block_3_2"] == False:
             self.story.append(Paragraph("<b>3.2	Климатические условия</b>", self.styleH2))
             self.story.append(Spacer(1, 12))
-            self.story.append(Paragraph(f"<b>Климат Балаково - умеренно континентальный засушливый. \
-                                    Характерной особенностью климата является преобладание в течение года ясных малооблачных дней, \
-                                    умеренно холодная и малоснежная зима. Непродолжительная засушливая весна, жаркое и сухое лето. \
-                                    Континентальный климат смягчён близостью реки Волги.</b> ИЗ ВИКИПЕДИИ", self.styleNormal))
+            self.story.append(Paragraph(f"{data['climate_info']}", self.styleNormal))
             self.story.append(Paragraph(f"Общая климатическая характеристика площадки строительства (по данным метеостанции № {data['num_weather_station']}, \
                                     за срок наблюдения с {start_range} по {end_range} данные сайта https://rp5.ru ):", self.styleNormal))
 
