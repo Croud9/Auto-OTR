@@ -1,13 +1,15 @@
 import designParsing
 import parsingSelenium
-import requests, os 
+import requests, os, re
 from datetime import date
 from os.path import isfile, join
 from PyQt5 import QtWidgets
+from PyQt5.QtGui import *
+from PyQt5.QtCore import *
 from PyQt5.QtCore import QTimer, QThread
-# import wikipedia
-# wikipedia.set_lang("ru") 
-# print(wikipedia.page("Оренбург").content)
+import wikipedia
+wikipedia.set_lang("ru")
+
 path_to_pdf_schemes = "Data/PDF in/Shemes"
 
 class Parsing(QThread):
@@ -17,27 +19,47 @@ class Parsing(QThread):
         self.data = data
         self.method = method
 
+    def wiki(self, city):
+        try:
+            self.return_download['climat'] = wikipedia.page(city).section('Климат')
+        except wikipedia.DisambiguationError:
+            self.return_download['climat'] = 'Слишком общий запрос. Найдено несколько страниц'
+        except wikipedia.exceptions.PageError:
+            self.return_download['climat'] = 'Н/Д Нет описания климата данного населенного пункта'  
+
+    def delete_files(self):
+        fp_general = path_to_pdf_schemes + "/General"
+        fp_detailed = path_to_pdf_schemes + "/Detailed"
+        patch_imgs_pvsyst = "Data/Images/PVsyst"
+        img_files_pvsyst = [f for f in os.listdir(patch_imgs_pvsyst) if os.path.isfile(os.path.join(patch_imgs_pvsyst, f))]
+        files_in_general = [f for f in os.listdir(fp_general) if isfile(join(fp_general, f))]
+        files_in_detailed = [f for f in os.listdir(fp_detailed) if isfile(join(fp_detailed, f))]
+        if len(files_in_general) != 0:
+            os.remove(fp_general + f"/{files_in_general[0]}")
+        if len(files_in_detailed ) != 0:
+            for file in files_in_detailed:
+                os.remove(fp_detailed + f"/{file}")   
+        if len(img_files_pvsyst) != 0:
+            for file in img_files_pvsyst:
+                os.remove(patch_imgs_pvsyst + f"/{file}")  
+
     def run(self):
         if self.method == "close":
-            fp_general = path_to_pdf_schemes + "/General"
-            fp_detailed = path_to_pdf_schemes + "/Detailed"
-            patch_imgs_pvsyst = "Data/Images/PVsyst"
-            img_files_pvsyst = [f for f in os.listdir(patch_imgs_pvsyst) if os.path.isfile(os.path.join(patch_imgs_pvsyst, f))]
-            files_in_general = [f for f in os.listdir(fp_general) if isfile(join(fp_general, f))]
-            files_in_detailed = [f for f in os.listdir(fp_detailed) if isfile(join(fp_detailed, f))]
-            if len(files_in_general) != 0:
-                os.remove(fp_general + f"/{files_in_general[0]}")
-            if len(files_in_detailed ) != 0:
-                for file in files_in_detailed:
-                    os.remove(fp_detailed + f"/{file}")   
-            if len(img_files_pvsyst) != 0:
-                for file in img_files_pvsyst:
-                    os.remove(patch_imgs_pvsyst + f"/{file}")  
+            self.delete_files() 
             parsingSelenium.close_browser()
         elif self.method == "search":
             self.return_search = parsingSelenium.search(self.params)
         elif self.method == "load":
             self.return_download = parsingSelenium.load()
+            result = re.sub("\(.*\)", "", self.params).split(',')
+            city_country_state = ','.join(result[:3])
+            city = ','.join(result[:1])
+            self.wiki(city_country_state)
+            if self.return_download['climat'] == None:
+                self.wiki(city)
+                if self.return_download['climat'] == None:
+                    self.return_download['climat'] = 'Нет описания климата данного населенного пункта'
+
         elif self.method == "download":
             self.return_download = parsingSelenium.download()
         elif self.method == "data":
@@ -56,6 +78,16 @@ class WindowParse(QtWidgets.QMainWindow, designParsing.Ui_WindowRP5):
         self.btnParse.clicked.connect(self.parsing_download)
         self.btnDwnld_T.clicked.connect(self.parsing_load)
         self.listCity.activated.connect(self.parsing_date)
+        self.movie = QMovie('data/cons/loading_gif250trans.gif')
+        self.labelLoading.setMovie(self.movie)
+        
+    def startAnimation(self):
+        self.movie.start()
+        self.labelLoading.show()
+  
+    def stopAnimation(self):
+        self.movie.stop()
+        self.labelLoading.hide()
              
     def checkNet(self):
         try:
@@ -109,6 +141,7 @@ class WindowParse(QtWidgets.QMainWindow, designParsing.Ui_WindowRP5):
         self.btnSearch.setEnabled(False)
         self.opacity(self.btnDwnld_T, False)
         self.opacity(self.btnParse, False)
+        self.startAnimation()
         self.btnSearch.setText('Поиск...')
         if self.check_inCity() == 0:
             return
@@ -132,6 +165,7 @@ class WindowParse(QtWidgets.QMainWindow, designParsing.Ui_WindowRP5):
         self.opacity(self.btnDwnld_T, False)
         self.opacity(self.btnParse, False)
         self.opacity(self.listCity, False)
+        self.startAnimation()
         if self.check_inCity() == 0:
             return num_error
         self.textConsole.append("...")
@@ -215,12 +249,13 @@ class WindowParse(QtWidgets.QMainWindow, designParsing.Ui_WindowRP5):
         if check == 0 or check == 1 :
             return
 
+        self.startAnimation()
         self.textConsole.append("...")
         self.textConsole.append("Выполняется подгрузка...")
         QtWidgets.QApplication.processEvents()
-        
+        adress = self.listCity.currentText()
         # Выполнение загрузки в новом потоке.
-        self.parser_load = Parsing(0, 0, "load")
+        self.parser_load = Parsing(adress, 0, "load")
         self.parser_load.finished.connect(self.loadFinished)
         self.parser_load.start()
     
@@ -269,6 +304,10 @@ class WindowParse(QtWidgets.QMainWindow, designParsing.Ui_WindowRP5):
             self.textConsole.append(f"- Максимальная высота: {str(self.parser_load.return_download['max_height_snow'])}")
             self.textConsole.append(f"- Ранняя дата наличия: {str(self.parser_load.return_download['first_date_snow'])}")
             self.textConsole.append(f"- Поздняя дата наличия: {str(self.parser_load.return_download['last_date_snow'])}")
+
+            self.textConsoleClimat.clear()
+            self.textConsoleClimat.append(f"{str(self.parser_load.return_download['climat'])}")
+            del self.parser_load.return_download['climat']
             self.statusBar.showMessage('Данные успешно подгружены!', 5000)
             self.statusBar.setStyleSheet("background-color:rgb(48, 219, 91)")
             QTimer.singleShot(5000, lambda: self.statusBar.setStyleSheet("background-color:rgb(255, 255, 255)"))
@@ -279,6 +318,7 @@ class WindowParse(QtWidgets.QMainWindow, designParsing.Ui_WindowRP5):
             self.statusBar.setStyleSheet("background-color:rgb(255, 105, 97)")
             QTimer.singleShot(5000, lambda: self.statusBar.setStyleSheet("background-color:rgb(255, 255, 255)"))
         # Удаление потока после его использования.
+        self.stopAnimation()
         self.opacity(self.btnDwnld_T, True )
         self.btnDwnld_T.setText('Подгрузить температуру')
         del self.parser_load
@@ -293,6 +333,7 @@ class WindowParse(QtWidgets.QMainWindow, designParsing.Ui_WindowRP5):
         self.opacity(self.btnDwnld_T, True)
         self.opacity(self.btnParse, True)
         self.opacity(self.listCity, True)
+        self.stopAnimation()
         del self.parser_data
 
     def searchFinished(self):
@@ -324,6 +365,7 @@ class WindowParse(QtWidgets.QMainWindow, designParsing.Ui_WindowRP5):
         self.opacity(self.btnDwnld_T, True)
         self.opacity(self.btnParse, True)
         self.btnSearch.setEnabled(True)
+        self.stopAnimation()
         self.btnSearch.setText('Найти')
         # Удаление потока после его использования.
         del self.parser_search

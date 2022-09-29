@@ -9,7 +9,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>469</width>
+    <width>910</width>
     <height>428</height>
    </rect>
   </property>
@@ -478,6 +478,62 @@ QDateEdit:up-button, QDateEdit:down-button{
     height: 0px;
     border: 0px;
 }</string>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignCenter</set>
+    </property>
+   </widget>
+   <widget class="QTextBrowser" name="textConsoleClimat">
+    <property name="enabled">
+     <bool>true</bool>
+    </property>
+    <property name="geometry">
+     <rect>
+      <x>470</x>
+      <y>16</y>
+      <width>420</width>
+      <height>365</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Arial</family>
+      <weight>50</weight>
+      <bold>false</bold>
+      <underline>false</underline>
+      <strikeout>false</strikeout>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QTextBrowser{
+	background-color:rgba(229,229,234,1); 
+	border-radius: 6;
+	border: none;
+	padding: 8 4 8 8;
+}
+</string>
+    </property>
+    <property name="readOnly">
+     <bool>false</bool>
+    </property>
+    <property name="placeholderText">
+     <string>Климат города</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="labelLoading">
+    <property name="geometry">
+     <rect>
+      <x>364</x>
+      <y>56</y>
+      <width>91</width>
+      <height>33</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color:rgba(112, 215, 255, 0);</string>
+    </property>
+    <property name="text">
+     <string>TextLabel</string>
     </property>
     <property name="alignment">
      <set>Qt::AlignCenter</set>

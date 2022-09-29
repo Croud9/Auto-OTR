@@ -15,7 +15,7 @@ class Ui_WindowRP5(object):
     def setupUi(self, WindowRP5):
         WindowRP5.setObjectName("WindowRP5")
         WindowRP5.setEnabled(True)
-        WindowRP5.resize(469, 428)
+        WindowRP5.resize(910, 428)
         font = QtGui.QFont()
         font.setFamily("Calibri Light")
         WindowRP5.setFont(font)
@@ -290,6 +290,30 @@ class Ui_WindowRP5(object):
 "}")
         self.dateEdit_end.setAlignment(QtCore.Qt.AlignCenter)
         self.dateEdit_end.setObjectName("dateEdit_end")
+        self.textConsoleClimat = QtWidgets.QTextBrowser(self.centralwidget)
+        self.textConsoleClimat.setEnabled(True)
+        self.textConsoleClimat.setGeometry(QtCore.QRect(470, 16, 420, 365))
+        font = QtGui.QFont()
+        font.setFamily("Arial")
+        font.setBold(False)
+        font.setUnderline(False)
+        font.setWeight(50)
+        font.setStrikeOut(False)
+        self.textConsoleClimat.setFont(font)
+        self.textConsoleClimat.setStyleSheet("QTextBrowser{\n"
+"    background-color:rgba(229,229,234,1); \n"
+"    border-radius: 6;\n"
+"    border: none;\n"
+"    padding: 8 4 8 8;\n"
+"}\n"
+"")
+        self.textConsoleClimat.setReadOnly(False)
+        self.textConsoleClimat.setObjectName("textConsoleClimat")
+        self.labelLoading = QtWidgets.QLabel(self.centralwidget)
+        self.labelLoading.setGeometry(QtCore.QRect(364, 56, 91, 33))
+        self.labelLoading.setStyleSheet("background-color:rgba(112, 215, 255, 0);")
+        self.labelLoading.setAlignment(QtCore.Qt.AlignCenter)
+        self.labelLoading.setObjectName("labelLoading")
         WindowRP5.setCentralWidget(self.centralwidget)
         self.statusBar = QtWidgets.QStatusBar(WindowRP5)
         self.statusBar.setObjectName("statusBar")
@@ -310,3 +334,5 @@ class Ui_WindowRP5(object):
         self.label_11.setText(_translate("WindowRP5", "Список городов"))
         self.label_9.setText(_translate("WindowRP5", "Начало выборки"))
         self.label_10.setText(_translate("WindowRP5", "Конец выборки"))
+        self.textConsoleClimat.setPlaceholderText(_translate("WindowRP5", "Климат города"))
+        self.labelLoading.setText(_translate("WindowRP5", "TextLabel"))

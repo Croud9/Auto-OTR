@@ -15,7 +15,7 @@ class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
         MainWindow.setEnabled(True)
-        MainWindow.resize(943, 374)
+        MainWindow.resize(1044, 374)
         font = QtGui.QFont()
         font.setFamily("Arial")
         font.setBold(False)
@@ -82,7 +82,7 @@ class Ui_MainWindow(object):
 "")
         self.textConsole.setObjectName("textConsole")
         self.btnOne = QtWidgets.QPushButton(self.centralwidget)
-        self.btnOne.setGeometry(QtCore.QRect(844, 16, 61, 51))
+        self.btnOne.setGeometry(QtCore.QRect(843, 16, 61, 51))
         font = QtGui.QFont()
         font.setFamily("Arial")
         font.setPointSize(9)
@@ -657,7 +657,7 @@ class Ui_MainWindow(object):
 "padding: 2;")
         self.checkBox_5_1.setObjectName("checkBox_5_1")
         self.btnLoadScheme2 = QtWidgets.QPushButton(self.centralwidget)
-        self.btnLoadScheme2.setGeometry(QtCore.QRect(897, 202, 31, 20))
+        self.btnLoadScheme2.setGeometry(QtCore.QRect(897, 200, 31, 20))
         font = QtGui.QFont()
         font.setFamily("Arial")
         font.setPointSize(9)
@@ -678,7 +678,7 @@ class Ui_MainWindow(object):
 "")
         self.btnLoadScheme2.setObjectName("btnLoadScheme2")
         self.btnLoadScheme1 = QtWidgets.QPushButton(self.centralwidget)
-        self.btnLoadScheme1.setGeometry(QtCore.QRect(897, 120, 31, 20))
+        self.btnLoadScheme1.setGeometry(QtCore.QRect(897, 118, 31, 20))
         font = QtGui.QFont()
         font.setFamily("Arial")
         font.setPointSize(9)
@@ -915,10 +915,10 @@ class Ui_MainWindow(object):
         self.checkBox_1.setFont(font)
         self.checkBox_1.setObjectName("checkBox_1")
         self.btnOpenPDF = QtWidgets.QPushButton(self.centralwidget)
-        self.btnOpenPDF.setGeometry(QtCore.QRect(98, 146, 91, 31))
+        self.btnOpenPDF.setGeometry(QtCore.QRect(201, 293, 91, 31))
         font = QtGui.QFont()
         font.setFamily("Arial")
-        font.setPointSize(8)
+        font.setPointSize(9)
         font.setBold(True)
         font.setItalic(False)
         font.setUnderline(False)
@@ -930,13 +930,13 @@ class Ui_MainWindow(object):
         self.btnOpenPDF.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
         self.btnOpenPDF.setStyleSheet("QPushButton{\n"
 "    background-color:rgba(112, 215, 255, 0);\n"
-"    color:  #3b83ff;\n"
+"    color:rgba(0, 0, 0, 0.5);\n"
 "    border: none;\n"
 "    border-radius: 5;\n"
 "    border-style: outset;\n"
 "}\n"
 "QPushButton:hover{\n"
-"    color:rgba(0, 20, 240, 0.93) ;\n"
+"    color: black;\n"
 "}\n"
 "")
         self.btnOpenPDF.setObjectName("btnOpenPDF")
@@ -1409,7 +1409,7 @@ class Ui_MainWindow(object):
 "")
         self.btnSearchCoordinates.setObjectName("btnSearchCoordinates")
         self.btnDelPvsystData = QtWidgets.QPushButton(self.centralwidget)
-        self.btnDelPvsystData.setGeometry(QtCore.QRect(898, 6, 31, 31))
+        self.btnDelPvsystData.setGeometry(QtCore.QRect(897, 25, 31, 31))
         font = QtGui.QFont()
         font.setFamily("Arial")
         font.setPointSize(11)
@@ -1430,7 +1430,7 @@ class Ui_MainWindow(object):
 "")
         self.btnDelPvsystData.setObjectName("btnDelPvsystData")
         self.btnDelSchemeTwoData = QtWidgets.QPushButton(self.centralwidget)
-        self.btnDelSchemeTwoData.setGeometry(QtCore.QRect(897, 172, 31, 31))
+        self.btnDelSchemeTwoData.setGeometry(QtCore.QRect(897, 185, 31, 21))
         font = QtGui.QFont()
         font.setFamily("Arial")
         font.setPointSize(11)
@@ -1451,7 +1451,7 @@ class Ui_MainWindow(object):
 "")
         self.btnDelSchemeTwoData.setObjectName("btnDelSchemeTwoData")
         self.btnDelSchemeOneData = QtWidgets.QPushButton(self.centralwidget)
-        self.btnDelSchemeOneData.setGeometry(QtCore.QRect(897, 90, 31, 31))
+        self.btnDelSchemeOneData.setGeometry(QtCore.QRect(897, 103, 31, 20))
         font = QtGui.QFont()
         font.setFamily("Arial")
         font.setPointSize(11)
@@ -1605,7 +1605,7 @@ class Ui_MainWindow(object):
         self.labelLoading.setAlignment(QtCore.Qt.AlignCenter)
         self.labelLoading.setObjectName("labelLoading")
         self.label_11 = QtWidgets.QLabel(self.centralwidget)
-        self.label_11.setGeometry(QtCore.QRect(853, 71, 101, 16))
+        self.label_11.setGeometry(QtCore.QRect(843, 71, 61, 16))
         font = QtGui.QFont()
         font.setFamily("Arial")
         font.setPointSize(8)
@@ -1614,9 +1614,10 @@ class Ui_MainWindow(object):
         self.label_11.setFont(font)
         self.label_11.setStyleSheet("background-color: rgba(255,255,255,0);\n"
 "color:rgba(0, 0, 0, 0.5); ")
+        self.label_11.setAlignment(QtCore.Qt.AlignCenter)
         self.label_11.setObjectName("label_11")
         self.label_12 = QtWidgets.QLabel(self.centralwidget)
-        self.label_12.setGeometry(QtCore.QRect(841, 155, 101, 16))
+        self.label_12.setGeometry(QtCore.QRect(843, 155, 61, 16))
         font = QtGui.QFont()
         font.setFamily("Arial")
         font.setPointSize(8)
@@ -1625,9 +1626,10 @@ class Ui_MainWindow(object):
         self.label_12.setFont(font)
         self.label_12.setStyleSheet("background-color: rgba(255,255,255,0); \n"
 "color:rgba(0, 0, 0, 0.5);")
+        self.label_12.setAlignment(QtCore.Qt.AlignCenter)
         self.label_12.setObjectName("label_12")
         self.label_13 = QtWidgets.QLabel(self.centralwidget)
-        self.label_13.setGeometry(QtCore.QRect(846, 239, 91, 16))
+        self.label_13.setGeometry(QtCore.QRect(843, 239, 61, 16))
         font = QtGui.QFont()
         font.setFamily("Arial")
         font.setPointSize(8)
@@ -1636,6 +1638,7 @@ class Ui_MainWindow(object):
         self.label_13.setFont(font)
         self.label_13.setStyleSheet("background-color: rgba(255,255,255,0); \n"
 "color:rgba(0, 0, 0, 0.5);")
+        self.label_13.setAlignment(QtCore.Qt.AlignCenter)
         self.label_13.setObjectName("label_13")
         self.label_10.raise_()
         self.label_for_slide.raise_()

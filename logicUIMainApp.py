@@ -26,10 +26,9 @@ from PyQt5.QtCore import QTimer, QThread, Qt
 from datetime import date
 from PyQt5.QtGui import *
 from PyQt5.QtCore import *
-import wikipedia
 from PyQt5.QtWidgets import QWidget, QGraphicsOpacityEffect
-from PyQt5.QtCore import QPropertyAnimation, QParallelAnimationGroup, QPoint
-from PyQt5.QtCore import QPropertyAnimation, QPoint, QEasingCurve
+from PyQt5.QtCore import QPropertyAnimation, QParallelAnimationGroup, QPoint, QEasingCurve
+import wikipedia
 wikipedia.set_lang("ru")
 
 path_to_pdf_pvsyst = "Data/PDF in/PVsyst"
@@ -122,6 +121,14 @@ class MainApp(QtWidgets.QMainWindow, designRepPDF.Ui_MainWindow):
         self.movie = QMovie('data/cons/loading_gif250trans.gif')
         self.labelLoading.setMovie(self.movie)
 
+    def startAnimation(self):
+        self.movie.start()
+        self.labelLoading.show()
+  
+    def stopAnimation(self):
+        self.movie.stop()
+        self.labelLoading.hide()
+
     def animate_button(self, button, x_start, y_start, x_end, y_end):
         child = button
         effect = QGraphicsOpacityEffect(child)
@@ -141,19 +148,12 @@ class MainApp(QtWidgets.QMainWindow, designRepPDF.Ui_MainWindow):
         # self.anim_group.addAnimation(self.anim_2)
         anim.start()  
 
-    def startAnimation(self):
-        self.movie.start()
-        self.labelLoading.show()
-  
-    def stopAnimation(self):
-        self.movie.stop()
-        self.labelLoading.hide()
 
     def instance_ofter_class(self, instance_of_main_window): 
         self.w2 = logicUIParse.WindowParse()
         self.w3 = logicUIOneScheme.WindowDraw(instance_of_main_window)
-        self.w4 = logicUITwoScheme.WindowDrawTwo(instance_of_main_window)
-
+        self.w4 = logicUITwoScheme.WindowDrawTwo(instance_of_main_window) 
+                    
     def input_data(self):
         self.btnDevice.setIcon(QIcon('data/cons/paper-clip.png'))
         self.btnDevice.setIconSize(QSize(40, 40))
@@ -169,9 +169,13 @@ class MainApp(QtWidgets.QMainWindow, designRepPDF.Ui_MainWindow):
         self.btnDrawScheme.setIconSize(QSize(45, 45))
         self.btnDrawSchemeTwo.setIcon(QIcon('data/cons/dop/solar-panels.png'))
         self.btnDrawSchemeTwo.setIconSize(QSize(50, 50))
-        climat = wikipedia.page("Оренбург Климат").content
-        if 'Климат' in climat:
-            print(climat.split('Климат')[1])
+
+        # try:
+        #     climat = wikipedia.page('Геленджик').section('Климат')
+        #     print(climat)
+        # except wikipedia.exceptions.PageError:
+        #     print('Данной страницы нет')
+         
         # self.spinBox_numInvertor.lineEdit().setDisabled(True) 
         self.path_pvsyst = ''
         self.pathes_detail_schemes = []
@@ -213,27 +217,30 @@ class MainApp(QtWidgets.QMainWindow, designRepPDF.Ui_MainWindow):
     def open_result_doc(self):
         os.startfile("Data\Report\Auto-OTR.pdf")
 
-    def hide_del_button(self):
+    def hide_del_button_schemes(self):
         fp_general = path_to_pdf_schemes + "/General"
         fp_detailed = path_to_pdf_schemes + "/Detailed"
-        patch_imgs_pvsyst = "Data/Images/PVsyst"
-        img_files_pvsyst = [f for f in os.listdir(patch_imgs_pvsyst) if os.path.isfile(os.path.join(patch_imgs_pvsyst, f))]
         files_in_detailed = [f for f in os.listdir(fp_detailed) if isfile(join(fp_detailed, f))]
         files_in_general = [f for f in os.listdir(fp_general) if isfile(join(fp_general, f))]
-        if len(img_files_pvsyst) == 0:
-            self.btnDelPvsystData.hide()
-        else: 
-            self.btnDelPvsystData.show()
-            
+
         if len(files_in_detailed) == 0:
             self.btnDelSchemeOneData.hide()
         else: 
-            self.btnDelSchemeOneData.show()
+            QTimer.singleShot(1100, lambda: self.btnDelSchemeOneData.show())
 
         if len(files_in_general) == 0:
             self.btnDelSchemeTwoData.hide()
         else: 
-            self.btnDelSchemeTwoData.show()
+            QTimer.singleShot(1100, lambda: self.btnDelSchemeTwoData.show())
+
+    def hide_del_button_device(self):
+        patch_imgs_pvsyst = "Data/Images/PVsyst"
+        img_files_pvsyst = [f for f in os.listdir(patch_imgs_pvsyst) if os.path.isfile(os.path.join(patch_imgs_pvsyst, f))]
+
+        if len(img_files_pvsyst) == 0:
+            self.btnDelPvsystData.hide()
+        else: 
+            QTimer.singleShot(1100, lambda: self.btnDelPvsystData.show())
 
     def validation(self):
         if self.listRoof.currentText() == "Выберите":
@@ -711,8 +718,8 @@ class MainApp(QtWidgets.QMainWindow, designRepPDF.Ui_MainWindow):
             self.parser_open.start()
         elif self.w2.isHidden():
             self.w2.setWindowIcon(QtGui.QIcon('Data/icons/graficon.png'))
+            self.w2.setFixedSize(970, 430)
             self.w2.show()
-            self.w2.setFixedSize(470, 430)
 
     def show_window_draw(self):  # открытие   окна рисования первой схемы
         self.w3.setWindowIcon(QtGui.QIcon('Data/icons/graficon.png'))
@@ -726,37 +733,92 @@ class MainApp(QtWidgets.QMainWindow, designRepPDF.Ui_MainWindow):
 
     def show_and_hide_device_button(self):
         x = 843
+        x_other = 897
         y_start = -50
-        # y = 16 if self.btnDrawScheme.isHidden() else 183
-        y = 16 
+        if self.btnDrawScheme.isHidden():
+            self.y_btn = 16 
+            y_title = 71
+            y_del = 25
+        else:
+            self.y_btn = 183
+            y_title = 239
+            y_del = 190
+
+        # y = 16 
         if self.btnOne.isHidden():
             self.btnOne.show()
             self.anim = QPropertyAnimation(self.btnOne, b"pos")
             self.anim.setEasingCurve(QEasingCurve.InOutCubic)
             self.anim.setStartValue(QPoint(x, y_start))
-            self.anim.setEndValue(QPoint(x, y))
+            self.anim.setEndValue(QPoint(x, self.y_btn))
             self.anim.setDuration(1000)
             self.anim.start()
             QTimer.singleShot(1100, lambda: self.label_11.show())
-            # self.label_11.move(15, 10)
+            self.hide_del_button_device()
+            self.label_11.move(x, y_title)
+            self.btnDelPvsystData.move(x_other, y_del)
         else:
-            self.label_11.hide()
-            self.anim1 = QPropertyAnimation(self.btnOne, b"pos")
-            self.anim1.setEasingCurve(QEasingCurve.InOutCubic)
-            self.anim1.setEndValue(QPoint(x, y_start))
-            self.anim1.setDuration(1000)
-            self.anim1.start()
-            QTimer.singleShot(1100, lambda: self.btnOne.hide())
-
-            # self.btnOne.hide()
+            if self.y_one_btn == 100:
+                self.anim1 = QPropertyAnimation(self.btnOne, b"pos")
+                self.anim1.setEasingCurve(QEasingCurve.InOutCubic)
+                self.anim1.setEndValue(QPoint(x, y_start))
+                self.anim1.setDuration(1000)
+                self.anim1.start()
+                QTimer.singleShot(250, lambda: self.label_11.hide())
+                QTimer.singleShot(250, lambda: self.btnDelPvsystData.hide())
+                QTimer.singleShot(1000, lambda: self.btnOne.hide())
+                self.y_one_btn = 16
+                y_two_btn = 100
+                y_one_title = 71
+                y_two_title = 155
+                y_one_del = 20
+                y_two_del = 103
+                y_one_load = 35
+                y_two_load = 118
+                QTimer.singleShot(600, lambda: self.btnDrawScheme.move(x, self.y_one_btn))
+                QTimer.singleShot(600, lambda: self.btnDrawSchemeTwo.move(x, y_two_btn))
+                QTimer.singleShot(600, lambda: self.label_12.move(x, y_one_title))
+                QTimer.singleShot(600, lambda: self.label_13.move(x, y_two_title))
+                QTimer.singleShot(600, lambda: self.btnLoadScheme1.move(x_other, y_one_load))
+                QTimer.singleShot(600, lambda: self.btnLoadScheme2.move(x_other, y_two_load))
+                QTimer.singleShot(600, lambda: self.btnDelSchemeOneData.move(x_other, y_one_del))
+                QTimer.singleShot(600, lambda: self.btnDelSchemeTwoData.move(x_other, y_two_del))
+            else:
+                self.anim1 = QPropertyAnimation(self.btnOne, b"pos")
+                self.anim1.setEasingCurve(QEasingCurve.InOutCubic)
+                self.anim1.setEndValue(QPoint(x, y_start))
+                self.anim1.setDuration(1000)
+                self.anim1.start()
+                QTimer.singleShot(250, lambda: self.label_11.hide())
+                QTimer.singleShot(250, lambda: self.btnDelPvsystData.hide())
+                QTimer.singleShot(1000, lambda: self.btnOne.hide())
+                
             
     def show_and_hide_schemes_button(self):
         x = 843
+        x_other = 897
         y_start = -50
-        # y_one = 16 if self.btnOne.isHidden() else 100
-        # y_two = 100 if self.btnOne.isHidden() else 183
-        y_one = 100
-        y_two = 183
+        if self.btnOne.isHidden():
+            self.y_one_btn = 16
+            y_two_btn = 100
+            y_one_title = 71
+            y_two_title = 155
+            y_one_del = 20
+            y_two_del = 103
+            y_one_load = 35
+            y_two_load = 118
+        else:
+            self.y_one_btn = 100
+            y_two_btn = 183
+            y_one_title = 155
+            y_two_title = 239
+            y_one_del = 103
+            y_two_del = 185
+            y_one_load = 118
+            y_two_load = 200
+
+        # y_one = 100
+        # y_two = 183
         if self.btnDrawScheme.isHidden():
             self.btnDrawScheme.show()
             self.btnDrawSchemeTwo.show()
@@ -764,41 +826,72 @@ class MainApp(QtWidgets.QMainWindow, designRepPDF.Ui_MainWindow):
             self.anim2 = QPropertyAnimation(self.btnDrawScheme, b"pos")
             self.anim2.setEasingCurve(QEasingCurve.InOutCubic)
             self.anim2.setStartValue(QPoint(x, y_start))
-            self.anim2.setEndValue(QPoint(x, y_one))
+            self.anim2.setEndValue(QPoint(x, self.y_one_btn))
             self.anim2.setDuration(900)
             self.anim2.start()
             self.anima = QPropertyAnimation(self.btnDrawSchemeTwo, b"pos")
             self.anima.setEasingCurve(QEasingCurve.InOutCubic)
             self.anima.setStartValue(QPoint(x, y_start))
-            self.anima.setEndValue(QPoint(x, y_two))
+            self.anima.setEndValue(QPoint(x, y_two_btn))
             self.anima.setDuration(800)
             self.anima.start()
             QTimer.singleShot(1100, lambda: self.label_12.show())
             QTimer.singleShot(1100, lambda: self.label_13.show())
             QTimer.singleShot(1100, lambda: self.btnLoadScheme1.show())
             QTimer.singleShot(1100, lambda: self.btnLoadScheme2.show())
-            self.hide_del_button()
-        else:   
-            # self.btnDrawScheme.hide()
-            # self.btnDrawSchemeTwo.hide()
-            self.anim = QPropertyAnimation(self.btnDrawScheme, b"pos")
-            self.anim.setEasingCurve(QEasingCurve.InOutCubic)
-            self.anim.setEndValue(QPoint(x, y_start))
-            self.anim.setDuration(1000)
-            self.anim.start()
-            self.anima = QPropertyAnimation(self.btnDrawSchemeTwo, b"pos")
-            self.anima.setEasingCurve(QEasingCurve.InOutCubic)
-            self.anima.setEndValue(QPoint(x, y_start))
-            self.anima.setDuration(1000)
-            self.anima.start()
-            QTimer.singleShot(1000, lambda: self.btnDrawScheme.hide())
-            QTimer.singleShot(1000, lambda: self.btnDrawSchemeTwo.hide())
-            self.btnLoadScheme1.hide()
-            self.btnLoadScheme2.hide()
-            self.btnDelSchemeOneData.hide()
-            self.btnDelSchemeTwoData.hide()
-            self.label_12.hide()
-            self.label_13.hide()
+            self.hide_del_button_schemes()
+            self.label_12.move(x, y_one_title)
+            self.label_13.move(x, y_two_title)
+            self.btnLoadScheme1.move(x_other, y_one_load)
+            self.btnLoadScheme2.move(x_other, y_two_load)
+            self.btnDelSchemeOneData.move(x_other, y_one_del)
+            self.btnDelSchemeTwoData.move(x_other, y_two_del)
+        else:
+            if self.y_one_btn == 100: 
+                pass
+                self.anim = QPropertyAnimation(self.btnDrawScheme, b"pos")
+                self.anim.setEasingCurve(QEasingCurve.InOutCubic)
+                self.anim.setEndValue(QPoint(x, y_start))
+                self.anim.setDuration(1000)
+                self.anim.start()
+                self.anima = QPropertyAnimation(self.btnDrawSchemeTwo, b"pos")
+                self.anima.setEasingCurve(QEasingCurve.InOutCubic)
+                self.anima.setEndValue(QPoint(x, y_start))
+                self.anima.setDuration(1000)
+                self.anima.start()
+                QTimer.singleShot(1000, lambda: self.btnDrawScheme.hide())
+                QTimer.singleShot(1000, lambda: self.btnDrawSchemeTwo.hide())
+                QTimer.singleShot(250, lambda: self.btnLoadScheme1.hide())
+                QTimer.singleShot(250, lambda: self.btnLoadScheme2.hide())
+                QTimer.singleShot(250, lambda: self.btnDelSchemeOneData.hide())
+                QTimer.singleShot(250, lambda: self.btnDelSchemeTwoData.hide())
+                QTimer.singleShot(250, lambda: self.label_12.hide())
+                QTimer.singleShot(250, lambda: self.label_13.hide())
+                self.y_btn = 16 
+                y_title = 71
+                y_del = 25
+                QTimer.singleShot(800, lambda: self.btnOne.move(x, self.y_btn))
+                QTimer.singleShot(800, lambda: self.label_11.move(x, y_title))
+                QTimer.singleShot(800, lambda: self.btnDelPvsystData.move(x_other, y_del))
+            else: 
+                self.anim = QPropertyAnimation(self.btnDrawScheme, b"pos")
+                self.anim.setEasingCurve(QEasingCurve.InOutCubic)
+                self.anim.setEndValue(QPoint(x, y_start))
+                self.anim.setDuration(1000)
+                self.anim.start()
+                self.anima = QPropertyAnimation(self.btnDrawSchemeTwo, b"pos")
+                self.anima.setEasingCurve(QEasingCurve.InOutCubic)
+                self.anima.setEndValue(QPoint(x, y_start))
+                self.anima.setDuration(1000)
+                self.anima.start()
+                QTimer.singleShot(1000, lambda: self.btnDrawScheme.hide())
+                QTimer.singleShot(1000, lambda: self.btnDrawSchemeTwo.hide())
+                QTimer.singleShot(250, lambda: self.btnLoadScheme1.hide())
+                QTimer.singleShot(250, lambda: self.btnLoadScheme2.hide())
+                QTimer.singleShot(250, lambda: self.btnDelSchemeOneData.hide())
+                QTimer.singleShot(250, lambda: self.btnDelSchemeTwoData.hide())
+                QTimer.singleShot(250, lambda: self.label_12.hide())
+                QTimer.singleShot(250, lambda: self.label_13.hide())
 
     def roof_select(self):
         self.current_roof = self.listRoof.currentIndex()
@@ -913,21 +1006,21 @@ class MainApp(QtWidgets.QMainWindow, designRepPDF.Ui_MainWindow):
         self.delete_pdf('pvsyst')
         self.found_pdf = search_data.null_search_params('pvsyst')
         self.path_pvsyst = ''
-        self.hide_del_button()
+        self.hide_del_button_device()
         self.statusBar.showMessage('Файл PVsyst исключен из отчета', 2500)
         self.statusBar.setStyleSheet("background-color: rgba(229,229,234,1); color:  #3b83ff; font-weight: bold;")
         QTimer.singleShot(2500, lambda: self.statusBar.setStyleSheet("background-color:rgb(255, 255, 255)"))
 
     def del_scheme_one(self):
         self.delete_pdf('detailed')
-        self.hide_del_button()
+        self.hide_del_button_schemes()
         self.statusBar.showMessage('Файл первого чертежа исключен из отчета', 2500)
         self.statusBar.setStyleSheet("background-color: rgba(229,229,234,1); color:  #3b83ff; font-weight: bold;")
         QTimer.singleShot(2500, lambda: self.statusBar.setStyleSheet("background-color:rgb(255, 255, 255)"))
 
     def del_scheme_two(self):
         self.delete_pdf('general')
-        self.hide_del_button()
+        self.hide_del_button_schemes()
         self.statusBar.showMessage('Файл второго чертежа исключен из отчета', 2500)
         self.statusBar.setStyleSheet("background-color: rgba(229,229,234,1); color:  #3b83ff; font-weight: bold;")
         QTimer.singleShot(2500, lambda: self.statusBar.setStyleSheet("background-color:rgb(255, 255, 255)"))
@@ -935,7 +1028,7 @@ class MainApp(QtWidgets.QMainWindow, designRepPDF.Ui_MainWindow):
     def pvsyst(self):
         self.path_pvsyst = QtWidgets.QFileDialog.getOpenFileName(self, 'Выберите файл', path_to_pdf_pvsyst, "*.pdf")[0] #открытие диалога для выбора файла
         print(self.path_pvsyst)
-        self.hide_del_button()
+        self.hide_del_button_device()
         if len(self.path_pvsyst) != 0:
             self.delete_pdf('pvsyst')
             self.textConsole.append("- Загружен отчет PVsyst")
@@ -948,7 +1041,7 @@ class MainApp(QtWidgets.QMainWindow, designRepPDF.Ui_MainWindow):
     def load_scheme_one(self):
         self.pathes_detail_schemes = QtWidgets.QFileDialog.getOpenFileNames(self, 'Выберите файл', path_to_schemes, "*.svg")[0] #открытие диалога для выбора файла
         print(self.pathes_detail_schemes)
-        self.hide_del_button()
+        self.hide_del_button_schemes()
         if len(self.pathes_detail_schemes) != 0:
             self.delete_pdf('detailed')
             self.textConsole.append("- Загружена принципиальная эл.схема")
@@ -960,7 +1053,7 @@ class MainApp(QtWidgets.QMainWindow, designRepPDF.Ui_MainWindow):
     def load_scheme_two(self):
         self.path_general_schemes = [QtWidgets.QFileDialog.getOpenFileName(self, 'Выберите файл', path_to_schemes, "*.svg")[0]] #открытие диалога для выбора файла
         print( self.path_general_schemes)
-        self.hide_del_button()
+        self.hide_del_button_schemes()
         if len(self.path_general_schemes[0]) != 0:
             self.delete_pdf('general')
             self.textConsole.append("- Загружена структурная эл.схема ")
@@ -1036,7 +1129,11 @@ class MainApp(QtWidgets.QMainWindow, designRepPDF.Ui_MainWindow):
                     'block_5_6': block_5_6, 'block_6': block_6, 'block_7': block_7, 'block_8': block_8,
                     'block_8_1': block_8_1, 'block_8_2': block_8_2, 'block_8_3': block_8_3, 
                     'block_8_4': block_8_4, 'block_8_5': block_8_5, 'block_8_6': block_8_6,}
-        self.weather = self.w2.parse_params if hasattr(self.w2, 'parse_params') else self.parse_params
+        if hasattr(self.w2, 'parse_params'):
+            self.weather = self.w2.parse_params
+            self.weather['climate_info'] = self.w2.textConsoleClimat.toPlainText()
+        else:
+            self.weather = self.parse_params
         self.weather_station = self.w2.parse_params_current_city if hasattr(self.w2, 'parse_params_current_city') else self.weather_station_params
         
     def create_document(self):
@@ -1080,7 +1177,7 @@ class MainApp(QtWidgets.QMainWindow, designRepPDF.Ui_MainWindow):
         if self.browser_status == 0:
             self.w2.setWindowIcon(QtGui.QIcon('Data/icons/graficon.png'))
             self.w2.show()
-            self.w2.setFixedSize(470, 430)
+            self.w2.setFixedSize(915, 430)
 
             self.statusBar.showMessage('Успешно!', 4000)
             self.statusBar.setStyleSheet("background-color:rgb(48, 219, 91)")
@@ -1100,12 +1197,12 @@ class MainApp(QtWidgets.QMainWindow, designRepPDF.Ui_MainWindow):
 
     def convertOneFinished(self):
         self.btnLoadScheme1.setEnabled(True)
-        self.hide_del_button()
+        self.hide_del_button_schemes()
         del self.converter1
         
     def convertTwoFinished(self):
         self.btnLoadScheme2.setEnabled(True)
-        self.hide_del_button()
+        self.hide_del_button_schemes()
         del self.converter2
                        
     def convertPvsystFinished(self):
@@ -1116,7 +1213,7 @@ class MainApp(QtWidgets.QMainWindow, designRepPDF.Ui_MainWindow):
         self.inputAddress.setText(full_address['full_address'])
         self.w2.inputCity.setText(full_address['city_point'])
         self.btnOne.setEnabled(True)
-        self.hide_del_button()
+        self.hide_del_button_device()
         self.stopAnimation()
         del self.converter_pvsyst
 
@@ -1127,7 +1224,8 @@ class MainApp(QtWidgets.QMainWindow, designRepPDF.Ui_MainWindow):
         self.merge_pdf()
         self.stopAnimation()
         self.btnOpenPDF.show()
-        self.label_10.hide()
+        self.label_10.setText('Создать')
+        # self.label_10.hide()
         QTimer.singleShot(4000, lambda: self.statusBar.setStyleSheet("background-color:rgb(255, 255, 255)"))
         self.btnForm.setEnabled(True)
         # self.btnForm.setText('PDF')
