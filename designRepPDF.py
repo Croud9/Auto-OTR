@@ -915,7 +915,7 @@ class Ui_MainWindow(object):
         self.checkBox_1.setFont(font)
         self.checkBox_1.setObjectName("checkBox_1")
         self.btnOpenPDF = QtWidgets.QPushButton(self.centralwidget)
-        self.btnOpenPDF.setGeometry(QtCore.QRect(201, 293, 91, 31))
+        self.btnOpenPDF.setGeometry(QtCore.QRect(220, 293, 91, 31))
         font = QtGui.QFont()
         font.setFamily("Arial")
         font.setPointSize(9)
@@ -1536,7 +1536,7 @@ class Ui_MainWindow(object):
 "color:rgba(0, 0, 0, 0.5); ")
         self.label_10.setObjectName("label_10")
         self.btnSlideMenuDevices = QtWidgets.QPushButton(self.centralwidget)
-        self.btnSlideMenuDevices.setGeometry(QtCore.QRect(439, 307, 20, 21))
+        self.btnSlideMenuDevices.setGeometry(QtCore.QRect(426, 307, 20, 21))
         font = QtGui.QFont()
         font.setFamily("Arial")
         font.setPointSize(11)
@@ -1557,7 +1557,7 @@ class Ui_MainWindow(object):
 "")
         self.btnSlideMenuDevices.setObjectName("btnSlideMenuDevices")
         self.btnSlideMenuPassport = QtWidgets.QPushButton(self.centralwidget)
-        self.btnSlideMenuPassport.setGeometry(QtCore.QRect(471, 307, 20, 21))
+        self.btnSlideMenuPassport.setGeometry(QtCore.QRect(458, 307, 20, 21))
         font = QtGui.QFont()
         font.setFamily("Arial")
         font.setPointSize(11)
@@ -1578,7 +1578,7 @@ class Ui_MainWindow(object):
 "")
         self.btnSlideMenuPassport.setObjectName("btnSlideMenuPassport")
         self.btnSlideMenuDelete = QtWidgets.QPushButton(self.centralwidget)
-        self.btnSlideMenuDelete.setGeometry(QtCore.QRect(503, 307, 20, 21))
+        self.btnSlideMenuDelete.setGeometry(QtCore.QRect(490, 307, 20, 21))
         font = QtGui.QFont()
         font.setFamily("Arial")
         font.setPointSize(11)
@@ -1639,6 +1639,182 @@ class Ui_MainWindow(object):
 "color:rgba(0, 0, 0, 0.5);")
         self.label_13.setAlignment(QtCore.Qt.AlignCenter)
         self.label_13.setObjectName("label_13")
+        self.inputKTP = QtWidgets.QTextBrowser(self.centralwidget)
+        self.inputKTP.setEnabled(True)
+        self.inputKTP.setGeometry(QtCore.QRect(266, 16, 430, 259))
+        font = QtGui.QFont()
+        font.setFamily("Arial")
+        font.setBold(False)
+        font.setUnderline(False)
+        font.setWeight(50)
+        font.setStrikeOut(False)
+        self.inputKTP.setFont(font)
+        self.inputKTP.setStyleSheet("QTextBrowser{\n"
+"    background-color:rgba(229,229,234,1); \n"
+"    border-radius: 6;\n"
+"    border: none;\n"
+"    padding: 8 4 8 8;\n"
+"}\n"
+"")
+        self.inputKTP.setReadOnly(False)
+        self.inputKTP.setObjectName("inputKTP")
+        self.btnSlideMenuKTP = QtWidgets.QPushButton(self.centralwidget)
+        self.btnSlideMenuKTP.setGeometry(QtCore.QRect(520, 307, 20, 21))
+        font = QtGui.QFont()
+        font.setFamily("Arial")
+        font.setPointSize(11)
+        font.setBold(True)
+        font.setWeight(75)
+        self.btnSlideMenuKTP.setFont(font)
+        self.btnSlideMenuKTP.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
+        self.btnSlideMenuKTP.setStyleSheet("QPushButton{\n"
+"    background-color:rgba(112, 215, 255, 0);\n"
+"    color:  #3b83ff;\n"
+"    border: none;\n"
+"    border-radius: 5;\n"
+"    border-style: outset;\n"
+"}\n"
+"QPushButton:hover{\n"
+"    color:rgba(0, 20, 240, 0.93) ;\n"
+"}\n"
+"")
+        self.btnSlideMenuKTP.setObjectName("btnSlideMenuKTP")
+        self.btnAddKTPParams = QtWidgets.QPushButton(self.centralwidget)
+        self.btnAddKTPParams.setGeometry(QtCore.QRect(685, 264, 31, 31))
+        font = QtGui.QFont()
+        font.setFamily("Arial")
+        font.setPointSize(14)
+        font.setBold(True)
+        font.setWeight(75)
+        self.btnAddKTPParams.setFont(font)
+        self.btnAddKTPParams.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
+        self.btnAddKTPParams.setStyleSheet("QPushButton{\n"
+"    background-color:rgba(112, 215, 255, 0);\n"
+"    color:rgba(0, 0, 0, 0.5);\n"
+"    border: none;\n"
+"    border-radius: 5;\n"
+"    border-style: outset;\n"
+"}\n"
+"QPushButton:hover{\n"
+"    color: black;\n"
+"}\n"
+"")
+        self.btnAddKTPParams.setObjectName("btnAddKTPParams")
+        self.inputNameFileKTP = QtWidgets.QLineEdit(self.centralwidget)
+        self.inputNameFileKTP.setGeometry(QtCore.QRect(708, 283, 131, 41))
+        font = QtGui.QFont()
+        font.setFamily("Arial")
+        font.setBold(True)
+        font.setWeight(75)
+        self.inputNameFileKTP.setFont(font)
+        self.inputNameFileKTP.setStyleSheet("QLineEdit{\n"
+"    background-color:rgba(229,229,234,1); \n"
+"    border-radius: 6;\n"
+"    border: none;\n"
+"    padding-left: 8px\n"
+"}\n"
+"QLineEdit:hover{\n"
+"    background-color:rgba(242,242,247,1);\n"
+"}\n"
+"QLineEdit:pressed{\n"
+"    background-color:rgba(188,188,192,1);\n"
+"    border-radius: 12;\n"
+"}")
+        self.inputNameFileKTP.setInputMask("")
+        self.inputNameFileKTP.setText("")
+        self.inputNameFileKTP.setObjectName("inputNameFileKTP")
+        self.btnKTPTemplate = QtWidgets.QPushButton(self.centralwidget)
+        self.btnKTPTemplate.setGeometry(QtCore.QRect(705, 138, 41, 20))
+        font = QtGui.QFont()
+        font.setFamily("Arial")
+        font.setPointSize(9)
+        font.setBold(True)
+        font.setItalic(False)
+        font.setUnderline(False)
+        font.setWeight(75)
+        font.setStrikeOut(False)
+        font.setKerning(True)
+        font.setStyleStrategy(QtGui.QFont.PreferAntialias)
+        self.btnKTPTemplate.setFont(font)
+        self.btnKTPTemplate.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
+        self.btnKTPTemplate.setStyleSheet("QPushButton{\n"
+"    background-color:rgba(112, 215, 255, 0);\n"
+"    color:rgba(0, 0, 0, 0.5);\n"
+"    border: none;\n"
+"    border-radius: 5;\n"
+"    border-style: outset;\n"
+"}\n"
+"QPushButton:hover{\n"
+"    color: black;\n"
+"}\n"
+"")
+        self.btnKTPTemplate.setObjectName("btnKTPTemplate")
+        self.btnOtherTemplate = QtWidgets.QPushButton(self.centralwidget)
+        self.btnOtherTemplate.setGeometry(QtCore.QRect(706, 79, 61, 20))
+        font = QtGui.QFont()
+        font.setFamily("Arial")
+        font.setPointSize(9)
+        font.setBold(True)
+        font.setItalic(False)
+        font.setUnderline(False)
+        font.setWeight(75)
+        font.setStrikeOut(False)
+        font.setKerning(True)
+        font.setStyleStrategy(QtGui.QFont.PreferAntialias)
+        self.btnOtherTemplate.setFont(font)
+        self.btnOtherTemplate.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
+        self.btnOtherTemplate.setStyleSheet("QPushButton{\n"
+"    background-color:rgba(112, 215, 255, 0);\n"
+"    color:rgba(0, 0, 0, 0.5);\n"
+"    border: none;\n"
+"    border-radius: 5;\n"
+"    border-style: outset;\n"
+"}\n"
+"QPushButton:hover{\n"
+"    color: black;\n"
+"}\n"
+"")
+        self.btnOtherTemplate.setObjectName("btnOtherTemplate")
+        self.btnCalcPV = QtWidgets.QPushButton(self.centralwidget)
+        self.btnCalcPV.setGeometry(QtCore.QRect(843, 264, 61, 51))
+        font = QtGui.QFont()
+        font.setFamily("Arial")
+        font.setPointSize(9)
+        font.setBold(True)
+        font.setWeight(75)
+        self.btnCalcPV.setFont(font)
+        self.btnCalcPV.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
+        self.btnCalcPV.setStyleSheet("QPushButton{\n"
+"    /*background-color: #196dff;*/\n"
+"    background-color:rgba(112, 215, 255, 0);\n"
+"    color: white;\n"
+"    border: none;\n"
+"    border-radius: 12;\n"
+"    border-style: outset;\n"
+"}\n"
+"QPushButton:hover{\n"
+"    border-bottom: 3px solid white;\n"
+"    border-radius: 3; \n"
+"}\n"
+"QPushButton:pressed{\n"
+"    border-bottom: 0px solid white;\n"
+"    border-radius: 3;\n"
+"}")
+        self.btnCalcPV.setText("")
+        self.btnCalcPV.setObjectName("btnCalcPV")
+        self.label_14 = QtWidgets.QLabel(self.centralwidget)
+        self.label_14.setGeometry(QtCore.QRect(843, 320, 61, 16))
+        font = QtGui.QFont()
+        font.setFamily("Arial")
+        font.setPointSize(8)
+        font.setBold(True)
+        font.setWeight(75)
+        self.label_14.setFont(font)
+        self.label_14.setStyleSheet("background-color: rgba(255,255,255,0); \n"
+"color:rgba(0, 0, 0, 0.5);")
+        self.label_14.setAlignment(QtCore.Qt.AlignCenter)
+        self.label_14.setObjectName("label_14")
+        self.inputKTP.raise_()
         self.label_10.raise_()
         self.label_for_slide.raise_()
         self.btnOpenPDF.raise_()
@@ -1724,6 +1900,13 @@ class Ui_MainWindow(object):
         self.label_11.raise_()
         self.label_12.raise_()
         self.label_13.raise_()
+        self.btnSlideMenuKTP.raise_()
+        self.btnAddKTPParams.raise_()
+        self.inputNameFileKTP.raise_()
+        self.btnKTPTemplate.raise_()
+        self.btnOtherTemplate.raise_()
+        self.btnCalcPV.raise_()
+        self.label_14.raise_()
         MainWindow.setCentralWidget(self.centralwidget)
         self.statusBar = QtWidgets.QStatusBar(MainWindow)
         self.statusBar.setObjectName("statusBar")
@@ -1870,3 +2053,12 @@ class Ui_MainWindow(object):
         self.label_11.setText(_translate("MainWindow", "PVsyst"))
         self.label_12.setText(_translate("MainWindow", "Инвертор"))
         self.label_13.setText(_translate("MainWindow", "Станция"))
+        self.inputKTP.setPlaceholderText(_translate("MainWindow", "Параметры КТП"))
+        self.btnSlideMenuKTP.setText(_translate("MainWindow", "●"))
+        self.btnAddKTPParams.setToolTip(_translate("MainWindow", "Добавить MPPT"))
+        self.btnAddKTPParams.setText(_translate("MainWindow", "+"))
+        self.inputNameFileKTP.setToolTip(_translate("MainWindow", "Количество MPPT в инверторе"))
+        self.inputNameFileKTP.setPlaceholderText(_translate("MainWindow", "Название файла"))
+        self.btnKTPTemplate.setText(_translate("MainWindow", "КТП"))
+        self.btnOtherTemplate.setText(_translate("MainWindow", "Другое"))
+        self.label_14.setText(_translate("MainWindow", "CalcPV"))

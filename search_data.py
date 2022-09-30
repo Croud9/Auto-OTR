@@ -14,7 +14,8 @@ def null_search_params(type_file):
                         'kpd_max', 'kpd_euro', 'v_abs_max', 'protect')               
     elif type_file == 'pv':
         name_params = ('module_pv', 'title_pv', 'model_pv', 'width_pv','height_pv', 'depth_pv', 
-                        'weight_pv', 'p_nom_pv','isc_pv', 'voc_pv', 'imp_pv', 'vmp_pv', 'square_pv')               
+                        'weight_pv', 'p_nom_pv','isc_pv', 'voc_pv', 'imp_pv', 'vmp_pv', 'square_pv',
+                        'mu_isc_pv', 'mu_voc_spec_pv', 'v_max_iec_pv', 'r_shunt_pv', 'ncels_pv')               
     elif type_file == 'pvsyst':
         name_params = ('produced_energy', 'specific_production', 'lati_pdf', 'longi_pdf', 
                         'nb_PV', 'pnom_PV', 'nb_inverters', 'pnom_inverters', 'perf_ratio', 'balances_and_main')             
@@ -99,6 +100,12 @@ def search_in_pv(path):
             if 'Imp=' in line: found_txt['imp_pv'] = cut(line) #Сила тока при максимальной мощности
             if 'Vmp=' in line: found_txt['vmp_pv'] = cut(line) #Напряжение при номинальной мощности
 
+            if 'muISC=' in line: found_txt['mu_isc_pv'] = cut(line) #Напряжение при номинальной мощности
+            if 'muVocSpec=' in line: found_txt['mu_voc_spec_pv'] = cut(line) #Напряжение при номинальной мощности
+            if 'VMaxIEC=' in line: found_txt['v_max_iec_pv'] = cut(line) #Напряжение при номинальной мощности
+            if 'RShunt=' in line: found_txt['r_shunt_pv'] = cut(line) #Напряжение при номинальной мощности
+            if 'NCelS=' in line: found_txt['ncels_pv'] = cut(line) #Напряжение при номинальной мощности
+
     false_value = ['Н/Д', '']
     found_txt['module_pv'] = " ".join([found_txt['title_pv'], found_txt['model_pv']])
 
@@ -110,6 +117,10 @@ def search_in_pv(path):
         found_txt['height_pv'] = float(found_txt['height_pv']) * 1000     
     if not found_txt['depth_pv'] in false_value:
         found_txt['depth_pv'] = float(found_txt['depth_pv']) * 1000  
+    if not found_txt['mu_isc_pv'] in false_value:
+        found_txt['mu_isc_pv'] = float(found_txt['mu_isc_pv']) / 1000  
+    if not found_txt['mu_voc_spec_pv'] in false_value:
+        found_txt['mu_voc_spec_pv'] = float(found_txt['mu_voc_spec_pv']) / 1000  
     return found_txt
 
 def search_in_pdf(path): 

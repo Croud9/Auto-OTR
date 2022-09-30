@@ -1,5 +1,6 @@
 # перевод дизайна
 # cd "C:\PythonPRJCT\autoReportPdf"
+# pyuic5 designCalcPV.ui -o designCalcPV.py
 # pyuic5 designRepPDF.ui -o designRepPDF.py
 # pyuic5 designParsing.ui -o designParsing.py
 # pyuic5 designDrawSchemes.ui -o designDrawSchemes.py
@@ -7,6 +8,7 @@
 
 import pdf_builder
 import designRepPDF # загрузка файлов
+import logicUICalcPV
 import logicUIParse
 import logicUIOneScheme
 import logicUITwoScheme
@@ -90,6 +92,7 @@ class MainApp(QtWidgets.QMainWindow, designRepPDF.Ui_MainWindow):
         self.btnRP5.clicked.connect(self.show_window_parse)
         self.btnDrawScheme.clicked.connect(self.show_window_draw)
         self.btnDrawSchemeTwo.clicked.connect(self.show_window_draw_two)
+        self.btnCalcPV.clicked.connect(self.show_window_calc)
         self.checkBox_3.clicked.connect(self.show_and_hide_cbox3)
         self.checkBox_5.clicked.connect(self.show_and_hide_cbox5)
         self.checkBox_8.clicked.connect(self.show_and_hide_cbox8)
@@ -99,15 +102,17 @@ class MainApp(QtWidgets.QMainWindow, designRepPDF.Ui_MainWindow):
         self.btnSlideMenuDevices.clicked.connect(self.slide_menu_device)
         self.btnSlideMenuPassport.clicked.connect(self.slide_menu_passport)
         self.btnSlideMenuDelete.clicked.connect(self.slide_menu_delete)
+        self.btnSlideMenuKTP.clicked.connect(self.slide_menu_ktp)
         self.btnLoadScheme1.clicked.connect(self.load_scheme_one)
         self.btnLoadScheme2.clicked.connect(self.load_scheme_two)
         # self.btnForm.hover.connect(self.validation)
+        self.btnAddKTPParams.clicked.connect(self.ktp_generate_file)
         self.listRoof.activated.connect(self.roof_select)
         self.listInvertor_folder.activated.connect(self.invertor_select)
-        self.listPV_folder.activated.connect(self.pv_select)
-        self.listKTP_folder.activated.connect(self.ktp_select)
         self.listInvertor_file.activated.connect(self.invertor_load)
+        self.listPV_folder.activated.connect(self.pv_select)
         self.listPV_file.activated.connect(self.pv_load)
+        self.listKTP_folder.activated.connect(self.ktp_select)
         self.inputAddress.selectionChanged.connect(self.show_button_coordinates)
         self.btnSearchCoordinates.clicked.connect(self.coordinate_by_address)
         self.inputTitleProject.textChanged.connect(self.generate_code_project)
@@ -148,11 +153,11 @@ class MainApp(QtWidgets.QMainWindow, designRepPDF.Ui_MainWindow):
         # self.anim_group.addAnimation(self.anim_2)
         anim.start()  
 
-
     def instance_ofter_class(self, instance_of_main_window): 
-        self.w2 = logicUIParse.WindowParse()
+        self.w2 = logicUIParse.WindowParse(instance_of_main_window)
         self.w3 = logicUIOneScheme.WindowDraw(instance_of_main_window)
         self.w4 = logicUITwoScheme.WindowDrawTwo(instance_of_main_window) 
+        self.w5 = logicUICalcPV.CalcPV(instance_of_main_window) 
                     
     def input_data(self):
         self.btnDevice.setIcon(QIcon('data/cons/paper-clip.png'))
@@ -169,12 +174,17 @@ class MainApp(QtWidgets.QMainWindow, designRepPDF.Ui_MainWindow):
         self.btnDrawScheme.setIconSize(QSize(45, 45))
         self.btnDrawSchemeTwo.setIcon(QIcon('data/cons/dop/solar-panels.png'))
         self.btnDrawSchemeTwo.setIconSize(QSize(50, 50))
+        self.btnCalcPV.setIcon(QIcon('data/cons/dop/wire1.png'))
+        self.btnCalcPV.setIconSize(QSize(50, 50))
 
-        # try:
-        #     climat = wikipedia.page('Геленджик').section('Климат')
-        #     print(climat)
-        # except wikipedia.exceptions.PageError:
-        #     print('Данной страницы нет')
+        self.inputKTP.append('Название КТП=КТПНУ-250/10/0,4-T-KK-УХЛ1') # Название КТП
+        self.inputKTP.append('Мощность КТП, кВА=250') # Мощность КТП, кВА
+        self.inputKTP.append('Количество обмоток, шт=3') # Количество обмоток, шт
+        self.inputKTP.append('Напряжение первичной обмотки, кВ=10') # Напряжение первичной обмотки, кВ 
+        self.inputKTP.append('Напряжение вторичной(-ых) обмотки(-ок), кВ=12') # Напряжение вторичной(-ых) обмотки(-ок), кВ 
+        self.inputKTP.append('Номинальный ток обмоток, А=630') # Номинальный ток обмоток, А 
+        self.inputKTP.append('Рабочая частота, Гц=50') # Рабочая частота, Гц
+        self.inputKTP.append('Коэффициент полезного действия, %=59') # Коэффициент полезного действия, %
          
         # self.spinBox_numInvertor.lineEdit().setDisabled(True) 
         self.path_pvsyst = ''
@@ -205,13 +215,15 @@ class MainApp(QtWidgets.QMainWindow, designRepPDF.Ui_MainWindow):
         self.listRoof.addItems(roofs)
 
         self.listInvertor_folder.addItem("Выберите")
-        self.listPV_folder.addItem("Выберите")
-        self.listKTP_folder.addItem("Выберите")
         company_invertor = sorted(os.listdir(path_to_invertors))
-        company_pv = sorted(os.listdir(path_to_pv))
-        company_ktp = sorted(os.listdir(path_to_ktp))
         self.listInvertor_folder.addItems(company_invertor)
+
+        self.listPV_folder.addItem("Выберите")
+        company_pv = sorted(os.listdir(path_to_pv))
         self.listPV_folder.addItems(company_pv)
+        
+        self.listKTP_folder.addItem("Выберите")
+        company_ktp = sorted(os.listdir(path_to_ktp))
         self.listKTP_folder.addItems(company_ktp)
 
     def open_result_doc(self):
@@ -300,7 +312,24 @@ class MainApp(QtWidgets.QMainWindow, designRepPDF.Ui_MainWindow):
         current_year = str(date.today().year)
         self.inputCodeProject.setText(not_vowels_and_num[:3] + current_year)
 
+    def ktp_generate_file(self):
+        params = self.inputKTP.toPlainText()
+        file_name = self.inputNameFileKTP.text()
+
+        if file_name == '':
+            file_name = 'noname'
+
+        with open(f"Data/Modules/KTP's/New/{file_name}.txt", 'w') as file:
+            file.write(params) # Название КТП
+
+        self.ktp_select()
+
     def hide(self):
+        self.inputKTP.hide()
+        self.btnAddKTPParams.hide()
+        self.inputNameFileKTP.hide()
+        self.btnKTPTemplate.hide()
+        self.btnOtherTemplate.hide()
         self.label_11.hide()
         self.label_12.hide()
         self.label_13.hide()
@@ -361,214 +390,199 @@ class MainApp(QtWidgets.QMainWindow, designRepPDF.Ui_MainWindow):
         self.spinBox_numPV.hide()
         self.spinBox_numKTP.hide()
 
+    def view_menu_delete(self, view = False):
+        # Удаление разделов
+        if view == False:
+            self.checkBox_1.hide()
+            self.checkBox_2.hide()
+            self.checkBox_3.hide()
+            self.checkBox_4.hide()
+            self.checkBox_5.hide()
+            self.checkBox_6.hide()
+            self.checkBox_7.hide()
+            self.checkBox_8.hide()
+            self.btnShow3.hide()
+            self.btnShow5.hide()
+            self.btnShow8.hide()
+            self.checkBox_3_1.hide()
+            self.checkBox_3_2.hide()
+            self.checkBox_3_3.hide()
+            self.checkBox_3_4.hide()
+            self.checkBox_5_1.hide()
+            self.checkBox_5_1_1.hide()
+            self.checkBox_5_1_2.hide()
+            self.checkBox_5_1_3.hide()
+            self.checkBox_5_1_4.hide()
+            self.checkBox_5_2.hide()
+            self.checkBox_5_3.hide()
+            self.checkBox_5_4.hide()
+            self.checkBox_5_5.hide()
+            self.checkBox_5_6.hide()
+            self.checkBox_8_1.hide()
+            self.checkBox_8_2.hide()
+            self.checkBox_8_3.hide()
+            self.checkBox_8_4.hide()
+            self.checkBox_8_5.hide()
+            self.checkBox_8_6.hide()
+        else:
+            self.label_for_slide.setText("Удаление раздела")
+            self.label_2.setText("Номер раздела")
+            self.checkBox_1.show()
+            self.checkBox_2.show()
+            self.checkBox_3.show()
+            self.checkBox_4.show()
+            self.checkBox_5.show()
+            self.checkBox_6.show()
+            self.checkBox_7.show()
+            self.checkBox_8.show()
+            self.btnShow3.show()
+            self.btnShow5.show()
+            self.btnShow8.show()
+            if self.btnShow3.text() == "▲":
+                self.checkBox_3_1.show()
+                self.checkBox_3_2.show()
+                self.checkBox_3_3.show()
+                self.checkBox_3_4.show()
+            if self.btnShow5.text() == "▲":
+                self.checkBox_5_1.show()
+                self.checkBox_5_1_1.show()
+                self.checkBox_5_1_2.show()
+                self.checkBox_5_1_3.show()
+                self.checkBox_5_1_4.show()
+                self.checkBox_5_2.show()
+                self.checkBox_5_3.show()
+                self.checkBox_5_4.show()
+                self.checkBox_5_5.show()
+                self.checkBox_5_6.show()
+            if self.btnShow8.text() == "▲":
+                self.checkBox_8_1.show()
+                self.checkBox_8_2.show()
+                self.checkBox_8_3.show()
+                self.checkBox_8_4.show()
+                self.checkBox_8_5.show()
+                self.checkBox_8_6.show()  
+
+    def view_menu_device(self, view = False):
+        # Оборудование
+        if view == False:
+            self.btnDelInvertor.hide() 
+            self.listInvertor_folder.hide()
+            self.listInvertor_file.hide()
+            self.listPV_folder.hide()
+            self.listPV_file.hide()
+            self.listKTP_folder.hide()
+            self.listKTP_file.hide()
+            self.listRoof.hide()
+            self.spinBox_numInvertor.hide()
+            self.spinBox_numPV.hide()
+            self.spinBox_numKTP.hide()
+            self.btnAddInvertor.hide()
+            self.btnAddPV.hide()
+            self.btnAddKTP.hide()          
+            self.label_3.hide()
+            self.label_4.hide()
+            self.label_5.hide()
+        else:
+            self.label_for_slide.setText("Оборудование")
+            if len(self.invertors) > 1:
+                self.spinBox_numInvertor.show()
+                self.btnDelInvertor.show() 
+            self.btnAddInvertor.show()
+            self.btnAddPV.show()
+            self.btnAddKTP.show()
+            self.label_2.setText("Инвертор")
+            self.label_2.show()
+            self.label_3.setText("ФЭМ")
+            self.label_3.show()
+            self.label_4.setText("КТП")
+            self.label_4.show()
+            self.label_5.setText("Тип крыши")
+            self.label_5.show()
+            self.listRoof.show()
+            self.listInvertor_folder.show()
+            self.listInvertor_file.show()
+            self.listPV_folder.show()
+            self.listPV_file.show()
+            self.listKTP_folder.show()
+            self.listKTP_file.show()
+            self.listRoof.show()
+
+    def view_menu_passport(self, view = False):
+        # Паспорт объекта
+        if view == False:
+            self.btnSearchCoordinates.hide()
+            self.inputUDotIn.hide()
+            self.inputAddress.hide()
+            self.inputAddressLat.hide()
+            self.inputAddressLong.hide()
+            self.inputObjectType.hide()
+            self.inputTitleProject.hide()
+            self.inputCodeProject.hide()
+            self.inputClient.hide()
+            self.label_6.hide()
+        else:
+            self.label_for_slide.setText("Паспорт объекта")
+            self.btnSearchCoordinates.hide()
+            self.label_2.setText("Название \nпроекта")
+            self.label_2.show()
+            self.label_3.setText("Тип объекта")
+            self.label_3.show()
+            self.label_4.setText("Заказчик")
+            self.label_4.show()
+            self.label_5.setText("U подключения \nКоординаты")
+            self.label_5.show()
+            self.label_6.setText("Адрес")
+            self.label_6.show()
+            self.inputUDotIn.show()
+            self.inputAddress.show()
+            self.inputAddressLat.show()
+            self.inputAddressLong.show()
+            self.inputObjectType.show()
+            self.inputTitleProject.show()
+            self.inputCodeProject.show()
+            self.inputClient.show()
+
+    def view_menu_ktp(self, view = False):
+        # КТП
+        if view == False:
+            self.inputKTP.hide()
+            self.btnAddKTPParams.hide()
+            self.inputNameFileKTP.hide()
+            self.btnKTPTemplate.hide()
+            self.btnOtherTemplate.hide()
+        else:
+            self.label_for_slide.setText("Добавление файла параметров")
+            self.label_2.setText("Шаблоны:")
+            self.inputKTP.show()
+            self.btnAddKTPParams.show()
+            self.inputNameFileKTP.show()
+            self.btnKTPTemplate.show()
+            self.btnOtherTemplate.show()
+
     def slide_menu_device(self):
-        self.label_for_slide.setText("Оборудование")
+        self.view_menu_delete()
+        self.view_menu_passport()
+        self.view_menu_ktp()
+        self.view_menu_device(True)
         
-        # Удаление разделов
-        self.checkBox_1.hide()
-        self.checkBox_2.hide()
-        self.checkBox_3.hide()
-        self.checkBox_4.hide()
-        self.checkBox_5.hide()
-        self.checkBox_6.hide()
-        self.checkBox_7.hide()
-        self.checkBox_8.hide()
-        self.btnShow3.hide()
-        self.btnShow5.hide()
-        self.btnShow8.hide()
-        self.checkBox_3_1.hide()
-        self.checkBox_3_2.hide()
-        self.checkBox_3_3.hide()
-        self.checkBox_3_4.hide()
-        self.checkBox_5_1.hide()
-        self.checkBox_5_1_1.hide()
-        self.checkBox_5_1_2.hide()
-        self.checkBox_5_1_3.hide()
-        self.checkBox_5_1_4.hide()
-        self.checkBox_5_2.hide()
-        self.checkBox_5_3.hide()
-        self.checkBox_5_4.hide()
-        self.checkBox_5_5.hide()
-        self.checkBox_5_6.hide()
-        self.checkBox_8_1.hide()
-        self.checkBox_8_2.hide()
-        self.checkBox_8_3.hide()
-        self.checkBox_8_4.hide()
-        self.checkBox_8_5.hide()
-        self.checkBox_8_6.hide()
-        # Паспорт объекта
-        self.btnSearchCoordinates.hide()
-        self.inputUDotIn.hide()
-        self.inputAddress.hide()
-        self.inputAddressLat.hide()
-        self.inputAddressLong.hide()
-        self.inputObjectType.hide()
-        self.inputTitleProject.hide()
-        self.inputCodeProject.hide()
-        self.inputClient.hide()
-        self.label_6.hide()
-        # Оборудование
-        if len(self.invertors) > 1:
-            self.spinBox_numInvertor.show()
-            self.btnDelInvertor.show() 
-        self.btnAddInvertor.show()
-        self.btnAddPV.show()
-        self.btnAddKTP.show()
-        self.label_2.setText("Инвертор")
-        self.label_2.show()
-        self.label_3.setText("ФЭМ")
-        self.label_3.show()
-        self.label_4.setText("КТП")
-        self.label_4.show()
-        self.label_5.setText("Тип крыши")
-        self.label_5.show()
-        self.listRoof.show()
-        self.listInvertor_folder.show()
-        self.listInvertor_file.show()
-        self.listPV_folder.show()
-        self.listPV_file.show()
-        self.listKTP_folder.show()
-        self.listKTP_file.show()
-        self.listRoof.show()
-          
     def slide_menu_passport(self):
-        self.label_for_slide.setText("Паспорт объекта")
-        # Удаление разделов
-        self.checkBox_1.hide()
-        self.checkBox_2.hide()
-        self.checkBox_3.hide()
-        self.checkBox_4.hide()
-        self.checkBox_5.hide()
-        self.checkBox_6.hide()
-        self.checkBox_7.hide()
-        self.checkBox_8.hide()
-        self.btnShow3.hide()
-        self.btnShow5.hide()
-        self.btnShow8.hide()
-        self.checkBox_3_1.hide()
-        self.checkBox_3_2.hide()
-        self.checkBox_3_3.hide()
-        self.checkBox_3_4.hide()
-        self.checkBox_5_1.hide()
-        self.checkBox_5_1_1.hide()
-        self.checkBox_5_1_2.hide()
-        self.checkBox_5_1_3.hide()
-        self.checkBox_5_1_4.hide()
-        self.checkBox_5_2.hide()
-        self.checkBox_5_3.hide()
-        self.checkBox_5_4.hide()
-        self.checkBox_5_5.hide()
-        self.checkBox_5_6.hide()
-        self.checkBox_8_1.hide()
-        self.checkBox_8_2.hide()
-        self.checkBox_8_3.hide()
-        self.checkBox_8_4.hide()
-        self.checkBox_8_5.hide()
-        self.checkBox_8_6.hide()
-        # Оборудование
-        self.btnDelInvertor.hide() 
-        self.listInvertor_folder.hide()
-        self.listInvertor_file.hide()
-        self.listPV_folder.hide()
-        self.listPV_file.hide()
-        self.listKTP_folder.hide()
-        self.listKTP_file.hide()
-        self.listRoof.hide()
-        self.spinBox_numInvertor.hide()
-        self.spinBox_numPV.hide()
-        self.spinBox_numKTP.hide()
-        self.btnAddInvertor.hide()
-        self.btnAddPV.hide()
-        self.btnAddKTP.hide()   
-        # Паспорт объекта
-        self.btnSearchCoordinates.hide()
-        self.label_2.setText("Название \nпроекта")
-        self.label_2.show()
-        self.label_3.setText("Тип объекта")
-        self.label_3.show()
-        self.label_4.setText("Заказчик")
-        self.label_4.show()
-        self.label_5.setText("U подключения \nКоординаты")
-        self.label_5.show()
-        self.label_6.setText("Адрес")
-        self.label_6.show()
-        self.inputUDotIn.show()
-        self.inputAddress.show()
-        self.inputAddressLat.show()
-        self.inputAddressLong.show()
-        self.inputObjectType.show()
-        self.inputTitleProject.show()
-        self.inputCodeProject.show()
-        self.inputClient.show()
+        self.view_menu_delete()
+        self.view_menu_device()
+        self.view_menu_ktp()
+        self.view_menu_passport(True)
             
     def slide_menu_delete(self):
-        self.label_for_slide.setText("Удаление раздела")
-        # Паспорт объекта
-        self.btnSearchCoordinates.hide()
-        self.label_3.hide()
-        self.label_4.hide()
-        self.label_5.hide()
-        self.label_6.hide()
-        self.inputUDotIn.hide()
-        self.inputAddress.hide()
-        self.inputAddressLat.hide()
-        self.inputAddressLong.hide()
-        self.inputObjectType.hide()
-        self.inputTitleProject.hide()
-        self.inputCodeProject.hide()
-        self.inputClient.hide()
-        # Оборудование
-        self.btnDelInvertor.hide() 
-        self.listInvertor_folder.hide()
-        self.listInvertor_file.hide()
-        self.listPV_folder.hide()
-        self.listPV_file.hide()
-        self.listKTP_folder.hide()
-        self.listKTP_file.hide()
-        self.listRoof.hide()
-        self.spinBox_numInvertor.hide()
-        self.spinBox_numPV.hide()
-        self.spinBox_numKTP.hide()
-        self.btnAddInvertor.hide()
-        self.btnAddPV.hide()
-        self.btnAddKTP.hide()
-        # Удаление разделов
-        self.checkBox_1.show()
-        self.checkBox_2.show()
-        self.checkBox_3.show()
-        self.checkBox_4.show()
-        self.checkBox_5.show()
-        self.checkBox_6.show()
-        self.checkBox_7.show()
-        self.checkBox_8.show()
-        self.btnShow3.show()
-        self.btnShow5.show()
-        self.btnShow8.show()
-        if self.btnShow3.text() == "▲":
-            self.checkBox_3_1.show()
-            self.checkBox_3_2.show()
-            self.checkBox_3_3.show()
-            self.checkBox_3_4.show()
-        if self.btnShow5.text() == "▲":
-            self.checkBox_5_1.show()
-            self.checkBox_5_1_1.show()
-            self.checkBox_5_1_2.show()
-            self.checkBox_5_1_3.show()
-            self.checkBox_5_1_4.show()
-            self.checkBox_5_2.show()
-            self.checkBox_5_3.show()
-            self.checkBox_5_4.show()
-            self.checkBox_5_5.show()
-            self.checkBox_5_6.show()
-        if self.btnShow8.text() == "▲":
-            self.checkBox_8_1.show()
-            self.checkBox_8_2.show()
-            self.checkBox_8_3.show()
-            self.checkBox_8_4.show()
-            self.checkBox_8_5.show()
-            self.checkBox_8_6.show()  
-        self.label_2.setText("Номер раздела")
-            
+        self.view_menu_passport()
+        self.view_menu_device()
+        self.view_menu_ktp()
+        self.view_menu_delete(True)
+
+    def slide_menu_ktp(self):
+        self.view_menu_delete()
+        self.view_menu_passport()
+        self.view_menu_device()
+        self.view_menu_ktp(True)
+           
     def show_btn_cbox3(self):
         if self.checkBox_3_1.isHidden():
             self.btnShow3.setText("▲")
@@ -702,7 +716,7 @@ class MainApp(QtWidgets.QMainWindow, designRepPDF.Ui_MainWindow):
             self.checkBox_8_5.setCheckState(0)
             self.checkBox_8_6.setCheckState(0)
         
-    def show_window_parse(self):  # открытие 2  окна
+    def show_window_parse(self):  # открытие окна погоды
         QtWidgets.QApplication.processEvents()
         if self.browser_status == None:
             if self.checkNet() == 0:
@@ -730,6 +744,11 @@ class MainApp(QtWidgets.QMainWindow, designRepPDF.Ui_MainWindow):
         self.w4.setWindowIcon(QtGui.QIcon('Data/icons/graficon.png'))
         self.w4.show()
         self.w4.setFixedSize(950, 335)
+
+    def show_window_calc(self):  # открытие   окна рисования первой схемы
+        self.w5.setWindowIcon(QtGui.QIcon('Data/icons/graficon.png'))
+        self.w5.show()
+        self.w5.setFixedSize(1630,605)
 
     def show_and_hide_device_button(self):
         x = 843
@@ -921,12 +940,15 @@ class MainApp(QtWidgets.QMainWindow, designRepPDF.Ui_MainWindow):
         self.listKTP_file.clear()
         if self.listInvertor_folder.currentText() != "Выберите":
             self.select_title_ktp = self.listKTP_folder.currentText() 
+            print(self.select_title_ktp)
             modules_file = f'{path_to_ktp}/{self.select_title_ktp}'
             self.type_ktp_modules = sorted(os.listdir(modules_file))
             names_modules = []
+            print(names_modules)
             for name in self.type_ktp_modules:
                 names_modules.append(name.split(".")[0])
             self.listKTP_file.addItems(names_modules)
+            print(names_modules)
 
     def invertor_load(self):
         current_invertor = self.listInvertor_file.currentText()
@@ -1141,6 +1163,7 @@ class MainApp(QtWidgets.QMainWindow, designRepPDF.Ui_MainWindow):
             self.weather['climate_info'] = self.w2.textConsoleClimat.toPlainText()
         else:
             self.weather = self.parse_params
+
         self.weather_station = self.w2.parse_params_current_city if hasattr(self.w2, 'parse_params_current_city') else self.weather_station_params
         
     def create_document(self):

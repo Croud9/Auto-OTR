@@ -68,10 +68,11 @@ class Parsing(QThread):
             self.browser_status = parsingSelenium.ones()
 
 class WindowParse(QtWidgets.QMainWindow, designParsing.Ui_WindowRP5):
-    def __init__(self):
+    def __init__(self, instance_of_main_window):
         super().__init__()
         self.setupUi(self)
         self.checkNet()
+        self.main_window = instance_of_main_window
         current_date = date.today()
         self.dateEdit_end.setDate(current_date)
         self.btnSearch.clicked.connect(self.parsing_search)
@@ -312,6 +313,8 @@ class WindowParse(QtWidgets.QMainWindow, designParsing.Ui_WindowRP5):
             self.statusBar.setStyleSheet("background-color:rgb(48, 219, 91)")
             QTimer.singleShot(5000, lambda: self.statusBar.setStyleSheet("background-color:rgb(255, 255, 255)"))
             self.parse_params = self.parser_load.return_download.copy()
+            self.main_window.w5.lineEdit_min.setText(str(float(self.parse_params['min_temp'])))
+            self.main_window.w5.lineEdit_max.setText(str(float(self.parse_params['max_temp'])))
         else:
             self.textConsole.append("Не рассчиталось, попробуйте подгрузить еще раз")
             self.statusBar.showMessage('Проблема', 5000)
