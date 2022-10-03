@@ -16,7 +16,7 @@ class Ui_MainWindow(object):
         MainWindow.setObjectName("MainWindow")
         MainWindow.setWindowModality(QtCore.Qt.NonModal)
         MainWindow.setEnabled(True)
-        MainWindow.resize(1632, 904)
+        MainWindow.resize(1349, 630)
         MainWindow.setBaseSize(QtCore.QSize(1622, 578))
         font = QtGui.QFont()
         font.setFamily("Arial")
@@ -70,7 +70,7 @@ class Ui_MainWindow(object):
         self.centralwidget.setStyleSheet("background-color: #fff;")
         self.centralwidget.setObjectName("centralwidget")
         self.comboBox_stcnoct = QtWidgets.QComboBox(self.centralwidget)
-        self.comboBox_stcnoct.setGeometry(QtCore.QRect(349, 60, 221, 41))
+        self.comboBox_stcnoct.setGeometry(QtCore.QRect(401, 70, 111, 41))
         font = QtGui.QFont()
         font.setFamily("Arial")
         font.setBold(True)
@@ -97,18 +97,19 @@ class Ui_MainWindow(object):
         self.comboBox_stcnoct.setObjectName("comboBox_stcnoct")
         self.tableWidget = QtWidgets.QTableWidget(self.centralwidget)
         self.tableWidget.setEnabled(True)
-        self.tableWidget.setGeometry(QtCore.QRect(590, 0, 1041, 581))
+        self.tableWidget.setGeometry(QtCore.QRect(535, 130, 801, 451))
         font = QtGui.QFont()
         font.setFamily("Arial")
-        font.setPointSize(9)
+        font.setPointSize(7)
         font.setBold(False)
         font.setWeight(50)
         self.tableWidget.setFont(font)
-        self.tableWidget.setTabletTracking(True)
+        self.tableWidget.setTabletTracking(False)
+        self.tableWidget.setAutoFillBackground(False)
         self.tableWidget.setStyleSheet("background-color: #ffffff;")
         self.tableWidget.setInputMethodHints(QtCore.Qt.ImhNone)
         self.tableWidget.setFrameShape(QtWidgets.QFrame.NoFrame)
-        self.tableWidget.setFrameShadow(QtWidgets.QFrame.Sunken)
+        self.tableWidget.setFrameShadow(QtWidgets.QFrame.Plain)
         self.tableWidget.setLineWidth(1)
         self.tableWidget.setMidLineWidth(0)
         self.tableWidget.setAutoScroll(False)
@@ -121,16 +122,19 @@ class Ui_MainWindow(object):
         self.tableWidget.setSelectionMode(QtWidgets.QAbstractItemView.NoSelection)
         self.tableWidget.setTextElideMode(QtCore.Qt.ElideLeft)
         self.tableWidget.setShowGrid(True)
-        self.tableWidget.setGridStyle(QtCore.Qt.SolidLine)
+        self.tableWidget.setGridStyle(QtCore.Qt.NoPen)
         self.tableWidget.setWordWrap(True)
-        self.tableWidget.setCornerButtonEnabled(True)
+        self.tableWidget.setCornerButtonEnabled(False)
         self.tableWidget.setRowCount(47)
         self.tableWidget.setColumnCount(7)
         self.tableWidget.setObjectName("tableWidget")
         item = QtWidgets.QTableWidgetItem()
         font = QtGui.QFont()
-        font.setFamily("Calibri Light")
+        font.setFamily("Arial")
+        font.setPointSize(7)
+        font.setBold(True)
         font.setUnderline(False)
+        font.setWeight(75)
         item.setFont(font)
         self.tableWidget.setVerticalHeaderItem(0, item)
         item = QtWidgets.QTableWidgetItem()
@@ -145,7 +149,10 @@ class Ui_MainWindow(object):
         self.tableWidget.setVerticalHeaderItem(5, item)
         item = QtWidgets.QTableWidgetItem()
         font = QtGui.QFont()
-        font.setFamily("Calibri Light")
+        font.setFamily("Arial")
+        font.setPointSize(7)
+        font.setBold(True)
+        font.setWeight(75)
         item.setFont(font)
         self.tableWidget.setVerticalHeaderItem(6, item)
         item = QtWidgets.QTableWidgetItem()
@@ -160,7 +167,10 @@ class Ui_MainWindow(object):
         self.tableWidget.setVerticalHeaderItem(11, item)
         item = QtWidgets.QTableWidgetItem()
         font = QtGui.QFont()
-        font.setFamily("Calibri Light")
+        font.setFamily("Arial")
+        font.setPointSize(7)
+        font.setBold(True)
+        font.setWeight(75)
         item.setFont(font)
         self.tableWidget.setVerticalHeaderItem(12, item)
         item = QtWidgets.QTableWidgetItem()
@@ -175,7 +185,10 @@ class Ui_MainWindow(object):
         self.tableWidget.setVerticalHeaderItem(17, item)
         item = QtWidgets.QTableWidgetItem()
         font = QtGui.QFont()
-        font.setFamily("Calibri Light")
+        font.setFamily("Arial")
+        font.setPointSize(7)
+        font.setBold(True)
+        font.setWeight(75)
         item.setFont(font)
         self.tableWidget.setVerticalHeaderItem(18, item)
         item = QtWidgets.QTableWidgetItem()
@@ -190,7 +203,10 @@ class Ui_MainWindow(object):
         self.tableWidget.setVerticalHeaderItem(23, item)
         item = QtWidgets.QTableWidgetItem()
         font = QtGui.QFont()
-        font.setFamily("Calibri Light")
+        font.setFamily("Arial")
+        font.setPointSize(7)
+        font.setBold(True)
+        font.setWeight(75)
         item.setFont(font)
         self.tableWidget.setVerticalHeaderItem(24, item)
         item = QtWidgets.QTableWidgetItem()
@@ -205,7 +221,10 @@ class Ui_MainWindow(object):
         self.tableWidget.setVerticalHeaderItem(29, item)
         item = QtWidgets.QTableWidgetItem()
         font = QtGui.QFont()
-        font.setFamily("Calibri Light")
+        font.setFamily("Arial")
+        font.setPointSize(7)
+        font.setBold(True)
+        font.setWeight(75)
         item.setFont(font)
         self.tableWidget.setVerticalHeaderItem(30, item)
         item = QtWidgets.QTableWidgetItem()
@@ -220,7 +239,10 @@ class Ui_MainWindow(object):
         self.tableWidget.setVerticalHeaderItem(35, item)
         item = QtWidgets.QTableWidgetItem()
         font = QtGui.QFont()
-        font.setFamily("Calibri Light")
+        font.setFamily("Arial")
+        font.setPointSize(7)
+        font.setBold(True)
+        font.setWeight(75)
         item.setFont(font)
         self.tableWidget.setVerticalHeaderItem(36, item)
         item = QtWidgets.QTableWidgetItem()
@@ -235,7 +257,10 @@ class Ui_MainWindow(object):
         self.tableWidget.setVerticalHeaderItem(41, item)
         item = QtWidgets.QTableWidgetItem()
         font = QtGui.QFont()
-        font.setFamily("Calibri Light")
+        font.setFamily("Arial")
+        font.setPointSize(7)
+        font.setBold(True)
+        font.setWeight(75)
         item.setFont(font)
         self.tableWidget.setVerticalHeaderItem(42, item)
         item = QtWidgets.QTableWidgetItem()
@@ -249,52 +274,71 @@ class Ui_MainWindow(object):
         item = QtWidgets.QTableWidgetItem()
         item.setTextAlignment(QtCore.Qt.AlignJustify|QtCore.Qt.AlignBottom)
         font = QtGui.QFont()
-        font.setFamily("Calibri Light")
-        font.setItalic(True)
+        font.setFamily("Arial")
+        font.setPointSize(7)
+        font.setBold(True)
+        font.setItalic(False)
+        font.setWeight(75)
         item.setFont(font)
         self.tableWidget.setHorizontalHeaderItem(0, item)
         item = QtWidgets.QTableWidgetItem()
         item.setTextAlignment(QtCore.Qt.AlignJustify|QtCore.Qt.AlignBottom)
         font = QtGui.QFont()
-        font.setFamily("Calibri Light")
-        font.setItalic(True)
+        font.setFamily("Arial")
+        font.setPointSize(7)
+        font.setBold(True)
+        font.setItalic(False)
+        font.setWeight(75)
         item.setFont(font)
         self.tableWidget.setHorizontalHeaderItem(1, item)
         item = QtWidgets.QTableWidgetItem()
         item.setTextAlignment(QtCore.Qt.AlignJustify|QtCore.Qt.AlignBottom)
         font = QtGui.QFont()
-        font.setFamily("Calibri Light")
-        font.setItalic(True)
+        font.setFamily("Arial")
+        font.setPointSize(7)
+        font.setBold(True)
+        font.setItalic(False)
+        font.setWeight(75)
         item.setFont(font)
         self.tableWidget.setHorizontalHeaderItem(2, item)
         item = QtWidgets.QTableWidgetItem()
         item.setTextAlignment(QtCore.Qt.AlignJustify|QtCore.Qt.AlignBottom)
         font = QtGui.QFont()
-        font.setFamily("Calibri Light")
-        font.setItalic(True)
+        font.setFamily("Arial")
+        font.setPointSize(7)
+        font.setBold(True)
+        font.setItalic(False)
+        font.setWeight(75)
         item.setFont(font)
         self.tableWidget.setHorizontalHeaderItem(3, item)
         item = QtWidgets.QTableWidgetItem()
         item.setTextAlignment(QtCore.Qt.AlignJustify|QtCore.Qt.AlignBottom)
         font = QtGui.QFont()
-        font.setFamily("Calibri Light")
-        font.setItalic(True)
+        font.setFamily("Arial")
+        font.setPointSize(7)
+        font.setBold(True)
+        font.setItalic(False)
+        font.setWeight(75)
         item.setFont(font)
         self.tableWidget.setHorizontalHeaderItem(4, item)
         item = QtWidgets.QTableWidgetItem()
         item.setTextAlignment(QtCore.Qt.AlignJustify|QtCore.Qt.AlignBottom)
         font = QtGui.QFont()
-        font.setFamily("Calibri Light")
-        font.setItalic(True)
+        font.setFamily("Arial")
+        font.setPointSize(7)
+        font.setBold(True)
+        font.setItalic(False)
+        font.setWeight(75)
         item.setFont(font)
         self.tableWidget.setHorizontalHeaderItem(5, item)
         item = QtWidgets.QTableWidgetItem()
         item.setTextAlignment(QtCore.Qt.AlignJustify|QtCore.Qt.AlignBottom)
         font = QtGui.QFont()
-        font.setFamily("Calibri Light")
-        font.setBold(False)
-        font.setItalic(True)
-        font.setWeight(50)
+        font.setFamily("Arial")
+        font.setPointSize(7)
+        font.setBold(True)
+        font.setItalic(False)
+        font.setWeight(75)
         item.setFont(font)
         self.tableWidget.setHorizontalHeaderItem(6, item)
         item = QtWidgets.QTableWidgetItem()
@@ -863,21 +907,21 @@ class Ui_MainWindow(object):
         item = QtWidgets.QTableWidgetItem()
         self.tableWidget.setItem(46, 6, item)
         self.tableWidget.horizontalHeader().setVisible(True)
-        self.tableWidget.horizontalHeader().setCascadingSectionResizes(False)
-        self.tableWidget.horizontalHeader().setDefaultSectionSize(130)
-        self.tableWidget.horizontalHeader().setHighlightSections(False)
+        self.tableWidget.horizontalHeader().setCascadingSectionResizes(True)
+        self.tableWidget.horizontalHeader().setDefaultSectionSize(100)
+        self.tableWidget.horizontalHeader().setHighlightSections(True)
         self.tableWidget.horizontalHeader().setMinimumSectionSize(5)
         self.tableWidget.horizontalHeader().setSortIndicatorShown(False)
         self.tableWidget.horizontalHeader().setStretchLastSection(True)
         self.tableWidget.verticalHeader().setVisible(True)
-        self.tableWidget.verticalHeader().setCascadingSectionResizes(False)
+        self.tableWidget.verticalHeader().setCascadingSectionResizes(True)
         self.tableWidget.verticalHeader().setDefaultSectionSize(20)
-        self.tableWidget.verticalHeader().setHighlightSections(True)
+        self.tableWidget.verticalHeader().setHighlightSections(False)
         self.tableWidget.verticalHeader().setMinimumSectionSize(20)
         self.tableWidget.verticalHeader().setSortIndicatorShown(False)
         self.tableWidget.verticalHeader().setStretchLastSection(False)
         self.btnResult = QtWidgets.QPushButton(self.centralwidget)
-        self.btnResult.setGeometry(QtCore.QRect(10, 438, 171, 41))
+        self.btnResult.setGeometry(QtCore.QRect(210, 545, 303, 41))
         font = QtGui.QFont()
         font.setFamily("Arial")
         font.setPointSize(10)
@@ -904,7 +948,7 @@ class Ui_MainWindow(object):
         self.btnResult.setChecked(False)
         self.btnResult.setObjectName("btnResult")
         self.btnSave = QtWidgets.QPushButton(self.centralwidget)
-        self.btnSave.setGeometry(QtCore.QRect(10, 388, 171, 41))
+        self.btnSave.setGeometry(QtCore.QRect(870, 20, 171, 41))
         font = QtGui.QFont()
         font.setFamily("Arial")
         font.setPointSize(10)
@@ -928,7 +972,7 @@ class Ui_MainWindow(object):
 "}")
         self.btnSave.setObjectName("btnSave")
         self.comboBox_city = QtWidgets.QComboBox(self.centralwidget)
-        self.comboBox_city.setGeometry(QtCore.QRect(150, 60, 191, 41))
+        self.comboBox_city.setGeometry(QtCore.QRect(202, 70, 191, 41))
         font = QtGui.QFont()
         font.setFamily("Arial")
         font.setBold(True)
@@ -958,788 +1002,11 @@ class Ui_MainWindow(object):
         self.comboBox_city.setFrame(True)
         self.comboBox_city.setProperty("placeholderText", "")
         self.comboBox_city.setObjectName("comboBox_city")
-        self.layoutWidget = QtWidgets.QWidget(self.centralwidget)
-        self.layoutWidget.setGeometry(QtCore.QRect(200, 120, 363, 306))
-        font = QtGui.QFont()
-        font.setFamily("Arial")
-        self.layoutWidget.setFont(font)
-        self.layoutWidget.setObjectName("layoutWidget")
-        self.verticalLayout_2 = QtWidgets.QVBoxLayout(self.layoutWidget)
-        self.verticalLayout_2.setContentsMargins(0, 0, 0, 0)
-        self.verticalLayout_2.setObjectName("verticalLayout_2")
-        self.label_18 = QtWidgets.QLabel(self.layoutWidget)
-        font = QtGui.QFont()
-        font.setFamily("Arial")
-        font.setPointSize(10)
-        font.setBold(True)
-        font.setWeight(75)
-        self.label_18.setFont(font)
-        self.label_18.setStyleSheet("background-color:rgba(209,209,214,0.01);")
-        self.label_18.setAlignment(QtCore.Qt.AlignCenter)
-        self.label_18.setObjectName("label_18")
-        self.verticalLayout_2.addWidget(self.label_18)
-        self.gridLayout = QtWidgets.QGridLayout()
-        self.gridLayout.setObjectName("gridLayout")
-        self.lineEdit_calcmaxtemp = QtWidgets.QLineEdit(self.layoutWidget)
-        font = QtGui.QFont()
-        font.setFamily("Arial")
-        font.setBold(True)
-        font.setWeight(75)
-        self.lineEdit_calcmaxtemp.setFont(font)
-        self.lineEdit_calcmaxtemp.setStyleSheet("QLineEdit{\n"
-"    background-color:rgba(229,229,234,1); \n"
-"    border-radius: 6;\n"
-"    border: none;\n"
-"    padding-left: 8px\n"
-"}\n"
-"QLineEdit:hover{\n"
-"    background-color:rgba(242,242,247,1);\n"
-"}\n"
-"QLineEdit:pressed{\n"
-"    background-color:rgba(188,188,192,1);\n"
-"    border-radius: 12;\n"
-"}")
-        self.lineEdit_calcmaxtemp.setInputMethodHints(QtCore.Qt.ImhNone)
-        self.lineEdit_calcmaxtemp.setText("")
-        self.lineEdit_calcmaxtemp.setPlaceholderText("")
-        self.lineEdit_calcmaxtemp.setClearButtonEnabled(False)
-        self.lineEdit_calcmaxtemp.setObjectName("lineEdit_calcmaxtemp")
-        self.gridLayout.addWidget(self.lineEdit_calcmaxtemp, 1, 1, 1, 1)
-        self.label_23 = QtWidgets.QLabel(self.layoutWidget)
-        font = QtGui.QFont()
-        font.setFamily("Arial")
-        font.setPointSize(9)
-        font.setBold(True)
-        font.setItalic(False)
-        font.setWeight(75)
-        font.setKerning(True)
-        font.setStyleStrategy(QtGui.QFont.PreferAntialias)
-        self.label_23.setFont(font)
-        self.label_23.setStyleSheet("background-color:rgba(209,209,214,0.01);")
-        self.label_23.setObjectName("label_23")
-        self.gridLayout.addWidget(self.label_23, 4, 0, 1, 1)
-        self.lineEdit_noct = QtWidgets.QLineEdit(self.layoutWidget)
-        font = QtGui.QFont()
-        font.setFamily("Arial")
-        font.setBold(True)
-        font.setWeight(75)
-        self.lineEdit_noct.setFont(font)
-        self.lineEdit_noct.setStyleSheet("QLineEdit{\n"
-"    background-color:rgba(229,229,234,1); \n"
-"    border-radius: 6;\n"
-"    border: none;\n"
-"    padding-left: 8px\n"
-"}\n"
-"QLineEdit:hover{\n"
-"    background-color:rgba(242,242,247,1);\n"
-"}\n"
-"QLineEdit:pressed{\n"
-"    background-color:rgba(188,188,192,1);\n"
-"    border-radius: 12;\n"
-"}")
-        self.lineEdit_noct.setPlaceholderText("")
-        self.lineEdit_noct.setObjectName("lineEdit_noct")
-        self.gridLayout.addWidget(self.lineEdit_noct, 8, 1, 1, 1)
-        self.lineEdit_irradiance = QtWidgets.QLineEdit(self.layoutWidget)
-        font = QtGui.QFont()
-        font.setFamily("Arial")
-        font.setBold(True)
-        font.setWeight(75)
-        self.lineEdit_irradiance.setFont(font)
-        self.lineEdit_irradiance.setStyleSheet("QLineEdit{\n"
-"    background-color:rgba(229,229,234,1); \n"
-"    border-radius: 6;\n"
-"    border: none;\n"
-"    padding-left: 8px\n"
-"}\n"
-"QLineEdit:hover{\n"
-"    background-color:rgba(242,242,247,1);\n"
-"}\n"
-"QLineEdit:pressed{\n"
-"    background-color:rgba(188,188,192,1);\n"
-"    border-radius: 12;\n"
-"}")
-        self.lineEdit_irradiance.setPlaceholderText("")
-        self.lineEdit_irradiance.setObjectName("lineEdit_irradiance")
-        self.gridLayout.addWidget(self.lineEdit_irradiance, 7, 1, 1, 1)
-        self.label_21 = QtWidgets.QLabel(self.layoutWidget)
-        font = QtGui.QFont()
-        font.setFamily("Arial")
-        font.setPointSize(9)
-        font.setBold(True)
-        font.setItalic(False)
-        font.setWeight(75)
-        font.setKerning(True)
-        font.setStyleStrategy(QtGui.QFont.PreferAntialias)
-        self.label_21.setFont(font)
-        self.label_21.setStyleSheet("background-color:rgba(209,209,214,0.01);")
-        self.label_21.setObjectName("label_21")
-        self.gridLayout.addWidget(self.label_21, 2, 0, 1, 1)
-        self.lineEdit_countfem = QtWidgets.QLineEdit(self.layoutWidget)
-        font = QtGui.QFont()
-        font.setFamily("Arial")
-        font.setBold(True)
-        font.setWeight(75)
-        self.lineEdit_countfem.setFont(font)
-        self.lineEdit_countfem.setStyleSheet("QLineEdit{\n"
-"    background-color:rgba(229,229,234,1); \n"
-"    border-radius: 6;\n"
-"    border: none;\n"
-"    padding-left: 8px\n"
-"}\n"
-"QLineEdit:hover{\n"
-"    background-color:rgba(242,242,247,1);\n"
-"}\n"
-"QLineEdit:pressed{\n"
-"    background-color:rgba(188,188,192,1);\n"
-"    border-radius: 12;\n"
-"}")
-        self.lineEdit_countfem.setPlaceholderText("")
-        self.lineEdit_countfem.setObjectName("lineEdit_countfem")
-        self.gridLayout.addWidget(self.lineEdit_countfem, 5, 1, 1, 1)
-        self.lineEdit_umax_pogran = QtWidgets.QLineEdit(self.layoutWidget)
-        font = QtGui.QFont()
-        font.setFamily("Arial")
-        font.setPointSize(10)
-        font.setBold(True)
-        font.setWeight(75)
-        self.lineEdit_umax_pogran.setFont(font)
-        self.lineEdit_umax_pogran.setCursor(QtGui.QCursor(QtCore.Qt.IBeamCursor))
-        self.lineEdit_umax_pogran.setAutoFillBackground(False)
-        self.lineEdit_umax_pogran.setStyleSheet("QLineEdit{\n"
-"    background-color:rgba(229,229,234,1); \n"
-"    border-radius: 6;\n"
-"    border: none;\n"
-"    padding-left: 8px\n"
-"}\n"
-"QLineEdit:hover{\n"
-"    background-color:rgba(242,242,247,1);\n"
-"}\n"
-"QLineEdit:pressed{\n"
-"    background-color:rgba(188,188,192,1);\n"
-"    border-radius: 12;\n"
-"}")
-        self.lineEdit_umax_pogran.setText("")
-        self.lineEdit_umax_pogran.setReadOnly(False)
-        self.lineEdit_umax_pogran.setObjectName("lineEdit_umax_pogran")
-        self.gridLayout.addWidget(self.lineEdit_umax_pogran, 11, 1, 1, 1)
-        self.label_16 = QtWidgets.QLabel(self.layoutWidget)
-        font = QtGui.QFont()
-        font.setFamily("Arial")
-        font.setPointSize(9)
-        font.setBold(True)
-        font.setItalic(False)
-        font.setWeight(75)
-        font.setKerning(True)
-        font.setStyleStrategy(QtGui.QFont.PreferAntialias)
-        self.label_16.setFont(font)
-        self.label_16.setStyleSheet("background-color:rgba(209,209,214,0.01);")
-        self.label_16.setObjectName("label_16")
-        self.gridLayout.addWidget(self.label_16, 11, 0, 1, 1)
-        self.label_26 = QtWidgets.QLabel(self.layoutWidget)
-        font = QtGui.QFont()
-        font.setFamily("Arial")
-        font.setPointSize(9)
-        font.setBold(True)
-        font.setItalic(False)
-        font.setWeight(75)
-        font.setKerning(True)
-        font.setStyleStrategy(QtGui.QFont.PreferAntialias)
-        self.label_26.setFont(font)
-        self.label_26.setStyleSheet("background-color:rgba(209,209,214,0.01);")
-        self.label_26.setObjectName("label_26")
-        self.gridLayout.addWidget(self.label_26, 7, 0, 1, 1)
-        self.label_25 = QtWidgets.QLabel(self.layoutWidget)
-        font = QtGui.QFont()
-        font.setFamily("Arial")
-        font.setPointSize(9)
-        font.setBold(True)
-        font.setItalic(False)
-        font.setWeight(75)
-        font.setKerning(True)
-        font.setStyleStrategy(QtGui.QFont.PreferAntialias)
-        self.label_25.setFont(font)
-        self.label_25.setStyleSheet("background-color:rgba(209,209,214,0.01);")
-        self.label_25.setObjectName("label_25")
-        self.gridLayout.addWidget(self.label_25, 6, 0, 1, 1)
-        self.label_19 = QtWidgets.QLabel(self.layoutWidget)
-        font = QtGui.QFont()
-        font.setFamily("Arial")
-        font.setPointSize(9)
-        font.setBold(True)
-        font.setItalic(False)
-        font.setWeight(75)
-        font.setKerning(True)
-        font.setStyleStrategy(QtGui.QFont.PreferAntialias)
-        self.label_19.setFont(font)
-        self.label_19.setStyleSheet("background-color:rgba(209,209,214,0.01);")
-        self.label_19.setObjectName("label_19")
-        self.gridLayout.addWidget(self.label_19, 0, 0, 1, 1)
-        self.lineEdit_calcmintemp = QtWidgets.QLineEdit(self.layoutWidget)
-        font = QtGui.QFont()
-        font.setFamily("Arial")
-        font.setBold(True)
-        font.setWeight(75)
-        self.lineEdit_calcmintemp.setFont(font)
-        self.lineEdit_calcmintemp.setStyleSheet("QLineEdit{\n"
-"    background-color:rgba(229,229,234,1); \n"
-"    border-radius: 6;\n"
-"    border: none;\n"
-"    padding-left: 8px\n"
-"}\n"
-"QLineEdit:hover{\n"
-"    background-color:rgba(242,242,247,1);\n"
-"}\n"
-"QLineEdit:pressed{\n"
-"    background-color:rgba(188,188,192,1);\n"
-"    border-radius: 12;\n"
-"}")
-        self.lineEdit_calcmintemp.setInputMethodHints(QtCore.Qt.ImhNone)
-        self.lineEdit_calcmintemp.setText("")
-        self.lineEdit_calcmintemp.setPlaceholderText("")
-        self.lineEdit_calcmintemp.setClearButtonEnabled(False)
-        self.lineEdit_calcmintemp.setObjectName("lineEdit_calcmintemp")
-        self.gridLayout.addWidget(self.lineEdit_calcmintemp, 0, 1, 1, 1)
-        self.lineEdit_max = QtWidgets.QLineEdit(self.layoutWidget)
-        font = QtGui.QFont()
-        font.setFamily("Arial")
-        font.setBold(True)
-        font.setWeight(75)
-        self.lineEdit_max.setFont(font)
-        self.lineEdit_max.setStyleSheet("QLineEdit{\n"
-"    background-color:rgba(229,229,234,1); \n"
-"    border-radius: 6;\n"
-"    border: none;\n"
-"    padding-left: 8px\n"
-"}\n"
-"QLineEdit:hover{\n"
-"    background-color:rgba(242,242,247,1);\n"
-"}\n"
-"QLineEdit:pressed{\n"
-"    background-color:rgba(188,188,192,1);\n"
-"    border-radius: 12;\n"
-"}")
-        self.lineEdit_max.setPlaceholderText("")
-        self.lineEdit_max.setObjectName("lineEdit_max")
-        self.gridLayout.addWidget(self.lineEdit_max, 3, 1, 1, 1)
-        self.label_24 = QtWidgets.QLabel(self.layoutWidget)
-        font = QtGui.QFont()
-        font.setFamily("Arial")
-        font.setPointSize(9)
-        font.setBold(True)
-        font.setItalic(False)
-        font.setWeight(75)
-        font.setKerning(True)
-        font.setStyleStrategy(QtGui.QFont.PreferAntialias)
-        self.label_24.setFont(font)
-        self.label_24.setStyleSheet("background-color:rgba(209,209,214,0.01);")
-        self.label_24.setObjectName("label_24")
-        self.gridLayout.addWidget(self.label_24, 5, 0, 1, 1)
-        self.label_22 = QtWidgets.QLabel(self.layoutWidget)
-        font = QtGui.QFont()
-        font.setFamily("Arial")
-        font.setPointSize(9)
-        font.setBold(True)
-        font.setItalic(False)
-        font.setWeight(75)
-        font.setKerning(True)
-        font.setStyleStrategy(QtGui.QFont.PreferAntialias)
-        self.label_22.setFont(font)
-        self.label_22.setStyleSheet("background-color:rgba(209,209,214,0.01);")
-        self.label_22.setObjectName("label_22")
-        self.gridLayout.addWidget(self.label_22, 3, 0, 1, 1)
-        self.lineEdit_mintemp = QtWidgets.QLineEdit(self.layoutWidget)
-        font = QtGui.QFont()
-        font.setFamily("Arial")
-        font.setBold(True)
-        font.setWeight(75)
-        self.lineEdit_mintemp.setFont(font)
-        self.lineEdit_mintemp.setStyleSheet("QLineEdit{\n"
-"    background-color:rgba(229,229,234,1); \n"
-"    border-radius: 6;\n"
-"    border: none;\n"
-"    padding-left: 8px\n"
-"}\n"
-"QLineEdit:hover{\n"
-"    background-color:rgba(242,242,247,1);\n"
-"}\n"
-"QLineEdit:pressed{\n"
-"    background-color:rgba(188,188,192,1);\n"
-"    border-radius: 12;\n"
-"}")
-        self.lineEdit_mintemp.setPlaceholderText("")
-        self.lineEdit_mintemp.setObjectName("lineEdit_mintemp")
-        self.gridLayout.addWidget(self.lineEdit_mintemp, 4, 1, 1, 1)
-        self.label_20 = QtWidgets.QLabel(self.layoutWidget)
-        font = QtGui.QFont()
-        font.setFamily("Arial")
-        font.setPointSize(9)
-        font.setBold(True)
-        font.setItalic(False)
-        font.setWeight(75)
-        font.setKerning(True)
-        font.setStyleStrategy(QtGui.QFont.PreferAntialias)
-        self.label_20.setFont(font)
-        self.label_20.setStyleSheet("background-color:rgba(209,209,214,0.01);")
-        self.label_20.setObjectName("label_20")
-        self.gridLayout.addWidget(self.label_20, 1, 0, 1, 1)
-        self.lineEdit_countparallel = QtWidgets.QLineEdit(self.layoutWidget)
-        font = QtGui.QFont()
-        font.setFamily("Arial")
-        font.setBold(True)
-        font.setWeight(75)
-        self.lineEdit_countparallel.setFont(font)
-        self.lineEdit_countparallel.setStyleSheet("QLineEdit{\n"
-"    background-color:rgba(229,229,234,1); \n"
-"    border-radius: 6;\n"
-"    border: none;\n"
-"    padding-left: 8px\n"
-"}\n"
-"QLineEdit:hover{\n"
-"    background-color:rgba(242,242,247,1);\n"
-"}\n"
-"QLineEdit:pressed{\n"
-"    background-color:rgba(188,188,192,1);\n"
-"    border-radius: 12;\n"
-"}")
-        self.lineEdit_countparallel.setPlaceholderText("")
-        self.lineEdit_countparallel.setObjectName("lineEdit_countparallel")
-        self.gridLayout.addWidget(self.lineEdit_countparallel, 6, 1, 1, 1)
-        self.lineEdit_min = QtWidgets.QLineEdit(self.layoutWidget)
-        font = QtGui.QFont()
-        font.setFamily("Arial")
-        font.setBold(True)
-        font.setWeight(75)
-        self.lineEdit_min.setFont(font)
-        self.lineEdit_min.setStyleSheet("QLineEdit{\n"
-"    background-color:rgba(229,229,234,1); \n"
-"    border-radius: 6;\n"
-"    border: none;\n"
-"    padding-left: 8px\n"
-"}\n"
-"QLineEdit:hover{\n"
-"    background-color:rgba(242,242,247,1);\n"
-"}\n"
-"QLineEdit:pressed{\n"
-"    background-color:rgba(188,188,192,1);\n"
-"    border-radius: 12;\n"
-"}")
-        self.lineEdit_min.setInputMethodHints(QtCore.Qt.ImhNone)
-        self.lineEdit_min.setText("")
-        self.lineEdit_min.setPlaceholderText("")
-        self.lineEdit_min.setClearButtonEnabled(False)
-        self.lineEdit_min.setObjectName("lineEdit_min")
-        self.gridLayout.addWidget(self.lineEdit_min, 2, 1, 1, 1)
-        self.label_27 = QtWidgets.QLabel(self.layoutWidget)
-        font = QtGui.QFont()
-        font.setFamily("Arial")
-        font.setPointSize(9)
-        font.setBold(True)
-        font.setItalic(False)
-        font.setWeight(75)
-        font.setKerning(True)
-        font.setStyleStrategy(QtGui.QFont.PreferAntialias)
-        self.label_27.setFont(font)
-        self.label_27.setStyleSheet("background-color:rgba(209,209,214,0.01);")
-        self.label_27.setObjectName("label_27")
-        self.gridLayout.addWidget(self.label_27, 8, 0, 1, 1)
-        self.label_14 = QtWidgets.QLabel(self.layoutWidget)
-        font = QtGui.QFont()
-        font.setFamily("Arial")
-        font.setPointSize(9)
-        font.setBold(True)
-        font.setWeight(75)
-        self.label_14.setFont(font)
-        self.label_14.setStyleSheet("background-color:rgba(209,209,214,0.01);")
-        self.label_14.setObjectName("label_14")
-        self.gridLayout.addWidget(self.label_14, 10, 0, 1, 1)
-        self.lineEdit_imax_pogran = QtWidgets.QLineEdit(self.layoutWidget)
-        font = QtGui.QFont()
-        font.setFamily("Arial")
-        font.setBold(True)
-        font.setWeight(75)
-        self.lineEdit_imax_pogran.setFont(font)
-        self.lineEdit_imax_pogran.setAutoFillBackground(False)
-        self.lineEdit_imax_pogran.setStyleSheet("QLineEdit{\n"
-"    background-color:rgba(229,229,234,1); \n"
-"    border-radius: 6;\n"
-"    border: none;\n"
-"    padding-left: 8px\n"
-"}\n"
-"QLineEdit:hover{\n"
-"    background-color:rgba(242,242,247,1);\n"
-"}\n"
-"QLineEdit:pressed{\n"
-"    background-color:rgba(188,188,192,1);\n"
-"    border-radius: 12;\n"
-"}")
-        self.lineEdit_imax_pogran.setText("")
-        self.lineEdit_imax_pogran.setReadOnly(False)
-        self.lineEdit_imax_pogran.setObjectName("lineEdit_imax_pogran")
-        self.gridLayout.addWidget(self.lineEdit_imax_pogran, 10, 1, 1, 1)
-        self.label_15 = QtWidgets.QLabel(self.layoutWidget)
-        font = QtGui.QFont()
-        font.setFamily("Arial")
-        font.setPointSize(10)
-        font.setBold(True)
-        font.setWeight(75)
-        self.label_15.setFont(font)
-        self.label_15.setStyleSheet("background-color:rgba(209,209,214,0.01);")
-        self.label_15.setAlignment(QtCore.Qt.AlignCenter)
-        self.label_15.setObjectName("label_15")
-        self.gridLayout.addWidget(self.label_15, 9, 0, 1, 2)
-        self.verticalLayout_2.addLayout(self.gridLayout)
-        self.layoutWidget1 = QtWidgets.QWidget(self.centralwidget)
-        self.layoutWidget1.setGeometry(QtCore.QRect(12, 120, 172, 261))
-        font = QtGui.QFont()
-        font.setFamily("Arial")
-        self.layoutWidget1.setFont(font)
-        self.layoutWidget1.setObjectName("layoutWidget1")
-        self.formLayout = QtWidgets.QFormLayout(self.layoutWidget1)
-        self.formLayout.setContentsMargins(0, 0, 0, 0)
-        self.formLayout.setObjectName("formLayout")
-        self.label_17 = QtWidgets.QLabel(self.layoutWidget1)
-        font = QtGui.QFont()
-        font.setFamily("Arial")
-        font.setPointSize(10)
-        font.setBold(True)
-        font.setWeight(75)
-        self.label_17.setFont(font)
-        self.label_17.setStyleSheet("background-color:rgba(209,209,214,0.01);")
-        self.label_17.setAlignment(QtCore.Qt.AlignCenter)
-        self.label_17.setObjectName("label_17")
-        self.formLayout.setWidget(0, QtWidgets.QFormLayout.SpanningRole, self.label_17)
-        self.label = QtWidgets.QLabel(self.layoutWidget1)
-        font = QtGui.QFont()
-        font.setFamily("Arial")
-        font.setPointSize(9)
-        font.setBold(True)
-        font.setWeight(75)
-        self.label.setFont(font)
-        self.label.setStyleSheet("background-color:rgba(209,209,214,0.01);")
-        self.label.setObjectName("label")
-        self.formLayout.setWidget(1, QtWidgets.QFormLayout.LabelRole, self.label)
-        self.lineEdit_pnom = QtWidgets.QLineEdit(self.layoutWidget1)
-        font = QtGui.QFont()
-        font.setFamily("Arial")
-        font.setBold(True)
-        font.setWeight(75)
-        self.lineEdit_pnom.setFont(font)
-        self.lineEdit_pnom.setAutoFillBackground(False)
-        self.lineEdit_pnom.setStyleSheet("QLineEdit{\n"
-"    background-color:rgba(229,229,234,1); \n"
-"    border-radius: 6;\n"
-"    border: none;\n"
-"    padding-left: 8px\n"
-"}\n"
-"QLineEdit:hover{\n"
-"    background-color:rgba(242,242,247,1);\n"
-"}\n"
-"QLineEdit:pressed{\n"
-"    background-color:rgba(188,188,192,1);\n"
-"    border-radius: 12;\n"
-"}")
-        self.lineEdit_pnom.setText("")
-        self.lineEdit_pnom.setReadOnly(False)
-        self.lineEdit_pnom.setObjectName("lineEdit_pnom")
-        self.formLayout.setWidget(1, QtWidgets.QFormLayout.FieldRole, self.lineEdit_pnom)
-        self.label_2 = QtWidgets.QLabel(self.layoutWidget1)
-        font = QtGui.QFont()
-        font.setFamily("Arial")
-        font.setPointSize(9)
-        font.setBold(True)
-        font.setWeight(75)
-        self.label_2.setFont(font)
-        self.label_2.setStyleSheet("background-color:rgba(209,209,214,0.01);")
-        self.label_2.setObjectName("label_2")
-        self.formLayout.setWidget(2, QtWidgets.QFormLayout.LabelRole, self.label_2)
-        self.lineEdit_isc = QtWidgets.QLineEdit(self.layoutWidget1)
-        font = QtGui.QFont()
-        font.setFamily("Arial")
-        font.setBold(True)
-        font.setWeight(75)
-        self.lineEdit_isc.setFont(font)
-        self.lineEdit_isc.setStyleSheet("QLineEdit{\n"
-"    background-color:rgba(229,229,234,1); \n"
-"    border-radius: 6;\n"
-"    border: none;\n"
-"    padding-left: 8px\n"
-"}\n"
-"QLineEdit:hover{\n"
-"    background-color:rgba(242,242,247,1);\n"
-"}\n"
-"QLineEdit:pressed{\n"
-"    background-color:rgba(188,188,192,1);\n"
-"    border-radius: 12;\n"
-"}")
-        self.lineEdit_isc.setReadOnly(False)
-        self.lineEdit_isc.setObjectName("lineEdit_isc")
-        self.formLayout.setWidget(2, QtWidgets.QFormLayout.FieldRole, self.lineEdit_isc)
-        self.label_3 = QtWidgets.QLabel(self.layoutWidget1)
-        font = QtGui.QFont()
-        font.setFamily("Arial")
-        font.setPointSize(9)
-        font.setBold(True)
-        font.setWeight(75)
-        self.label_3.setFont(font)
-        self.label_3.setStyleSheet("background-color:rgba(209,209,214,0.01);")
-        self.label_3.setObjectName("label_3")
-        self.formLayout.setWidget(3, QtWidgets.QFormLayout.LabelRole, self.label_3)
-        self.lineEdit_voc = QtWidgets.QLineEdit(self.layoutWidget1)
-        font = QtGui.QFont()
-        font.setFamily("Arial")
-        font.setBold(True)
-        font.setWeight(75)
-        self.lineEdit_voc.setFont(font)
-        self.lineEdit_voc.setStyleSheet("QLineEdit{\n"
-"    background-color:rgba(229,229,234,1); \n"
-"    border-radius: 6;\n"
-"    border: none;\n"
-"    padding-left: 8px\n"
-"}\n"
-"QLineEdit:hover{\n"
-"    background-color:rgba(242,242,247,1);\n"
-"}\n"
-"QLineEdit:pressed{\n"
-"    background-color:rgba(188,188,192,1);\n"
-"    border-radius: 12;\n"
-"}")
-        self.lineEdit_voc.setReadOnly(False)
-        self.lineEdit_voc.setObjectName("lineEdit_voc")
-        self.formLayout.setWidget(3, QtWidgets.QFormLayout.FieldRole, self.lineEdit_voc)
-        self.label_9 = QtWidgets.QLabel(self.layoutWidget1)
-        font = QtGui.QFont()
-        font.setFamily("Arial")
-        font.setPointSize(9)
-        font.setBold(True)
-        font.setWeight(75)
-        self.label_9.setFont(font)
-        self.label_9.setStyleSheet("background-color:rgba(209,209,214,0.01);")
-        self.label_9.setObjectName("label_9")
-        self.formLayout.setWidget(4, QtWidgets.QFormLayout.LabelRole, self.label_9)
-        self.lineEdit_imp = QtWidgets.QLineEdit(self.layoutWidget1)
-        font = QtGui.QFont()
-        font.setFamily("Arial")
-        font.setBold(True)
-        font.setWeight(75)
-        self.lineEdit_imp.setFont(font)
-        self.lineEdit_imp.setStyleSheet("QLineEdit{\n"
-"    background-color:rgba(229,229,234,1); \n"
-"    border-radius: 6;\n"
-"    border: none;\n"
-"    padding-left: 8px\n"
-"}\n"
-"QLineEdit:hover{\n"
-"    background-color:rgba(242,242,247,1);\n"
-"}\n"
-"QLineEdit:pressed{\n"
-"    background-color:rgba(188,188,192,1);\n"
-"    border-radius: 12;\n"
-"}")
-        self.lineEdit_imp.setReadOnly(False)
-        self.lineEdit_imp.setObjectName("lineEdit_imp")
-        self.formLayout.setWidget(4, QtWidgets.QFormLayout.FieldRole, self.lineEdit_imp)
-        self.label_12 = QtWidgets.QLabel(self.layoutWidget1)
-        font = QtGui.QFont()
-        font.setFamily("Arial")
-        font.setPointSize(9)
-        font.setBold(True)
-        font.setWeight(75)
-        self.label_12.setFont(font)
-        self.label_12.setStyleSheet("background-color:rgba(209,209,214,0.01);")
-        self.label_12.setObjectName("label_12")
-        self.formLayout.setWidget(5, QtWidgets.QFormLayout.LabelRole, self.label_12)
-        self.lineEdit_vmp = QtWidgets.QLineEdit(self.layoutWidget1)
-        font = QtGui.QFont()
-        font.setFamily("Arial")
-        font.setBold(True)
-        font.setWeight(75)
-        self.lineEdit_vmp.setFont(font)
-        self.lineEdit_vmp.setStyleSheet("QLineEdit{\n"
-"    background-color:rgba(229,229,234,1); \n"
-"    border-radius: 6;\n"
-"    border: none;\n"
-"    padding-left: 8px\n"
-"}\n"
-"QLineEdit:hover{\n"
-"    background-color:rgba(242,242,247,1);\n"
-"}\n"
-"QLineEdit:pressed{\n"
-"    background-color:rgba(188,188,192,1);\n"
-"    border-radius: 12;\n"
-"}")
-        self.lineEdit_vmp.setReadOnly(False)
-        self.lineEdit_vmp.setObjectName("lineEdit_vmp")
-        self.formLayout.setWidget(5, QtWidgets.QFormLayout.FieldRole, self.lineEdit_vmp)
-        self.label_4 = QtWidgets.QLabel(self.layoutWidget1)
-        font = QtGui.QFont()
-        font.setFamily("Arial")
-        font.setPointSize(9)
-        font.setBold(True)
-        font.setWeight(75)
-        self.label_4.setFont(font)
-        self.label_4.setStyleSheet("background-color:rgba(209,209,214,0.01);")
-        self.label_4.setObjectName("label_4")
-        self.formLayout.setWidget(6, QtWidgets.QFormLayout.LabelRole, self.label_4)
-        self.lineEdit_muisc = QtWidgets.QLineEdit(self.layoutWidget1)
-        font = QtGui.QFont()
-        font.setFamily("Arial")
-        font.setBold(True)
-        font.setWeight(75)
-        self.lineEdit_muisc.setFont(font)
-        self.lineEdit_muisc.setStyleSheet("QLineEdit{\n"
-"    background-color:rgba(229,229,234,1); \n"
-"    border-radius: 6;\n"
-"    border: none;\n"
-"    padding-left: 8px\n"
-"}\n"
-"QLineEdit:hover{\n"
-"    background-color:rgba(242,242,247,1);\n"
-"}\n"
-"QLineEdit:pressed{\n"
-"    background-color:rgba(188,188,192,1);\n"
-"    border-radius: 12;\n"
-"}")
-        self.lineEdit_muisc.setReadOnly(False)
-        self.lineEdit_muisc.setObjectName("lineEdit_muisc")
-        self.formLayout.setWidget(6, QtWidgets.QFormLayout.FieldRole, self.lineEdit_muisc)
-        self.label_5 = QtWidgets.QLabel(self.layoutWidget1)
-        font = QtGui.QFont()
-        font.setFamily("Arial")
-        font.setPointSize(9)
-        font.setBold(True)
-        font.setWeight(75)
-        self.label_5.setFont(font)
-        self.label_5.setStyleSheet("background-color:rgba(209,209,214,0.01);")
-        self.label_5.setObjectName("label_5")
-        self.formLayout.setWidget(7, QtWidgets.QFormLayout.LabelRole, self.label_5)
-        self.lineEdit_muvocspec = QtWidgets.QLineEdit(self.layoutWidget1)
-        font = QtGui.QFont()
-        font.setFamily("Arial")
-        font.setBold(True)
-        font.setWeight(75)
-        self.lineEdit_muvocspec.setFont(font)
-        self.lineEdit_muvocspec.setStyleSheet("QLineEdit{\n"
-"    background-color:rgba(229,229,234,1); \n"
-"    border-radius: 6;\n"
-"    border: none;\n"
-"    padding-left: 8px\n"
-"}\n"
-"QLineEdit:hover{\n"
-"    background-color:rgba(242,242,247,1);\n"
-"}\n"
-"QLineEdit:pressed{\n"
-"    background-color:rgba(188,188,192,1);\n"
-"    border-radius: 12;\n"
-"}")
-        self.lineEdit_muvocspec.setReadOnly(False)
-        self.lineEdit_muvocspec.setObjectName("lineEdit_muvocspec")
-        self.formLayout.setWidget(7, QtWidgets.QFormLayout.FieldRole, self.lineEdit_muvocspec)
-        self.label_7 = QtWidgets.QLabel(self.layoutWidget1)
-        font = QtGui.QFont()
-        font.setFamily("Arial")
-        font.setPointSize(9)
-        font.setBold(True)
-        font.setWeight(75)
-        self.label_7.setFont(font)
-        self.label_7.setStyleSheet("background-color:rgba(209,209,214,0.01);")
-        self.label_7.setObjectName("label_7")
-        self.formLayout.setWidget(8, QtWidgets.QFormLayout.LabelRole, self.label_7)
-        self.lineEdit_vmaxiec = QtWidgets.QLineEdit(self.layoutWidget1)
-        font = QtGui.QFont()
-        font.setFamily("Arial")
-        font.setBold(True)
-        font.setWeight(75)
-        self.lineEdit_vmaxiec.setFont(font)
-        self.lineEdit_vmaxiec.setStyleSheet("QLineEdit{\n"
-"    background-color:rgba(229,229,234,1); \n"
-"    border-radius: 6;\n"
-"    border: none;\n"
-"    padding-left: 8px\n"
-"}\n"
-"QLineEdit:hover{\n"
-"    background-color:rgba(242,242,247,1);\n"
-"}\n"
-"QLineEdit:pressed{\n"
-"    background-color:rgba(188,188,192,1);\n"
-"    border-radius: 12;\n"
-"}")
-        self.lineEdit_vmaxiec.setReadOnly(False)
-        self.lineEdit_vmaxiec.setObjectName("lineEdit_vmaxiec")
-        self.formLayout.setWidget(8, QtWidgets.QFormLayout.FieldRole, self.lineEdit_vmaxiec)
-        self.label_10 = QtWidgets.QLabel(self.layoutWidget1)
-        font = QtGui.QFont()
-        font.setFamily("Arial")
-        font.setPointSize(9)
-        font.setBold(True)
-        font.setWeight(75)
-        font.setKerning(True)
-        font.setStyleStrategy(QtGui.QFont.PreferAntialias)
-        self.label_10.setFont(font)
-        self.label_10.setStyleSheet("background-color:rgba(209,209,214,0.01);")
-        self.label_10.setObjectName("label_10")
-        self.formLayout.setWidget(9, QtWidgets.QFormLayout.LabelRole, self.label_10)
-        self.lineEdit_rshunt = QtWidgets.QLineEdit(self.layoutWidget1)
-        font = QtGui.QFont()
-        font.setFamily("Arial")
-        font.setBold(True)
-        font.setWeight(75)
-        self.lineEdit_rshunt.setFont(font)
-        self.lineEdit_rshunt.setStyleSheet("QLineEdit{\n"
-"    background-color:rgba(229,229,234,1); \n"
-"    border-radius: 6;\n"
-"    border: none;\n"
-"    padding-left: 8px\n"
-"}\n"
-"QLineEdit:hover{\n"
-"    background-color:rgba(242,242,247,1);\n"
-"}\n"
-"QLineEdit:pressed{\n"
-"    background-color:rgba(188,188,192,1);\n"
-"    border-radius: 12;\n"
-"}")
-        self.lineEdit_rshunt.setReadOnly(False)
-        self.lineEdit_rshunt.setObjectName("lineEdit_rshunt")
-        self.formLayout.setWidget(9, QtWidgets.QFormLayout.FieldRole, self.lineEdit_rshunt)
-        self.label_13 = QtWidgets.QLabel(self.layoutWidget1)
-        font = QtGui.QFont()
-        font.setFamily("Arial")
-        font.setPointSize(9)
-        font.setBold(True)
-        font.setWeight(75)
-        font.setKerning(True)
-        font.setStyleStrategy(QtGui.QFont.PreferAntialias)
-        self.label_13.setFont(font)
-        self.label_13.setStyleSheet("background-color:rgba(209,209,214,0.01);")
-        self.label_13.setObjectName("label_13")
-        self.formLayout.setWidget(10, QtWidgets.QFormLayout.LabelRole, self.label_13)
-        self.lineEdit_ncels = QtWidgets.QLineEdit(self.layoutWidget1)
-        font = QtGui.QFont()
-        font.setFamily("Arial")
-        font.setBold(True)
-        font.setWeight(75)
-        self.lineEdit_ncels.setFont(font)
-        self.lineEdit_ncels.setStyleSheet("QLineEdit{\n"
-"    background-color:rgba(229,229,234,1); \n"
-"    border-radius: 6;\n"
-"    border: none;\n"
-"    padding-left: 8px\n"
-"}\n"
-"QLineEdit:hover{\n"
-"    background-color:rgba(242,242,247,1);\n"
-"}\n"
-"QLineEdit:pressed{\n"
-"    background-color:rgba(188,188,192,1);\n"
-"    border-radius: 12;\n"
-"}")
-        self.lineEdit_ncels.setReadOnly(False)
-        self.lineEdit_ncels.setObjectName("lineEdit_ncels")
-        self.formLayout.setWidget(10, QtWidgets.QFormLayout.FieldRole, self.lineEdit_ncels)
         self.listPV_file = QtWidgets.QComboBox(self.centralwidget)
-        self.listPV_file.setGeometry(QtCore.QRect(250, 10, 320, 41))
+        self.listPV_file.setGeometry(QtCore.QRect(302, 20, 211, 41))
         font = QtGui.QFont()
         font.setFamily("Arial")
-        font.setPointSize(10)
+        font.setPointSize(8)
         font.setBold(True)
         font.setWeight(75)
         self.listPV_file.setFont(font)
@@ -1767,7 +1034,7 @@ class Ui_MainWindow(object):
         self.listPV_file.setProperty("placeholderText", "")
         self.listPV_file.setObjectName("listPV_file")
         self.listPV_folder = QtWidgets.QComboBox(self.centralwidget)
-        self.listPV_folder.setGeometry(QtCore.QRect(150, 10, 91, 41))
+        self.listPV_folder.setGeometry(QtCore.QRect(202, 20, 91, 41))
         font = QtGui.QFont()
         font.setFamily("Arial")
         font.setBold(True)
@@ -1797,7 +1064,7 @@ class Ui_MainWindow(object):
         self.listPV_folder.setProperty("placeholderText", "")
         self.listPV_folder.setObjectName("listPV_folder")
         self.label_6 = QtWidgets.QLabel(self.centralwidget)
-        self.label_6.setGeometry(QtCore.QRect(20, 10, 81, 35))
+        self.label_6.setGeometry(QtCore.QRect(20, 20, 81, 35))
         font = QtGui.QFont()
         font.setFamily("Arial")
         font.setPointSize(9)
@@ -1808,7 +1075,7 @@ class Ui_MainWindow(object):
         self.label_6.setScaledContents(False)
         self.label_6.setObjectName("label_6")
         self.label_11 = QtWidgets.QLabel(self.centralwidget)
-        self.label_11.setGeometry(QtCore.QRect(20, 60, 131, 35))
+        self.label_11.setGeometry(QtCore.QRect(20, 70, 171, 35))
         font = QtGui.QFont()
         font.setFamily("Arial")
         font.setPointSize(9)
@@ -1818,8 +1085,752 @@ class Ui_MainWindow(object):
         self.label_11.setStyleSheet("background-color: rgba(255,255,255,0); ")
         self.label_11.setScaledContents(False)
         self.label_11.setObjectName("label_11")
-        self.layoutWidget.raise_()
-        self.layoutWidget.raise_()
+        self.label_17 = QtWidgets.QLabel(self.centralwidget)
+        self.label_17.setGeometry(QtCore.QRect(21, 131, 491, 19))
+        font = QtGui.QFont()
+        font.setFamily("Arial")
+        font.setPointSize(10)
+        font.setBold(True)
+        font.setWeight(75)
+        self.label_17.setFont(font)
+        self.label_17.setStyleSheet("background-color:rgba(209,209,214,0.01);")
+        self.label_17.setAlignment(QtCore.Qt.AlignLeading|QtCore.Qt.AlignLeft|QtCore.Qt.AlignVCenter)
+        self.label_17.setObjectName("label_17")
+        self.lineEdit_pnom = QtWidgets.QLineEdit(self.centralwidget)
+        self.lineEdit_pnom.setGeometry(QtCore.QRect(110, 158, 81, 41))
+        font = QtGui.QFont()
+        font.setFamily("Arial")
+        font.setBold(True)
+        font.setWeight(75)
+        self.lineEdit_pnom.setFont(font)
+        self.lineEdit_pnom.setAutoFillBackground(False)
+        self.lineEdit_pnom.setStyleSheet("QLineEdit{\n"
+"    background-color:rgba(229,229,234,1); \n"
+"    border-radius: 6;\n"
+"    border: none;\n"
+"    padding-left: 8px\n"
+"}\n"
+"QLineEdit:hover{\n"
+"    background-color:rgba(242,242,247,1);\n"
+"}\n"
+"QLineEdit:pressed{\n"
+"    background-color:rgba(188,188,192,1);\n"
+"    border-radius: 12;\n"
+"}")
+        self.lineEdit_pnom.setText("")
+        self.lineEdit_pnom.setReadOnly(False)
+        self.lineEdit_pnom.setObjectName("lineEdit_pnom")
+        self.label = QtWidgets.QLabel(self.centralwidget)
+        self.label.setGeometry(QtCore.QRect(21, 169, 42, 18))
+        font = QtGui.QFont()
+        font.setFamily("Arial")
+        font.setPointSize(9)
+        font.setBold(True)
+        font.setWeight(75)
+        self.label.setFont(font)
+        self.label.setStyleSheet("background-color:rgba(209,209,214,0.01);")
+        self.label.setObjectName("label")
+        self.label_2 = QtWidgets.QLabel(self.centralwidget)
+        self.label_2.setGeometry(QtCore.QRect(21, 206, 20, 18))
+        font = QtGui.QFont()
+        font.setFamily("Arial")
+        font.setPointSize(9)
+        font.setBold(True)
+        font.setWeight(75)
+        self.label_2.setFont(font)
+        self.label_2.setStyleSheet("background-color:rgba(209,209,214,0.01);")
+        self.label_2.setObjectName("label_2")
+        self.label_3 = QtWidgets.QLabel(self.centralwidget)
+        self.label_3.setGeometry(QtCore.QRect(21, 250, 25, 18))
+        font = QtGui.QFont()
+        font.setFamily("Arial")
+        font.setPointSize(9)
+        font.setBold(True)
+        font.setWeight(75)
+        self.label_3.setFont(font)
+        self.label_3.setStyleSheet("background-color:rgba(209,209,214,0.01);")
+        self.label_3.setObjectName("label_3")
+        self.lineEdit_isc = QtWidgets.QLineEdit(self.centralwidget)
+        self.lineEdit_isc.setGeometry(QtCore.QRect(110, 201, 81, 41))
+        font = QtGui.QFont()
+        font.setFamily("Arial")
+        font.setBold(True)
+        font.setWeight(75)
+        self.lineEdit_isc.setFont(font)
+        self.lineEdit_isc.setStyleSheet("QLineEdit{\n"
+"    background-color:rgba(229,229,234,1); \n"
+"    border-radius: 6;\n"
+"    border: none;\n"
+"    padding-left: 8px\n"
+"}\n"
+"QLineEdit:hover{\n"
+"    background-color:rgba(242,242,247,1);\n"
+"}\n"
+"QLineEdit:pressed{\n"
+"    background-color:rgba(188,188,192,1);\n"
+"    border-radius: 12;\n"
+"}")
+        self.lineEdit_isc.setReadOnly(False)
+        self.lineEdit_isc.setObjectName("lineEdit_isc")
+        self.label_9 = QtWidgets.QLabel(self.centralwidget)
+        self.label_9.setGeometry(QtCore.QRect(21, 293, 25, 18))
+        font = QtGui.QFont()
+        font.setFamily("Arial")
+        font.setPointSize(9)
+        font.setBold(True)
+        font.setWeight(75)
+        self.label_9.setFont(font)
+        self.label_9.setStyleSheet("background-color:rgba(209,209,214,0.01);")
+        self.label_9.setObjectName("label_9")
+        self.lineEdit_voc = QtWidgets.QLineEdit(self.centralwidget)
+        self.lineEdit_voc.setGeometry(QtCore.QRect(110, 244, 81, 41))
+        font = QtGui.QFont()
+        font.setFamily("Arial")
+        font.setBold(True)
+        font.setWeight(75)
+        self.lineEdit_voc.setFont(font)
+        self.lineEdit_voc.setStyleSheet("QLineEdit{\n"
+"    background-color:rgba(229,229,234,1); \n"
+"    border-radius: 6;\n"
+"    border: none;\n"
+"    padding-left: 8px\n"
+"}\n"
+"QLineEdit:hover{\n"
+"    background-color:rgba(242,242,247,1);\n"
+"}\n"
+"QLineEdit:pressed{\n"
+"    background-color:rgba(188,188,192,1);\n"
+"    border-radius: 12;\n"
+"}")
+        self.lineEdit_voc.setReadOnly(False)
+        self.lineEdit_voc.setObjectName("lineEdit_voc")
+        self.label_12 = QtWidgets.QLabel(self.centralwidget)
+        self.label_12.setGeometry(QtCore.QRect(21, 340, 30, 18))
+        font = QtGui.QFont()
+        font.setFamily("Arial")
+        font.setPointSize(9)
+        font.setBold(True)
+        font.setWeight(75)
+        self.label_12.setFont(font)
+        self.label_12.setStyleSheet("background-color:rgba(209,209,214,0.01);")
+        self.label_12.setObjectName("label_12")
+        self.lineEdit_imp = QtWidgets.QLineEdit(self.centralwidget)
+        self.lineEdit_imp.setGeometry(QtCore.QRect(110, 287, 81, 41))
+        font = QtGui.QFont()
+        font.setFamily("Arial")
+        font.setBold(True)
+        font.setWeight(75)
+        self.lineEdit_imp.setFont(font)
+        self.lineEdit_imp.setStyleSheet("QLineEdit{\n"
+"    background-color:rgba(229,229,234,1); \n"
+"    border-radius: 6;\n"
+"    border: none;\n"
+"    padding-left: 8px\n"
+"}\n"
+"QLineEdit:hover{\n"
+"    background-color:rgba(242,242,247,1);\n"
+"}\n"
+"QLineEdit:pressed{\n"
+"    background-color:rgba(188,188,192,1);\n"
+"    border-radius: 12;\n"
+"}")
+        self.lineEdit_imp.setReadOnly(False)
+        self.lineEdit_imp.setObjectName("lineEdit_imp")
+        self.label_4 = QtWidgets.QLabel(self.centralwidget)
+        self.label_4.setGeometry(QtCore.QRect(21, 383, 46, 18))
+        font = QtGui.QFont()
+        font.setFamily("Arial")
+        font.setPointSize(9)
+        font.setBold(True)
+        font.setWeight(75)
+        self.label_4.setFont(font)
+        self.label_4.setStyleSheet("background-color:rgba(209,209,214,0.01);")
+        self.label_4.setObjectName("label_4")
+        self.lineEdit_vmp = QtWidgets.QLineEdit(self.centralwidget)
+        self.lineEdit_vmp.setGeometry(QtCore.QRect(110, 330, 81, 41))
+        font = QtGui.QFont()
+        font.setFamily("Arial")
+        font.setBold(True)
+        font.setWeight(75)
+        self.lineEdit_vmp.setFont(font)
+        self.lineEdit_vmp.setStyleSheet("QLineEdit{\n"
+"    background-color:rgba(229,229,234,1); \n"
+"    border-radius: 6;\n"
+"    border: none;\n"
+"    padding-left: 8px\n"
+"}\n"
+"QLineEdit:hover{\n"
+"    background-color:rgba(242,242,247,1);\n"
+"}\n"
+"QLineEdit:pressed{\n"
+"    background-color:rgba(188,188,192,1);\n"
+"    border-radius: 12;\n"
+"}")
+        self.lineEdit_vmp.setReadOnly(False)
+        self.lineEdit_vmp.setObjectName("lineEdit_vmp")
+        self.label_5 = QtWidgets.QLabel(self.centralwidget)
+        self.label_5.setGeometry(QtCore.QRect(21, 427, 82, 18))
+        font = QtGui.QFont()
+        font.setFamily("Arial")
+        font.setPointSize(9)
+        font.setBold(True)
+        font.setWeight(75)
+        self.label_5.setFont(font)
+        self.label_5.setStyleSheet("background-color:rgba(209,209,214,0.01);")
+        self.label_5.setObjectName("label_5")
+        self.lineEdit_muisc = QtWidgets.QLineEdit(self.centralwidget)
+        self.lineEdit_muisc.setGeometry(QtCore.QRect(110, 373, 81, 41))
+        font = QtGui.QFont()
+        font.setFamily("Arial")
+        font.setBold(True)
+        font.setWeight(75)
+        self.lineEdit_muisc.setFont(font)
+        self.lineEdit_muisc.setStyleSheet("QLineEdit{\n"
+"    background-color:rgba(229,229,234,1); \n"
+"    border-radius: 6;\n"
+"    border: none;\n"
+"    padding-left: 8px\n"
+"}\n"
+"QLineEdit:hover{\n"
+"    background-color:rgba(242,242,247,1);\n"
+"}\n"
+"QLineEdit:pressed{\n"
+"    background-color:rgba(188,188,192,1);\n"
+"    border-radius: 12;\n"
+"}")
+        self.lineEdit_muisc.setReadOnly(False)
+        self.lineEdit_muisc.setObjectName("lineEdit_muisc")
+        self.label_7 = QtWidgets.QLabel(self.centralwidget)
+        self.label_7.setGeometry(QtCore.QRect(21, 470, 63, 18))
+        font = QtGui.QFont()
+        font.setFamily("Arial")
+        font.setPointSize(9)
+        font.setBold(True)
+        font.setWeight(75)
+        self.label_7.setFont(font)
+        self.label_7.setStyleSheet("background-color:rgba(209,209,214,0.01);")
+        self.label_7.setObjectName("label_7")
+        self.lineEdit_muvocspec = QtWidgets.QLineEdit(self.centralwidget)
+        self.lineEdit_muvocspec.setGeometry(QtCore.QRect(110, 416, 81, 41))
+        font = QtGui.QFont()
+        font.setFamily("Arial")
+        font.setBold(True)
+        font.setWeight(75)
+        self.lineEdit_muvocspec.setFont(font)
+        self.lineEdit_muvocspec.setStyleSheet("QLineEdit{\n"
+"    background-color:rgba(229,229,234,1); \n"
+"    border-radius: 6;\n"
+"    border: none;\n"
+"    padding-left: 8px\n"
+"}\n"
+"QLineEdit:hover{\n"
+"    background-color:rgba(242,242,247,1);\n"
+"}\n"
+"QLineEdit:pressed{\n"
+"    background-color:rgba(188,188,192,1);\n"
+"    border-radius: 12;\n"
+"}")
+        self.lineEdit_muvocspec.setReadOnly(False)
+        self.lineEdit_muvocspec.setObjectName("lineEdit_muvocspec")
+        self.lineEdit_vmaxiec = QtWidgets.QLineEdit(self.centralwidget)
+        self.lineEdit_vmaxiec.setGeometry(QtCore.QRect(110, 459, 81, 41))
+        font = QtGui.QFont()
+        font.setFamily("Arial")
+        font.setBold(True)
+        font.setWeight(75)
+        self.lineEdit_vmaxiec.setFont(font)
+        self.lineEdit_vmaxiec.setStyleSheet("QLineEdit{\n"
+"    background-color:rgba(229,229,234,1); \n"
+"    border-radius: 6;\n"
+"    border: none;\n"
+"    padding-left: 8px\n"
+"}\n"
+"QLineEdit:hover{\n"
+"    background-color:rgba(242,242,247,1);\n"
+"}\n"
+"QLineEdit:pressed{\n"
+"    background-color:rgba(188,188,192,1);\n"
+"    border-radius: 12;\n"
+"}")
+        self.lineEdit_vmaxiec.setReadOnly(False)
+        self.lineEdit_vmaxiec.setObjectName("lineEdit_vmaxiec")
+        self.label_10 = QtWidgets.QLabel(self.centralwidget)
+        self.label_10.setGeometry(QtCore.QRect(21, 512, 53, 18))
+        font = QtGui.QFont()
+        font.setFamily("Arial")
+        font.setPointSize(9)
+        font.setBold(True)
+        font.setWeight(75)
+        font.setKerning(True)
+        font.setStyleStrategy(QtGui.QFont.PreferAntialias)
+        self.label_10.setFont(font)
+        self.label_10.setStyleSheet("background-color:rgba(209,209,214,0.01);")
+        self.label_10.setObjectName("label_10")
+        self.lineEdit_rshunt = QtWidgets.QLineEdit(self.centralwidget)
+        self.lineEdit_rshunt.setGeometry(QtCore.QRect(110, 502, 81, 41))
+        font = QtGui.QFont()
+        font.setFamily("Arial")
+        font.setBold(True)
+        font.setWeight(75)
+        self.lineEdit_rshunt.setFont(font)
+        self.lineEdit_rshunt.setStyleSheet("QLineEdit{\n"
+"    background-color:rgba(229,229,234,1); \n"
+"    border-radius: 6;\n"
+"    border: none;\n"
+"    padding-left: 8px\n"
+"}\n"
+"QLineEdit:hover{\n"
+"    background-color:rgba(242,242,247,1);\n"
+"}\n"
+"QLineEdit:pressed{\n"
+"    background-color:rgba(188,188,192,1);\n"
+"    border-radius: 12;\n"
+"}")
+        self.lineEdit_rshunt.setReadOnly(False)
+        self.lineEdit_rshunt.setObjectName("lineEdit_rshunt")
+        self.label_13 = QtWidgets.QLabel(self.centralwidget)
+        self.label_13.setGeometry(QtCore.QRect(21, 557, 45, 18))
+        font = QtGui.QFont()
+        font.setFamily("Arial")
+        font.setPointSize(9)
+        font.setBold(True)
+        font.setWeight(75)
+        font.setKerning(True)
+        font.setStyleStrategy(QtGui.QFont.PreferAntialias)
+        self.label_13.setFont(font)
+        self.label_13.setStyleSheet("background-color:rgba(209,209,214,0.01);")
+        self.label_13.setObjectName("label_13")
+        self.lineEdit_ncels = QtWidgets.QLineEdit(self.centralwidget)
+        self.lineEdit_ncels.setGeometry(QtCore.QRect(110, 545, 81, 41))
+        font = QtGui.QFont()
+        font.setFamily("Arial")
+        font.setBold(True)
+        font.setWeight(75)
+        self.lineEdit_ncels.setFont(font)
+        self.lineEdit_ncels.setStyleSheet("QLineEdit{\n"
+"    background-color:rgba(229,229,234,1); \n"
+"    border-radius: 6;\n"
+"    border: none;\n"
+"    padding-left: 8px\n"
+"}\n"
+"QLineEdit:hover{\n"
+"    background-color:rgba(242,242,247,1);\n"
+"}\n"
+"QLineEdit:pressed{\n"
+"    background-color:rgba(188,188,192,1);\n"
+"    border-radius: 12;\n"
+"}")
+        self.lineEdit_ncels.setReadOnly(False)
+        self.lineEdit_ncels.setObjectName("lineEdit_ncels")
+        self.label_23 = QtWidgets.QLabel(self.centralwidget)
+        self.label_23.setGeometry(QtCore.QRect(212, 330, 221, 41))
+        font = QtGui.QFont()
+        font.setFamily("Arial")
+        font.setPointSize(9)
+        font.setBold(True)
+        font.setItalic(False)
+        font.setWeight(75)
+        font.setKerning(True)
+        font.setStyleStrategy(QtGui.QFont.PreferAntialias)
+        self.label_23.setFont(font)
+        self.label_23.setStyleSheet("background-color:rgba(209,209,214,0.01);")
+        self.label_23.setObjectName("label_23")
+        self.lineEdit_calcmaxtemp = QtWidgets.QLineEdit(self.centralwidget)
+        self.lineEdit_calcmaxtemp.setGeometry(QtCore.QRect(440, 201, 73, 41))
+        font = QtGui.QFont()
+        font.setFamily("Arial")
+        font.setBold(True)
+        font.setWeight(75)
+        self.lineEdit_calcmaxtemp.setFont(font)
+        self.lineEdit_calcmaxtemp.setStyleSheet("QLineEdit{\n"
+"    background-color:rgba(229,229,234,1); \n"
+"    border-radius: 6;\n"
+"    border: none;\n"
+"    padding-left: 8px\n"
+"}\n"
+"QLineEdit:hover{\n"
+"    background-color:rgba(242,242,247,1);\n"
+"}\n"
+"QLineEdit:pressed{\n"
+"    background-color:rgba(188,188,192,1);\n"
+"    border-radius: 12;\n"
+"}")
+        self.lineEdit_calcmaxtemp.setInputMethodHints(QtCore.Qt.ImhNone)
+        self.lineEdit_calcmaxtemp.setText("")
+        self.lineEdit_calcmaxtemp.setPlaceholderText("")
+        self.lineEdit_calcmaxtemp.setClearButtonEnabled(False)
+        self.lineEdit_calcmaxtemp.setObjectName("lineEdit_calcmaxtemp")
+        self.lineEdit_irradiance = QtWidgets.QLineEdit(self.centralwidget)
+        self.lineEdit_irradiance.setGeometry(QtCore.QRect(440, 459, 73, 41))
+        font = QtGui.QFont()
+        font.setFamily("Arial")
+        font.setBold(True)
+        font.setWeight(75)
+        self.lineEdit_irradiance.setFont(font)
+        self.lineEdit_irradiance.setStyleSheet("QLineEdit{\n"
+"    background-color:rgba(229,229,234,1); \n"
+"    border-radius: 6;\n"
+"    border: none;\n"
+"    padding-left: 8px\n"
+"}\n"
+"QLineEdit:hover{\n"
+"    background-color:rgba(242,242,247,1);\n"
+"}\n"
+"QLineEdit:pressed{\n"
+"    background-color:rgba(188,188,192,1);\n"
+"    border-radius: 12;\n"
+"}")
+        self.lineEdit_irradiance.setPlaceholderText("")
+        self.lineEdit_irradiance.setObjectName("lineEdit_irradiance")
+        self.lineEdit_noct = QtWidgets.QLineEdit(self.centralwidget)
+        self.lineEdit_noct.setGeometry(QtCore.QRect(440, 502, 73, 41))
+        font = QtGui.QFont()
+        font.setFamily("Arial")
+        font.setBold(True)
+        font.setWeight(75)
+        self.lineEdit_noct.setFont(font)
+        self.lineEdit_noct.setStyleSheet("QLineEdit{\n"
+"    background-color:rgba(229,229,234,1); \n"
+"    border-radius: 6;\n"
+"    border: none;\n"
+"    padding-left: 8px\n"
+"}\n"
+"QLineEdit:hover{\n"
+"    background-color:rgba(242,242,247,1);\n"
+"}\n"
+"QLineEdit:pressed{\n"
+"    background-color:rgba(188,188,192,1);\n"
+"    border-radius: 12;\n"
+"}")
+        self.lineEdit_noct.setPlaceholderText("")
+        self.lineEdit_noct.setObjectName("lineEdit_noct")
+        self.label_21 = QtWidgets.QLabel(self.centralwidget)
+        self.label_21.setGeometry(QtCore.QRect(212, 252, 166, 18))
+        font = QtGui.QFont()
+        font.setFamily("Arial")
+        font.setPointSize(9)
+        font.setBold(True)
+        font.setItalic(False)
+        font.setWeight(75)
+        font.setKerning(True)
+        font.setStyleStrategy(QtGui.QFont.PreferAntialias)
+        self.label_21.setFont(font)
+        self.label_21.setStyleSheet("background-color:rgba(209,209,214,0.01);")
+        self.label_21.setObjectName("label_21")
+        self.lineEdit_countfem = QtWidgets.QLineEdit(self.centralwidget)
+        self.lineEdit_countfem.setGeometry(QtCore.QRect(440, 373, 73, 41))
+        font = QtGui.QFont()
+        font.setFamily("Arial")
+        font.setBold(True)
+        font.setWeight(75)
+        self.lineEdit_countfem.setFont(font)
+        self.lineEdit_countfem.setStyleSheet("QLineEdit{\n"
+"    background-color:rgba(229,229,234,1); \n"
+"    border-radius: 6;\n"
+"    border: none;\n"
+"    padding-left: 8px\n"
+"}\n"
+"QLineEdit:hover{\n"
+"    background-color:rgba(242,242,247,1);\n"
+"}\n"
+"QLineEdit:pressed{\n"
+"    background-color:rgba(188,188,192,1);\n"
+"    border-radius: 12;\n"
+"}")
+        self.lineEdit_countfem.setPlaceholderText("")
+        self.lineEdit_countfem.setObjectName("lineEdit_countfem")
+        self.lineEdit_umax_pogran = QtWidgets.QLineEdit(self.centralwidget)
+        self.lineEdit_umax_pogran.setGeometry(QtCore.QRect(780, 70, 73, 41))
+        font = QtGui.QFont()
+        font.setFamily("Arial")
+        font.setPointSize(8)
+        font.setBold(True)
+        font.setWeight(75)
+        self.lineEdit_umax_pogran.setFont(font)
+        self.lineEdit_umax_pogran.setCursor(QtGui.QCursor(QtCore.Qt.IBeamCursor))
+        self.lineEdit_umax_pogran.setAutoFillBackground(False)
+        self.lineEdit_umax_pogran.setStyleSheet("QLineEdit{\n"
+"    background-color:rgba(229,229,234,1); \n"
+"    border-radius: 6;\n"
+"    border: none;\n"
+"    padding-left: 8px\n"
+"}\n"
+"QLineEdit:hover{\n"
+"    background-color:rgba(242,242,247,1);\n"
+"}\n"
+"QLineEdit:pressed{\n"
+"    background-color:rgba(188,188,192,1);\n"
+"    border-radius: 12;\n"
+"}")
+        self.lineEdit_umax_pogran.setText("")
+        self.lineEdit_umax_pogran.setReadOnly(False)
+        self.lineEdit_umax_pogran.setObjectName("lineEdit_umax_pogran")
+        self.label_26 = QtWidgets.QLabel(self.centralwidget)
+        self.label_26.setGeometry(QtCore.QRect(212, 470, 125, 18))
+        font = QtGui.QFont()
+        font.setFamily("Arial")
+        font.setPointSize(9)
+        font.setBold(True)
+        font.setItalic(False)
+        font.setWeight(75)
+        font.setKerning(True)
+        font.setStyleStrategy(QtGui.QFont.PreferAntialias)
+        self.label_26.setFont(font)
+        self.label_26.setStyleSheet("background-color:rgba(209,209,214,0.01);")
+        self.label_26.setObjectName("label_26")
+        self.label_16 = QtWidgets.QLabel(self.centralwidget)
+        self.label_16.setGeometry(QtCore.QRect(662, 62, 111, 41))
+        font = QtGui.QFont()
+        font.setFamily("Arial")
+        font.setPointSize(9)
+        font.setBold(True)
+        font.setItalic(False)
+        font.setWeight(75)
+        font.setKerning(True)
+        font.setStyleStrategy(QtGui.QFont.PreferAntialias)
+        self.label_16.setFont(font)
+        self.label_16.setStyleSheet("background-color:rgba(209,209,214,0.01);")
+        self.label_16.setObjectName("label_16")
+        self.label_25 = QtWidgets.QLabel(self.centralwidget)
+        self.label_25.setGeometry(QtCore.QRect(212, 417, 211, 41))
+        font = QtGui.QFont()
+        font.setFamily("Arial")
+        font.setPointSize(9)
+        font.setBold(True)
+        font.setItalic(False)
+        font.setWeight(75)
+        font.setKerning(True)
+        font.setStyleStrategy(QtGui.QFont.PreferAntialias)
+        self.label_25.setFont(font)
+        self.label_25.setStyleSheet("background-color:rgba(209,209,214,0.01);")
+        self.label_25.setObjectName("label_25")
+        self.label_19 = QtWidgets.QLabel(self.centralwidget)
+        self.label_19.setGeometry(QtCore.QRect(212, 157, 211, 41))
+        font = QtGui.QFont()
+        font.setFamily("Arial")
+        font.setPointSize(9)
+        font.setBold(True)
+        font.setItalic(False)
+        font.setWeight(75)
+        font.setKerning(True)
+        font.setStyleStrategy(QtGui.QFont.PreferAntialias)
+        self.label_19.setFont(font)
+        self.label_19.setStyleSheet("background-color:rgba(209,209,214,0.01);")
+        self.label_19.setObjectName("label_19")
+        self.lineEdit_calcmintemp = QtWidgets.QLineEdit(self.centralwidget)
+        self.lineEdit_calcmintemp.setGeometry(QtCore.QRect(440, 158, 73, 41))
+        font = QtGui.QFont()
+        font.setFamily("Arial")
+        font.setBold(True)
+        font.setWeight(75)
+        self.lineEdit_calcmintemp.setFont(font)
+        self.lineEdit_calcmintemp.setStyleSheet("QLineEdit{\n"
+"    background-color:rgba(229,229,234,1); \n"
+"    border-radius: 6;\n"
+"    border: none;\n"
+"    padding-left: 8px\n"
+"}\n"
+"QLineEdit:hover{\n"
+"    background-color:rgba(242,242,247,1);\n"
+"}\n"
+"QLineEdit:pressed{\n"
+"    background-color:rgba(188,188,192,1);\n"
+"    border-radius: 12;\n"
+"}")
+        self.lineEdit_calcmintemp.setInputMethodHints(QtCore.Qt.ImhNone)
+        self.lineEdit_calcmintemp.setText("")
+        self.lineEdit_calcmintemp.setPlaceholderText("")
+        self.lineEdit_calcmintemp.setClearButtonEnabled(False)
+        self.lineEdit_calcmintemp.setObjectName("lineEdit_calcmintemp")
+        self.lineEdit_max = QtWidgets.QLineEdit(self.centralwidget)
+        self.lineEdit_max.setGeometry(QtCore.QRect(440, 287, 73, 41))
+        font = QtGui.QFont()
+        font.setFamily("Arial")
+        font.setBold(True)
+        font.setWeight(75)
+        self.lineEdit_max.setFont(font)
+        self.lineEdit_max.setStyleSheet("QLineEdit{\n"
+"    background-color:rgba(229,229,234,1); \n"
+"    border-radius: 6;\n"
+"    border: none;\n"
+"    padding-left: 8px\n"
+"}\n"
+"QLineEdit:hover{\n"
+"    background-color:rgba(242,242,247,1);\n"
+"}\n"
+"QLineEdit:pressed{\n"
+"    background-color:rgba(188,188,192,1);\n"
+"    border-radius: 12;\n"
+"}")
+        self.lineEdit_max.setPlaceholderText("")
+        self.lineEdit_max.setObjectName("lineEdit_max")
+        self.label_22 = QtWidgets.QLabel(self.centralwidget)
+        self.label_22.setGeometry(QtCore.QRect(212, 293, 172, 18))
+        font = QtGui.QFont()
+        font.setFamily("Arial")
+        font.setPointSize(9)
+        font.setBold(True)
+        font.setItalic(False)
+        font.setWeight(75)
+        font.setKerning(True)
+        font.setStyleStrategy(QtGui.QFont.PreferAntialias)
+        self.label_22.setFont(font)
+        self.label_22.setStyleSheet("background-color:rgba(209,209,214,0.01);")
+        self.label_22.setObjectName("label_22")
+        self.label_24 = QtWidgets.QLabel(self.centralwidget)
+        self.label_24.setGeometry(QtCore.QRect(212, 380, 168, 18))
+        font = QtGui.QFont()
+        font.setFamily("Arial")
+        font.setPointSize(9)
+        font.setBold(True)
+        font.setItalic(False)
+        font.setWeight(75)
+        font.setKerning(True)
+        font.setStyleStrategy(QtGui.QFont.PreferAntialias)
+        self.label_24.setFont(font)
+        self.label_24.setStyleSheet("background-color:rgba(209,209,214,0.01);")
+        self.label_24.setObjectName("label_24")
+        self.lineEdit_mintemp = QtWidgets.QLineEdit(self.centralwidget)
+        self.lineEdit_mintemp.setGeometry(QtCore.QRect(440, 330, 73, 41))
+        font = QtGui.QFont()
+        font.setFamily("Arial")
+        font.setBold(True)
+        font.setWeight(75)
+        self.lineEdit_mintemp.setFont(font)
+        self.lineEdit_mintemp.setStyleSheet("QLineEdit{\n"
+"    background-color:rgba(229,229,234,1); \n"
+"    border-radius: 6;\n"
+"    border: none;\n"
+"    padding-left: 8px\n"
+"}\n"
+"QLineEdit:hover{\n"
+"    background-color:rgba(242,242,247,1);\n"
+"}\n"
+"QLineEdit:pressed{\n"
+"    background-color:rgba(188,188,192,1);\n"
+"    border-radius: 12;\n"
+"}")
+        self.lineEdit_mintemp.setPlaceholderText("")
+        self.lineEdit_mintemp.setObjectName("lineEdit_mintemp")
+        self.label_20 = QtWidgets.QLabel(self.centralwidget)
+        self.label_20.setGeometry(QtCore.QRect(212, 201, 211, 41))
+        font = QtGui.QFont()
+        font.setFamily("Arial")
+        font.setPointSize(9)
+        font.setBold(True)
+        font.setItalic(False)
+        font.setWeight(75)
+        font.setKerning(True)
+        font.setStyleStrategy(QtGui.QFont.PreferAntialias)
+        self.label_20.setFont(font)
+        self.label_20.setStyleSheet("background-color:rgba(209,209,214,0.01);")
+        self.label_20.setObjectName("label_20")
+        self.lineEdit_countparallel = QtWidgets.QLineEdit(self.centralwidget)
+        self.lineEdit_countparallel.setGeometry(QtCore.QRect(440, 416, 73, 41))
+        font = QtGui.QFont()
+        font.setFamily("Arial")
+        font.setBold(True)
+        font.setWeight(75)
+        self.lineEdit_countparallel.setFont(font)
+        self.lineEdit_countparallel.setStyleSheet("QLineEdit{\n"
+"    background-color:rgba(229,229,234,1); \n"
+"    border-radius: 6;\n"
+"    border: none;\n"
+"    padding-left: 8px\n"
+"}\n"
+"QLineEdit:hover{\n"
+"    background-color:rgba(242,242,247,1);\n"
+"}\n"
+"QLineEdit:pressed{\n"
+"    background-color:rgba(188,188,192,1);\n"
+"    border-radius: 12;\n"
+"}")
+        self.lineEdit_countparallel.setPlaceholderText("")
+        self.lineEdit_countparallel.setObjectName("lineEdit_countparallel")
+        self.lineEdit_min = QtWidgets.QLineEdit(self.centralwidget)
+        self.lineEdit_min.setGeometry(QtCore.QRect(440, 244, 73, 41))
+        font = QtGui.QFont()
+        font.setFamily("Arial")
+        font.setBold(True)
+        font.setWeight(75)
+        self.lineEdit_min.setFont(font)
+        self.lineEdit_min.setStyleSheet("QLineEdit{\n"
+"    background-color:rgba(229,229,234,1); \n"
+"    border-radius: 6;\n"
+"    border: none;\n"
+"    padding-left: 8px\n"
+"}\n"
+"QLineEdit:hover{\n"
+"    background-color:rgba(242,242,247,1);\n"
+"}\n"
+"QLineEdit:pressed{\n"
+"    background-color:rgba(188,188,192,1);\n"
+"    border-radius: 12;\n"
+"}")
+        self.lineEdit_min.setInputMethodHints(QtCore.Qt.ImhNone)
+        self.lineEdit_min.setText("")
+        self.lineEdit_min.setPlaceholderText("")
+        self.lineEdit_min.setClearButtonEnabled(False)
+        self.lineEdit_min.setObjectName("lineEdit_min")
+        self.label_14 = QtWidgets.QLabel(self.centralwidget)
+        self.label_14.setGeometry(QtCore.QRect(662, 17, 111, 41))
+        font = QtGui.QFont()
+        font.setFamily("Arial")
+        font.setPointSize(9)
+        font.setBold(True)
+        font.setWeight(75)
+        self.label_14.setFont(font)
+        self.label_14.setStyleSheet("background-color:rgba(209,209,214,0.01);")
+        self.label_14.setObjectName("label_14")
+        self.label_27 = QtWidgets.QLabel(self.centralwidget)
+        self.label_27.setGeometry(QtCore.QRect(212, 510, 44, 18))
+        font = QtGui.QFont()
+        font.setFamily("Arial")
+        font.setPointSize(9)
+        font.setBold(True)
+        font.setItalic(False)
+        font.setWeight(75)
+        font.setKerning(True)
+        font.setStyleStrategy(QtGui.QFont.PreferAntialias)
+        self.label_27.setFont(font)
+        self.label_27.setStyleSheet("background-color:rgba(209,209,214,0.01);")
+        self.label_27.setObjectName("label_27")
+        self.lineEdit_imax_pogran = QtWidgets.QLineEdit(self.centralwidget)
+        self.lineEdit_imax_pogran.setGeometry(QtCore.QRect(780, 20, 73, 41))
+        font = QtGui.QFont()
+        font.setFamily("Arial")
+        font.setPointSize(8)
+        font.setBold(True)
+        font.setWeight(75)
+        self.lineEdit_imax_pogran.setFont(font)
+        self.lineEdit_imax_pogran.setAutoFillBackground(False)
+        self.lineEdit_imax_pogran.setStyleSheet("QLineEdit{\n"
+"    background-color:rgba(229,229,234,1); \n"
+"    border-radius: 6;\n"
+"    border: none;\n"
+"    padding-left: 8px\n"
+"}\n"
+"QLineEdit:hover{\n"
+"    background-color:rgba(242,242,247,1);\n"
+"}\n"
+"QLineEdit:pressed{\n"
+"    background-color:rgba(188,188,192,1);\n"
+"    border-radius: 12;\n"
+"}")
+        self.lineEdit_imax_pogran.setText("")
+        self.lineEdit_imax_pogran.setReadOnly(False)
+        self.lineEdit_imax_pogran.setObjectName("lineEdit_imax_pogran")
+        self.label_15 = QtWidgets.QLabel(self.centralwidget)
+        self.label_15.setGeometry(QtCore.QRect(530, 40, 131, 41))
+        font = QtGui.QFont()
+        font.setFamily("Arial")
+        font.setPointSize(10)
+        font.setBold(True)
+        font.setWeight(75)
+        self.label_15.setFont(font)
+        self.label_15.setStyleSheet("background-color:rgba(209,209,214,0.01);")
+        self.label_15.setAlignment(QtCore.Qt.AlignCenter)
+        self.label_15.setObjectName("label_15")
         self.comboBox_stcnoct.raise_()
         self.tableWidget.raise_()
         self.btnResult.raise_()
@@ -1844,21 +1855,21 @@ class Ui_MainWindow(object):
         self.tableWidget.setToolTip(_translate("MainWindow", "*Первая цифра № метода расчета I, вторая цифра № метода расчета V"))
         self.tableWidget.setSortingEnabled(False)
         item = self.tableWidget.verticalHeaderItem(0)
-        item.setText(_translate("MainWindow", "Метод 1-1*"))
+        item.setText(_translate("MainWindow", "1-1"))
         item = self.tableWidget.verticalHeaderItem(6)
-        item.setText(_translate("MainWindow", "Метод 1-3"))
+        item.setText(_translate("MainWindow", "1-3"))
         item = self.tableWidget.verticalHeaderItem(12)
-        item.setText(_translate("MainWindow", "Метод 1-4"))
+        item.setText(_translate("MainWindow", "1-4"))
         item = self.tableWidget.verticalHeaderItem(18)
-        item.setText(_translate("MainWindow", "Метод 1-5"))
+        item.setText(_translate("MainWindow", "1-5"))
         item = self.tableWidget.verticalHeaderItem(24)
-        item.setText(_translate("MainWindow", "Метод 2-1"))
+        item.setText(_translate("MainWindow", "2-1"))
         item = self.tableWidget.verticalHeaderItem(30)
-        item.setText(_translate("MainWindow", "Метод 2-3"))
+        item.setText(_translate("MainWindow", "2-3"))
         item = self.tableWidget.verticalHeaderItem(36)
-        item.setText(_translate("MainWindow", "Метод 2-4"))
+        item.setText(_translate("MainWindow", "2-4"))
         item = self.tableWidget.verticalHeaderItem(42)
-        item.setText(_translate("MainWindow", "Метод 2-5"))
+        item.setText(_translate("MainWindow", "2-5"))
         item = self.tableWidget.horizontalHeaderItem(0)
         item.setText(_translate("MainWindow", "Ток, А"))
         item = self.tableWidget.horizontalHeaderItem(1)
@@ -1958,22 +1969,10 @@ class Ui_MainWindow(object):
         self.tableWidget.setSortingEnabled(__sortingEnabled)
         self.btnResult.setText(_translate("MainWindow", "Рассчитать"))
         self.btnSave.setText(_translate("MainWindow", "Сохранить в xls"))
-        self.label_18.setText(_translate("MainWindow", "Расчетные параметры:"))
-        self.label_23.setText(_translate("MainWindow", "Минимальная температура (0.98)"))
-        self.label_21.setToolTip(_translate("MainWindow", "(Импортируется с RP5)"))
-        self.label_21.setText(_translate("MainWindow", "Абсолютный минимум"))
-        self.label_16.setText(_translate("MainWindow", "Umax инвертора"))
-        self.label_26.setText(_translate("MainWindow", "Инсоляция, В/м2"))
-        self.label_25.setText(_translate("MainWindow", "Число параллельных цепочек"))
-        self.label_19.setText(_translate("MainWindow", "Расчетная минимальная температура"))
-        self.label_24.setText(_translate("MainWindow", "Число ФЭМ в цепочке"))
-        self.label_22.setToolTip(_translate("MainWindow", "(Импортируется с RP5)"))
-        self.label_22.setText(_translate("MainWindow", "Абсолютный максимум"))
-        self.label_20.setText(_translate("MainWindow", "Расчетная максимальня температура"))
-        self.label_27.setText(_translate("MainWindow", "NOCT"))
-        self.label_14.setText(_translate("MainWindow", "Imax на один МРРТ"))
-        self.label_15.setText(_translate("MainWindow", "Пограничные значения:"))
-        self.label_17.setText(_translate("MainWindow", "Параметры модуля:"))
+        self.label_6.setText(_translate("MainWindow", "ФЭМ:"))
+        self.label_11.setText(_translate("MainWindow", "Температура города:\n"
+"Условие расчета: "))
+        self.label_17.setText(_translate("MainWindow", "Параметры:"))
         self.label.setText(_translate("MainWindow", "PNom"))
         self.label_2.setText(_translate("MainWindow", "Isc"))
         self.label_3.setText(_translate("MainWindow", "Voc"))
@@ -1984,6 +1983,24 @@ class Ui_MainWindow(object):
         self.label_7.setText(_translate("MainWindow", "VMaxIEC"))
         self.label_10.setText(_translate("MainWindow", "RShunt"))
         self.label_13.setText(_translate("MainWindow", "NCelS"))
-        self.label_6.setText(_translate("MainWindow", "ФЭМ"))
-        self.label_11.setText(_translate("MainWindow", "Температура города\n"
-"Режим "))
+        self.label_23.setText(_translate("MainWindow", "Минимальная температура \n"
+"(0.98)"))
+        self.label_21.setToolTip(_translate("MainWindow", "(Импортируется с RP5)"))
+        self.label_21.setText(_translate("MainWindow", "Абсолютный минимум"))
+        self.label_26.setText(_translate("MainWindow", "Инсоляция, В/м2"))
+        self.label_16.setText(_translate("MainWindow", "Umax \n"
+"инвертора"))
+        self.label_25.setText(_translate("MainWindow", "Число параллельных \n"
+"цепочек"))
+        self.label_19.setText(_translate("MainWindow", "Расчетная минимальная \n"
+"температура"))
+        self.label_22.setToolTip(_translate("MainWindow", "(Импортируется с RP5)"))
+        self.label_22.setText(_translate("MainWindow", "Абсолютный максимум"))
+        self.label_24.setText(_translate("MainWindow", "Число ФЭМ в цепочке"))
+        self.label_20.setText(_translate("MainWindow", "Расчетная максимальня \n"
+"температура"))
+        self.label_14.setText(_translate("MainWindow", "Imax на \n"
+"один МРРТ"))
+        self.label_27.setText(_translate("MainWindow", "NOCT"))
+        self.label_15.setText(_translate("MainWindow", "Пограничные \n"
+"значения:"))

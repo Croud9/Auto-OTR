@@ -1,6 +1,7 @@
 from email.policy import default
 import sys, os   # sys нужен для передачи argv в QApplication
 import math
+from attr import fields_dict
 import xlwt
 import requests
 import designCalcPV  # Это наш конвертированный файл дизайна
@@ -8,11 +9,44 @@ import pandas as pd
 import gzip
 import search_data
 from PyQt5.QtCore import QRegExp
+from PyQt5.QtWidgets import *
 from PyQt5.QtGui import QRegExpValidator
-from PyQt5 import QtWidgets, QtGui
+from PyQt5 import QtWidgets, QtGui, QtCore
 from PyQt5.QtCore import QTimer
 filepath_to_pan_directory = "Data/PAN_files/"
 path_to_pv = "Data/Modules/PV's"
+
+class WrapHeader(QtWidgets.QHeaderView):
+    def sectionSizeFromContents(self, logicalIndex):
+        size = super().sectionSizeFromContents(logicalIndex)
+        if self.model():
+            if size.width() > self.sectionSize(logicalIndex):
+                text = self.model().headerData(logicalIndex, 
+                    self.orientation(), QtCore.Qt.DisplayRole)
+                if not text:
+                    return size
+                text = str(text)
+
+                option = QtWidgets.QStyleOptionHeader()
+                self.initStyleOption(option)
+                alignment = self.model().headerData(logicalIndex, 
+                    self.orientation(), QtCore.Qt.TextAlignmentRole)
+                if alignment is None:
+                    alignment = option.textAlignment
+
+                margin = self.style().pixelMetric(
+                    QtWidgets.QStyle.PM_HeaderMargin, option, self)
+                maxWidth = self.sectionSize(logicalIndex) - margin * 2
+                rect = option.fontMetrics.boundingRect(
+                    QtCore.QRect(0, 0, maxWidth, 10000), 
+                    alignment | QtCore.Qt.TextWordWrap, 
+                    text)
+
+                # add vertical margins to the resulting height
+                height = rect.height() + margin * 2
+                if height >= size.height():
+                    return QtCore.QSize(rect.width(), height)
+        return size
 
 class CalcPV(QtWidgets.QMainWindow, designCalcPV.Ui_MainWindow):
     def __init__(self, instance_of_main_window):
@@ -24,6 +58,7 @@ class CalcPV(QtWidgets.QMainWindow, designCalcPV.Ui_MainWindow):
         self.import_sp()
         self.chng(0)
         self.styles()
+        self.set_wrap_header_table()
         self.comboBox_city.currentIndexChanged.connect(self.chng)
         self.comboBox_stcnoct.setCurrentIndex(0)
         self.btnResult.clicked.connect(self.cmbBX)
@@ -33,6 +68,29 @@ class CalcPV(QtWidgets.QMainWindow, designCalcPV.Ui_MainWindow):
         self.listPV_folder.addItem("Выберите")
         company_pv = sorted(os.listdir(path_to_pv))
         self.listPV_folder.addItems(company_pv)
+        self.tableWidget.resize(669,450)
+        self.tableWidget.setSizeAdjustPolicy(
+            QtWidgets.QAbstractScrollArea.AdjustToContents)
+        self.tableWidget.resizeColumnsToContents()
+
+    def set_wrap_header_table(self):
+        self.tableWidget.setSizeAdjustPolicy(QtWidgets.QAbstractScrollArea.AdjustToContents)
+        self.tableWidget.horizontalHeader().setSectionResizeMode(QHeaderView.ResizeToContents)
+        self.tableWidget.horizontalHeader().setStretchLastSection(True)
+        self.tableWidget.setHorizontalHeader(
+            WrapHeader(QtCore.Qt.Horizontal, self.tableWidget))
+        model = self.tableWidget.model()
+        default = self.tableWidget.horizontalHeader().defaultAlignment()
+        default |= QtCore.Qt.TextWordWrap
+        for col in range(self.tableWidget.columnCount()):
+            alignment = model.headerData(
+                col, QtCore.Qt.Horizontal, QtCore.Qt.TextAlignmentRole)
+            if alignment:
+                alignment |= QtCore.Qt.TextWordWrap
+            else:
+                alignment = default
+            model.setHeaderData(
+                col, QtCore.Qt.Horizontal, alignment, QtCore.Qt.TextAlignmentRole)
 
     def styles(self):
         self.default_style_input = 'QLineEdit{ background-color:rgba(229,229,234,1);\
@@ -65,6 +123,10 @@ class CalcPV(QtWidgets.QMainWindow, designCalcPV.Ui_MainWindow):
         self.comboBox_stcnoct.addItem("NOCT")
         self.comboBox_city.addItem("Температура в городе: ")
         self.comboBox_city.setCurrentIndex(0) # видимый в списке элемент
+        self.fields_text = [self.lineEdit_calcmintemp, self.lineEdit_calcmaxtemp, self.lineEdit_min, self.lineEdit_max, self.lineEdit_mintemp, 
+                            self.lineEdit_countfem, self.lineEdit_countparallel, self.lineEdit_noct, self.lineEdit_irradiance, self.lineEdit_pnom, 
+                            self.lineEdit_isc, self.lineEdit_voc, self.lineEdit_imp, self.lineEdit_vmp, self.lineEdit_muisc, self.lineEdit_muvocspec, 
+                            self.lineEdit_vmaxiec, self.lineEdit_rshunt, self.lineEdit_ncels, self.lineEdit_umax_pogran, self.lineEdit_imax_pogran]
         
     def import_sp(self):
         nameCity = []
@@ -85,57 +147,11 @@ class CalcPV(QtWidgets.QMainWindow, designCalcPV.Ui_MainWindow):
             self.lineEdit_max.setText(str(row[1]).replace(",", "."))
             self.lineEdit_mintemp.setText(str(row[2]).replace(",", "."))
 
-    def import_rp5(self):
-        rp5Temperature = []
-        fname = 'Data/SP/arhiv.xls.gz'
-        if fname != '':
-            with gzip.open(fname, 'rb') as f:
-                file_content = f.read()
-            cols = [1]
-            rp5DataFrame = pd.read_excel(file_content, usecols=cols, header=6)
-            print(rp5DataFrame)
-            for row in rp5DataFrame.itertuples(index=False, name='Temperature'):
-                rp5Temperature.append(float(row[0]))
-            minrp5Temp = min(rp5Temperature)
-            maxrp5Temp = max(rp5Temperature)
-            self.lineEdit_min.setText(str(minrp5Temp))
-            self.lineEdit_max.setText(str(maxrp5Temp))
-            self.lineEdit_min.setStyleSheet("border: 1px solid green; border-radius: 6")
-            self.lineEdit_max.setStyleSheet("border: 1px solid green; border-radius: 6")
-
-    def load_t_rp5(self, minrp5Temp, maxrp5Temp):
-        self.lineEdit_min.setText(str(float(minrp5Temp)))
-        self.lineEdit_max.setText(str(float(maxrp5Temp)))
-        self.lineEdit_min.setStyleSheet("border: 1px solid green; border-radius: 6")
-        self.lineEdit_max.setStyleSheet("border: 1px solid green; border-radius: 6")
-
-    def validate(self): #валидация вводимых данных
+    def validate(self):
         reg_ex = QRegExp('^-?(0|[1-9]\d*)(\.[0-9]{1,4})?$')
-        # QRegExpValidator(reg_ex, self.lineEdit_calcmintemp) = QRegExpValidator(reg_ex, self.lineEdit_calcmintemp)
-        self.lineEdit_calcmintemp.setValidator(QRegExpValidator(reg_ex, self.lineEdit_calcmintemp))
-        self.lineEdit_calcmaxtemp.setValidator(QRegExpValidator(reg_ex, self.lineEdit_calcmaxtemp))
-        self.lineEdit_min.setValidator(QRegExpValidator(reg_ex, self.lineEdit_min))
-        self.lineEdit_max.setValidator(QRegExpValidator(reg_ex, self.lineEdit_max))
-        self.lineEdit_mintemp.setValidator(QRegExpValidator(reg_ex, self.lineEdit_mintemp))
-        self.lineEdit_countfem.setValidator(QRegExpValidator(reg_ex, self.lineEdit_countfem))
-        self.lineEdit_countparallel.setValidator(QRegExpValidator(reg_ex, self.lineEdit_countparallel))
-        self.lineEdit_noct.setValidator(QRegExpValidator(reg_ex, self.lineEdit_noct))
-        self.lineEdit_irradiance.setValidator(QRegExpValidator(reg_ex, self.lineEdit_irradiance))
 
-        self.lineEdit_pnom.setValidator(QRegExpValidator(reg_ex, self.lineEdit_pnom)) #ЗНАЧЕНИЯ МОДУЛЯ
-        self.lineEdit_isc.setValidator(QRegExpValidator(reg_ex, self.lineEdit_isc))
-        self.lineEdit_voc.setValidator(QRegExpValidator(reg_ex, self.lineEdit_voc))
-        self.lineEdit_imp.setValidator(QRegExpValidator(reg_ex, self.lineEdit_imp))
-        self.lineEdit_vmp.setValidator(QRegExpValidator(reg_ex, self.lineEdit_vmp))
-        self.lineEdit_muisc.setValidator(QRegExpValidator(reg_ex, self.lineEdit_muisc))
-        self.lineEdit_muvocspec.setValidator(QRegExpValidator(reg_ex, self.lineEdit_muvocspec))
-        # self.lineEdit_mugamma.setValidator(QRegExpValidator(reg_ex, self.lineEdit_calcmintemp))
-        self.lineEdit_vmaxiec.setValidator(QRegExpValidator(reg_ex, self.lineEdit_vmaxiec))
-        self.lineEdit_rshunt.setValidator(QRegExpValidator(reg_ex, self.lineEdit_rshunt))
-        self.lineEdit_ncels.setValidator(QRegExpValidator(reg_ex, self.lineEdit_ncels))
-
-        self.lineEdit_umax_pogran.setValidator(QRegExpValidator(reg_ex, self.lineEdit_umax_pogran)) #ПОграничные значения
-        self.lineEdit_imax_pogran.setValidator(QRegExpValidator(reg_ex, self.lineEdit_imax_pogran))
+        for field in self.fields_text:
+            field.setValidator(QRegExpValidator(reg_ex, field))
 
     def cmbBX(self):
         if self.comboBox_stcnoct.currentText() == "Выберите систему":
@@ -150,131 +166,36 @@ class CalcPV(QtWidgets.QMainWindow, designCalcPV.Ui_MainWindow):
         self.statusBar.setStyleSheet("background-color:rgb(255, 105, 97)")
         QTimer.singleShot(5000, lambda: self.statusBar.setStyleSheet("background-color: rgb(255,255,255)"))
 
-    def check_imput_params(self): #Проверка ввел ли пользователь необходимые значения для расчета
-        self.calcmintemp = self.lineEdit_calcmintemp.text()
-        self.calcmaxtemp = self.lineEdit_calcmaxtemp.text()
-        self.min = self.lineEdit_min.text()
-        self.max = self.lineEdit_max.text()
-        self.mintemp = self.lineEdit_mintemp.text()
-        self.countfem = self.lineEdit_countfem.text()
-        self.countparallel = self.lineEdit_countparallel.text()
-        self.noct = self.lineEdit_noct.text()
-        self.irradiance = self.lineEdit_irradiance.text()
-
-        self.numpnom = self.lineEdit_pnom.text()
-        self.numisc = self.lineEdit_isc.text()
-        self.numvoc = self.lineEdit_voc.text()
-        self.numimp = self.lineEdit_imp.text()
-        self.numvmp = self.lineEdit_vmp.text()
-        self.nummuisc = self.lineEdit_muisc.text()
-        self.nummuvocspec = self.lineEdit_muvocspec.text()
-        self.numvmaxiec = self.lineEdit_vmaxiec.text()
-        self.numrshunt = self.lineEdit_rshunt.text()
-        self.numncels = self.lineEdit_ncels.text()
-
-        self.umaxpogran = self.lineEdit_umax_pogran.text() #ПОграничные значения
-        self.imaxpogran = self.lineEdit_imax_pogran.text()
-        self.set_style_default()
-        if self.calcmintemp == '':
-            self.statusBar.showMessage('Введите расчетную минимальную температуру!', 5000)
+    def valid_input_field(self, field):
+        if field.text() == '':
+            self.statusBar.showMessage('Введите значение в выделенное поле', 5000)
             self.red_status()
-            self.lineEdit_calcmintemp.setStyleSheet(self.warning_style_input)
-        elif self.calcmaxtemp == '':
-            self.statusBar.showMessage('Введите расчетную максимальную температуру!', 5000)
-            self.red_status()
-            self.lineEdit_calcmaxtemp.setStyleSheet(self.warning_style_input)
-        elif self.min == '':
-            self.statusBar.showMessage('Введите абсолютный минимум!', 5000)
-            self.red_status()
-            self.lineEdit_min.setStyleSheet(self.warning_style_input)
-        elif self.max == '':
-            self.statusBar.showMessage('Введите абсолютный максимум!', 5000)
-            self.red_status()
-            self.lineEdit_max.setStyleSheet(self.warning_style_input)
-        elif self.mintemp == '':
-            self.statusBar.showMessage('Введите минимальную температуру(0.98)!', 5000)
-            self.red_status()
-            self.lineEdit_mintemp.setStyleSheet(self.warning_style_input)
-        elif self.countfem == '':
-            self.statusBar.showMessage('Введите число ФЭМ в цепочке!', 5000)
-            self.red_status()
-            self.lineEdit_countfem.setStyleSheet(self.warning_style_input)
-        elif self.countparallel == '':
-            self.statusBar.showMessage('Введите число параллельных цепочек!', 5000)
-            self.red_status()
-            self.lineEdit_countparallel.setStyleSheet(self.warning_style_input)
-        elif self.noct == '' and self.comboBox_stcnoct.currentText() == "NOCT":
-            self.statusBar.showMessage('Введите NOCT!', 5000)
-            self.red_status()
-            self.lineEdit_noct.setStyleSheet(self.warning_style_input)
-        elif self.irradiance == '':
-            self.statusBar.showMessage('Введите освещенность', 5000)
-            self.red_status()
-            self.lineEdit_irradiance.setStyleSheet(self.warning_style_input)
-
-        elif self.numpnom == '': #все что связано с PAN
-            self.statusBar.showMessage('Введите PNom или загрузите файл', 5000)
-            self.red_status()
-            self.lineEdit_pnom.setStyleSheet(self.warning_style_input)
-        elif self.numisc == '':
-            self.statusBar.showMessage('Введите Isc или загрузите файл', 5000)
-            self.red_status()
-            self.lineEdit_isc.setStyleSheet(self.warning_style_input)
-        elif self.numvoc == '':
-            self.statusBar.showMessage('Введите Voc или загрузите файл', 5000)
-            self.red_status()
-            self.lineEdit_voc.setStyleSheet(self.warning_style_input)
-        elif self.numimp == '':
-            self.statusBar.showMessage('Введите Imp или загрузите файл', 5000)
-            self.red_status()
-            self.lineEdit_imp.setStyleSheet(self.warning_style_input)
-        elif self.numvmp == '':
-            self.statusBar.showMessage('Введите Vmp или загрузите файл', 5000)
-            self.red_status()
-            self.lineEdit_vmp.setStyleSheet(self.warning_style_input)
-        elif self.nummuisc == '':
-            self.statusBar.showMessage('Введите muISC или загрузите файл', 5000)
-            self.red_status()
-            self.lineEdit_muisc.setStyleSheet(self.warning_style_input)
-        elif self.nummuvocspec == '':
-            self.statusBar.showMessage('Введите muVocSpec или загрузите файл', 5000)
-            self.red_status()
-            self.lineEdit_muvocspec.setStyleSheet(self.warning_style_input)
-        elif self.numvmaxiec == '':
-            self.statusBar.showMessage('Введите VMaxIEC или загрузите файл', 5000)
-            self.red_status()
-            self.lineEdit_vmaxiec.setStyleSheet(self.warning_style_input)
-        elif self.numrshunt == '':
-            self.statusBar.showMessage('Введите RShunt или загрузите файл', 5000)
-            self.red_status()
-            self.lineEdit_rshunt.setStyleSheet(self.warning_style_input)
-        elif self.numncels == '':
-            self.statusBar.showMessage('Введите NCelS или загрузите файл', 5000)
-            self.red_status()
-            self.lineEdit_ncels.setStyleSheet(self.warning_style_input)
-
-        elif self.umaxpogran == '': #ПОГРАНИЧНЫЕ ЗНАЧЕНИЯ
-            self.statusBar.showMessage('Введите Umax инвертора', 5000)
-            self.red_status()
-            self.lineEdit_umax_pogran.setStyleSheet(self.warning_style_input)
-        elif self.imaxpogran == '':
-            self.statusBar.showMessage('Введите Imax на один МРРТ', 5000)
-            self.red_status()
-            self.lineEdit_imax_pogran.setStyleSheet(self.warning_style_input)
+            field.setStyleSheet(self.warning_style_input)
+            return False
         else:
-            if self.comboBox_stcnoct.currentText() == "STC":
-                if self.imput_params() == 1:
-                    return
-                self.resultStc()
-                self.statusBar.showMessage('Расчет выполнился при STC ', 10000)
-                self.set_style_default()
-            elif self.comboBox_stcnoct.currentText() == "NOCT":
-                if self.imput_params() == 1:
-                    return
-                self.resultNoct()
-                self.statusBar.showMessage('Расчет выполнился при NOCT ', 10000)
-                self.set_style_default()
-        
+            return True
+
+    def check_imput_params(self): #Проверка ввел ли пользователь необходимые значения для расчета
+        self.set_style_default()
+                
+        for field in self.fields_text:        
+            if self.valid_input_field(field) == False:
+                return
+            else:
+                self.valid_input_field(field)
+
+        if self.imput_params() == 1:
+            return
+
+        if self.comboBox_stcnoct.currentText() == "STC":
+            self.resultStc()
+            self.statusBar.showMessage('Расчет выполнился при STC ', 10000)
+        elif self.comboBox_stcnoct.currentText() == "NOCT":
+            self.resultNoct()
+            self.statusBar.showMessage('Расчет выполнился при NOCT ', 10000)
+        # self.tableWidget.resizeColumnsToContents()
+        self.set_style_default()
+             
     def set_style_default(self):      
         self.lineEdit_calcmintemp.setStyleSheet(self.default_style_input)
         self.lineEdit_calcmaxtemp.setStyleSheet(self.default_style_input)
@@ -326,33 +247,33 @@ class CalcPV(QtWidgets.QMainWindow, designCalcPV.Ui_MainWindow):
                 self.lineEdit_ncels.setText(str(self.found_pv['ncels_pv']))    
 
     def imput_params(self): #считывание вводимых данных
-        self.calcmintemp = float(self.calcmintemp) #считывание данных, которые вводит пользователь
-        self.calcmaxtemp = float(self.calcmaxtemp)
-        self.min_v = float(self.min)
-        self.max_v = float(self.max)
-        self.mintemp = float(self.mintemp)
-        self.countfem = float(self.countfem)
-        self.countparallel = float(self.countparallel)
-        self.irradiance = float(self.irradiance)
+        self.calcmintemp = float(self.lineEdit_calcmintemp.text()) #считывание данных, которые вводит пользователь
+        self.calcmaxtemp = float(self.lineEdit_calcmaxtemp.text())
+        self.min_v = float(self.lineEdit_min.text())
+        self.max_v = float(self.lineEdit_max.text())
+        self.mintemp = float(self.lineEdit_mintemp.text())
+        self.countfem = float(self.lineEdit_countfem.text())
+        self.countparallel = float(self.lineEdit_countparallel.text())
+        self.irradiance = float(self.lineEdit_irradiance.text())
         if self.comboBox_stcnoct.currentText() == "NOCT":
-            self.noct = float(self.noct)
-        self.numpnom = float(self.numpnom)
-        self.numisc = float(self.numisc)
-        self.numvoc = float(self.numvoc)
-        self.numimp = float(self.numimp)
-        self.numvmp = float(self.numvmp)
+            self.noct = float(self.lineEdit_noct.text())
+        self.numpnom = float(self.lineEdit_pnom.text())
+        self.numisc = float(self.lineEdit_isc.text())
+        self.numvoc = float(self.lineEdit_voc.text())
+        self.numimp = float(self.lineEdit_imp.text())
+        self.numvmp = float(self.lineEdit_vmp.text())
         try:
-            self.nummuisc = float(self.nummuisc)
+            self.nummuisc = float(self.lineEdit_muisc.text())
         except ValueError:
             self.statusBar.showMessage('Недопустимое значение в muISC', 10000 )
             self.statusBar.setStyleSheet("background-color:rgb(255, 105, 97)")
             return 1
-        self.nummuvocspec = float(self.nummuvocspec)
-        self.numvmaxiec = float(self.numvmaxiec)
-        self.numrshunt = float(self.numrshunt)
-        self.numncels = float(self.numncels)
-        self.umaxpogran = float(self.umaxpogran)  #ПОГРАНИЧНЫЕ ЗНАЧЕНИЯ
-        self.imaxpogran = float(self.imaxpogran)
+        self.nummuvocspec = float(self.lineEdit_muvocspec.text())
+        self.numvmaxiec = float(self.lineEdit_vmaxiec.text())
+        self.numrshunt = float(self.lineEdit_rshunt.text())
+        self.numncels = float(self.lineEdit_ncels.text())
+        self.umaxpogran = float(self.lineEdit_umax_pogran.text())  #ПОГРАНИЧНЫЕ ЗНАЧЕНИЯ
+        self.imaxpogran = float(self.lineEdit_imax_pogran.text())
         return 0
 
     def paint_borderline(self):

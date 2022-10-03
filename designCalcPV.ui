@@ -12,8 +12,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1632</width>
-    <height>904</height>
+    <width>1349</width>
+    <height>630</height>
    </rect>
   </property>
   <property name="baseSize">
@@ -90,9 +90,9 @@ QComboBox QAbstractItemView {
    <widget class="QComboBox" name="comboBox_stcnoct">
     <property name="geometry">
      <rect>
-      <x>349</x>
-      <y>60</y>
-      <width>221</width>
+      <x>401</x>
+      <y>70</y>
+      <width>111</width>
       <height>41</height>
      </rect>
     </property>
@@ -135,25 +135,28 @@ QComboBox:hover{
     </property>
     <property name="geometry">
      <rect>
-      <x>590</x>
-      <y>0</y>
-      <width>1041</width>
-      <height>581</height>
+      <x>535</x>
+      <y>130</y>
+      <width>801</width>
+      <height>451</height>
      </rect>
     </property>
     <property name="font">
      <font>
       <family>Arial</family>
-      <pointsize>9</pointsize>
+      <pointsize>7</pointsize>
       <weight>50</weight>
       <bold>false</bold>
      </font>
     </property>
     <property name="tabletTracking">
-     <bool>true</bool>
+     <bool>false</bool>
     </property>
     <property name="toolTip">
      <string>*Первая цифра № метода расчета I, вторая цифра № метода расчета V</string>
+    </property>
+    <property name="autoFillBackground">
+     <bool>false</bool>
     </property>
     <property name="styleSheet">
      <string notr="true">background-color: #ffffff;</string>
@@ -165,7 +168,7 @@ QComboBox:hover{
      <enum>QFrame::NoFrame</enum>
     </property>
     <property name="frameShadow">
-     <enum>QFrame::Sunken</enum>
+     <enum>QFrame::Plain</enum>
     </property>
     <property name="lineWidth">
      <number>1</number>
@@ -204,7 +207,7 @@ QComboBox:hover{
      <bool>true</bool>
     </property>
     <property name="gridStyle">
-     <enum>Qt::SolidLine</enum>
+     <enum>Qt::NoPen</enum>
     </property>
     <property name="sortingEnabled">
      <bool>false</bool>
@@ -213,7 +216,7 @@ QComboBox:hover{
      <bool>true</bool>
     </property>
     <property name="cornerButtonEnabled">
-     <bool>true</bool>
+     <bool>false</bool>
     </property>
     <property name="rowCount">
      <number>47</number>
@@ -225,13 +228,13 @@ QComboBox:hover{
      <bool>true</bool>
     </attribute>
     <attribute name="horizontalHeaderCascadingSectionResizes">
-     <bool>false</bool>
+     <bool>true</bool>
     </attribute>
     <attribute name="horizontalHeaderDefaultSectionSize">
-     <number>130</number>
+     <number>100</number>
     </attribute>
     <attribute name="horizontalHeaderHighlightSections">
-     <bool>false</bool>
+     <bool>true</bool>
     </attribute>
     <attribute name="horizontalHeaderMinimumSectionSize">
      <number>5</number>
@@ -246,13 +249,13 @@ QComboBox:hover{
      <bool>true</bool>
     </attribute>
     <attribute name="verticalHeaderCascadingSectionResizes">
-     <bool>false</bool>
+     <bool>true</bool>
     </attribute>
     <attribute name="verticalHeaderDefaultSectionSize">
      <number>20</number>
     </attribute>
     <attribute name="verticalHeaderHighlightSections">
-     <bool>true</bool>
+     <bool>false</bool>
     </attribute>
     <attribute name="verticalHeaderMinimumSectionSize">
      <number>20</number>
@@ -265,11 +268,14 @@ QComboBox:hover{
     </attribute>
     <row>
      <property name="text">
-      <string>Метод 1-1*</string>
+      <string>1-1</string>
      </property>
      <property name="font">
       <font>
-       <family>Calibri Light</family>
+       <family>Arial</family>
+       <pointsize>7</pointsize>
+       <weight>75</weight>
+       <bold>true</bold>
        <underline>false</underline>
       </font>
      </property>
@@ -301,11 +307,14 @@ QComboBox:hover{
     </row>
     <row>
      <property name="text">
-      <string>Метод 1-3</string>
+      <string>1-3</string>
      </property>
      <property name="font">
       <font>
-       <family>Calibri Light</family>
+       <family>Arial</family>
+       <pointsize>7</pointsize>
+       <weight>75</weight>
+       <bold>true</bold>
       </font>
      </property>
     </row>
@@ -336,11 +345,14 @@ QComboBox:hover{
     </row>
     <row>
      <property name="text">
-      <string>Метод 1-4</string>
+      <string>1-4</string>
      </property>
      <property name="font">
       <font>
-       <family>Calibri Light</family>
+       <family>Arial</family>
+       <pointsize>7</pointsize>
+       <weight>75</weight>
+       <bold>true</bold>
       </font>
      </property>
     </row>
@@ -371,11 +383,14 @@ QComboBox:hover{
     </row>
     <row>
      <property name="text">
-      <string>Метод 1-5</string>
+      <string>1-5</string>
      </property>
      <property name="font">
       <font>
-       <family>Calibri Light</family>
+       <family>Arial</family>
+       <pointsize>7</pointsize>
+       <weight>75</weight>
+       <bold>true</bold>
       </font>
      </property>
     </row>
@@ -406,11 +421,14 @@ QComboBox:hover{
     </row>
     <row>
      <property name="text">
-      <string>Метод 2-1</string>
+      <string>2-1</string>
      </property>
      <property name="font">
       <font>
-       <family>Calibri Light</family>
+       <family>Arial</family>
+       <pointsize>7</pointsize>
+       <weight>75</weight>
+       <bold>true</bold>
       </font>
      </property>
     </row>
@@ -441,11 +459,14 @@ QComboBox:hover{
     </row>
     <row>
      <property name="text">
-      <string>Метод 2-3</string>
+      <string>2-3</string>
      </property>
      <property name="font">
       <font>
-       <family>Calibri Light</family>
+       <family>Arial</family>
+       <pointsize>7</pointsize>
+       <weight>75</weight>
+       <bold>true</bold>
       </font>
      </property>
     </row>
@@ -476,11 +497,14 @@ QComboBox:hover{
     </row>
     <row>
      <property name="text">
-      <string>Метод 2-4</string>
+      <string>2-4</string>
      </property>
      <property name="font">
       <font>
-       <family>Calibri Light</family>
+       <family>Arial</family>
+       <pointsize>7</pointsize>
+       <weight>75</weight>
+       <bold>true</bold>
       </font>
      </property>
     </row>
@@ -511,11 +535,14 @@ QComboBox:hover{
     </row>
     <row>
      <property name="text">
-      <string>Метод 2-5</string>
+      <string>2-5</string>
      </property>
      <property name="font">
       <font>
-       <family>Calibri Light</family>
+       <family>Arial</family>
+       <pointsize>7</pointsize>
+       <weight>75</weight>
+       <bold>true</bold>
       </font>
      </property>
     </row>
@@ -548,8 +575,11 @@ QComboBox:hover{
      </property>
      <property name="font">
       <font>
-       <family>Calibri Light</family>
-       <italic>true</italic>
+       <family>Arial</family>
+       <pointsize>7</pointsize>
+       <weight>75</weight>
+       <italic>false</italic>
+       <bold>true</bold>
       </font>
      </property>
      <property name="textAlignment">
@@ -562,8 +592,11 @@ QComboBox:hover{
      </property>
      <property name="font">
       <font>
-       <family>Calibri Light</family>
-       <italic>true</italic>
+       <family>Arial</family>
+       <pointsize>7</pointsize>
+       <weight>75</weight>
+       <italic>false</italic>
+       <bold>true</bold>
       </font>
      </property>
      <property name="textAlignment">
@@ -576,8 +609,11 @@ QComboBox:hover{
      </property>
      <property name="font">
       <font>
-       <family>Calibri Light</family>
-       <italic>true</italic>
+       <family>Arial</family>
+       <pointsize>7</pointsize>
+       <weight>75</weight>
+       <italic>false</italic>
+       <bold>true</bold>
       </font>
      </property>
      <property name="textAlignment">
@@ -590,8 +626,11 @@ QComboBox:hover{
      </property>
      <property name="font">
       <font>
-       <family>Calibri Light</family>
-       <italic>true</italic>
+       <family>Arial</family>
+       <pointsize>7</pointsize>
+       <weight>75</weight>
+       <italic>false</italic>
+       <bold>true</bold>
       </font>
      </property>
      <property name="textAlignment">
@@ -604,8 +643,11 @@ QComboBox:hover{
      </property>
      <property name="font">
       <font>
-       <family>Calibri Light</family>
-       <italic>true</italic>
+       <family>Arial</family>
+       <pointsize>7</pointsize>
+       <weight>75</weight>
+       <italic>false</italic>
+       <bold>true</bold>
       </font>
      </property>
      <property name="textAlignment">
@@ -618,8 +660,11 @@ QComboBox:hover{
      </property>
      <property name="font">
       <font>
-       <family>Calibri Light</family>
-       <italic>true</italic>
+       <family>Arial</family>
+       <pointsize>7</pointsize>
+       <weight>75</weight>
+       <italic>false</italic>
+       <bold>true</bold>
       </font>
      </property>
      <property name="textAlignment">
@@ -632,10 +677,11 @@ QComboBox:hover{
      </property>
      <property name="font">
       <font>
-       <family>Calibri Light</family>
-       <weight>50</weight>
-       <italic>true</italic>
-       <bold>false</bold>
+       <family>Arial</family>
+       <pointsize>7</pointsize>
+       <weight>75</weight>
+       <italic>false</italic>
+       <bold>true</bold>
       </font>
      </property>
      <property name="textAlignment">
@@ -2063,9 +2109,9 @@ QComboBox:hover{
    <widget class="QPushButton" name="btnResult">
     <property name="geometry">
      <rect>
-      <x>10</x>
-      <y>438</y>
-      <width>171</width>
+      <x>210</x>
+      <y>545</y>
+      <width>303</width>
       <height>41</height>
      </rect>
     </property>
@@ -2110,8 +2156,8 @@ QPushButton:pressed{
    <widget class="QPushButton" name="btnSave">
     <property name="geometry">
      <rect>
-      <x>10</x>
-      <y>388</y>
+      <x>870</x>
+      <y>20</y>
       <width>171</width>
       <height>41</height>
      </rect>
@@ -2150,8 +2196,8 @@ QPushButton:pressed{
    <widget class="QComboBox" name="comboBox_city">
     <property name="geometry">
      <rect>
-      <x>150</x>
-      <y>60</y>
+      <x>202</x>
+      <y>70</y>
       <width>191</width>
       <height>41</height>
      </rect>
@@ -2204,1196 +2250,19 @@ QComboBox:hover{
      <string/>
     </property>
    </widget>
-   <widget class="QWidget" name="layoutWidget">
-    <property name="geometry">
-     <rect>
-      <x>200</x>
-      <y>120</y>
-      <width>363</width>
-      <height>306</height>
-     </rect>
-    </property>
-    <property name="font">
-     <font>
-      <family>Arial</family>
-     </font>
-    </property>
-    <layout class="QVBoxLayout" name="verticalLayout_2">
-     <item>
-      <widget class="QLabel" name="label_18">
-       <property name="font">
-        <font>
-         <family>Arial</family>
-         <pointsize>10</pointsize>
-         <weight>75</weight>
-         <bold>true</bold>
-        </font>
-       </property>
-       <property name="styleSheet">
-        <string notr="true">background-color:rgba(209,209,214,0.01);</string>
-       </property>
-       <property name="text">
-        <string>Расчетные параметры:</string>
-       </property>
-       <property name="alignment">
-        <set>Qt::AlignCenter</set>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <layout class="QGridLayout" name="gridLayout">
-       <item row="1" column="1">
-        <widget class="QLineEdit" name="lineEdit_calcmaxtemp">
-         <property name="font">
-          <font>
-           <family>Arial</family>
-           <weight>75</weight>
-           <bold>true</bold>
-          </font>
-         </property>
-         <property name="styleSheet">
-          <string notr="true">QLineEdit{
-	background-color:rgba(229,229,234,1); 
-	border-radius: 6;
-	border: none;
-	padding-left: 8px
-}
-QLineEdit:hover{
-	background-color:rgba(242,242,247,1);
-}
-QLineEdit:pressed{
-	background-color:rgba(188,188,192,1);
-	border-radius: 12;
-}</string>
-         </property>
-         <property name="inputMethodHints">
-          <set>Qt::ImhNone</set>
-         </property>
-         <property name="text">
-          <string/>
-         </property>
-         <property name="placeholderText">
-          <string/>
-         </property>
-         <property name="clearButtonEnabled">
-          <bool>false</bool>
-         </property>
-        </widget>
-       </item>
-       <item row="4" column="0">
-        <widget class="QLabel" name="label_23">
-         <property name="font">
-          <font>
-           <family>Arial</family>
-           <pointsize>9</pointsize>
-           <weight>75</weight>
-           <italic>false</italic>
-           <bold>true</bold>
-           <stylestrategy>PreferAntialias</stylestrategy>
-           <kerning>true</kerning>
-          </font>
-         </property>
-         <property name="styleSheet">
-          <string notr="true">background-color:rgba(209,209,214,0.01);</string>
-         </property>
-         <property name="text">
-          <string>Минимальная температура (0.98)</string>
-         </property>
-        </widget>
-       </item>
-       <item row="8" column="1">
-        <widget class="QLineEdit" name="lineEdit_noct">
-         <property name="font">
-          <font>
-           <family>Arial</family>
-           <weight>75</weight>
-           <bold>true</bold>
-          </font>
-         </property>
-         <property name="styleSheet">
-          <string notr="true">QLineEdit{
-	background-color:rgba(229,229,234,1); 
-	border-radius: 6;
-	border: none;
-	padding-left: 8px
-}
-QLineEdit:hover{
-	background-color:rgba(242,242,247,1);
-}
-QLineEdit:pressed{
-	background-color:rgba(188,188,192,1);
-	border-radius: 12;
-}</string>
-         </property>
-         <property name="placeholderText">
-          <string/>
-         </property>
-        </widget>
-       </item>
-       <item row="7" column="1">
-        <widget class="QLineEdit" name="lineEdit_irradiance">
-         <property name="font">
-          <font>
-           <family>Arial</family>
-           <weight>75</weight>
-           <bold>true</bold>
-          </font>
-         </property>
-         <property name="styleSheet">
-          <string notr="true">QLineEdit{
-	background-color:rgba(229,229,234,1); 
-	border-radius: 6;
-	border: none;
-	padding-left: 8px
-}
-QLineEdit:hover{
-	background-color:rgba(242,242,247,1);
-}
-QLineEdit:pressed{
-	background-color:rgba(188,188,192,1);
-	border-radius: 12;
-}</string>
-         </property>
-         <property name="placeholderText">
-          <string/>
-         </property>
-        </widget>
-       </item>
-       <item row="2" column="0">
-        <widget class="QLabel" name="label_21">
-         <property name="font">
-          <font>
-           <family>Arial</family>
-           <pointsize>9</pointsize>
-           <weight>75</weight>
-           <italic>false</italic>
-           <bold>true</bold>
-           <stylestrategy>PreferAntialias</stylestrategy>
-           <kerning>true</kerning>
-          </font>
-         </property>
-         <property name="toolTip">
-          <string>(Импортируется с RP5)</string>
-         </property>
-         <property name="styleSheet">
-          <string notr="true">background-color:rgba(209,209,214,0.01);</string>
-         </property>
-         <property name="text">
-          <string>Абсолютный минимум</string>
-         </property>
-        </widget>
-       </item>
-       <item row="5" column="1">
-        <widget class="QLineEdit" name="lineEdit_countfem">
-         <property name="font">
-          <font>
-           <family>Arial</family>
-           <weight>75</weight>
-           <bold>true</bold>
-          </font>
-         </property>
-         <property name="styleSheet">
-          <string notr="true">QLineEdit{
-	background-color:rgba(229,229,234,1); 
-	border-radius: 6;
-	border: none;
-	padding-left: 8px
-}
-QLineEdit:hover{
-	background-color:rgba(242,242,247,1);
-}
-QLineEdit:pressed{
-	background-color:rgba(188,188,192,1);
-	border-radius: 12;
-}</string>
-         </property>
-         <property name="placeholderText">
-          <string/>
-         </property>
-        </widget>
-       </item>
-       <item row="11" column="1">
-        <widget class="QLineEdit" name="lineEdit_umax_pogran">
-         <property name="font">
-          <font>
-           <family>Arial</family>
-           <pointsize>10</pointsize>
-           <weight>75</weight>
-           <bold>true</bold>
-          </font>
-         </property>
-         <property name="cursor">
-          <cursorShape>IBeamCursor</cursorShape>
-         </property>
-         <property name="autoFillBackground">
-          <bool>false</bool>
-         </property>
-         <property name="styleSheet">
-          <string notr="true">QLineEdit{
-	background-color:rgba(229,229,234,1); 
-	border-radius: 6;
-	border: none;
-	padding-left: 8px
-}
-QLineEdit:hover{
-	background-color:rgba(242,242,247,1);
-}
-QLineEdit:pressed{
-	background-color:rgba(188,188,192,1);
-	border-radius: 12;
-}</string>
-         </property>
-         <property name="text">
-          <string/>
-         </property>
-         <property name="readOnly">
-          <bool>false</bool>
-         </property>
-        </widget>
-       </item>
-       <item row="11" column="0">
-        <widget class="QLabel" name="label_16">
-         <property name="font">
-          <font>
-           <family>Arial</family>
-           <pointsize>9</pointsize>
-           <weight>75</weight>
-           <italic>false</italic>
-           <bold>true</bold>
-           <stylestrategy>PreferAntialias</stylestrategy>
-           <kerning>true</kerning>
-          </font>
-         </property>
-         <property name="styleSheet">
-          <string notr="true">background-color:rgba(209,209,214,0.01);</string>
-         </property>
-         <property name="text">
-          <string>Umax инвертора</string>
-         </property>
-        </widget>
-       </item>
-       <item row="7" column="0">
-        <widget class="QLabel" name="label_26">
-         <property name="font">
-          <font>
-           <family>Arial</family>
-           <pointsize>9</pointsize>
-           <weight>75</weight>
-           <italic>false</italic>
-           <bold>true</bold>
-           <stylestrategy>PreferAntialias</stylestrategy>
-           <kerning>true</kerning>
-          </font>
-         </property>
-         <property name="styleSheet">
-          <string notr="true">background-color:rgba(209,209,214,0.01);</string>
-         </property>
-         <property name="text">
-          <string>Инсоляция, В/м2</string>
-         </property>
-        </widget>
-       </item>
-       <item row="6" column="0">
-        <widget class="QLabel" name="label_25">
-         <property name="font">
-          <font>
-           <family>Arial</family>
-           <pointsize>9</pointsize>
-           <weight>75</weight>
-           <italic>false</italic>
-           <bold>true</bold>
-           <stylestrategy>PreferAntialias</stylestrategy>
-           <kerning>true</kerning>
-          </font>
-         </property>
-         <property name="styleSheet">
-          <string notr="true">background-color:rgba(209,209,214,0.01);</string>
-         </property>
-         <property name="text">
-          <string>Число параллельных цепочек</string>
-         </property>
-        </widget>
-       </item>
-       <item row="0" column="0">
-        <widget class="QLabel" name="label_19">
-         <property name="font">
-          <font>
-           <family>Arial</family>
-           <pointsize>9</pointsize>
-           <weight>75</weight>
-           <italic>false</italic>
-           <bold>true</bold>
-           <stylestrategy>PreferAntialias</stylestrategy>
-           <kerning>true</kerning>
-          </font>
-         </property>
-         <property name="styleSheet">
-          <string notr="true">background-color:rgba(209,209,214,0.01);</string>
-         </property>
-         <property name="text">
-          <string>Расчетная минимальная температура</string>
-         </property>
-        </widget>
-       </item>
-       <item row="0" column="1">
-        <widget class="QLineEdit" name="lineEdit_calcmintemp">
-         <property name="font">
-          <font>
-           <family>Arial</family>
-           <weight>75</weight>
-           <bold>true</bold>
-          </font>
-         </property>
-         <property name="styleSheet">
-          <string notr="true">QLineEdit{
-	background-color:rgba(229,229,234,1); 
-	border-radius: 6;
-	border: none;
-	padding-left: 8px
-}
-QLineEdit:hover{
-	background-color:rgba(242,242,247,1);
-}
-QLineEdit:pressed{
-	background-color:rgba(188,188,192,1);
-	border-radius: 12;
-}</string>
-         </property>
-         <property name="inputMethodHints">
-          <set>Qt::ImhNone</set>
-         </property>
-         <property name="text">
-          <string/>
-         </property>
-         <property name="placeholderText">
-          <string/>
-         </property>
-         <property name="clearButtonEnabled">
-          <bool>false</bool>
-         </property>
-        </widget>
-       </item>
-       <item row="3" column="1">
-        <widget class="QLineEdit" name="lineEdit_max">
-         <property name="font">
-          <font>
-           <family>Arial</family>
-           <weight>75</weight>
-           <bold>true</bold>
-          </font>
-         </property>
-         <property name="styleSheet">
-          <string notr="true">QLineEdit{
-	background-color:rgba(229,229,234,1); 
-	border-radius: 6;
-	border: none;
-	padding-left: 8px
-}
-QLineEdit:hover{
-	background-color:rgba(242,242,247,1);
-}
-QLineEdit:pressed{
-	background-color:rgba(188,188,192,1);
-	border-radius: 12;
-}</string>
-         </property>
-         <property name="placeholderText">
-          <string/>
-         </property>
-        </widget>
-       </item>
-       <item row="5" column="0">
-        <widget class="QLabel" name="label_24">
-         <property name="font">
-          <font>
-           <family>Arial</family>
-           <pointsize>9</pointsize>
-           <weight>75</weight>
-           <italic>false</italic>
-           <bold>true</bold>
-           <stylestrategy>PreferAntialias</stylestrategy>
-           <kerning>true</kerning>
-          </font>
-         </property>
-         <property name="styleSheet">
-          <string notr="true">background-color:rgba(209,209,214,0.01);</string>
-         </property>
-         <property name="text">
-          <string>Число ФЭМ в цепочке</string>
-         </property>
-        </widget>
-       </item>
-       <item row="3" column="0">
-        <widget class="QLabel" name="label_22">
-         <property name="font">
-          <font>
-           <family>Arial</family>
-           <pointsize>9</pointsize>
-           <weight>75</weight>
-           <italic>false</italic>
-           <bold>true</bold>
-           <stylestrategy>PreferAntialias</stylestrategy>
-           <kerning>true</kerning>
-          </font>
-         </property>
-         <property name="toolTip">
-          <string>(Импортируется с RP5)</string>
-         </property>
-         <property name="styleSheet">
-          <string notr="true">background-color:rgba(209,209,214,0.01);</string>
-         </property>
-         <property name="text">
-          <string>Абсолютный максимум</string>
-         </property>
-        </widget>
-       </item>
-       <item row="4" column="1">
-        <widget class="QLineEdit" name="lineEdit_mintemp">
-         <property name="font">
-          <font>
-           <family>Arial</family>
-           <weight>75</weight>
-           <bold>true</bold>
-          </font>
-         </property>
-         <property name="styleSheet">
-          <string notr="true">QLineEdit{
-	background-color:rgba(229,229,234,1); 
-	border-radius: 6;
-	border: none;
-	padding-left: 8px
-}
-QLineEdit:hover{
-	background-color:rgba(242,242,247,1);
-}
-QLineEdit:pressed{
-	background-color:rgba(188,188,192,1);
-	border-radius: 12;
-}</string>
-         </property>
-         <property name="placeholderText">
-          <string/>
-         </property>
-        </widget>
-       </item>
-       <item row="1" column="0">
-        <widget class="QLabel" name="label_20">
-         <property name="font">
-          <font>
-           <family>Arial</family>
-           <pointsize>9</pointsize>
-           <weight>75</weight>
-           <italic>false</italic>
-           <bold>true</bold>
-           <stylestrategy>PreferAntialias</stylestrategy>
-           <kerning>true</kerning>
-          </font>
-         </property>
-         <property name="styleSheet">
-          <string notr="true">background-color:rgba(209,209,214,0.01);</string>
-         </property>
-         <property name="text">
-          <string>Расчетная максимальня температура</string>
-         </property>
-        </widget>
-       </item>
-       <item row="6" column="1">
-        <widget class="QLineEdit" name="lineEdit_countparallel">
-         <property name="font">
-          <font>
-           <family>Arial</family>
-           <weight>75</weight>
-           <bold>true</bold>
-          </font>
-         </property>
-         <property name="styleSheet">
-          <string notr="true">QLineEdit{
-	background-color:rgba(229,229,234,1); 
-	border-radius: 6;
-	border: none;
-	padding-left: 8px
-}
-QLineEdit:hover{
-	background-color:rgba(242,242,247,1);
-}
-QLineEdit:pressed{
-	background-color:rgba(188,188,192,1);
-	border-radius: 12;
-}</string>
-         </property>
-         <property name="placeholderText">
-          <string/>
-         </property>
-        </widget>
-       </item>
-       <item row="2" column="1">
-        <widget class="QLineEdit" name="lineEdit_min">
-         <property name="font">
-          <font>
-           <family>Arial</family>
-           <weight>75</weight>
-           <bold>true</bold>
-          </font>
-         </property>
-         <property name="styleSheet">
-          <string notr="true">QLineEdit{
-	background-color:rgba(229,229,234,1); 
-	border-radius: 6;
-	border: none;
-	padding-left: 8px
-}
-QLineEdit:hover{
-	background-color:rgba(242,242,247,1);
-}
-QLineEdit:pressed{
-	background-color:rgba(188,188,192,1);
-	border-radius: 12;
-}</string>
-         </property>
-         <property name="inputMethodHints">
-          <set>Qt::ImhNone</set>
-         </property>
-         <property name="text">
-          <string/>
-         </property>
-         <property name="placeholderText">
-          <string/>
-         </property>
-         <property name="clearButtonEnabled">
-          <bool>false</bool>
-         </property>
-        </widget>
-       </item>
-       <item row="8" column="0">
-        <widget class="QLabel" name="label_27">
-         <property name="font">
-          <font>
-           <family>Arial</family>
-           <pointsize>9</pointsize>
-           <weight>75</weight>
-           <italic>false</italic>
-           <bold>true</bold>
-           <stylestrategy>PreferAntialias</stylestrategy>
-           <kerning>true</kerning>
-          </font>
-         </property>
-         <property name="styleSheet">
-          <string notr="true">background-color:rgba(209,209,214,0.01);</string>
-         </property>
-         <property name="text">
-          <string>NOCT</string>
-         </property>
-        </widget>
-       </item>
-       <item row="10" column="0">
-        <widget class="QLabel" name="label_14">
-         <property name="font">
-          <font>
-           <family>Arial</family>
-           <pointsize>9</pointsize>
-           <weight>75</weight>
-           <bold>true</bold>
-          </font>
-         </property>
-         <property name="styleSheet">
-          <string notr="true">background-color:rgba(209,209,214,0.01);</string>
-         </property>
-         <property name="text">
-          <string>Imax на один МРРТ</string>
-         </property>
-        </widget>
-       </item>
-       <item row="10" column="1">
-        <widget class="QLineEdit" name="lineEdit_imax_pogran">
-         <property name="font">
-          <font>
-           <family>Arial</family>
-           <weight>75</weight>
-           <bold>true</bold>
-          </font>
-         </property>
-         <property name="autoFillBackground">
-          <bool>false</bool>
-         </property>
-         <property name="styleSheet">
-          <string notr="true">QLineEdit{
-	background-color:rgba(229,229,234,1); 
-	border-radius: 6;
-	border: none;
-	padding-left: 8px
-}
-QLineEdit:hover{
-	background-color:rgba(242,242,247,1);
-}
-QLineEdit:pressed{
-	background-color:rgba(188,188,192,1);
-	border-radius: 12;
-}</string>
-         </property>
-         <property name="text">
-          <string/>
-         </property>
-         <property name="readOnly">
-          <bool>false</bool>
-         </property>
-        </widget>
-       </item>
-       <item row="9" column="0" colspan="2">
-        <widget class="QLabel" name="label_15">
-         <property name="font">
-          <font>
-           <family>Arial</family>
-           <pointsize>10</pointsize>
-           <weight>75</weight>
-           <bold>true</bold>
-          </font>
-         </property>
-         <property name="styleSheet">
-          <string notr="true">background-color:rgba(209,209,214,0.01);</string>
-         </property>
-         <property name="text">
-          <string>Пограничные значения:</string>
-         </property>
-         <property name="alignment">
-          <set>Qt::AlignCenter</set>
-         </property>
-        </widget>
-       </item>
-      </layout>
-     </item>
-    </layout>
-   </widget>
-   <widget class="QWidget" name="layoutWidget">
-    <property name="geometry">
-     <rect>
-      <x>12</x>
-      <y>120</y>
-      <width>172</width>
-      <height>261</height>
-     </rect>
-    </property>
-    <property name="font">
-     <font>
-      <family>Arial</family>
-     </font>
-    </property>
-    <layout class="QFormLayout" name="formLayout">
-     <item row="0" column="0" colspan="2">
-      <widget class="QLabel" name="label_17">
-       <property name="font">
-        <font>
-         <family>Arial</family>
-         <pointsize>10</pointsize>
-         <weight>75</weight>
-         <bold>true</bold>
-        </font>
-       </property>
-       <property name="styleSheet">
-        <string notr="true">background-color:rgba(209,209,214,0.01);</string>
-       </property>
-       <property name="text">
-        <string>Параметры модуля:</string>
-       </property>
-       <property name="alignment">
-        <set>Qt::AlignCenter</set>
-       </property>
-      </widget>
-     </item>
-     <item row="1" column="0">
-      <widget class="QLabel" name="label">
-       <property name="font">
-        <font>
-         <family>Arial</family>
-         <pointsize>9</pointsize>
-         <weight>75</weight>
-         <bold>true</bold>
-        </font>
-       </property>
-       <property name="styleSheet">
-        <string notr="true">background-color:rgba(209,209,214,0.01);</string>
-       </property>
-       <property name="text">
-        <string>PNom</string>
-       </property>
-      </widget>
-     </item>
-     <item row="1" column="1">
-      <widget class="QLineEdit" name="lineEdit_pnom">
-       <property name="font">
-        <font>
-         <family>Arial</family>
-         <weight>75</weight>
-         <bold>true</bold>
-        </font>
-       </property>
-       <property name="autoFillBackground">
-        <bool>false</bool>
-       </property>
-       <property name="styleSheet">
-        <string notr="true">QLineEdit{
-	background-color:rgba(229,229,234,1); 
-	border-radius: 6;
-	border: none;
-	padding-left: 8px
-}
-QLineEdit:hover{
-	background-color:rgba(242,242,247,1);
-}
-QLineEdit:pressed{
-	background-color:rgba(188,188,192,1);
-	border-radius: 12;
-}</string>
-       </property>
-       <property name="text">
-        <string/>
-       </property>
-       <property name="readOnly">
-        <bool>false</bool>
-       </property>
-      </widget>
-     </item>
-     <item row="2" column="0">
-      <widget class="QLabel" name="label_2">
-       <property name="font">
-        <font>
-         <family>Arial</family>
-         <pointsize>9</pointsize>
-         <weight>75</weight>
-         <bold>true</bold>
-        </font>
-       </property>
-       <property name="styleSheet">
-        <string notr="true">background-color:rgba(209,209,214,0.01);</string>
-       </property>
-       <property name="text">
-        <string>Isc</string>
-       </property>
-      </widget>
-     </item>
-     <item row="2" column="1">
-      <widget class="QLineEdit" name="lineEdit_isc">
-       <property name="font">
-        <font>
-         <family>Arial</family>
-         <weight>75</weight>
-         <bold>true</bold>
-        </font>
-       </property>
-       <property name="styleSheet">
-        <string notr="true">QLineEdit{
-	background-color:rgba(229,229,234,1); 
-	border-radius: 6;
-	border: none;
-	padding-left: 8px
-}
-QLineEdit:hover{
-	background-color:rgba(242,242,247,1);
-}
-QLineEdit:pressed{
-	background-color:rgba(188,188,192,1);
-	border-radius: 12;
-}</string>
-       </property>
-       <property name="readOnly">
-        <bool>false</bool>
-       </property>
-      </widget>
-     </item>
-     <item row="3" column="0">
-      <widget class="QLabel" name="label_3">
-       <property name="font">
-        <font>
-         <family>Arial</family>
-         <pointsize>9</pointsize>
-         <weight>75</weight>
-         <bold>true</bold>
-        </font>
-       </property>
-       <property name="styleSheet">
-        <string notr="true">background-color:rgba(209,209,214,0.01);</string>
-       </property>
-       <property name="text">
-        <string>Voc</string>
-       </property>
-      </widget>
-     </item>
-     <item row="3" column="1">
-      <widget class="QLineEdit" name="lineEdit_voc">
-       <property name="font">
-        <font>
-         <family>Arial</family>
-         <weight>75</weight>
-         <bold>true</bold>
-        </font>
-       </property>
-       <property name="styleSheet">
-        <string notr="true">QLineEdit{
-	background-color:rgba(229,229,234,1); 
-	border-radius: 6;
-	border: none;
-	padding-left: 8px
-}
-QLineEdit:hover{
-	background-color:rgba(242,242,247,1);
-}
-QLineEdit:pressed{
-	background-color:rgba(188,188,192,1);
-	border-radius: 12;
-}</string>
-       </property>
-       <property name="readOnly">
-        <bool>false</bool>
-       </property>
-      </widget>
-     </item>
-     <item row="4" column="0">
-      <widget class="QLabel" name="label_9">
-       <property name="font">
-        <font>
-         <family>Arial</family>
-         <pointsize>9</pointsize>
-         <weight>75</weight>
-         <bold>true</bold>
-        </font>
-       </property>
-       <property name="styleSheet">
-        <string notr="true">background-color:rgba(209,209,214,0.01);</string>
-       </property>
-       <property name="text">
-        <string>Imp</string>
-       </property>
-      </widget>
-     </item>
-     <item row="4" column="1">
-      <widget class="QLineEdit" name="lineEdit_imp">
-       <property name="font">
-        <font>
-         <family>Arial</family>
-         <weight>75</weight>
-         <bold>true</bold>
-        </font>
-       </property>
-       <property name="styleSheet">
-        <string notr="true">QLineEdit{
-	background-color:rgba(229,229,234,1); 
-	border-radius: 6;
-	border: none;
-	padding-left: 8px
-}
-QLineEdit:hover{
-	background-color:rgba(242,242,247,1);
-}
-QLineEdit:pressed{
-	background-color:rgba(188,188,192,1);
-	border-radius: 12;
-}</string>
-       </property>
-       <property name="readOnly">
-        <bool>false</bool>
-       </property>
-      </widget>
-     </item>
-     <item row="5" column="0">
-      <widget class="QLabel" name="label_12">
-       <property name="font">
-        <font>
-         <family>Arial</family>
-         <pointsize>9</pointsize>
-         <weight>75</weight>
-         <bold>true</bold>
-        </font>
-       </property>
-       <property name="styleSheet">
-        <string notr="true">background-color:rgba(209,209,214,0.01);</string>
-       </property>
-       <property name="text">
-        <string>Vmp</string>
-       </property>
-      </widget>
-     </item>
-     <item row="5" column="1">
-      <widget class="QLineEdit" name="lineEdit_vmp">
-       <property name="font">
-        <font>
-         <family>Arial</family>
-         <weight>75</weight>
-         <bold>true</bold>
-        </font>
-       </property>
-       <property name="styleSheet">
-        <string notr="true">QLineEdit{
-	background-color:rgba(229,229,234,1); 
-	border-radius: 6;
-	border: none;
-	padding-left: 8px
-}
-QLineEdit:hover{
-	background-color:rgba(242,242,247,1);
-}
-QLineEdit:pressed{
-	background-color:rgba(188,188,192,1);
-	border-radius: 12;
-}</string>
-       </property>
-       <property name="readOnly">
-        <bool>false</bool>
-       </property>
-      </widget>
-     </item>
-     <item row="6" column="0">
-      <widget class="QLabel" name="label_4">
-       <property name="font">
-        <font>
-         <family>Arial</family>
-         <pointsize>9</pointsize>
-         <weight>75</weight>
-         <bold>true</bold>
-        </font>
-       </property>
-       <property name="styleSheet">
-        <string notr="true">background-color:rgba(209,209,214,0.01);</string>
-       </property>
-       <property name="text">
-        <string>muISC</string>
-       </property>
-      </widget>
-     </item>
-     <item row="6" column="1">
-      <widget class="QLineEdit" name="lineEdit_muisc">
-       <property name="font">
-        <font>
-         <family>Arial</family>
-         <weight>75</weight>
-         <bold>true</bold>
-        </font>
-       </property>
-       <property name="styleSheet">
-        <string notr="true">QLineEdit{
-	background-color:rgba(229,229,234,1); 
-	border-radius: 6;
-	border: none;
-	padding-left: 8px
-}
-QLineEdit:hover{
-	background-color:rgba(242,242,247,1);
-}
-QLineEdit:pressed{
-	background-color:rgba(188,188,192,1);
-	border-radius: 12;
-}</string>
-       </property>
-       <property name="readOnly">
-        <bool>false</bool>
-       </property>
-      </widget>
-     </item>
-     <item row="7" column="0">
-      <widget class="QLabel" name="label_5">
-       <property name="font">
-        <font>
-         <family>Arial</family>
-         <pointsize>9</pointsize>
-         <weight>75</weight>
-         <bold>true</bold>
-        </font>
-       </property>
-       <property name="styleSheet">
-        <string notr="true">background-color:rgba(209,209,214,0.01);</string>
-       </property>
-       <property name="text">
-        <string>muVocSpec</string>
-       </property>
-      </widget>
-     </item>
-     <item row="7" column="1">
-      <widget class="QLineEdit" name="lineEdit_muvocspec">
-       <property name="font">
-        <font>
-         <family>Arial</family>
-         <weight>75</weight>
-         <bold>true</bold>
-        </font>
-       </property>
-       <property name="styleSheet">
-        <string notr="true">QLineEdit{
-	background-color:rgba(229,229,234,1); 
-	border-radius: 6;
-	border: none;
-	padding-left: 8px
-}
-QLineEdit:hover{
-	background-color:rgba(242,242,247,1);
-}
-QLineEdit:pressed{
-	background-color:rgba(188,188,192,1);
-	border-radius: 12;
-}</string>
-       </property>
-       <property name="readOnly">
-        <bool>false</bool>
-       </property>
-      </widget>
-     </item>
-     <item row="8" column="0">
-      <widget class="QLabel" name="label_7">
-       <property name="font">
-        <font>
-         <family>Arial</family>
-         <pointsize>9</pointsize>
-         <weight>75</weight>
-         <bold>true</bold>
-        </font>
-       </property>
-       <property name="styleSheet">
-        <string notr="true">background-color:rgba(209,209,214,0.01);</string>
-       </property>
-       <property name="text">
-        <string>VMaxIEC</string>
-       </property>
-      </widget>
-     </item>
-     <item row="8" column="1">
-      <widget class="QLineEdit" name="lineEdit_vmaxiec">
-       <property name="font">
-        <font>
-         <family>Arial</family>
-         <weight>75</weight>
-         <bold>true</bold>
-        </font>
-       </property>
-       <property name="styleSheet">
-        <string notr="true">QLineEdit{
-	background-color:rgba(229,229,234,1); 
-	border-radius: 6;
-	border: none;
-	padding-left: 8px
-}
-QLineEdit:hover{
-	background-color:rgba(242,242,247,1);
-}
-QLineEdit:pressed{
-	background-color:rgba(188,188,192,1);
-	border-radius: 12;
-}</string>
-       </property>
-       <property name="readOnly">
-        <bool>false</bool>
-       </property>
-      </widget>
-     </item>
-     <item row="9" column="0">
-      <widget class="QLabel" name="label_10">
-       <property name="font">
-        <font>
-         <family>Arial</family>
-         <pointsize>9</pointsize>
-         <weight>75</weight>
-         <bold>true</bold>
-         <stylestrategy>PreferAntialias</stylestrategy>
-         <kerning>true</kerning>
-        </font>
-       </property>
-       <property name="styleSheet">
-        <string notr="true">background-color:rgba(209,209,214,0.01);</string>
-       </property>
-       <property name="text">
-        <string>RShunt</string>
-       </property>
-      </widget>
-     </item>
-     <item row="9" column="1">
-      <widget class="QLineEdit" name="lineEdit_rshunt">
-       <property name="font">
-        <font>
-         <family>Arial</family>
-         <weight>75</weight>
-         <bold>true</bold>
-        </font>
-       </property>
-       <property name="styleSheet">
-        <string notr="true">QLineEdit{
-	background-color:rgba(229,229,234,1); 
-	border-radius: 6;
-	border: none;
-	padding-left: 8px
-}
-QLineEdit:hover{
-	background-color:rgba(242,242,247,1);
-}
-QLineEdit:pressed{
-	background-color:rgba(188,188,192,1);
-	border-radius: 12;
-}</string>
-       </property>
-       <property name="readOnly">
-        <bool>false</bool>
-       </property>
-      </widget>
-     </item>
-     <item row="10" column="0">
-      <widget class="QLabel" name="label_13">
-       <property name="font">
-        <font>
-         <family>Arial</family>
-         <pointsize>9</pointsize>
-         <weight>75</weight>
-         <bold>true</bold>
-         <stylestrategy>PreferAntialias</stylestrategy>
-         <kerning>true</kerning>
-        </font>
-       </property>
-       <property name="styleSheet">
-        <string notr="true">background-color:rgba(209,209,214,0.01);</string>
-       </property>
-       <property name="text">
-        <string>NCelS</string>
-       </property>
-      </widget>
-     </item>
-     <item row="10" column="1">
-      <widget class="QLineEdit" name="lineEdit_ncels">
-       <property name="font">
-        <font>
-         <family>Arial</family>
-         <weight>75</weight>
-         <bold>true</bold>
-        </font>
-       </property>
-       <property name="styleSheet">
-        <string notr="true">QLineEdit{
-	background-color:rgba(229,229,234,1); 
-	border-radius: 6;
-	border: none;
-	padding-left: 8px
-}
-QLineEdit:hover{
-	background-color:rgba(242,242,247,1);
-}
-QLineEdit:pressed{
-	background-color:rgba(188,188,192,1);
-	border-radius: 12;
-}</string>
-       </property>
-       <property name="readOnly">
-        <bool>false</bool>
-       </property>
-      </widget>
-     </item>
-    </layout>
-   </widget>
    <widget class="QComboBox" name="listPV_file">
     <property name="geometry">
      <rect>
-      <x>250</x>
-      <y>10</y>
-      <width>320</width>
+      <x>302</x>
+      <y>20</y>
+      <width>211</width>
       <height>41</height>
      </rect>
     </property>
     <property name="font">
      <font>
       <family>Arial</family>
-      <pointsize>10</pointsize>
+      <pointsize>8</pointsize>
       <weight>75</weight>
       <bold>true</bold>
      </font>
@@ -3436,8 +2305,8 @@ QComboBox:hover{
    <widget class="QComboBox" name="listPV_folder">
     <property name="geometry">
      <rect>
-      <x>150</x>
-      <y>10</y>
+      <x>202</x>
+      <y>20</y>
       <width>91</width>
       <height>41</height>
      </rect>
@@ -3488,7 +2357,7 @@ QComboBox:hover{
     <property name="geometry">
      <rect>
       <x>20</x>
-      <y>10</y>
+      <y>20</y>
       <width>81</width>
       <height>35</height>
      </rect>
@@ -3505,7 +2374,7 @@ QComboBox:hover{
      <string notr="true">background-color: rgba(255,255,255,0); </string>
     </property>
     <property name="text">
-     <string>ФЭМ</string>
+     <string>ФЭМ:</string>
     </property>
     <property name="scaledContents">
      <bool>false</bool>
@@ -3515,8 +2384,8 @@ QComboBox:hover{
     <property name="geometry">
      <rect>
       <x>20</x>
-      <y>60</y>
-      <width>131</width>
+      <y>70</y>
+      <width>171</width>
       <height>35</height>
      </rect>
     </property>
@@ -3532,11 +2401,1401 @@ QComboBox:hover{
      <string notr="true">background-color: rgba(255,255,255,0); </string>
     </property>
     <property name="text">
-     <string>Температура города
-Режим </string>
+     <string>Температура города:
+Условие расчета: </string>
     </property>
     <property name="scaledContents">
      <bool>false</bool>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_17">
+    <property name="geometry">
+     <rect>
+      <x>21</x>
+      <y>131</y>
+      <width>491</width>
+      <height>19</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Arial</family>
+      <pointsize>10</pointsize>
+      <weight>75</weight>
+      <bold>true</bold>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color:rgba(209,209,214,0.01);</string>
+    </property>
+    <property name="text">
+     <string>Параметры:</string>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+    </property>
+   </widget>
+   <widget class="QLineEdit" name="lineEdit_pnom">
+    <property name="geometry">
+     <rect>
+      <x>110</x>
+      <y>158</y>
+      <width>81</width>
+      <height>41</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Arial</family>
+      <weight>75</weight>
+      <bold>true</bold>
+     </font>
+    </property>
+    <property name="autoFillBackground">
+     <bool>false</bool>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QLineEdit{
+	background-color:rgba(229,229,234,1); 
+	border-radius: 6;
+	border: none;
+	padding-left: 8px
+}
+QLineEdit:hover{
+	background-color:rgba(242,242,247,1);
+}
+QLineEdit:pressed{
+	background-color:rgba(188,188,192,1);
+	border-radius: 12;
+}</string>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+    <property name="readOnly">
+     <bool>false</bool>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label">
+    <property name="geometry">
+     <rect>
+      <x>21</x>
+      <y>169</y>
+      <width>42</width>
+      <height>18</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Arial</family>
+      <pointsize>9</pointsize>
+      <weight>75</weight>
+      <bold>true</bold>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color:rgba(209,209,214,0.01);</string>
+    </property>
+    <property name="text">
+     <string>PNom</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_2">
+    <property name="geometry">
+     <rect>
+      <x>21</x>
+      <y>206</y>
+      <width>20</width>
+      <height>18</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Arial</family>
+      <pointsize>9</pointsize>
+      <weight>75</weight>
+      <bold>true</bold>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color:rgba(209,209,214,0.01);</string>
+    </property>
+    <property name="text">
+     <string>Isc</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_3">
+    <property name="geometry">
+     <rect>
+      <x>21</x>
+      <y>250</y>
+      <width>25</width>
+      <height>18</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Arial</family>
+      <pointsize>9</pointsize>
+      <weight>75</weight>
+      <bold>true</bold>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color:rgba(209,209,214,0.01);</string>
+    </property>
+    <property name="text">
+     <string>Voc</string>
+    </property>
+   </widget>
+   <widget class="QLineEdit" name="lineEdit_isc">
+    <property name="geometry">
+     <rect>
+      <x>110</x>
+      <y>201</y>
+      <width>81</width>
+      <height>41</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Arial</family>
+      <weight>75</weight>
+      <bold>true</bold>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QLineEdit{
+	background-color:rgba(229,229,234,1); 
+	border-radius: 6;
+	border: none;
+	padding-left: 8px
+}
+QLineEdit:hover{
+	background-color:rgba(242,242,247,1);
+}
+QLineEdit:pressed{
+	background-color:rgba(188,188,192,1);
+	border-radius: 12;
+}</string>
+    </property>
+    <property name="readOnly">
+     <bool>false</bool>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_9">
+    <property name="geometry">
+     <rect>
+      <x>21</x>
+      <y>293</y>
+      <width>25</width>
+      <height>18</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Arial</family>
+      <pointsize>9</pointsize>
+      <weight>75</weight>
+      <bold>true</bold>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color:rgba(209,209,214,0.01);</string>
+    </property>
+    <property name="text">
+     <string>Imp</string>
+    </property>
+   </widget>
+   <widget class="QLineEdit" name="lineEdit_voc">
+    <property name="geometry">
+     <rect>
+      <x>110</x>
+      <y>244</y>
+      <width>81</width>
+      <height>41</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Arial</family>
+      <weight>75</weight>
+      <bold>true</bold>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QLineEdit{
+	background-color:rgba(229,229,234,1); 
+	border-radius: 6;
+	border: none;
+	padding-left: 8px
+}
+QLineEdit:hover{
+	background-color:rgba(242,242,247,1);
+}
+QLineEdit:pressed{
+	background-color:rgba(188,188,192,1);
+	border-radius: 12;
+}</string>
+    </property>
+    <property name="readOnly">
+     <bool>false</bool>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_12">
+    <property name="geometry">
+     <rect>
+      <x>21</x>
+      <y>340</y>
+      <width>30</width>
+      <height>18</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Arial</family>
+      <pointsize>9</pointsize>
+      <weight>75</weight>
+      <bold>true</bold>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color:rgba(209,209,214,0.01);</string>
+    </property>
+    <property name="text">
+     <string>Vmp</string>
+    </property>
+   </widget>
+   <widget class="QLineEdit" name="lineEdit_imp">
+    <property name="geometry">
+     <rect>
+      <x>110</x>
+      <y>287</y>
+      <width>81</width>
+      <height>41</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Arial</family>
+      <weight>75</weight>
+      <bold>true</bold>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QLineEdit{
+	background-color:rgba(229,229,234,1); 
+	border-radius: 6;
+	border: none;
+	padding-left: 8px
+}
+QLineEdit:hover{
+	background-color:rgba(242,242,247,1);
+}
+QLineEdit:pressed{
+	background-color:rgba(188,188,192,1);
+	border-radius: 12;
+}</string>
+    </property>
+    <property name="readOnly">
+     <bool>false</bool>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_4">
+    <property name="geometry">
+     <rect>
+      <x>21</x>
+      <y>383</y>
+      <width>46</width>
+      <height>18</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Arial</family>
+      <pointsize>9</pointsize>
+      <weight>75</weight>
+      <bold>true</bold>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color:rgba(209,209,214,0.01);</string>
+    </property>
+    <property name="text">
+     <string>muISC</string>
+    </property>
+   </widget>
+   <widget class="QLineEdit" name="lineEdit_vmp">
+    <property name="geometry">
+     <rect>
+      <x>110</x>
+      <y>330</y>
+      <width>81</width>
+      <height>41</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Arial</family>
+      <weight>75</weight>
+      <bold>true</bold>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QLineEdit{
+	background-color:rgba(229,229,234,1); 
+	border-radius: 6;
+	border: none;
+	padding-left: 8px
+}
+QLineEdit:hover{
+	background-color:rgba(242,242,247,1);
+}
+QLineEdit:pressed{
+	background-color:rgba(188,188,192,1);
+	border-radius: 12;
+}</string>
+    </property>
+    <property name="readOnly">
+     <bool>false</bool>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_5">
+    <property name="geometry">
+     <rect>
+      <x>21</x>
+      <y>427</y>
+      <width>82</width>
+      <height>18</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Arial</family>
+      <pointsize>9</pointsize>
+      <weight>75</weight>
+      <bold>true</bold>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color:rgba(209,209,214,0.01);</string>
+    </property>
+    <property name="text">
+     <string>muVocSpec</string>
+    </property>
+   </widget>
+   <widget class="QLineEdit" name="lineEdit_muisc">
+    <property name="geometry">
+     <rect>
+      <x>110</x>
+      <y>373</y>
+      <width>81</width>
+      <height>41</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Arial</family>
+      <weight>75</weight>
+      <bold>true</bold>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QLineEdit{
+	background-color:rgba(229,229,234,1); 
+	border-radius: 6;
+	border: none;
+	padding-left: 8px
+}
+QLineEdit:hover{
+	background-color:rgba(242,242,247,1);
+}
+QLineEdit:pressed{
+	background-color:rgba(188,188,192,1);
+	border-radius: 12;
+}</string>
+    </property>
+    <property name="readOnly">
+     <bool>false</bool>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_7">
+    <property name="geometry">
+     <rect>
+      <x>21</x>
+      <y>470</y>
+      <width>63</width>
+      <height>18</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Arial</family>
+      <pointsize>9</pointsize>
+      <weight>75</weight>
+      <bold>true</bold>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color:rgba(209,209,214,0.01);</string>
+    </property>
+    <property name="text">
+     <string>VMaxIEC</string>
+    </property>
+   </widget>
+   <widget class="QLineEdit" name="lineEdit_muvocspec">
+    <property name="geometry">
+     <rect>
+      <x>110</x>
+      <y>416</y>
+      <width>81</width>
+      <height>41</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Arial</family>
+      <weight>75</weight>
+      <bold>true</bold>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QLineEdit{
+	background-color:rgba(229,229,234,1); 
+	border-radius: 6;
+	border: none;
+	padding-left: 8px
+}
+QLineEdit:hover{
+	background-color:rgba(242,242,247,1);
+}
+QLineEdit:pressed{
+	background-color:rgba(188,188,192,1);
+	border-radius: 12;
+}</string>
+    </property>
+    <property name="readOnly">
+     <bool>false</bool>
+    </property>
+   </widget>
+   <widget class="QLineEdit" name="lineEdit_vmaxiec">
+    <property name="geometry">
+     <rect>
+      <x>110</x>
+      <y>459</y>
+      <width>81</width>
+      <height>41</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Arial</family>
+      <weight>75</weight>
+      <bold>true</bold>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QLineEdit{
+	background-color:rgba(229,229,234,1); 
+	border-radius: 6;
+	border: none;
+	padding-left: 8px
+}
+QLineEdit:hover{
+	background-color:rgba(242,242,247,1);
+}
+QLineEdit:pressed{
+	background-color:rgba(188,188,192,1);
+	border-radius: 12;
+}</string>
+    </property>
+    <property name="readOnly">
+     <bool>false</bool>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_10">
+    <property name="geometry">
+     <rect>
+      <x>21</x>
+      <y>512</y>
+      <width>53</width>
+      <height>18</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Arial</family>
+      <pointsize>9</pointsize>
+      <weight>75</weight>
+      <bold>true</bold>
+      <stylestrategy>PreferAntialias</stylestrategy>
+      <kerning>true</kerning>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color:rgba(209,209,214,0.01);</string>
+    </property>
+    <property name="text">
+     <string>RShunt</string>
+    </property>
+   </widget>
+   <widget class="QLineEdit" name="lineEdit_rshunt">
+    <property name="geometry">
+     <rect>
+      <x>110</x>
+      <y>502</y>
+      <width>81</width>
+      <height>41</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Arial</family>
+      <weight>75</weight>
+      <bold>true</bold>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QLineEdit{
+	background-color:rgba(229,229,234,1); 
+	border-radius: 6;
+	border: none;
+	padding-left: 8px
+}
+QLineEdit:hover{
+	background-color:rgba(242,242,247,1);
+}
+QLineEdit:pressed{
+	background-color:rgba(188,188,192,1);
+	border-radius: 12;
+}</string>
+    </property>
+    <property name="readOnly">
+     <bool>false</bool>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_13">
+    <property name="geometry">
+     <rect>
+      <x>21</x>
+      <y>557</y>
+      <width>45</width>
+      <height>18</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Arial</family>
+      <pointsize>9</pointsize>
+      <weight>75</weight>
+      <bold>true</bold>
+      <stylestrategy>PreferAntialias</stylestrategy>
+      <kerning>true</kerning>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color:rgba(209,209,214,0.01);</string>
+    </property>
+    <property name="text">
+     <string>NCelS</string>
+    </property>
+   </widget>
+   <widget class="QLineEdit" name="lineEdit_ncels">
+    <property name="geometry">
+     <rect>
+      <x>110</x>
+      <y>545</y>
+      <width>81</width>
+      <height>41</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Arial</family>
+      <weight>75</weight>
+      <bold>true</bold>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QLineEdit{
+	background-color:rgba(229,229,234,1); 
+	border-radius: 6;
+	border: none;
+	padding-left: 8px
+}
+QLineEdit:hover{
+	background-color:rgba(242,242,247,1);
+}
+QLineEdit:pressed{
+	background-color:rgba(188,188,192,1);
+	border-radius: 12;
+}</string>
+    </property>
+    <property name="readOnly">
+     <bool>false</bool>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_23">
+    <property name="geometry">
+     <rect>
+      <x>212</x>
+      <y>330</y>
+      <width>221</width>
+      <height>41</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Arial</family>
+      <pointsize>9</pointsize>
+      <weight>75</weight>
+      <italic>false</italic>
+      <bold>true</bold>
+      <stylestrategy>PreferAntialias</stylestrategy>
+      <kerning>true</kerning>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color:rgba(209,209,214,0.01);</string>
+    </property>
+    <property name="text">
+     <string>Минимальная температура 
+(0.98)</string>
+    </property>
+   </widget>
+   <widget class="QLineEdit" name="lineEdit_calcmaxtemp">
+    <property name="geometry">
+     <rect>
+      <x>440</x>
+      <y>201</y>
+      <width>73</width>
+      <height>41</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Arial</family>
+      <weight>75</weight>
+      <bold>true</bold>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QLineEdit{
+	background-color:rgba(229,229,234,1); 
+	border-radius: 6;
+	border: none;
+	padding-left: 8px
+}
+QLineEdit:hover{
+	background-color:rgba(242,242,247,1);
+}
+QLineEdit:pressed{
+	background-color:rgba(188,188,192,1);
+	border-radius: 12;
+}</string>
+    </property>
+    <property name="inputMethodHints">
+     <set>Qt::ImhNone</set>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+    <property name="placeholderText">
+     <string/>
+    </property>
+    <property name="clearButtonEnabled">
+     <bool>false</bool>
+    </property>
+   </widget>
+   <widget class="QLineEdit" name="lineEdit_irradiance">
+    <property name="geometry">
+     <rect>
+      <x>440</x>
+      <y>459</y>
+      <width>73</width>
+      <height>41</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Arial</family>
+      <weight>75</weight>
+      <bold>true</bold>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QLineEdit{
+	background-color:rgba(229,229,234,1); 
+	border-radius: 6;
+	border: none;
+	padding-left: 8px
+}
+QLineEdit:hover{
+	background-color:rgba(242,242,247,1);
+}
+QLineEdit:pressed{
+	background-color:rgba(188,188,192,1);
+	border-radius: 12;
+}</string>
+    </property>
+    <property name="placeholderText">
+     <string/>
+    </property>
+   </widget>
+   <widget class="QLineEdit" name="lineEdit_noct">
+    <property name="geometry">
+     <rect>
+      <x>440</x>
+      <y>502</y>
+      <width>73</width>
+      <height>41</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Arial</family>
+      <weight>75</weight>
+      <bold>true</bold>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QLineEdit{
+	background-color:rgba(229,229,234,1); 
+	border-radius: 6;
+	border: none;
+	padding-left: 8px
+}
+QLineEdit:hover{
+	background-color:rgba(242,242,247,1);
+}
+QLineEdit:pressed{
+	background-color:rgba(188,188,192,1);
+	border-radius: 12;
+}</string>
+    </property>
+    <property name="placeholderText">
+     <string/>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_21">
+    <property name="geometry">
+     <rect>
+      <x>212</x>
+      <y>252</y>
+      <width>166</width>
+      <height>18</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Arial</family>
+      <pointsize>9</pointsize>
+      <weight>75</weight>
+      <italic>false</italic>
+      <bold>true</bold>
+      <stylestrategy>PreferAntialias</stylestrategy>
+      <kerning>true</kerning>
+     </font>
+    </property>
+    <property name="toolTip">
+     <string>(Импортируется с RP5)</string>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color:rgba(209,209,214,0.01);</string>
+    </property>
+    <property name="text">
+     <string>Абсолютный минимум</string>
+    </property>
+   </widget>
+   <widget class="QLineEdit" name="lineEdit_countfem">
+    <property name="geometry">
+     <rect>
+      <x>440</x>
+      <y>373</y>
+      <width>73</width>
+      <height>41</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Arial</family>
+      <weight>75</weight>
+      <bold>true</bold>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QLineEdit{
+	background-color:rgba(229,229,234,1); 
+	border-radius: 6;
+	border: none;
+	padding-left: 8px
+}
+QLineEdit:hover{
+	background-color:rgba(242,242,247,1);
+}
+QLineEdit:pressed{
+	background-color:rgba(188,188,192,1);
+	border-radius: 12;
+}</string>
+    </property>
+    <property name="placeholderText">
+     <string/>
+    </property>
+   </widget>
+   <widget class="QLineEdit" name="lineEdit_umax_pogran">
+    <property name="geometry">
+     <rect>
+      <x>780</x>
+      <y>70</y>
+      <width>73</width>
+      <height>41</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Arial</family>
+      <pointsize>8</pointsize>
+      <weight>75</weight>
+      <bold>true</bold>
+     </font>
+    </property>
+    <property name="cursor">
+     <cursorShape>IBeamCursor</cursorShape>
+    </property>
+    <property name="autoFillBackground">
+     <bool>false</bool>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QLineEdit{
+	background-color:rgba(229,229,234,1); 
+	border-radius: 6;
+	border: none;
+	padding-left: 8px
+}
+QLineEdit:hover{
+	background-color:rgba(242,242,247,1);
+}
+QLineEdit:pressed{
+	background-color:rgba(188,188,192,1);
+	border-radius: 12;
+}</string>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+    <property name="readOnly">
+     <bool>false</bool>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_26">
+    <property name="geometry">
+     <rect>
+      <x>212</x>
+      <y>470</y>
+      <width>125</width>
+      <height>18</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Arial</family>
+      <pointsize>9</pointsize>
+      <weight>75</weight>
+      <italic>false</italic>
+      <bold>true</bold>
+      <stylestrategy>PreferAntialias</stylestrategy>
+      <kerning>true</kerning>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color:rgba(209,209,214,0.01);</string>
+    </property>
+    <property name="text">
+     <string>Инсоляция, В/м2</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_16">
+    <property name="geometry">
+     <rect>
+      <x>662</x>
+      <y>62</y>
+      <width>111</width>
+      <height>41</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Arial</family>
+      <pointsize>9</pointsize>
+      <weight>75</weight>
+      <italic>false</italic>
+      <bold>true</bold>
+      <stylestrategy>PreferAntialias</stylestrategy>
+      <kerning>true</kerning>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color:rgba(209,209,214,0.01);</string>
+    </property>
+    <property name="text">
+     <string>Umax 
+инвертора</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_25">
+    <property name="geometry">
+     <rect>
+      <x>212</x>
+      <y>417</y>
+      <width>211</width>
+      <height>41</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Arial</family>
+      <pointsize>9</pointsize>
+      <weight>75</weight>
+      <italic>false</italic>
+      <bold>true</bold>
+      <stylestrategy>PreferAntialias</stylestrategy>
+      <kerning>true</kerning>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color:rgba(209,209,214,0.01);</string>
+    </property>
+    <property name="text">
+     <string>Число параллельных 
+цепочек</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_19">
+    <property name="geometry">
+     <rect>
+      <x>212</x>
+      <y>157</y>
+      <width>211</width>
+      <height>41</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Arial</family>
+      <pointsize>9</pointsize>
+      <weight>75</weight>
+      <italic>false</italic>
+      <bold>true</bold>
+      <stylestrategy>PreferAntialias</stylestrategy>
+      <kerning>true</kerning>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color:rgba(209,209,214,0.01);</string>
+    </property>
+    <property name="text">
+     <string>Расчетная минимальная 
+температура</string>
+    </property>
+   </widget>
+   <widget class="QLineEdit" name="lineEdit_calcmintemp">
+    <property name="geometry">
+     <rect>
+      <x>440</x>
+      <y>158</y>
+      <width>73</width>
+      <height>41</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Arial</family>
+      <weight>75</weight>
+      <bold>true</bold>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QLineEdit{
+	background-color:rgba(229,229,234,1); 
+	border-radius: 6;
+	border: none;
+	padding-left: 8px
+}
+QLineEdit:hover{
+	background-color:rgba(242,242,247,1);
+}
+QLineEdit:pressed{
+	background-color:rgba(188,188,192,1);
+	border-radius: 12;
+}</string>
+    </property>
+    <property name="inputMethodHints">
+     <set>Qt::ImhNone</set>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+    <property name="placeholderText">
+     <string/>
+    </property>
+    <property name="clearButtonEnabled">
+     <bool>false</bool>
+    </property>
+   </widget>
+   <widget class="QLineEdit" name="lineEdit_max">
+    <property name="geometry">
+     <rect>
+      <x>440</x>
+      <y>287</y>
+      <width>73</width>
+      <height>41</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Arial</family>
+      <weight>75</weight>
+      <bold>true</bold>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QLineEdit{
+	background-color:rgba(229,229,234,1); 
+	border-radius: 6;
+	border: none;
+	padding-left: 8px
+}
+QLineEdit:hover{
+	background-color:rgba(242,242,247,1);
+}
+QLineEdit:pressed{
+	background-color:rgba(188,188,192,1);
+	border-radius: 12;
+}</string>
+    </property>
+    <property name="placeholderText">
+     <string/>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_22">
+    <property name="geometry">
+     <rect>
+      <x>212</x>
+      <y>293</y>
+      <width>172</width>
+      <height>18</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Arial</family>
+      <pointsize>9</pointsize>
+      <weight>75</weight>
+      <italic>false</italic>
+      <bold>true</bold>
+      <stylestrategy>PreferAntialias</stylestrategy>
+      <kerning>true</kerning>
+     </font>
+    </property>
+    <property name="toolTip">
+     <string>(Импортируется с RP5)</string>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color:rgba(209,209,214,0.01);</string>
+    </property>
+    <property name="text">
+     <string>Абсолютный максимум</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_24">
+    <property name="geometry">
+     <rect>
+      <x>212</x>
+      <y>380</y>
+      <width>168</width>
+      <height>18</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Arial</family>
+      <pointsize>9</pointsize>
+      <weight>75</weight>
+      <italic>false</italic>
+      <bold>true</bold>
+      <stylestrategy>PreferAntialias</stylestrategy>
+      <kerning>true</kerning>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color:rgba(209,209,214,0.01);</string>
+    </property>
+    <property name="text">
+     <string>Число ФЭМ в цепочке</string>
+    </property>
+   </widget>
+   <widget class="QLineEdit" name="lineEdit_mintemp">
+    <property name="geometry">
+     <rect>
+      <x>440</x>
+      <y>330</y>
+      <width>73</width>
+      <height>41</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Arial</family>
+      <weight>75</weight>
+      <bold>true</bold>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QLineEdit{
+	background-color:rgba(229,229,234,1); 
+	border-radius: 6;
+	border: none;
+	padding-left: 8px
+}
+QLineEdit:hover{
+	background-color:rgba(242,242,247,1);
+}
+QLineEdit:pressed{
+	background-color:rgba(188,188,192,1);
+	border-radius: 12;
+}</string>
+    </property>
+    <property name="placeholderText">
+     <string/>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_20">
+    <property name="geometry">
+     <rect>
+      <x>212</x>
+      <y>201</y>
+      <width>211</width>
+      <height>41</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Arial</family>
+      <pointsize>9</pointsize>
+      <weight>75</weight>
+      <italic>false</italic>
+      <bold>true</bold>
+      <stylestrategy>PreferAntialias</stylestrategy>
+      <kerning>true</kerning>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color:rgba(209,209,214,0.01);</string>
+    </property>
+    <property name="text">
+     <string>Расчетная максимальня 
+температура</string>
+    </property>
+   </widget>
+   <widget class="QLineEdit" name="lineEdit_countparallel">
+    <property name="geometry">
+     <rect>
+      <x>440</x>
+      <y>416</y>
+      <width>73</width>
+      <height>41</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Arial</family>
+      <weight>75</weight>
+      <bold>true</bold>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QLineEdit{
+	background-color:rgba(229,229,234,1); 
+	border-radius: 6;
+	border: none;
+	padding-left: 8px
+}
+QLineEdit:hover{
+	background-color:rgba(242,242,247,1);
+}
+QLineEdit:pressed{
+	background-color:rgba(188,188,192,1);
+	border-radius: 12;
+}</string>
+    </property>
+    <property name="placeholderText">
+     <string/>
+    </property>
+   </widget>
+   <widget class="QLineEdit" name="lineEdit_min">
+    <property name="geometry">
+     <rect>
+      <x>440</x>
+      <y>244</y>
+      <width>73</width>
+      <height>41</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Arial</family>
+      <weight>75</weight>
+      <bold>true</bold>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QLineEdit{
+	background-color:rgba(229,229,234,1); 
+	border-radius: 6;
+	border: none;
+	padding-left: 8px
+}
+QLineEdit:hover{
+	background-color:rgba(242,242,247,1);
+}
+QLineEdit:pressed{
+	background-color:rgba(188,188,192,1);
+	border-radius: 12;
+}</string>
+    </property>
+    <property name="inputMethodHints">
+     <set>Qt::ImhNone</set>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+    <property name="placeholderText">
+     <string/>
+    </property>
+    <property name="clearButtonEnabled">
+     <bool>false</bool>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_14">
+    <property name="geometry">
+     <rect>
+      <x>662</x>
+      <y>17</y>
+      <width>111</width>
+      <height>41</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Arial</family>
+      <pointsize>9</pointsize>
+      <weight>75</weight>
+      <bold>true</bold>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color:rgba(209,209,214,0.01);</string>
+    </property>
+    <property name="text">
+     <string>Imax на 
+один МРРТ</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_27">
+    <property name="geometry">
+     <rect>
+      <x>212</x>
+      <y>510</y>
+      <width>44</width>
+      <height>18</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Arial</family>
+      <pointsize>9</pointsize>
+      <weight>75</weight>
+      <italic>false</italic>
+      <bold>true</bold>
+      <stylestrategy>PreferAntialias</stylestrategy>
+      <kerning>true</kerning>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color:rgba(209,209,214,0.01);</string>
+    </property>
+    <property name="text">
+     <string>NOCT</string>
+    </property>
+   </widget>
+   <widget class="QLineEdit" name="lineEdit_imax_pogran">
+    <property name="geometry">
+     <rect>
+      <x>780</x>
+      <y>20</y>
+      <width>73</width>
+      <height>41</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Arial</family>
+      <pointsize>8</pointsize>
+      <weight>75</weight>
+      <bold>true</bold>
+     </font>
+    </property>
+    <property name="autoFillBackground">
+     <bool>false</bool>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QLineEdit{
+	background-color:rgba(229,229,234,1); 
+	border-radius: 6;
+	border: none;
+	padding-left: 8px
+}
+QLineEdit:hover{
+	background-color:rgba(242,242,247,1);
+}
+QLineEdit:pressed{
+	background-color:rgba(188,188,192,1);
+	border-radius: 12;
+}</string>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+    <property name="readOnly">
+     <bool>false</bool>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_15">
+    <property name="geometry">
+     <rect>
+      <x>530</x>
+      <y>40</y>
+      <width>131</width>
+      <height>41</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Arial</family>
+      <pointsize>10</pointsize>
+      <weight>75</weight>
+      <bold>true</bold>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color:rgba(209,209,214,0.01);</string>
+    </property>
+    <property name="text">
+     <string>Пограничные 
+значения:</string>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignCenter</set>
     </property>
    </widget>
    <zorder>layoutWidget</zorder>

@@ -84,6 +84,10 @@ class MainApp(QtWidgets.QMainWindow, designRepPDF.Ui_MainWindow):
         self.setupUi(self)  # Это нужно для инициализации нашего дизайна
         self.hide()
         self.input_data()
+        self.internet_on()
+        self.btnWifi.clicked.connect(self.internet_on)
+        self.btnKTPTemplate.clicked.connect(self.ktp_pattern)
+        self.btnOtherTemplate.clicked.connect(self.other_pattern)
         self.btnDevice.clicked.connect(self.show_and_hide_device_button)
         self.btnSchemes.clicked.connect(self.show_and_hide_schemes_button)
         self.btnOpenPDF.clicked.connect(self.open_result_doc)
@@ -112,7 +116,8 @@ class MainApp(QtWidgets.QMainWindow, designRepPDF.Ui_MainWindow):
         self.listInvertor_file.activated.connect(self.invertor_load)
         self.listPV_folder.activated.connect(self.pv_select)
         self.listPV_file.activated.connect(self.pv_load)
-        self.listKTP_folder.activated.connect(self.ktp_select)
+        self.listKTP_folder.activated.connect(self.other_select)
+        self.listKTP_file.activated.connect(self.other_load)
         self.inputAddress.selectionChanged.connect(self.show_button_coordinates)
         self.btnSearchCoordinates.clicked.connect(self.coordinate_by_address)
         self.inputTitleProject.textChanged.connect(self.generate_code_project)
@@ -121,7 +126,13 @@ class MainApp(QtWidgets.QMainWindow, designRepPDF.Ui_MainWindow):
         self.btnDelSchemeTwoData.clicked.connect(self.del_scheme_two)
         self.btnAddInvertor.clicked.connect(self.add_invertor)
         self.btnDelInvertor.clicked.connect(self.del_invertor)
-        self.spinBox_numInvertor.valueChanged.connect(self.up_down_ivertor_selection)
+        self.btnAddPV.clicked.connect(self.add_pv)
+        self.btnDelPV.clicked.connect(self.del_pv)
+        self.btnAddKTP.clicked.connect(self.add_other)
+        self.btnDelOther.clicked.connect(self.del_other)
+        self.spinBox_numInvertor.valueChanged.connect(self.up_down_invertor_selection)
+        self.spinBox_numPV.valueChanged.connect(self.up_down_pv_selection)
+        self.spinBox_numKTP.valueChanged.connect(self.up_down_other_selection)
 
         self.movie = QMovie('data/cons/loading_gif250trans.gif')
         self.labelLoading.setMovie(self.movie)
@@ -158,7 +169,39 @@ class MainApp(QtWidgets.QMainWindow, designRepPDF.Ui_MainWindow):
         self.w3 = logicUIOneScheme.WindowDraw(instance_of_main_window)
         self.w4 = logicUITwoScheme.WindowDrawTwo(instance_of_main_window) 
         self.w5 = logicUICalcPV.CalcPV(instance_of_main_window) 
-                    
+
+    def ktp_pattern(self):
+        self.inputKTP.clear()
+        self.inputKTP.append('Тип оборудования=КТП') # Название КТП
+        self.inputKTP.append('Название КТП=КТПНУ-250/10/0,4-T-KK-УХЛ1') # Название КТП
+        self.inputKTP.append('Габаритные размеры, ДхШхВ, мм=5000x4800x3300') 
+        self.inputKTP.append('Кол-во транспортных единиц, шт=2') 
+        self.inputKTP.append('Масса, кг=13000') 
+        self.inputKTP.append('Номинальное напряжение ВН, кВ=10') 
+        self.inputKTP.append('Наибольшее рабочее напряжение, кВ=12') 
+        self.inputKTP.append('Номинальная частота переменного тока, Гц=50') 
+        self.inputKTP.append('Номинальный ток главный цепей вводных ячеек ВН, А=630') 
+        self.inputKTP.append('Номинальный ток главный цепей, А=630') 
+        self.inputKTP.append('Номинальный ток сборных шин, А=630') 
+        self.inputKTP.append('Ток термической стойкости в  течение 1 сек. со стороны ВН, не менее, кА=13') 
+        self.inputKTP.append('Ток электродинамической стойкости в  течение 1 сек. со стороны ВН, не менее, кА=17') 
+        self.inputKTP.append('Номинальное напряжение НН, кВ=0,4') 
+        self.inputKTP.append('Номинальный ток РУНН, А=400') 
+        self.inputKTP.append('Тип системы заземления со стороны НН=TN-C-S') 
+        self.inputKTP.append('Тип силового трансформатора Т1=ТЛС') 
+        self.inputKTP.append('Мощность силового трансформатора Т1, кВ*А=250') 
+        self.inputKTP.append('Способ и диапазон регулирования=ПБВ±2х2,5%') 
+        self.inputKTP.append('Схема и группа соединения обмоток=Д/Ун-11') 
+        self.inputKTP.moveCursor(QTextCursor.Start)
+
+    def other_pattern(self):
+        self.inputKTP.clear()
+        self.inputKTP.append('Тип оборудования=Значение') # Название КТП
+        self.inputKTP.append('Название оборудования=Значение') # Название КТП
+        self.inputKTP.append('Название параметра, Единица измерения=Значение') 
+        self.inputKTP.append('Название параметра, Единица измерения=Значение') 
+        self.inputKTP.append('Пример: (Номинальное напряжение ВН, кВ=10)') 
+
     def input_data(self):
         self.btnDevice.setIcon(QIcon('data/cons/paper-clip.png'))
         self.btnDevice.setIconSize(QSize(40, 40))
@@ -174,27 +217,36 @@ class MainApp(QtWidgets.QMainWindow, designRepPDF.Ui_MainWindow):
         self.btnDrawScheme.setIconSize(QSize(45, 45))
         self.btnDrawSchemeTwo.setIcon(QIcon('data/cons/dop/solar-panels.png'))
         self.btnDrawSchemeTwo.setIconSize(QSize(50, 50))
-        self.btnCalcPV.setIcon(QIcon('data/cons/dop/wire1.png'))
+        self.btnCalcPV.setIcon(QIcon('data/cons/dop/solar-panel1.png'))
         self.btnCalcPV.setIconSize(QSize(50, 50))
+        self.btnInfo.setIcon(QIcon('data/cons/dop/question2.png'))
+        self.btnInfo.setIconSize(QSize(20, 20))
+        self.btnAbout.setIcon(QIcon('data/cons/dop/information2.png'))
+        self.btnAbout.setIconSize(QSize(20, 20))
+        self.btnAbout.move(10, 325)
+        self.btnInfo.move(40, 325)
 
-        self.inputKTP.append('Название КТП=КТПНУ-250/10/0,4-T-KK-УХЛ1') # Название КТП
-        self.inputKTP.append('Мощность КТП, кВА=250') # Мощность КТП, кВА
-        self.inputKTP.append('Количество обмоток, шт=3') # Количество обмоток, шт
-        self.inputKTP.append('Напряжение первичной обмотки, кВ=10') # Напряжение первичной обмотки, кВ 
-        self.inputKTP.append('Напряжение вторичной(-ых) обмотки(-ок), кВ=12') # Напряжение вторичной(-ых) обмотки(-ок), кВ 
-        self.inputKTP.append('Номинальный ток обмоток, А=630') # Номинальный ток обмоток, А 
-        self.inputKTP.append('Рабочая частота, Гц=50') # Рабочая частота, Гц
-        self.inputKTP.append('Коэффициент полезного действия, %=59') # Коэффициент полезного действия, %
+        self.btnWifi.resize(30, 30)
+        self.btnWifi.move(190, 332)
+        self.btnWifi.setIcon(QIcon('data/cons/dop/no-wifi.png'))
+        self.btnWifi.setIconSize(QSize(25, 25))
+        self.btnWifi.hide()
          
+        self.other_pattern()
         # self.spinBox_numInvertor.lineEdit().setDisabled(True) 
         self.path_pvsyst = ''
         self.pathes_detail_schemes = []
         self.path_general_schemes = ['']
         self.invertors = {}
+        self.pvs = {}
+        self.others = {}
         self.spinBox_numInvertor.setMinimum(1)
+        self.spinBox_numPV.setMinimum(1)
+        self.spinBox_numKTP.setMinimum(1)
         self.invertors['found_invertor_0'] = search_data.null_search_params('invertor')
-        # self.found_invertor = search_data.null_search_params('invertor')
-        self.found_pv = search_data.null_search_params('pv')
+        self.pvs['found_pv_0'] = search_data.null_search_params('pv')
+        self.others['found_other_0'] = {}
+
         self.found_pdf = search_data.null_search_params('pvsyst')
         self.parse_params = search_data.null_search_params('weather')
         self.weather_station_params = search_data.null_search_params('weather_station')
@@ -263,16 +315,29 @@ class MainApp(QtWidgets.QMainWindow, designRepPDF.Ui_MainWindow):
         else:
             self.set_style_default()
 
-    def checkNet(self):
+    def internet_on(self):
+        self.opacity_effect = QtWidgets.QGraphicsOpacityEffect()
+        self.opacity_effect.setOpacity(0.6)
         try:
             response = requests.get("http://www.google.com")
             self.statusBar.setStyleSheet("background-color:rgb(255, 255, 255)")
-            return 1
+            # self.statusBar.showMessage('Подключение в норме', 5000)
+            self.btnWifi.hide()
+            self.btnRP5.setEnabled(True)
+            self.btnRP5.setGraphicsEffect(self.opacity_effect.setOpacity(1))
+            self.btnSearchCoordinates.setEnabled(True)
+            self.btnSearchCoordinates.setGraphicsEffect(self.opacity_effect.setOpacity(1))
+            return True
         except requests.ConnectionError:
-            self.statusBar.showMessage('Нет подключения к интернету', 5000)
-            self.statusBar.setStyleSheet("background-color:rgb(255, 105, 97)")
-            QTimer.singleShot(5000, lambda: self.statusBar.setStyleSheet("background-color:rgb(255, 255, 255)"))
-            return 0
+            # self.statusBar.showMessage('Нет подключения к интернету', 5000)
+            # self.statusBar.setStyleSheet("background-color:rgb(255, 105, 97)")
+            # QTimer.singleShot(5000, lambda: self.statusBar.setStyleSheet("background-color:rgb(255, 255, 255)"))
+            self.btnRP5.setGraphicsEffect(self.opacity_effect)
+            self.btnRP5.setEnabled(False)
+            self.btnSearchCoordinates.setGraphicsEffect(self.opacity_effect)
+            self.btnSearchCoordinates.setEnabled(False)
+            self.btnWifi.show()
+            return False
 
     def set_style_default(self):
         self.listRoof.setStyleSheet("QComboBox{\n	background-color:rgba(229,229,234,1); \n	border: none;\n	border-radius: 6;\n	padding-left: 8px;\n}\n\nQComboBox:drop-down \n{\n    width: 0px;\n    height: 0px;\n    border: 0px;\n}\nQComboBox:hover{\n	background-color:rgba(242,242,247,1);\n}\n")
@@ -321,8 +386,10 @@ class MainApp(QtWidgets.QMainWindow, designRepPDF.Ui_MainWindow):
 
         with open(f"Data/Modules/KTP's/New/{file_name}.txt", 'w') as file:
             file.write(params) # Название КТП
-
-        self.ktp_select()
+        self.statusBar.showMessage('Файл создан!', 4000)
+        self.statusBar.setStyleSheet("background-color:rgb(48, 219, 91)")
+        QTimer.singleShot(4000, lambda: self.statusBar.setStyleSheet("background-color:rgb(255, 255, 255)"))
+        self.other_select()
 
     def hide(self):
         self.inputKTP.hide()
@@ -335,6 +402,8 @@ class MainApp(QtWidgets.QMainWindow, designRepPDF.Ui_MainWindow):
         self.label_13.hide()
         self.btnOne.hide()
         self.btnDelInvertor.hide() 
+        self.btnDelPV.hide() 
+        self.btnDelOther.hide() 
         self.btnOpenPDF.hide() 
         self.btnSearchCoordinates.hide()
         self.btnDelPvsystData.hide()
@@ -466,6 +535,8 @@ class MainApp(QtWidgets.QMainWindow, designRepPDF.Ui_MainWindow):
         # Оборудование
         if view == False:
             self.btnDelInvertor.hide() 
+            self.btnDelPV.hide() 
+            self.btnDelOther.hide() 
             self.listInvertor_folder.hide()
             self.listInvertor_file.hide()
             self.listPV_folder.hide()
@@ -487,6 +558,12 @@ class MainApp(QtWidgets.QMainWindow, designRepPDF.Ui_MainWindow):
             if len(self.invertors) > 1:
                 self.spinBox_numInvertor.show()
                 self.btnDelInvertor.show() 
+            if len(self.pvs) > 1:
+                self.spinBox_numPV.show()
+                self.btnDelPV.show() 
+            if len(self.others) > 1:
+                self.spinBox_numKTP.show()
+                self.btnDelOther.show() 
             self.btnAddInvertor.show()
             self.btnAddPV.show()
             self.btnAddKTP.show()
@@ -494,7 +571,7 @@ class MainApp(QtWidgets.QMainWindow, designRepPDF.Ui_MainWindow):
             self.label_2.show()
             self.label_3.setText("ФЭМ")
             self.label_3.show()
-            self.label_4.setText("КТП")
+            self.label_4.setText("Другое")
             self.label_4.show()
             self.label_5.setText("Тип крыши")
             self.label_5.show()
@@ -719,7 +796,7 @@ class MainApp(QtWidgets.QMainWindow, designRepPDF.Ui_MainWindow):
     def show_window_parse(self):  # открытие окна погоды
         QtWidgets.QApplication.processEvents()
         if self.browser_status == None:
-            if self.checkNet() == 0:
+            if self.internet_on() == False:
                 return
             # self.btnRP5
             self.btnRP5.setEnabled(False)
@@ -748,7 +825,7 @@ class MainApp(QtWidgets.QMainWindow, designRepPDF.Ui_MainWindow):
     def show_window_calc(self):  # открытие   окна рисования первой схемы
         self.w5.setWindowIcon(QtGui.QIcon('Data/icons/graficon.png'))
         self.w5.show()
-        self.w5.setFixedSize(1630,605)
+        self.w5.setFixedSize(1220,620)
 
     def show_and_hide_device_button(self):
         x = 843
@@ -936,19 +1013,16 @@ class MainApp(QtWidgets.QMainWindow, designRepPDF.Ui_MainWindow):
                 names_modules.append(name.split(".")[0])
             self.listPV_file.addItems(names_modules)
             
-    def ktp_select(self):
+    def other_select(self):
         self.listKTP_file.clear()
-        if self.listInvertor_folder.currentText() != "Выберите":
+        if self.listKTP_folder.currentText() != "Выберите":
             self.select_title_ktp = self.listKTP_folder.currentText() 
-            print(self.select_title_ktp)
             modules_file = f'{path_to_ktp}/{self.select_title_ktp}'
-            self.type_ktp_modules = sorted(os.listdir(modules_file))
+            self.type_other_modules = sorted(os.listdir(modules_file))
             names_modules = []
-            print(names_modules)
-            for name in self.type_ktp_modules:
+            for name in self.type_other_modules:
                 names_modules.append(name.split(".")[0])
             self.listKTP_file.addItems(names_modules)
-            print(names_modules)
 
     def invertor_load(self):
         current_invertor = self.listInvertor_file.currentText()
@@ -975,8 +1049,29 @@ class MainApp(QtWidgets.QMainWindow, designRepPDF.Ui_MainWindow):
         current_pv = self.listPV_file.currentText()
         for select_pv in self.type_pv_modules:
             if current_pv in select_pv: 
-                self.found_pv = search_data.search_in_pv(f"{path_to_pv}/{self.select_title_pv}/{select_pv}") 
+                # self.found_pv = search_data.search_in_pv(f"{path_to_pv}/{self.select_title_pv}/{select_pv}") 
+                print(self.spinBox_numInvertor.value())
+                print(self.spinBox_numPV.value())
+                self.pvs[f'found_pv_{self.spinBox_numPV.value() - 1}'] = search_data.search_in_pv(f"{path_to_pv}/{self.select_title_pv}/{select_pv}") 
+                current = self.pvs[f'found_pv_{self.spinBox_numPV.value() - 1}']
+                current['file'] = self.listPV_file.currentIndex()
+                current['folder'] = self.listPV_folder.currentIndex()
+                print('текущий: ' ,current)
+                print(self.pvs)
     
+    def other_load(self):
+        current_other = self.listKTP_file.currentText()
+        for select_other in self.type_other_modules:
+            if current_other in select_other: 
+                self.others[f'found_other_{self.spinBox_numKTP.value() - 1}'] = search_data.search_in_others_device(f"{path_to_ktp}/{self.select_title_ktp}/{select_other}") 
+                current = self.others[f'found_other_{self.spinBox_numKTP.value() - 1}']
+                print('текущий: ' ,current)
+
+                current['file'] = self.listKTP_file.currentIndex()
+                current['folder'] = self.listKTP_folder.currentIndex()
+
+                print('в лоаде', self.others)
+
     def add_invertor(self):
         self.spinBox_numInvertor.show()
         self.btnDelInvertor.show() 
@@ -987,6 +1082,27 @@ class MainApp(QtWidgets.QMainWindow, designRepPDF.Ui_MainWindow):
         self.spinBox_numInvertor.setMaximum(len(self.invertors))
         self.spinBox_numInvertor.setValue(len(self.invertors))
 
+    def add_pv(self):
+        self.spinBox_numPV.show()
+        self.btnDelPV.show() 
+        self.listPV_file.clear()
+        self.listPV_folder.setCurrentIndex(0)
+        self.pvs[f'found_pv_{len(self.pvs)}'] = search_data.null_search_params('pv')
+        self.spinBox_numPV.setMinimum(1)
+        self.spinBox_numPV.setMaximum(len(self.pvs))
+        self.spinBox_numPV.setValue(len(self.pvs))
+        print(self.pvs)
+
+    def add_other(self):
+        self.spinBox_numKTP.show()
+        self.btnDelOther.show() 
+        self.listKTP_file.clear()
+        self.listKTP_folder.setCurrentIndex(0)
+        self.others[f'found_other_{len(self.others)}'] = {}
+        self.spinBox_numKTP.setMinimum(1)
+        self.spinBox_numKTP.setMaximum(len(self.others))
+        self.spinBox_numKTP.setValue(len(self.others))
+
     def del_invertor(self):
         if len(self.invertors) > 1:
             del self.invertors[f'found_invertor_{self.spinBox_numInvertor.value() - 1}']
@@ -996,12 +1112,40 @@ class MainApp(QtWidgets.QMainWindow, designRepPDF.Ui_MainWindow):
             for key in list(self.invertors.keys()):
                 self.invertors[f'found_invertor_{index}'] = self.invertors.pop(key)
                 index += 1
-            self.up_down_ivertor_selection()
+            self.up_down_invertor_selection()
         if len(self.invertors) == 1:
             self.btnDelInvertor.hide()
             self.spinBox_numInvertor.hide()
 
-    def up_down_ivertor_selection(self):
+    def del_pv(self):
+        if len(self.pvs) > 1:
+            del self.pvs[f'found_pv_{self.spinBox_numPV.value() - 1}']
+            self.spinBox_numPV.setMaximum(len(self.pvs))
+            self.spinBox_numPV.setValue(len(self.pvs))
+            index = 0
+            for key in list(self.pvs.keys()):
+                self.pvs[f'found_pv_{index}'] = self.pvs.pop(key)
+                index += 1
+            self.up_down_pv_selection()
+        if len(self.pvs) == 1:
+            self.btnDelPV.hide()
+            self.spinBox_numPV.hide()
+
+    def del_other(self):
+        if len(self.others) > 1:
+            del self.others[f'found_other_{self.spinBox_numKTP.value() - 1}']
+            self.spinBox_numKTP.setMaximum(len(self.others))
+            self.spinBox_numKTP.setValue(len(self.others))
+            index = 0
+            for key in list(self.others.keys()):
+                self.others[f'found_other_{index}'] = self.others.pop(key)
+                index += 1
+            self.up_down_other_selection()
+        if len(self.others) == 1:
+            self.btnDelOther.hide()
+            self.spinBox_numKTP.hide()
+
+    def up_down_invertor_selection(self):
         current = self.invertors[f'found_invertor_{self.spinBox_numInvertor.value() - 1}']
         if 'folder' in current:
             self.listInvertor_folder.setCurrentIndex(current['folder'])
@@ -1013,6 +1157,32 @@ class MainApp(QtWidgets.QMainWindow, designRepPDF.Ui_MainWindow):
         else:
             self.listInvertor_folder.setCurrentIndex(0)
             self.listInvertor_file.clear()
+
+    def up_down_pv_selection(self):
+        current = self.pvs[f'found_pv_{self.spinBox_numPV.value() - 1}']
+        if 'folder' in current:
+            self.listPV_folder.setCurrentIndex(current['folder'])
+            self.pv_select()
+            if 'file' in current:
+                self.listPV_file.setCurrentIndex(current['file'])
+            else:
+                self.listPV_file.clear()
+        else:
+            self.listPV_folder.setCurrentIndex(0)
+            self.listPV_file.clear()
+
+    def up_down_other_selection(self):
+        current = self.others[f'found_other_{self.spinBox_numKTP.value() - 1}']
+        if 'folder' in current:
+            self.listKTP_folder.setCurrentIndex(current['folder'])
+            self.other_select()
+            if 'file' in current:
+                self.listKTP_file.setCurrentIndex(current['file'])
+            else:
+                self.listKTP_file.clear()
+        else:
+            self.listKTP_folder.setCurrentIndex(0)
+            self.listKTP_file.clear()
 
     def delete_pdf(self, method):
         fp_general = path_to_pdf_schemes + "/General"
@@ -1189,7 +1359,7 @@ class MainApp(QtWidgets.QMainWindow, designRepPDF.Ui_MainWindow):
             self.out_params()
             
             main_params = {'path_to_pvsyst': self.path_pvsyst, 'roof': self.current_roof, 'invertors': self.invertors,
-                            **self.blocks, **self.object_passport, 
+                            **self.blocks, **self.object_passport, 'pvs': self.pvs, 'others': self.others,
                             **self.weather, **self.weather_station, **self.found_pdf, **self.found_pv}
             print(main_params)
             
@@ -1239,9 +1409,10 @@ class MainApp(QtWidgets.QMainWindow, designRepPDF.Ui_MainWindow):
         self.found_pdf = self.converter_pvsyst.found_pdf 
         self.inputAddressLat.setText(self.found_pdf['lati_pdf'])
         self.inputAddressLong.setText(self.found_pdf['longi_pdf'])
-        full_address = geocoding.get_full_address_by_coordinates(self.found_pdf['lati_pdf'], self.found_pdf['longi_pdf'])
-        self.inputAddress.setText(full_address['full_address'])
-        self.w2.inputCity.setText(full_address['city_point'])
+        if self.internet_on() == True:
+            full_address = geocoding.get_full_address_by_coordinates(self.found_pdf['lati_pdf'], self.found_pdf['longi_pdf'])
+            self.inputAddress.setText(full_address['full_address'])
+            self.w2.inputCity.setText(full_address['city_point'])
         self.btnOne.setEnabled(True)
         self.hide_del_button_device()
         self.stopAnimation()
@@ -1251,12 +1422,12 @@ class MainApp(QtWidgets.QMainWindow, designRepPDF.Ui_MainWindow):
         self.textConsole.append("Отчет сформирован!")
         self.statusBar.showMessage('Отчет сформирован!', 4000)
         self.statusBar.setStyleSheet("background-color:rgb(48, 219, 91)")
+        QTimer.singleShot(4000, lambda: self.statusBar.setStyleSheet("background-color:rgb(255, 255, 255)"))
         self.merge_pdf()
         self.stopAnimation()
         self.btnOpenPDF.show()
         self.label_10.setText('Создать')
         # self.label_10.hide()
-        QTimer.singleShot(4000, lambda: self.statusBar.setStyleSheet("background-color:rgb(255, 255, 255)"))
         self.btnForm.setEnabled(True)
         # self.btnForm.setText('PDF')
         # Удаление потока после его использования.
@@ -1267,7 +1438,7 @@ def main():
     window = MainApp()  # Создаём объект класса ExampleApp
     window.setWindowIcon(QtGui.QIcon('Data/icons/graficon.png'))
     window.show()  # Показываем окно
-    window.setFixedSize(950,370)
+    window.setFixedSize(950,380)
     window.instance_ofter_class(window)
     app.exec_()  # и запускаем приложение
 

@@ -10,7 +10,7 @@
     <x>0</x>
     <y>0</y>
     <width>1044</width>
-    <height>374</height>
+    <height>405</height>
    </rect>
   </property>
   <property name="font">
@@ -395,7 +395,7 @@ QLineEdit:pressed{
      <rect>
       <x>710</x>
       <y>19</y>
-      <width>131</width>
+      <width>111</width>
       <height>35</height>
      </rect>
     </property>
@@ -422,7 +422,7 @@ QLineEdit:pressed{
      <rect>
       <x>710</x>
       <y>140</y>
-      <width>121</width>
+      <width>71</width>
       <height>16</height>
      </rect>
     </property>
@@ -438,7 +438,7 @@ QLineEdit:pressed{
      <string notr="true">background-color: rgba(255,255,255,0); </string>
     </property>
     <property name="text">
-     <string>КТП</string>
+     <string>Другое</string>
     </property>
    </widget>
    <widget class="QLineEdit" name="inputClient">
@@ -3244,7 +3244,7 @@ QPushButton:hover{
     <property name="geometry">
      <rect>
       <x>685</x>
-      <y>264</y>
+      <y>277</y>
       <width>31</width>
       <height>31</height>
      </rect>
@@ -3283,8 +3283,8 @@ QPushButton:hover{
    <widget class="QLineEdit" name="inputNameFileKTP">
     <property name="geometry">
      <rect>
-      <x>708</x>
-      <y>283</y>
+      <x>565</x>
+      <y>312</y>
       <width>131</width>
       <height>41</height>
      </rect>
@@ -3369,7 +3369,7 @@ QPushButton:hover{
    <widget class="QPushButton" name="btnOtherTemplate">
     <property name="geometry">
      <rect>
-      <x>706</x>
+      <x>704</x>
       <y>79</y>
       <width>61</width>
       <height>20</height>
@@ -3478,9 +3478,220 @@ color:rgba(0, 0, 0, 0.5);</string>
      <set>Qt::AlignCenter</set>
     </property>
    </widget>
+   <widget class="QPushButton" name="btnAbout">
+    <property name="geometry">
+     <rect>
+      <x>84</x>
+      <y>320</y>
+      <width>51</width>
+      <height>41</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Arial</family>
+      <pointsize>9</pointsize>
+      <weight>75</weight>
+      <bold>true</bold>
+     </font>
+    </property>
+    <property name="cursor">
+     <cursorShape>PointingHandCursor</cursorShape>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QPushButton{
+	/*background-color: #196dff;*/
+	background-color:rgba(112, 215, 255, 0);
+	color: white;
+	border: none;
+	border-radius: 12;
+	border-style: outset;
+}
+QPushButton:hover{
+	border-bottom: 3px solid white;
+	border-radius: 3; 
+}
+QPushButton:pressed{
+	border-bottom: 0px solid white;
+	border-radius: 3;
+}</string>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="btnInfo">
+    <property name="geometry">
+     <rect>
+      <x>20</x>
+      <y>320</y>
+      <width>51</width>
+      <height>41</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Arial</family>
+      <pointsize>9</pointsize>
+      <weight>75</weight>
+      <bold>true</bold>
+     </font>
+    </property>
+    <property name="cursor">
+     <cursorShape>PointingHandCursor</cursorShape>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QPushButton{
+	/*background-color: #196dff;*/
+	background-color:rgba(112, 215, 255, 0);
+	color: white;
+	border: none;
+	border-radius: 12;
+	border-style: outset;
+}
+QPushButton:hover{
+	border-bottom: 3px solid white;
+	border-radius: 3; 
+}
+QPushButton:pressed{
+	border-bottom: 0px solid white;
+	border-radius: 3;
+}</string>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="btnWifi">
+    <property name="geometry">
+     <rect>
+      <x>170</x>
+      <y>320</y>
+      <width>61</width>
+      <height>51</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Arial</family>
+      <pointsize>9</pointsize>
+      <weight>75</weight>
+      <bold>true</bold>
+     </font>
+    </property>
+    <property name="cursor">
+     <cursorShape>PointingHandCursor</cursorShape>
+    </property>
+    <property name="toolTip">
+     <string>Нет подключения к сети, некоторые функции не будут работать.</string>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QPushButton{
+	/*background-color: #196dff;*/
+	background-color:rgba(112, 215, 255, 0);
+	color: white;
+	border: none;
+	border-radius: 12;
+	border-style: outset;
+}
+QPushButton:hover{
+	border-bottom: 3px solid white;
+	border-radius: 3; 
+}
+QPushButton:pressed{
+	border-bottom: 0px solid white;
+	border-radius: 3;
+}</string>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="btnDelPV">
+    <property name="geometry">
+     <rect>
+      <x>780</x>
+      <y>72</y>
+      <width>31</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Arial</family>
+      <pointsize>11</pointsize>
+      <weight>75</weight>
+      <bold>true</bold>
+     </font>
+    </property>
+    <property name="cursor">
+     <cursorShape>PointingHandCursor</cursorShape>
+    </property>
+    <property name="toolTip">
+     <string>Удалить</string>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QPushButton{
+	background-color:rgba(112, 215, 255, 0);
+	color:  rgba(0, 0, 0, 0.5);
+	border: none;
+	border-radius: 5;
+	border-style: outset;
+}
+QPushButton:hover{
+	color:rgba(255, 20, 20, 1) ;
+}
+</string>
+    </property>
+    <property name="text">
+     <string>🞫</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="btnDelOther">
+    <property name="geometry">
+     <rect>
+      <x>780</x>
+      <y>132</y>
+      <width>31</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Arial</family>
+      <pointsize>11</pointsize>
+      <weight>75</weight>
+      <bold>true</bold>
+     </font>
+    </property>
+    <property name="cursor">
+     <cursorShape>PointingHandCursor</cursorShape>
+    </property>
+    <property name="toolTip">
+     <string>Удалить</string>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QPushButton{
+	background-color:rgba(112, 215, 255, 0);
+	color:  rgba(0, 0, 0, 0.5);
+	border: none;
+	border-radius: 5;
+	border-style: outset;
+}
+QPushButton:hover{
+	color:rgba(255, 20, 20, 1) ;
+}
+</string>
+    </property>
+    <property name="text">
+     <string>🞫</string>
+    </property>
+   </widget>
+   <zorder>label_2</zorder>
+   <zorder>btnKTPTemplate</zorder>
+   <zorder>label_for_slide</zorder>
    <zorder>inputKTP</zorder>
    <zorder>label_10</zorder>
-   <zorder>label_for_slide</zorder>
    <zorder>btnOpenPDF</zorder>
    <zorder>label_5</zorder>
    <zorder>textConsole</zorder>
@@ -3533,7 +3744,6 @@ color:rgba(0, 0, 0, 0.5);</string>
    <zorder>inputCodeProject</zorder>
    <zorder>label_6</zorder>
    <zorder>btnForm</zorder>
-   <zorder>label_2</zorder>
    <zorder>label_4</zorder>
    <zorder>btnDevice</zorder>
    <zorder>btnRP5</zorder>
@@ -3567,10 +3777,14 @@ color:rgba(0, 0, 0, 0.5);</string>
    <zorder>btnSlideMenuKTP</zorder>
    <zorder>btnAddKTPParams</zorder>
    <zorder>inputNameFileKTP</zorder>
-   <zorder>btnKTPTemplate</zorder>
    <zorder>btnOtherTemplate</zorder>
    <zorder>btnCalcPV</zorder>
    <zorder>label_14</zorder>
+   <zorder>btnAbout</zorder>
+   <zorder>btnInfo</zorder>
+   <zorder>btnWifi</zorder>
+   <zorder>btnDelPV</zorder>
+   <zorder>btnDelOther</zorder>
   </widget>
   <widget class="QStatusBar" name="statusBar"/>
  </widget>

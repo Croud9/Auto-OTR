@@ -1,3 +1,4 @@
+# from curses.ascii import isspace
 import fitz
 import re
 
@@ -123,6 +124,19 @@ def search_in_pv(path):
         found_txt['mu_voc_spec_pv'] = float(found_txt['mu_voc_spec_pv']) / 1000  
     return found_txt
 
+def search_in_others_device(path):
+    found_txt = {}
+    with open(path, 'r') as fp:
+        input_text = fp.read().split('\n')
+        for line in input_text:
+            if not line:
+                pass
+            else:
+                key = line.split('=')[0]
+                value = line.split('=')[1]
+                found_txt[key] = value
+    return found_txt
+
 def search_in_pdf(path): 
     found_pdf = null_search_params('pvsyst')
 
@@ -174,3 +188,4 @@ def search_in_pdf(path):
 # search_in_invertor("Data/Modules/Invertors/Sungrow/Sungrow_SG110CX_Pvsyst668.OND")
 # search_in_pv("Data/Modules/PV's/Hevel/HJT 390 m2+ (08.2020).PAN")
 # search_in_pdf("Data/PDF in/PVsyst/PVsyst_отчет3.pdf")
+# print(search_in_others_device("Data/Modules/KTP's/New/КТП1.txt"))

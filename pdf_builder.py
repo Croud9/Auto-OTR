@@ -364,7 +364,6 @@ class docPDF():
             [Paragraph('Максимальная мощность СЭС по инверторам', self.styleNormalTable), Paragraph('кВт', self.styleNormalTable), Paragraph(data['pnom_inverters'], self.styleNormalTable)],
             [Paragraph('Количество устанавливаемых ФЭМ', self.styleNormalTable), Paragraph('шт', self.styleNormalTable), Paragraph(data['nb_PV'], self.styleNormalTable)]
             ]
-            print(type(data['produced_energy']) is dict)
 
             description_for_P = "* - модельное значение выработки электроэнергии с вероятностью: "
 
@@ -565,24 +564,38 @@ class docPDF():
             self.story.append(Paragraph("Характеристики КТП представлены в таблице №__:", self.styleNormal))
             self.story.append(Paragraph("Таблица №__", self.styleNormal))
 
-            table_ktp_params = Table(
-            [
-            [Paragraph('<b>Комплектная трансформаторная подстанция</b>', self.styleNormalTable), Paragraph('<b>Название КТП</b>', self.styleNormalTable)],
-            [Paragraph('Мощность КТП, кВА', self.styleNormalTable), Paragraph('-', self.styleNormalTable)],
-            [Paragraph('Количество обмоток, шт	', self.styleNormalTable), Paragraph('-', self.styleNormalTable)],
-            [Paragraph('Напряжение первичной обмотки, кВ	', self.styleNormalTable), Paragraph('-', self.styleNormalTable)],
-            [Paragraph('Напряжение вторичной(-ых) обмотки(-ок), кВ	', self.styleNormalTable), Paragraph('-', self.styleNormalTable)],
-            [Paragraph('Номинальный ток обмоток, А', self.styleNormalTable), Paragraph('-', self.styleNormalTable)],
-            [Paragraph('Рабочая частота, Гц	', self.styleNormalTable), Paragraph('-', self.styleNormalTable)],
-            [Paragraph('Коэффициент полезного действия, %	', self.styleNormalTable), Paragraph('-', self.styleNormalTable)],
-            ]
-            )
+            # table_ktp_params = Table(
+            # [
+            # [Paragraph('<b>Комплектная трансформаторная подстанция</b>', self.styleNormalTable), Paragraph('<b>Название КТП</b>', self.styleNormalTable)],
+            # [Paragraph('Мощность КТП, кВА', self.styleNormalTable), Paragraph('-', self.styleNormalTable)],
+            # [Paragraph('Количество обмоток, шт	', self.styleNormalTable), Paragraph('-', self.styleNormalTable)],
+            # [Paragraph('Напряжение первичной обмотки, кВ	', self.styleNormalTable), Paragraph('-', self.styleNormalTable)],
+            # [Paragraph('Напряжение вторичной(-ых) обмотки(-ок), кВ	', self.styleNormalTable), Paragraph('-', self.styleNormalTable)],
+            # [Paragraph('Номинальный ток обмоток, А', self.styleNormalTable), Paragraph('-', self.styleNormalTable)],
+            # [Paragraph('Рабочая частота, Гц	', self.styleNormalTable), Paragraph('-', self.styleNormalTable)],
+            # [Paragraph('Коэффициент полезного действия, %	', self.styleNormalTable), Paragraph('-', self.styleNormalTable)],
+            # ]
+            # )
 
-            table_ktp_params.setStyle(TableStyle([('ALIGN',(1,1),(-1,-1),'CENTRE'),
-            ('INNERGRID', (0,0), (-1,-1), 0.25, colors.black),
-            ('BOX', (0,0), (-1,-1), 0.25, colors.black),
-            ]))
-            self.story.append(table_ktp_params)
+            # table_ktp_params.setStyle(TableStyle([('ALIGN',(1,1),(-1,-1),'CENTRE'),
+            # ('INNERGRID', (0,0), (-1,-1), 0.25, colors.black),
+            # ('BOX', (0,0), (-1,-1), 0.25, colors.black),
+            # ]))
+            # self.story.append(table_ktp_params)
+
+
+            for key, device in data['other_device'].items():
+                other_params = [[Paragraph('<b>Комплектная трансформаторная подстанция</b>', self.styleNormalTable), Paragraph('<b>Название КТП</b>', self.styleNormalTable)],]
+                for key, param in device.items():
+                    other_params.append([Paragraph('Мощность КТП, кВА', self.styleNormalTable), Paragraph('-', self.styleNormalTable)],)
+
+                table_other_params = Table(other_params, colWidths=[None, 1.2*inch, 1.2*inch], style = [('ALIGN',(1,1),(-1,-1),'CENTRE'),
+                ('INNERGRID', (0,0), (-1,-1), 0.25, colors.black),
+                ('BOX', (0,0), (-1,-1), 0.25, colors.black),
+                ])
+
+                self.story.append(table_other_params)
+                self.story.append(Spacer(1, 12))
             
         if data["block_5_2"] == False:
             self.story.append(PageBreak())

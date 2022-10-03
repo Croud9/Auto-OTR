@@ -15,7 +15,7 @@ class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
         MainWindow.setEnabled(True)
-        MainWindow.resize(1044, 374)
+        MainWindow.resize(1044, 405)
         font = QtGui.QFont()
         font.setFamily("Arial")
         font.setBold(False)
@@ -255,7 +255,7 @@ class Ui_MainWindow(object):
         self.inputTitleProject.setPlaceholderText("")
         self.inputTitleProject.setObjectName("inputTitleProject")
         self.label_2 = QtWidgets.QLabel(self.centralwidget)
-        self.label_2.setGeometry(QtCore.QRect(710, 19, 131, 35))
+        self.label_2.setGeometry(QtCore.QRect(710, 19, 111, 35))
         font = QtGui.QFont()
         font.setFamily("Arial")
         font.setPointSize(9)
@@ -266,7 +266,7 @@ class Ui_MainWindow(object):
         self.label_2.setScaledContents(False)
         self.label_2.setObjectName("label_2")
         self.label_4 = QtWidgets.QLabel(self.centralwidget)
-        self.label_4.setGeometry(QtCore.QRect(710, 140, 121, 16))
+        self.label_4.setGeometry(QtCore.QRect(710, 140, 71, 16))
         font = QtGui.QFont()
         font.setFamily("Arial")
         font.setPointSize(9)
@@ -1680,7 +1680,7 @@ class Ui_MainWindow(object):
 "")
         self.btnSlideMenuKTP.setObjectName("btnSlideMenuKTP")
         self.btnAddKTPParams = QtWidgets.QPushButton(self.centralwidget)
-        self.btnAddKTPParams.setGeometry(QtCore.QRect(685, 264, 31, 31))
+        self.btnAddKTPParams.setGeometry(QtCore.QRect(685, 277, 31, 31))
         font = QtGui.QFont()
         font.setFamily("Arial")
         font.setPointSize(14)
@@ -1701,7 +1701,7 @@ class Ui_MainWindow(object):
 "")
         self.btnAddKTPParams.setObjectName("btnAddKTPParams")
         self.inputNameFileKTP = QtWidgets.QLineEdit(self.centralwidget)
-        self.inputNameFileKTP.setGeometry(QtCore.QRect(708, 283, 131, 41))
+        self.inputNameFileKTP.setGeometry(QtCore.QRect(565, 312, 131, 41))
         font = QtGui.QFont()
         font.setFamily("Arial")
         font.setBold(True)
@@ -1750,7 +1750,7 @@ class Ui_MainWindow(object):
 "")
         self.btnKTPTemplate.setObjectName("btnKTPTemplate")
         self.btnOtherTemplate = QtWidgets.QPushButton(self.centralwidget)
-        self.btnOtherTemplate.setGeometry(QtCore.QRect(706, 79, 61, 20))
+        self.btnOtherTemplate.setGeometry(QtCore.QRect(704, 79, 61, 20))
         font = QtGui.QFont()
         font.setFamily("Arial")
         font.setPointSize(9)
@@ -1814,9 +1814,134 @@ class Ui_MainWindow(object):
 "color:rgba(0, 0, 0, 0.5);")
         self.label_14.setAlignment(QtCore.Qt.AlignCenter)
         self.label_14.setObjectName("label_14")
+        self.btnAbout = QtWidgets.QPushButton(self.centralwidget)
+        self.btnAbout.setGeometry(QtCore.QRect(84, 320, 51, 41))
+        font = QtGui.QFont()
+        font.setFamily("Arial")
+        font.setPointSize(9)
+        font.setBold(True)
+        font.setWeight(75)
+        self.btnAbout.setFont(font)
+        self.btnAbout.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
+        self.btnAbout.setStyleSheet("QPushButton{\n"
+"    /*background-color: #196dff;*/\n"
+"    background-color:rgba(112, 215, 255, 0);\n"
+"    color: white;\n"
+"    border: none;\n"
+"    border-radius: 12;\n"
+"    border-style: outset;\n"
+"}\n"
+"QPushButton:hover{\n"
+"    border-bottom: 3px solid white;\n"
+"    border-radius: 3; \n"
+"}\n"
+"QPushButton:pressed{\n"
+"    border-bottom: 0px solid white;\n"
+"    border-radius: 3;\n"
+"}")
+        self.btnAbout.setText("")
+        self.btnAbout.setObjectName("btnAbout")
+        self.btnInfo = QtWidgets.QPushButton(self.centralwidget)
+        self.btnInfo.setGeometry(QtCore.QRect(20, 320, 51, 41))
+        font = QtGui.QFont()
+        font.setFamily("Arial")
+        font.setPointSize(9)
+        font.setBold(True)
+        font.setWeight(75)
+        self.btnInfo.setFont(font)
+        self.btnInfo.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
+        self.btnInfo.setStyleSheet("QPushButton{\n"
+"    /*background-color: #196dff;*/\n"
+"    background-color:rgba(112, 215, 255, 0);\n"
+"    color: white;\n"
+"    border: none;\n"
+"    border-radius: 12;\n"
+"    border-style: outset;\n"
+"}\n"
+"QPushButton:hover{\n"
+"    border-bottom: 3px solid white;\n"
+"    border-radius: 3; \n"
+"}\n"
+"QPushButton:pressed{\n"
+"    border-bottom: 0px solid white;\n"
+"    border-radius: 3;\n"
+"}")
+        self.btnInfo.setText("")
+        self.btnInfo.setObjectName("btnInfo")
+        self.btnWifi = QtWidgets.QPushButton(self.centralwidget)
+        self.btnWifi.setGeometry(QtCore.QRect(170, 320, 61, 51))
+        font = QtGui.QFont()
+        font.setFamily("Arial")
+        font.setPointSize(9)
+        font.setBold(True)
+        font.setWeight(75)
+        self.btnWifi.setFont(font)
+        self.btnWifi.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
+        self.btnWifi.setStyleSheet("QPushButton{\n"
+"    /*background-color: #196dff;*/\n"
+"    background-color:rgba(112, 215, 255, 0);\n"
+"    color: white;\n"
+"    border: none;\n"
+"    border-radius: 12;\n"
+"    border-style: outset;\n"
+"}\n"
+"QPushButton:hover{\n"
+"    border-bottom: 3px solid white;\n"
+"    border-radius: 3; \n"
+"}\n"
+"QPushButton:pressed{\n"
+"    border-bottom: 0px solid white;\n"
+"    border-radius: 3;\n"
+"}")
+        self.btnWifi.setText("")
+        self.btnWifi.setObjectName("btnWifi")
+        self.btnDelPV = QtWidgets.QPushButton(self.centralwidget)
+        self.btnDelPV.setGeometry(QtCore.QRect(780, 72, 31, 31))
+        font = QtGui.QFont()
+        font.setFamily("Arial")
+        font.setPointSize(11)
+        font.setBold(True)
+        font.setWeight(75)
+        self.btnDelPV.setFont(font)
+        self.btnDelPV.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
+        self.btnDelPV.setStyleSheet("QPushButton{\n"
+"    background-color:rgba(112, 215, 255, 0);\n"
+"    color:  rgba(0, 0, 0, 0.5);\n"
+"    border: none;\n"
+"    border-radius: 5;\n"
+"    border-style: outset;\n"
+"}\n"
+"QPushButton:hover{\n"
+"    color:rgba(255, 20, 20, 1) ;\n"
+"}\n"
+"")
+        self.btnDelPV.setObjectName("btnDelPV")
+        self.btnDelOther = QtWidgets.QPushButton(self.centralwidget)
+        self.btnDelOther.setGeometry(QtCore.QRect(780, 132, 31, 31))
+        font = QtGui.QFont()
+        font.setFamily("Arial")
+        font.setPointSize(11)
+        font.setBold(True)
+        font.setWeight(75)
+        self.btnDelOther.setFont(font)
+        self.btnDelOther.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
+        self.btnDelOther.setStyleSheet("QPushButton{\n"
+"    background-color:rgba(112, 215, 255, 0);\n"
+"    color:  rgba(0, 0, 0, 0.5);\n"
+"    border: none;\n"
+"    border-radius: 5;\n"
+"    border-style: outset;\n"
+"}\n"
+"QPushButton:hover{\n"
+"    color:rgba(255, 20, 20, 1) ;\n"
+"}\n"
+"")
+        self.btnDelOther.setObjectName("btnDelOther")
+        self.label_2.raise_()
+        self.btnKTPTemplate.raise_()
+        self.label_for_slide.raise_()
         self.inputKTP.raise_()
         self.label_10.raise_()
-        self.label_for_slide.raise_()
         self.btnOpenPDF.raise_()
         self.label_5.raise_()
         self.textConsole.raise_()
@@ -1869,7 +1994,6 @@ class Ui_MainWindow(object):
         self.inputCodeProject.raise_()
         self.label_6.raise_()
         self.btnForm.raise_()
-        self.label_2.raise_()
         self.label_4.raise_()
         self.btnDevice.raise_()
         self.btnRP5.raise_()
@@ -1903,10 +2027,14 @@ class Ui_MainWindow(object):
         self.btnSlideMenuKTP.raise_()
         self.btnAddKTPParams.raise_()
         self.inputNameFileKTP.raise_()
-        self.btnKTPTemplate.raise_()
         self.btnOtherTemplate.raise_()
         self.btnCalcPV.raise_()
         self.label_14.raise_()
+        self.btnAbout.raise_()
+        self.btnInfo.raise_()
+        self.btnWifi.raise_()
+        self.btnDelPV.raise_()
+        self.btnDelOther.raise_()
         MainWindow.setCentralWidget(self.centralwidget)
         self.statusBar = QtWidgets.QStatusBar(MainWindow)
         self.statusBar.setObjectName("statusBar")
@@ -1922,7 +2050,7 @@ class Ui_MainWindow(object):
         self.label_for_slide.setText(_translate("MainWindow", "Оборудование"))
         self.inputTitleProject.setToolTip(_translate("MainWindow", "Количество MPPT в инверторе"))
         self.label_2.setText(_translate("MainWindow", "Инвертор"))
-        self.label_4.setText(_translate("MainWindow", "КТП"))
+        self.label_4.setText(_translate("MainWindow", "Другое"))
         self.inputClient.setToolTip(_translate("MainWindow", "Количество MPPT в инверторе"))
         self.label_5.setText(_translate("MainWindow", "Тип крыши"))
         self.checkBox_8_1.setToolTip(_translate("MainWindow", "Отчет по выработке"))
@@ -2062,3 +2190,8 @@ class Ui_MainWindow(object):
         self.btnKTPTemplate.setText(_translate("MainWindow", "КТП"))
         self.btnOtherTemplate.setText(_translate("MainWindow", "Другое"))
         self.label_14.setText(_translate("MainWindow", "CalcPV"))
+        self.btnWifi.setToolTip(_translate("MainWindow", "Нет подключения к сети, некоторые функции не будут работать."))
+        self.btnDelPV.setToolTip(_translate("MainWindow", "Удалить"))
+        self.btnDelPV.setText(_translate("MainWindow", "🞫"))
+        self.btnDelOther.setToolTip(_translate("MainWindow", "Удалить"))
+        self.btnDelOther.setText(_translate("MainWindow", "🞫"))
