@@ -568,13 +568,14 @@ def generate_fem(slr, solar_count_on_the_chain, fem_offset, count_mppt, count_ch
 def calculation(slr, fem_offset, use_y_connector, use_all_mppt, count_diffirent_mppt, input_parametrs):
     print("")
     print("---- Изначальный массив входных параметров ----",input_parametrs)
+    all_modules = 0
     for i in range(count_diffirent_mppt):
         # Входные данные
         count_mppt = input_parametrs[0]# Число mppt
         count_input_mppt = input_parametrs[1] # Число входов mppt
         solar_count_on_the_chain = input_parametrs[2]  #Число фэм модулей в цепочке
         all_chain = input_parametrs[3]#  число цепочек
-
+        all_modules += all_chain * solar_count_on_the_chain
         # Расчет
         count_chain = all_chain // count_mppt #  число цепочек в одном MPPT
         remains_chain = all_chain % count_mppt
@@ -675,7 +676,7 @@ def calculation(slr, fem_offset, use_y_connector, use_all_mppt, count_diffirent_
         print("---- Массив после итерации ----",input_parametrs)
         print("")
         # fem_plus_chain.append(num_error)
-    return num_error, fem_plus_chain, max_input, max_input_y
+    return num_error, fem_plus_chain, max_input, max_input_y, all_modules
 
 def draw(input_parametrs, parametrs, i, gost_frame_params):
     global two_num
@@ -733,4 +734,4 @@ def draw(input_parametrs, parametrs, i, gost_frame_params):
     srcfile = f'Data/Schemes/invertor{i}.svg'
     trgfile = f'Data/Schemes/invertor{i}_codec.svg'
     encode_file.to_utf8(srcfile, trgfile)
-    return 0, two_num, fem_plus_chain[1][2]
+    return 0, two_num, fem_plus_chain[4]

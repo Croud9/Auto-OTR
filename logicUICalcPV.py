@@ -167,7 +167,12 @@ class CalcPV(QtWidgets.QMainWindow, designCalcPV.Ui_MainWindow):
         QTimer.singleShot(5000, lambda: self.statusBar.setStyleSheet("background-color: rgb(255,255,255)"))
 
     def valid_input_field(self, field):
-        if field.text() == '':
+        if field.text() == '' and field != self.lineEdit_noct and self.comboBox_stcnoct.currentText() == "STC":
+            self.statusBar.showMessage('Введите значение в выделенное поле', 5000)
+            self.red_status()
+            field.setStyleSheet(self.warning_style_input)
+            return False
+        elif field.text() == '' and self.comboBox_stcnoct.currentText() == "NOCT":
             self.statusBar.showMessage('Введите значение в выделенное поле', 5000)
             self.red_status()
             field.setStyleSheet(self.warning_style_input)
@@ -190,9 +195,11 @@ class CalcPV(QtWidgets.QMainWindow, designCalcPV.Ui_MainWindow):
         if self.comboBox_stcnoct.currentText() == "STC":
             self.resultStc()
             self.statusBar.showMessage('Расчет выполнился при STC ', 10000)
+            self.u_in_report()
         elif self.comboBox_stcnoct.currentText() == "NOCT":
             self.resultNoct()
             self.statusBar.showMessage('Расчет выполнился при NOCT ', 10000)
+            self.u_in_report()
         # self.tableWidget.resizeColumnsToContents()
         self.set_style_default()
              
@@ -298,6 +305,61 @@ class CalcPV(QtWidgets.QMainWindow, designCalcPV.Ui_MainWindow):
                 data.setBackground(setRedColor)
             elif cleardata < self.imaxpogran:
                 data.setBackground(setGreenColor)
+
+    def stc_accept(self):
+        stc_U, stc_U1, stc_U2 = [], [], []
+        acc_stc_U, acc_stc_U1, acc_stc_U2 = [], [], []
+        for t in self.temperature:
+            metdU = self.numvoc + (self.nummuvocspec * (t - 25)) #расчет V
+            fem = round(metdU * self.countfem, 3)
+            fem1 = round(metdU * (self.countfem + 1), 3)
+            fem2 = round(metdU * (self.countfem + 2), 3)
+            stc_U.append(fem)
+            stc_U1.append(fem1)
+            stc_U2.append(fem2)
+
+            accept = False if fem > self.umaxpogran else True
+            accept1 = False if fem1 > self.umaxpogran else True
+            accept2 = False if fem2 > self.umaxpogran else True
+            acc_stc_U.append(accept)
+            acc_stc_U1.append(accept1)
+            acc_stc_U2.append(accept2)
+        stc_u = {'stc_U1': [stc_U, acc_stc_U], 'stc_U2': [stc_U1, acc_stc_U1], 'stc_U3': [stc_U2, acc_stc_U2],
+                    'countPV': [int(self.countfem), int(self.countfem + 1), int(self.countfem + 2)], 'temperature': self.temperature}
+        print(stc_u)
+        return stc_u
+
+    def noct_accept(self):
+        noct_field = self.lineEdit_noct.text()
+        noct_U, noct_U1, noct_U2  = [], [], []
+        acc_noct_U, acc_noct_U1, acc_noct_U2 = [], [], []
+        if noct_field != '':
+            for t in self.temperature:
+                noct = t + ((float(noct_field) - 20)/800)*self.irradiance
+                metdU = self.numvoc + (self.nummuvocspec * (noct - 25))
+                fem = round(metdU * self.countfem, 3)
+                fem1 = round(metdU * (self.countfem + 1), 3)
+                fem2 = round(metdU * (self.countfem + 2), 3)
+                noct_U.append(fem)
+                noct_U1.append(fem1)
+                noct_U2.append(fem2)   
+
+                accept = False if fem > self.umaxpogran else True       
+                accept1 = False if fem1 > self.umaxpogran else True
+                accept2 = False if fem2 > self.umaxpogran else True
+                acc_noct_U.append(accept)
+                acc_noct_U1.append(accept1)
+                acc_noct_U2.append(accept2)
+
+        noct_u = {'noct_U1': [noct_U, acc_noct_U], 'noct_U2': [noct_U1, acc_noct_U1], 'noct_U3': [noct_U2, acc_noct_U2]}
+        print(noct_u)
+        return noct_u
+
+    def u_in_report(self):
+        self.temperature = [self.calcmintemp, self.min_v, self.mintemp]
+        stc_u = self.stc_accept()
+        noct_u = self.noct_accept()
+        self.stc_noct = {**stc_u, **noct_u}
 
     def resultStc(self):
         print(" !STC!")
@@ -771,7 +833,6 @@ class CalcPV(QtWidgets.QMainWindow, designCalcPV.Ui_MainWindow):
     def resultNoct(self):
         print(" !NOCT!")
         print("NCels = ", self.numncels)
-        self.imput_params()
 
         noctT1 = self.calcmintemp + ((self.noct - 20)/800)*self.irradiance
         noctT2 = self.calcmaxtemp + ((self.noct - 20)/800)*self.irradiance

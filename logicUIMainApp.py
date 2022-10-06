@@ -1334,6 +1334,8 @@ class MainApp(QtWidgets.QMainWindow, designRepPDF.Ui_MainWindow):
         else:
             self.weather = self.parse_params
 
+        self.calcPV = self.w5.stc_noct if hasattr(self.w5, 'temperature') else {} 
+
         self.weather_station = self.w2.parse_params_current_city if hasattr(self.w2, 'parse_params_current_city') else self.weather_station_params
         
     def create_document(self):
@@ -1360,7 +1362,7 @@ class MainApp(QtWidgets.QMainWindow, designRepPDF.Ui_MainWindow):
             
             main_params = {'path_to_pvsyst': self.path_pvsyst, 'roof': self.current_roof, 'invertors': self.invertors,
                             **self.blocks, **self.object_passport, 'pvs': self.pvs, 'others': self.others,
-                            **self.weather, **self.weather_station, **self.found_pdf, **self.found_pv}
+                            **self.weather, **self.weather_station, **self.found_pdf, 'calcPV': self.calcPV}
             print(main_params)
             
             self.btnForm.setEnabled(False)

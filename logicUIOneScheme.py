@@ -5,15 +5,22 @@ from PyQt5.QtGui import QRegExpValidator
 from PyQt5.QtCore import QThread, QRegExp, QTimer
 
 class DrawOne(QThread):
-    def __init__(self, params, parametrs, i, gost_frame_params):
+    def __init__(self, params, parametrs, count_invertor, gost_frame_params):
         super().__init__()
         self.params = params
         self.parametrs = parametrs
-        self.i = i
+        self.count_invertor = count_invertor
         self.gost_frame_params = gost_frame_params
+        self.modules = 0
+        self.chains = 0
 
     def run(self):
-        self.num_error = draw_schemes.draw(self.params, self.parametrs , self.i, self.gost_frame_params)
+        for num in range(self.count_invertor):
+            num += 1
+            main_params = self.params.copy()
+            self.num_error = draw_schemes.draw(main_params, self.parametrs, num, self.gost_frame_params)
+            self.modules += self.num_error[2]
+            self.chains += self.num_error[1]
   
 class WindowDraw(QtWidgets.QMainWindow, designDrawSchemes.Ui_WindowDrawSchemes):
     def __init__(self, instance_of_main_window):
@@ -271,37 +278,34 @@ class WindowDraw(QtWidgets.QMainWindow, designDrawSchemes.Ui_WindowDrawSchemes):
 
         save_input_params = self.input_params.copy()
 
-        for i in range(count_invertor):
-            if not save_input_params:
-                self.textConsoleDraw.append("Введите заново параметры разных MPPT")
-                self.statusBar.setStyleSheet("background-color:rgb(255, 105, 97)")
-                return
-            i += 1
-            self.textConsoleDraw.append(f"Номер инвертора: {i}")
-            if self.checkUse_CloneInvertor.isChecked() != 0:
-                self.input_params = save_input_params.copy()
-            
-            self.btnDraw.setEnabled(False)
-            self.btnDraw.setText('Построение чертежа...')
-            self.statusBar.showMessage('Пожалуйста, подождите...')
-            self.statusBar.setStyleSheet("background-color:rgb(255, 212, 38)")
-            
-            title_project = self.main_window.inputTitleProject.text()
-            code_project = self.main_window.inputCodeProject.text()            
-            gost_frame_params = {'title_project': title_project, 'code_project': code_project} 
-            # Выполнение загрузки в новом потоке.
-            self.painter_draw_one = DrawOne(self.input_params, parametrs, i, gost_frame_params)
-            # Qt вызовет метод `drawFinished()`, когда поток завершится.
+        if not save_input_params:
+            self.textConsoleDraw.append("Введите заново параметры разных MPPT")
+            self.statusBar.setStyleSheet("background-color:rgb(255, 105, 97)")
+            return
 
-            self.painter_draw_one.finished.connect(self.drawFinished)
-            self.painter_draw_one.start()
+        self.textConsoleDraw.append(f"Номер инвертора: {count_invertor}")
+        if self.checkUse_CloneInvertor.isChecked() != 0:
+            self.input_params = save_input_params.copy()
+        
+        self.btnDraw.setEnabled(False)
+        self.btnDraw.setText('Построение чертежа...')
+        self.statusBar.showMessage('Пожалуйста, подождите...')
+        self.statusBar.setStyleSheet("background-color:rgb(255, 212, 38)")
+        
+        title_project = self.main_window.inputTitleProject.text()
+        code_project = self.main_window.inputCodeProject.text()            
+        gost_frame_params = {'title_project': title_project, 'code_project': code_project} 
+        self.painter_draw_one = DrawOne(self.input_params, parametrs, count_invertor, gost_frame_params)
+
+        self.painter_draw_one.finished.connect(self.drawFinished)
+        self.painter_draw_one.start()
 
     def drawFinished(self):
         if self.painter_draw_one.num_error[0] == 0:
             self.textConsoleDraw.append("----------------------------")
             self.textConsoleDraw.append("РЕЗУЛЬТАТЫ:")
-            self.textConsoleDraw.append(f" Всего цепочек: {self.painter_draw_one.num_error[1]}")
-            self.textConsoleDraw.append(f" Всего модулей: {self.painter_draw_one.num_error[2]}")
+            self.textConsoleDraw.append(f" Всего цепочек: {self.painter_draw_one.chains}")
+            self.textConsoleDraw.append(f" Всего модулей: {self.painter_draw_one.modules}")
             self.statusBar.showMessage('Чертеж успешно построен', 4000)
             self.statusBar.setStyleSheet("background-color:rgb(48, 219, 91)")
             QTimer.singleShot(4000, lambda: self.statusBar.setStyleSheet("background-color:rgb(255, 255, 255)"))

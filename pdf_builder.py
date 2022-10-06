@@ -409,41 +409,111 @@ class docPDF():
             self.story.append(PageBreak())
             self.story.append(Paragraph("<b>5.1.1 ФЭМ</b>", self.styleH2))
             self.story.append(Spacer(1, 12))
+            first_pv = list(data['pvs'].values())[0]
+            print('firstPV: ',first_pv)
             self.story.append(Paragraph(f"Для преобразования энергии солнечного света в электрическую предусмотрено устройство массива фотоэлектрических модулей. \
-                                    ФЭМ изготовлены в виде прямоугольных пластин размером {data['height_pv']} х {data['width_pv']} х {data['depth_pv']} мм (Д х Ш х Г). ФЭМ состоит из нескольких основных элементов – \
+                                    ФЭМ изготовлены в виде прямоугольных пластин размером {first_pv['height_pv']} х {first_pv['width_pv']} х {first_pv['depth_pv']} мм (Д х Ш х Г). ФЭМ состоит из нескольких основных элементов – \
                                     элементов каркаса, фоточувствительных ячеек, электрической коммутации элементов, подложки, ламинирующей пленки и закаленного стекла. \
                                     ФЭМ является комплектным изделием и не подлежит разборке и самостоятельному ремонту. \
                                     Световой поток при инсоляции проходит через закаленное стекло и прозрачную ламинирующую пленку и попадает на светочувствительные ячейки, \
                                     воздействуя на полупроводниковый материал, в результате воздействия возникает электрический ток, \
                                     который образует разность потенциалов на выводах полупроводникового элемента. С помощью электрической коммутации \
-                                    (последовательного и параллельного соединения ячеек) значение напряжения в режиме холостого хода на выводах ФЭМ составляет {data['voc_pv']} В, \
-                                    а ток в режиме короткого замыкания составляет {data['isc_pv']} А.", self.styleNormal))
+                                    (последовательного и параллельного соединения ячеек) значение напряжения в режиме холостого хода на выводах ФЭМ составляет {first_pv['voc_pv']} В, \
+                                    а ток в режиме короткого замыкания составляет {first_pv['isc_pv']} А.", self.styleNormal))
             self.story.append(Paragraph("ФЭМ закрепляются на специальные несущие конструкции, заземляются и выставляются на определенные расчетом углы работы. \
                                     Данное закрепление позволяет выдерживать ветровые и снеговые нагрузки, \
                                     действующие на массив ФЭМ в течении всего срока эксплуатации станции. ", self.styleNormal))
             self.story.append(Paragraph("Основные технические характеристики панелей ФЭМ представлены в таблице 5.2.", self.styleNormal))
+            
+            if data['calcPV'] != {}:
+                calcPV = data['calcPV']
+                self.story.append(Paragraph("Таблица 5.1 — Напряжения фотоэлектрических модулей", self.styleNormal))
+                table_fem = [
+                ['', Paragraph('<b>STC</b>', self.styleNormalTable),'','', Paragraph('<b>NOCT</b>', self.styleNormalTable)],
+                ['', Paragraph('Расч. Мин', self.styleNormalTable), Paragraph('Абс.мин', self.styleNormalTable), Paragraph('Мин 0.98', self.styleNormalTable),
+                            Paragraph('Расч. Мин', self.styleNormalTable), Paragraph('Абс.мин', self.styleNormalTable), Paragraph('Мин 0.98', self.styleNormalTable)],
+                [Paragraph('Число ФЭМ в цепочке', self.styleNormalTable), Paragraph(f"{calcPV['temperature'][0]}", self.styleNormalTable), 
+                            Paragraph(f"{calcPV['temperature'][1]}", self.styleNormalTable), Paragraph(f"{calcPV['temperature'][2]}", self.styleNormalTable),
+                            Paragraph(f"{calcPV['temperature'][0]}", self.styleNormalTable), Paragraph(f"{calcPV['temperature'][1]}", self.styleNormalTable), 
+                            Paragraph(f"{calcPV['temperature'][2]}", self.styleNormalTable)],
+                [Paragraph(f"{calcPV['countPV'][0]}", self.styleNormalTable), 
+                            Paragraph(f"{calcPV['stc_U1'][0][0]}", self.styleNormalTable), Paragraph(f"{calcPV['stc_U1'][0][1]}", self.styleNormalTable), Paragraph(f"{calcPV['stc_U1'][0][2]}", self.styleNormalTable),
+                            Paragraph(f"{calcPV['noct_U1'][0][0]}", self.styleNormalTable), Paragraph(f"{calcPV['noct_U1'][0][1]}", self.styleNormalTable), Paragraph(f"{calcPV['noct_U1'][0][2]}", self.styleNormalTable)],
+                [Paragraph(f"{calcPV['countPV'][1]}", self.styleNormalTable), 
+                            Paragraph(f"{calcPV['stc_U2'][0][0]}", self.styleNormalTable), Paragraph(f"{calcPV['stc_U2'][0][1]}", self.styleNormalTable), Paragraph(f"{calcPV['stc_U2'][0][2]}", self.styleNormalTable),
+                            Paragraph(f"{calcPV['noct_U2'][0][0]}", self.styleNormalTable), Paragraph(f"{calcPV['noct_U2'][0][1]}", self.styleNormalTable), Paragraph(f"{calcPV['noct_U2'][0][2]}", self.styleNormalTable)],
+                [Paragraph(f"{calcPV['countPV'][2]}", self.styleNormalTable), 
+                            Paragraph(f"{calcPV['stc_U3'][0][0]}", self.styleNormalTable), Paragraph(f"{calcPV['stc_U3'][0][1]}", self.styleNormalTable), Paragraph(f"{calcPV['stc_U3'][0][2]}", self.styleNormalTable),
+                            Paragraph(f"{calcPV['noct_U3'][0][0]}", self.styleNormalTable), Paragraph(f"{calcPV['noct_U3'][0][1]}", self.styleNormalTable), Paragraph(f"{calcPV['noct_U3'][0][2]}", self.styleNormalTable)],
+                ]
+                table_fem_u = Table(table_fem)
+                
+                table_fem_u_style = TableStyle([
+                ('SPAN', (0, 0), (0, 1)),
+                ('SPAN', (1, 0), (3, 0)),
+                ('SPAN', (4, 0), (6, 0)),
+                ('INNERGRID', (0,0), (-1,-1), 0.25, colors.black),
+                ('ALIGN',(1,1),(-1,-1),'CENTRE'),
+                ('BOX', (0,0), (-1,-1), 0.25, colors.black),
+                ])
+                
+                num_stc1 = [(1, 3), (2, 3), (3, 3)]
+                num_stc2 = [(1, 4), (2, 4), (3, 4)]
+                num_stc3 = [(1, 5), (2, 5), (3, 5)]
+
+                num_noct1 = [(4, 3), (5, 3), (6, 3)]
+                num_noct2 = [(4, 4), (5, 4), (6, 4)]
+                num_noct3 = [(4, 5), (5, 5), (6, 5)]
+                stc1 = dict(zip(num_stc1, calcPV['stc_U1'][1]))
+                stc2 = dict(zip(num_stc2, calcPV['stc_U2'][1]))
+                stc3 = dict(zip(num_stc3, calcPV['stc_U3'][1]))
+                noct1 = dict(zip(num_noct1, calcPV['noct_U1'][1]))
+                noct2 = dict(zip(num_noct2, calcPV['noct_U2'][1]))
+                noct3 = dict(zip(num_noct3, calcPV['noct_U3'][1]))
+                stc_noct = {**stc1, **stc2, **stc3, **noct1, **noct2, **noct3}
+
+                print(stc_noct)
+                for num, val in stc_noct.items():
+                    if val == False:
+                        table_fem_u_style.add('BACKGROUND', num, num, 'rgb(255, 114, 89)' )
+
+                table_fem_u.setStyle(table_fem_u_style)
+
+                self.story.append(table_fem_u)
+                self.story.append(Paragraph(f"На основании расчетов выбрано {calcPV['countPV'][0]} ФЭМ", self.styleNormal))
+                self.story.append(Spacer(1, 12))
+
             self.story.append(Paragraph("Таблица 5.2 — Технические характеристики фотоэлектрических модулей", self.styleNormal))
+            
+            for k, pv in data['pvs'].items():
+                table_fem_params = Table(
+                [
+                [Paragraph('<b>Наименование показателя</b>', self.styleNormalTable), Paragraph('<b>Единица измерения</b>', self.styleNormalTable), Paragraph(f"<b>{pv['module_pv']}</b>", self.styleNormalTable)],
+                [Paragraph('Максимальная мощность', self.styleNormalTable), Paragraph('Вт', self.styleNormalTable), Paragraph(f"{pv['p_nom_pv']}", self.styleNormalTable)],
+                [Paragraph('Напряжение при номинальной мощности', self.styleNormalTable), Paragraph('В', self.styleNormalTable), Paragraph(f"{pv['vmp_pv']}", self.styleNormalTable)],
+                [Paragraph('Сила тока при максимальной мощности', self.styleNormalTable), Paragraph('А', self.styleNormalTable), Paragraph(f"{pv['imp_pv']}", self.styleNormalTable)],
+                [Paragraph('Напряжение холостого хода', self.styleNormalTable), Paragraph('В', self.styleNormalTable), Paragraph(f"{pv['voc_pv']}", self.styleNormalTable)],
+                [Paragraph('Ток короткого замыкания', self.styleNormalTable), Paragraph('А', self.styleNormalTable), Paragraph(f"{pv['isc_pv']}", self.styleNormalTable)],
+                [Paragraph('Габариты', self.styleNormalTable), Paragraph('мм (Д х Ш х Г)', self.styleNormalTable), Paragraph(f"{pv['height_pv']} х {pv['width_pv']} х {pv['depth_pv']}", self.styleNormalTable)],
+                [Paragraph('Площадь', self.styleNormalTable), Paragraph('м2', self.styleNormalTable), Paragraph(f"{pv['square_pv']}", self.styleNormalTable)],
+                [Paragraph('Вес', self.styleNormalTable), Paragraph('кг', self.styleNormalTable), Paragraph(f"{pv['weight_pv']}", self.styleNormalTable)],
+                ]
+                )
+                table_fem_params.setStyle(TableStyle([('ALIGN',(1,1),(-1,-1),'CENTRE'),
+                ('INNERGRID', (0,0), (-1,-1), 0.25, colors.black),
+                ('BOX', (0,0), (-1,-1), 0.25, colors.black),
+                ]))
+                self.story.append(table_fem_params)
+                self.story.append(Spacer(1, 12))
+                # table_other_params = Table(other_params, colWidths=[None, 1.2*inch, 1.2*inch], style = [('ALIGN',(1,1),(-1,-1),'CENTRE'),
+                # ('INNERGRID', (0,0), (-1,-1), 0.25, colors.black),
+                # ('BOX', (0,0), (-1,-1), 0.25, colors.black),
+                # ])
 
-            table_fem_params = Table(
-            [
-            [Paragraph('<b>Наименование показателя</b>', self.styleNormalTable), Paragraph('<b>Единица измерения</b>', self.styleNormalTable), Paragraph(f"<b>{data['module_pv']}</b>", self.styleNormalTable)],
-            [Paragraph('Максимальная мощность', self.styleNormalTable), Paragraph('Вт', self.styleNormalTable), Paragraph(f"{data['p_nom_pv']}", self.styleNormalTable)],
-            [Paragraph('Напряжение при номинальной мощности', self.styleNormalTable), Paragraph('В', self.styleNormalTable), Paragraph(f"{data['vmp_pv']}", self.styleNormalTable)],
-            [Paragraph('Сила тока при максимальной мощности', self.styleNormalTable), Paragraph('А', self.styleNormalTable), Paragraph(f"{data['imp_pv']}", self.styleNormalTable)],
-            [Paragraph('Напряжение холостого хода', self.styleNormalTable), Paragraph('В', self.styleNormalTable), Paragraph(f"{data['voc_pv']}", self.styleNormalTable)],
-            [Paragraph('Ток короткого замыкания', self.styleNormalTable), Paragraph('А', self.styleNormalTable), Paragraph(f"{data['isc_pv']}", self.styleNormalTable)],
-            [Paragraph('Габариты', self.styleNormalTable), Paragraph('мм (Д х Ш х Г)', self.styleNormalTable), Paragraph(f"{data['height_pv']} х {data['width_pv']} х {data['depth_pv']}", self.styleNormalTable)],
-            [Paragraph('Площадь', self.styleNormalTable), Paragraph('м2', self.styleNormalTable), Paragraph(f"{data['square_pv']}", self.styleNormalTable)],
-            [Paragraph('Вес', self.styleNormalTable), Paragraph('кг', self.styleNormalTable), Paragraph(f"{data['weight_pv']}", self.styleNormalTable)],
-            ]
-            )
+                # self.story.append(table_other_params)
+                # self.story.append(Spacer(1, 12))
 
-            table_fem_params.setStyle(TableStyle([('ALIGN',(1,1),(-1,-1),'CENTRE'),
-            ('INNERGRID', (0,0), (-1,-1), 0.25, colors.black),
-            ('BOX', (0,0), (-1,-1), 0.25, colors.black),
-            ]))
-            self.story.append(table_fem_params)
-            self.story.append(Spacer(1, 12))
+
             self.story.append(Paragraph("Характеристики даны при стандартных тестовых условиях: (удельный световой поток 1000Вт/м2, \
                                     температура модуля 25ºС, атмосферная масса 1,5).", self.styleNormal))
 
@@ -563,40 +633,29 @@ class docPDF():
             self.story.append(Spacer(1, 12))
             self.story.append(Paragraph("Характеристики КТП представлены в таблице №__:", self.styleNormal))
             self.story.append(Paragraph("Таблица №__", self.styleNormal))
-
-            # table_ktp_params = Table(
-            # [
-            # [Paragraph('<b>Комплектная трансформаторная подстанция</b>', self.styleNormalTable), Paragraph('<b>Название КТП</b>', self.styleNormalTable)],
-            # [Paragraph('Мощность КТП, кВА', self.styleNormalTable), Paragraph('-', self.styleNormalTable)],
-            # [Paragraph('Количество обмоток, шт	', self.styleNormalTable), Paragraph('-', self.styleNormalTable)],
-            # [Paragraph('Напряжение первичной обмотки, кВ	', self.styleNormalTable), Paragraph('-', self.styleNormalTable)],
-            # [Paragraph('Напряжение вторичной(-ых) обмотки(-ок), кВ	', self.styleNormalTable), Paragraph('-', self.styleNormalTable)],
-            # [Paragraph('Номинальный ток обмоток, А', self.styleNormalTable), Paragraph('-', self.styleNormalTable)],
-            # [Paragraph('Рабочая частота, Гц	', self.styleNormalTable), Paragraph('-', self.styleNormalTable)],
-            # [Paragraph('Коэффициент полезного действия, %	', self.styleNormalTable), Paragraph('-', self.styleNormalTable)],
-            # ]
-            # )
-
-            # table_ktp_params.setStyle(TableStyle([('ALIGN',(1,1),(-1,-1),'CENTRE'),
-            # ('INNERGRID', (0,0), (-1,-1), 0.25, colors.black),
-            # ('BOX', (0,0), (-1,-1), 0.25, colors.black),
-            # ]))
-            # self.story.append(table_ktp_params)
-
-
-            for key, device in data['other_device'].items():
-                other_params = [[Paragraph('<b>Комплектная трансформаторная подстанция</b>', self.styleNormalTable), Paragraph('<b>Название КТП</b>', self.styleNormalTable)],]
-                for key, param in device.items():
-                    other_params.append([Paragraph('Мощность КТП, кВА', self.styleNormalTable), Paragraph('-', self.styleNormalTable)],)
-
-                table_other_params = Table(other_params, colWidths=[None, 1.2*inch, 1.2*inch], style = [('ALIGN',(1,1),(-1,-1),'CENTRE'),
-                ('INNERGRID', (0,0), (-1,-1), 0.25, colors.black),
-                ('BOX', (0,0), (-1,-1), 0.25, colors.black),
-                ])
-
-                self.story.append(table_other_params)
-                self.story.append(Spacer(1, 12))
             
+            if len(list(data['others'].values())[0]) != 0:
+                for num_device, params_device in data['others'].items():
+                    type_device = list(params_device.values())[0]
+                    name_device = list(params_device.values())[1]
+                    key_type_device = list(params_device.keys())[0]
+                    key_name_device = list(params_device.keys())[1]
+                    other_params = [[Paragraph(f'<b>{type_device}</b>', self.styleNormalTable), Paragraph(f'<b>{name_device}</b>', self.styleNormalTable)],]
+                    del params_device[key_type_device]
+                    del params_device[key_name_device]
+                    del params_device['file']
+                    del params_device['folder']
+                    for title, value in params_device.items():
+                        other_params.append([Paragraph(f'{title}', self.styleNormalTable), Paragraph(f'{value}', self.styleNormalTable)],)
+
+                    table_other_params = Table(other_params, colWidths=[None, 1.8*inch], style = [('ALIGN',(1,1),(-1,-1),'CENTRE'),
+                    ('INNERGRID', (0,0), (-1,-1), 0.25, colors.black),
+                    ('BOX', (0,0), (-1,-1), 0.25, colors.black),
+                    ])
+
+                    self.story.append(table_other_params)
+                    self.story.append(Spacer(1, 12))
+                
         if data["block_5_2"] == False:
             self.story.append(PageBreak())
             self.story.append(Paragraph("<b>5.2 Планировочное решение</b>", self.styleH2))
