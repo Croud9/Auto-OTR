@@ -565,16 +565,20 @@ def generate_fem(slr, solar_count_on_the_chain, fem_offset, count_mppt, count_ch
     print("Всего модулей:", all_fem)
     return fem_offset, in_dot, all_fem
 
-def calculation(slr, fem_offset, use_y_connector, use_all_mppt, count_diffirent_mppt, input_parametrs):
-    print("")
-    print("---- Изначальный массив входных параметров ----",input_parametrs)
+def calculation(slr, fem_offset, data):
     all_modules = 0
-    for i in range(count_diffirent_mppt):
+    config_keys = []    
+    for key in data.keys():
+        if 'config' in key:
+            config_keys.append(key)
+    for config in config_keys:
+        use_y_connector = data[config]['use_y_connector']
+        use_all_mppt = data[config]['use_all_mppt']
         # Входные данные
-        count_mppt = input_parametrs[0]# Число mppt
-        count_input_mppt = input_parametrs[1] # Число входов mppt
-        solar_count_on_the_chain = input_parametrs[2]  #Число фэм модулей в цепочке
-        all_chain = input_parametrs[3]#  число цепочек
+        count_mppt = data[config]['count_mppt']# Число mppt
+        count_input_mppt = data[config]['count_inputs'] # Число входов mppt
+        solar_count_on_the_chain = data[config]['count_pv']  #Число фэм модулей в цепочке
+        all_chain = data[config]['count_strings']#  число цепочек
         all_modules += all_chain * solar_count_on_the_chain
         # Расчет
         count_chain = all_chain // count_mppt #  число цепочек в одном MPPT
@@ -672,13 +676,9 @@ def calculation(slr, fem_offset, use_y_connector, use_all_mppt, count_diffirent_
 
         fem_plus_chain = generate_fem(slr, solar_count_on_the_chain, fem_offset, count_mppt, count_chain, use_y_connector, use_all_mppt, flag, count_input_mppt, one, onest, remains, double, double_remains, add)
         fem_offset = fem_plus_chain[0]
-        del input_parametrs[0:4]
-        print("---- Массив после итерации ----",input_parametrs)
-        print("")
-        # fem_plus_chain.append(num_error)
     return num_error, fem_plus_chain, max_input, max_input_y, all_modules
 
-def draw(input_parametrs, parametrs, i, gost_frame_params):
+def draw(data, i, gost_frame_params):
     global two_num
     global number_mppt
     global num
@@ -688,28 +688,15 @@ def draw(input_parametrs, parametrs, i, gost_frame_params):
 
     schemdraw.config(fontsize = 10)
     with schemdraw.Drawing(file=f'Data/Schemes/invertor{i}.svg', show=False, scale = 0.5, lw = 0.7, font = 'sans-serif') as slr:
-        if int(input_parametrs[2]) % 2 == 0:
-            solar_count_on_the_chain = (int(input_parametrs[2]) // 2) * 1.5 if int(input_parametrs[2]) != 1 else 1.5
-        else:
-            solar_count_on_the_chain = (int(input_parametrs[2]) // 2 + 1) * 1.5 if int(input_parametrs[2]) != 1 else 1.5
+
         fem_offset = 0 # начало чертежа
-
-        # использовать Y коннекторы Да(True) Нет(False)?
-        use_y_connector = parametrs[5]
-
-        # распределять по всем mppt(True) или оставлять пустые(False)?
-        use_all_mppt = parametrs[6]
-
-        #Режим разных mppt вкл(True)/выкл(False)
-        use_different_mppt = parametrs[7]
         
-        three_phase = parametrs[9]
-        five_line = parametrs[10]
-        len_title = parametrs[11]
+        three_phase = data['use_three_phase']
+        five_line = data['use_5or4_line']
+        len_title = data['title_grid_line_length']
 
         # Расчет
-        count_diffirent_mppt = parametrs[8] if use_different_mppt == True else 1 # количество разных mppt
-        fem_plus_chain = calculation(slr, fem_offset, use_y_connector, use_all_mppt, count_diffirent_mppt, input_parametrs)
+        fem_plus_chain = calculation(slr, fem_offset, data)
         if fem_plus_chain[0] != 0:
             return fem_plus_chain[0], 0
 
@@ -717,9 +704,22 @@ def draw(input_parametrs, parametrs, i, gost_frame_params):
         slr += (bot_line_invertor := elm.Line().right().at(fem_plus_chain[1][1][-1].center, dy = -4).length(5))
         slr.here = (0, 3)
 
-        names = [parametrs[0], f"{parametrs[1]} {str(i)}", parametrs[2], parametrs[3], parametrs[4]]
+        names = [data['title_inv'], f"{data['num_inv']} {str(i)}", data['title_grid_line'], data['title_grid_top'], data['title_grid_switch']]
         generate_frame(slr, names, bot_line_invertor, three_phase, five_line, len_title)
-            
+
+        config_keys = [] 
+        counts_pv = []   
+        for key in data.keys():
+            if 'config' in key:
+                config_keys.append(key)
+        for config in config_keys:
+            counts_pv.append(data[config]['count_pv'])
+        max_count_pv = max(counts_pv)
+        if int(max_count_pv) % 2 == 0:
+            solar_count_on_the_chain = (int(max_count_pv) // 2) * 1.5 if int(max_count_pv) != 1 else 1.5
+        else:
+            solar_count_on_the_chain = (int(max_count_pv) // 2 + 1) * 1.5 if int(max_count_pv) != 1 else 1.5
+
         width = 28.5 + solar_count_on_the_chain
         height = (fem_plus_chain[1][0] - 3) * -1
         slr.here = (-4 - solar_count_on_the_chain, 3)

@@ -1,3 +1,4 @@
+from operator import invert
 import draw_schemes2
 import designDrawSchemesTwo
 from PyQt5 import QtWidgets
@@ -21,7 +22,7 @@ class WindowDrawTwo(QtWidgets.QMainWindow, designDrawSchemesTwo.Ui_WindowDrawSch
         self.btnAdd_other.hide()
         self.btnShowInvertor.hide()
         self.btnShowOther.hide()
-        self.checkUse_threePhase.clicked.connect(self.show_and_hide_color_line_because_phase)
+        self.checkUse_threePhase.stateChanged.connect(self.show_and_hide_color_line_because_phase)
         self.checkDifferentInvertor.clicked.connect(self.show_and_hide_different_invertor)
         self.checkDifferentOther.clicked.connect(self.show_and_hide_different_other)
         self.btnOpen_otherParams.clicked.connect(self.show_other_params)
@@ -40,6 +41,7 @@ class WindowDrawTwo(QtWidgets.QMainWindow, designDrawSchemesTwo.Ui_WindowDrawSch
         self.btnAdd_other.clicked.connect(self.add_other)
         self.btnReset.clicked.connect(self.reset)
         self.btnDraw.pressed.connect(self.draw)
+        self.spinBox_numInvertor.valueChanged.connect(self.up_down_invertor_selection)
         self.set_default_params()
         self.invertor_params = []
         self.other_params = []
@@ -63,16 +65,11 @@ class WindowDrawTwo(QtWidgets.QMainWindow, designDrawSchemesTwo.Ui_WindowDrawSch
         self.optional_params.clear()
         self.checkbox_params.clear()
 
-    def set_invertor_params(self, module, power, amperage):
-        self.inputName_invertor.setText(f'{module}')
-        self.inputPower_invertor.setText(f'{power}')
-        self.inputAmperage_invertor.setText(f'{amperage}')
-
     def set_default_params(self):
         # Основные параемтры инвертора
-        self.inputName_invertor.setText("Sungrow SG110CX")
-        self.inputPower_invertor.setText('110')
-        self.inputAmperage_invertor.setText('158.8')
+        # self.inputName_invertor.setText("Sungrow SG110CX")
+        # self.inputPower_invertor.setText('110')
+        # self.inputAmperage_invertor.setText('158.8')
 
         # Основные параметры доп модулей
         self.inputName_other.setText('Sungrow COM100E')
@@ -411,8 +408,38 @@ class WindowDrawTwo(QtWidgets.QMainWindow, designDrawSchemesTwo.Ui_WindowDrawSch
 
         self.statusBar.setStyleSheet("background-color: rgb(255, 255, 255)")
         self.statusBar.showMessage('', 100)
-        # self.statusBar.setStyleSheet("background-color:rgb(48, 219, 91)")
 
+    def up_down_invertor_selection(self):
+        invertors = self.main_window.invertors
+        self.spinBox_numInvertor.setMinimum(1)
+        self.spinBox_numInvertor.setMaximum(len(invertors))
+
+        spinbox_val = self.spinBox_numInvertor.value() - 1
+
+        invertor = invertors[f'found_invertor_{spinbox_val}']
+
+        self.inputName_invertor.setText(f'{invertor["module"]}')
+        self.inputPower_invertor.setText(f'{invertor["p_max"]}')
+        self.inputAmperage_invertor.setText(f'{invertor["i_out_max"]}')
+        if invertor['phase'] == 3:
+            self.checkUse_threePhase.setCheckState(2)
+        elif invertor['phase'] == 1:
+            self.checkUse_threePhase.setCheckState(0)
+
+        config_keys = []    
+        for key in invertor.keys():
+            if 'config' in key:
+                config_keys.append(key)
+
+        count_invertors = 0
+        for config in config_keys:
+            count_invertor = invertor[config]['count_invertor']
+            if '.' in count_invertor:
+                count_invertors += float(count_invertor)
+            else:
+                count_invertors += int(count_invertor)
+        self.spinBox_countInvertor.setValue(int(count_invertors))
+        
     def draw(self):
         num_error = self.check_imput_params()
         if num_error != 0:
@@ -501,10 +528,7 @@ class WindowDrawTwo(QtWidgets.QMainWindow, designDrawSchemesTwo.Ui_WindowDrawSch
         self.btnDraw.setText('Построение чертежа...')
         self.statusBar.showMessage('Пожалуйста, подождите...')
         self.statusBar.setStyleSheet("background-color:rgb(255, 212, 38)")
-        # Выполнение загрузки в новом потоке.
         self.painter = DrawTwo(self.all_params, gost_frame_params)
-        # Qt вызовет метод `drawFinished()`, когда поток завершится.
-
         self.painter.finished.connect(self.drawFinished)
         self.painter.start()
         

@@ -14,7 +14,7 @@ def get_full_address_by_coordinates(lat, long):
         geodata['full_address'] = 'Неправильный формат координат (пример 11.22, 33.44)'
         return geodata
     address = full_address_name.raw['address']
-    print(full_address_name.raw)
+    # print(full_address_name.raw)
     geodata['num_house'] = address.get('house_number', '')
     geodata['road'] = address.get('road', '')
     geodata['city'] = address.get('city', '')

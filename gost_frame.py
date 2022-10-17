@@ -1,9 +1,4 @@
-from turtle import width
-import schemdraw
 import schemdraw.elements as elm
-from svglib.svglib import svg2rlg
-from reportlab.graphics import renderPDF
-from fontTools.ttLib import TTFont
 
 def frame_legend(slr, data):
     width = 2.5
@@ -150,8 +145,6 @@ def small_left_frame(slr):
         slr += elm.Line().right().length(width).hold().linewidth(2)
 
 def all_frame(slr, **data):  
-    # width = 52.75 близкие к А2
-    # height = 35.35
     slr += elm.Line().up().length(1).color('white')
     slr += elm.Line().up().length(0.5).hold().color('white')
     slr += elm.Line().right().length(data['width']).linewidth(2)

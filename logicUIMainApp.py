@@ -6,6 +6,7 @@
 # pyuic5 designDrawSchemes.ui -o designDrawSchemes.py
 # pyuic5 designDrawSchemesTwo.ui -o designDrawSchemesTwo.py
 
+from numpy import true_divide
 import pdf_builder
 import designRepPDF # загрузка файлов
 import logicUICalcPV
@@ -13,24 +14,20 @@ import logicUIParse
 import logicUIOneScheme
 import logicUITwoScheme
 import search_data
-import encode_file
+import validate
 import geocoding
 import glob, fitz, requests, sys, os # загрузка модулей
 os.environ['path'] += r';Data/file_sys/dlls' # для работы cairosvg
 import cairosvg
 from os.path import isfile, join
-from svglib.svglib import svg2rlg
-from reportlab.graphics import renderPDF
 from PyPDF2 import PdfFileMerger
 from PyQt5 import QtWidgets, QtGui
 from PyQt5.QtGui import *
-from PyQt5.QtWidgets import QGraphicsTextItem
-from PyQt5.Qt import *
-from PyQt5.QtCore import QTimer, QThread, Qt
+from PyQt5.QtCore import QTimer, QThread
 from datetime import date
 from PyQt5.QtGui import *
 from PyQt5.QtCore import *
-from PyQt5.QtWidgets import QWidget, QGraphicsOpacityEffect
+from PyQt5.QtWidgets import QGraphicsOpacityEffect
 from PyQt5.QtCore import QPropertyAnimation, QParallelAnimationGroup, QPoint, QEasingCurve
 import wikipedia
 wikipedia.set_lang("ru")
@@ -67,6 +64,8 @@ class СonvertFiles(QThread):
         elif self.flag == 'pvsyst':
             # To get better resolution
             self.found_pdf = search_data.search_in_pdf(self.paths)
+            if validate.internet() == True:
+                self.full_address = geocoding.get_full_address_by_coordinates(self.found_pdf['lati_pdf'], self.found_pdf['longi_pdf'])
             zoom_x = 2.0  # horizontal zoom
             zoom_y = 2.0  # vertical zoom
             mat = fitz.Matrix(zoom_x, zoom_y)  # zoom factor 2 in each dimension         
@@ -267,12 +266,12 @@ class MainApp(QtWidgets.QMainWindow, designRepPDF.Ui_MainWindow):
         self.listRoof.addItems(roofs)
 
         self.listInvertor_folder.addItem("Выберите")
-        company_invertor = sorted(os.listdir(path_to_invertors))
-        self.listInvertor_folder.addItems(company_invertor)
+        self.company_invertor = sorted(os.listdir(path_to_invertors))
+        self.listInvertor_folder.addItems(self.company_invertor)
 
         self.listPV_folder.addItem("Выберите")
-        company_pv = sorted(os.listdir(path_to_pv))
-        self.listPV_folder.addItems(company_pv)
+        self.company_pv = sorted(os.listdir(path_to_pv))
+        self.listPV_folder.addItems(self.company_pv)
         
         self.listKTP_folder.addItem("Выберите")
         company_ktp = sorted(os.listdir(path_to_ktp))
@@ -318,20 +317,15 @@ class MainApp(QtWidgets.QMainWindow, designRepPDF.Ui_MainWindow):
     def internet_on(self):
         self.opacity_effect = QtWidgets.QGraphicsOpacityEffect()
         self.opacity_effect.setOpacity(0.6)
-        try:
-            response = requests.get("http://www.google.com")
+        if validate.internet() == True:
             self.statusBar.setStyleSheet("background-color:rgb(255, 255, 255)")
-            # self.statusBar.showMessage('Подключение в норме', 5000)
             self.btnWifi.hide()
             self.btnRP5.setEnabled(True)
             self.btnRP5.setGraphicsEffect(self.opacity_effect.setOpacity(1))
             self.btnSearchCoordinates.setEnabled(True)
             self.btnSearchCoordinates.setGraphicsEffect(self.opacity_effect.setOpacity(1))
             return True
-        except requests.ConnectionError:
-            # self.statusBar.showMessage('Нет подключения к интернету', 5000)
-            # self.statusBar.setStyleSheet("background-color:rgb(255, 105, 97)")
-            # QTimer.singleShot(5000, lambda: self.statusBar.setStyleSheet("background-color:rgb(255, 255, 255)"))
+        else:
             self.btnRP5.setGraphicsEffect(self.opacity_effect)
             self.btnRP5.setEnabled(False)
             self.btnSearchCoordinates.setGraphicsEffect(self.opacity_effect)
@@ -999,8 +993,9 @@ class MainApp(QtWidgets.QMainWindow, designRepPDF.Ui_MainWindow):
             self.type_modules = sorted(os.listdir(modules_file))
             names_modules = []
             for name in self.type_modules:
-                names_modules.append(name.split(".")[0])
+                names_modules.append(name[:-4])
             self.listInvertor_file.addItems(names_modules)
+        return names_modules
             
     def pv_select(self):
         self.listPV_file.clear()
@@ -1010,8 +1005,9 @@ class MainApp(QtWidgets.QMainWindow, designRepPDF.Ui_MainWindow):
             self.type_pv_modules = sorted(os.listdir(modules_file))
             names_modules = []
             for name in self.type_pv_modules:
-                names_modules.append(name.split(".")[0])
+                names_modules.append(name[:-4])
             self.listPV_file.addItems(names_modules)
+        return names_modules
             
     def other_select(self):
         self.listKTP_file.clear()
@@ -1021,7 +1017,7 @@ class MainApp(QtWidgets.QMainWindow, designRepPDF.Ui_MainWindow):
             self.type_other_modules = sorted(os.listdir(modules_file))
             names_modules = []
             for name in self.type_other_modules:
-                names_modules.append(name.split(".")[0])
+                names_modules.append(name[:-4])
             self.listKTP_file.addItems(names_modules)
 
     def invertor_load(self):
@@ -1030,7 +1026,6 @@ class MainApp(QtWidgets.QMainWindow, designRepPDF.Ui_MainWindow):
             if current_invertor in select_invertor: 
                 self.invertors[f'found_invertor_{self.spinBox_numInvertor.value() - 1}'] = search_data.search_in_invertor(f"{path_to_invertors}/{self.select_title_invertor}/{select_invertor}") 
                 current = self.invertors[f'found_invertor_{self.spinBox_numInvertor.value() - 1}']
-                print('текущий: ' ,current)
                 if current['broken_file'] == True:
                     self.statusBar.showMessage('Битый файл, данные не загружены', 4000)
                     self.statusBar.setStyleSheet("background-color:rgb(255, 212, 38)")
@@ -1041,24 +1036,24 @@ class MainApp(QtWidgets.QMainWindow, designRepPDF.Ui_MainWindow):
 
                 current['file'] = self.listInvertor_file.currentIndex()
                 current['folder'] = self.listInvertor_folder.currentIndex()
-                self.w3.set_invertor_params(current['module'], current['mppt'], current['inputs']) # вставка параметров в окно первой схемы
-                self.w4.set_invertor_params(current['module'], current['p_max'], current['i_out_max']) # вставка параметров в окно второй схемы
+                # self.w3.set_invertor_params(current['module'], current['mppt'], current['inputs'], current['phase']) # вставка параметров в окно первой схемы
+                # self.w4.set_invertor_params(current['module'], current['p_max'], current['i_out_max'], current['phase']) # вставка параметров в окно второй схемы
+                self.w3.up_down_invertor_selection()
+                self.w3.spinBox_numInvertor.setValue(len(self.invertors))
+                self.w4.up_down_invertor_selection()
+                self.w4.spinBox_numInvertor.setValue(len(self.invertors))
                 print(self.invertors)
-                
+                return current
+
     def pv_load(self):
         current_pv = self.listPV_file.currentText()
         for select_pv in self.type_pv_modules:
             if current_pv in select_pv: 
-                # self.found_pv = search_data.search_in_pv(f"{path_to_pv}/{self.select_title_pv}/{select_pv}") 
-                print(self.spinBox_numInvertor.value())
-                print(self.spinBox_numPV.value())
                 self.pvs[f'found_pv_{self.spinBox_numPV.value() - 1}'] = search_data.search_in_pv(f"{path_to_pv}/{self.select_title_pv}/{select_pv}") 
                 current = self.pvs[f'found_pv_{self.spinBox_numPV.value() - 1}']
                 current['file'] = self.listPV_file.currentIndex()
                 current['folder'] = self.listPV_folder.currentIndex()
-                print('текущий: ' ,current)
-                print(self.pvs)
-    
+
     def other_load(self):
         current_other = self.listKTP_file.currentText()
         for select_other in self.type_other_modules:
@@ -1091,7 +1086,6 @@ class MainApp(QtWidgets.QMainWindow, designRepPDF.Ui_MainWindow):
         self.spinBox_numPV.setMinimum(1)
         self.spinBox_numPV.setMaximum(len(self.pvs))
         self.spinBox_numPV.setValue(len(self.pvs))
-        print(self.pvs)
 
     def add_other(self):
         self.spinBox_numKTP.show()
@@ -1113,6 +1107,10 @@ class MainApp(QtWidgets.QMainWindow, designRepPDF.Ui_MainWindow):
                 self.invertors[f'found_invertor_{index}'] = self.invertors.pop(key)
                 index += 1
             self.up_down_invertor_selection()
+            self.w3.up_down_invertor_selection()
+            self.w3.spinBox_numInvertor.setValue(len(self.invertors))
+            self.w4.up_down_invertor_selection()
+            self.w4.spinBox_numInvertor.setValue(len(self.invertors))
         if len(self.invertors) == 1:
             self.btnDelInvertor.hide()
             self.spinBox_numInvertor.hide()
@@ -1406,15 +1404,105 @@ class MainApp(QtWidgets.QMainWindow, designRepPDF.Ui_MainWindow):
         self.btnLoadScheme2.setEnabled(True)
         self.hide_del_button_schemes()
         del self.converter2
-                       
+
+    def set_draw_params(self):
+        print('конфигурация фэм массивов: ', self.found_pdf['found_pv_invertor'])
+        
+        while len(self.invertors) > 1:
+            self.del_invertor()
+
+        while len(self.pvs) > 1:    
+            self.del_pv()
+
+        count_diff_inv = len(self.found_pdf['found_pv_invertor']) - 2
+
+        for num in range(count_diff_inv):
+            found_inv_company = False
+            found_pv_company = False
+            found_inv = False
+            found_pv = False
+            
+            pvsyst_pvs_invrtrs = self.found_pdf['found_pv_invertor'][f'pv_array_config_{num}']
+
+            for company in self.company_invertor:
+                if pvsyst_pvs_invrtrs['title_invertor'].lower() in company.lower() or company.lower() in pvsyst_pvs_invrtrs['title_invertor'].lower():
+                    self.listInvertor_folder.setCurrentText(company)
+                    names_invrtrs = self.invertor_select()
+                    found_inv_company = True
+
+                    for model in names_invrtrs:
+                        if pvsyst_pvs_invrtrs['model_invertor'].lower() in model.lower() or model.lower() in pvsyst_pvs_invrtrs['model_invertor'].lower():
+                            self.listInvertor_file.setCurrentText(model)
+                            found_inv = True
+
+                    config_keys = []    
+                    for key in pvsyst_pvs_invrtrs.keys():
+                        if 'config' in key:
+                            config_keys.append(key)
+
+                    if found_inv == True:
+                        current_invertor = self.invertor_load()
+
+                        for config in config_keys:
+                            current_invertor[config] = pvsyst_pvs_invrtrs[config]
+                        print('После добавки', current_invertor)
+                    else:
+                        self.del_invertor()
+                        self.textConsole.append(f"Инвертор {pvsyst_pvs_invrtrs['model_invertor']} не найден")
+                        self.textConsole.append(f'Его параметры:')
+                        for config in config_keys:
+                            self.textConsole.append(f'{pvsyst_pvs_invrtrs[config]}')
+
+            if found_inv_company == False:
+                self.textConsole.append(f"Инверторная компания {pvsyst_pvs_invrtrs['title_invertor']} не найдена")
+
+            for company in self.company_pv:
+                if pvsyst_pvs_invrtrs['title_pv'].lower() in company.lower() or company.lower() in pvsyst_pvs_invrtrs['title_pv'].lower():
+                    self.listPV_folder.setCurrentText(company)
+                    names_pv = self.pv_select()
+                    found_pv_company = True
+            
+                    for model in names_pv:
+                        if pvsyst_pvs_invrtrs['model_pv'].lower() in model.lower() or model.lower() in pvsyst_pvs_invrtrs['model_pv'].lower():
+                            self.listPV_file.setCurrentText(model)
+                            found_pv = True
+
+                    if found_pv == True:
+                        self.pv_load()
+                    else:
+                        self.textConsole.append(f"ФЭМ {pvsyst_pvs_invrtrs['model_invertor']} не найден")
+
+            if found_pv_company == False:
+                self.textConsole.append(f"Компания ФЭМ {pvsyst_pvs_invrtrs['title_invertor']} не найдена")
+
+            if count_diff_inv > 1 and num < count_diff_inv - 1 :
+                self.add_invertor()
+                self.add_pv()
+        
+        self.w3.up_down_invertor_selection()
+        self.w4.up_down_invertor_selection()
+
     def convertPvsystFinished(self):
+
         self.found_pdf = self.converter_pvsyst.found_pdf 
         self.inputAddressLat.setText(self.found_pdf['lati_pdf'])
         self.inputAddressLong.setText(self.found_pdf['longi_pdf'])
-        if self.internet_on() == True:
-            full_address = geocoding.get_full_address_by_coordinates(self.found_pdf['lati_pdf'], self.found_pdf['longi_pdf'])
+
+        if self.internet_on() == True and hasattr(self.converter_pvsyst, 'full_address'):
+            full_address = self.converter_pvsyst.full_address
             self.inputAddress.setText(full_address['full_address'])
             self.w2.inputCity.setText(full_address['city_point'])
+        
+        array_pv = self.found_pdf['found_pv_invertor']['pv_array_config_0']
+        if isinstance(array_pv, str):
+            self.statusBar.showMessage(array_pv, 4000)
+            self.statusBar.setStyleSheet("background-color:rgb(255, 212, 38)")
+            QTimer.singleShot(4000, lambda: self.statusBar.setStyleSheet("background-color:rgb(255, 255, 255)"))
+        else:
+            self.set_draw_params()
+            self.statusBar.showMessage('Параметры схем сконфигурированы, проверьте данные и постройте', 4000)
+            self.statusBar.setStyleSheet("background-color:rgb(48, 219, 91)")
+            QTimer.singleShot(4000, lambda: self.statusBar.setStyleSheet("background-color:rgb(255, 255, 255)"))
         self.btnOne.setEnabled(True)
         self.hide_del_button_device()
         self.stopAnimation()
@@ -1431,8 +1519,6 @@ class MainApp(QtWidgets.QMainWindow, designRepPDF.Ui_MainWindow):
         self.label_10.setText('Создать')
         # self.label_10.hide()
         self.btnForm.setEnabled(True)
-        # self.btnForm.setText('PDF')
-        # Удаление потока после его использования.
         del self.builder
 
 def main():
@@ -1440,7 +1526,7 @@ def main():
     window = MainApp()  # Создаём объект класса ExampleApp
     window.setWindowIcon(QtGui.QIcon('Data/icons/graficon.png'))
     window.show()  # Показываем окно
-    window.setFixedSize(950,380)
+    window.setFixedSize(950, 390)
     window.instance_ofter_class(window)
     app.exec_()  # и запускаем приложение
 

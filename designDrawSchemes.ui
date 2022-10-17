@@ -429,49 +429,6 @@ QLineEdit:pressed{
      <string>Разные MPPT</string>
     </property>
    </widget>
-   <widget class="QPushButton" name="btnAdd_new_mppt">
-    <property name="geometry">
-     <rect>
-      <x>320</x>
-      <y>397</y>
-      <width>41</width>
-      <height>31</height>
-     </rect>
-    </property>
-    <property name="font">
-     <font>
-      <family>Arial</family>
-      <pointsize>10</pointsize>
-      <weight>75</weight>
-      <bold>true</bold>
-     </font>
-    </property>
-    <property name="cursor">
-     <cursorShape>PointingHandCursor</cursorShape>
-    </property>
-    <property name="toolTip">
-     <string>Добавить MPPT</string>
-    </property>
-    <property name="styleSheet">
-     <string notr="true">QPushButton{
-	background-color: rgba(229,229,234,1);
-	color: #196dff;
-	border: none;
-	border-radius: 6;
-	border-style: outset;
-}
-QPushButton:hover{
-	background-color: #dceaff; 
-}
-QPushButton:pressed{
-	color: rgba(25, 109, 255, 0.7); 
-	border-radius: 6;
-}</string>
-    </property>
-    <property name="text">
-     <string>+</string>
-    </property>
-   </widget>
    <widget class="QLineEdit" name="inputName_invertor">
     <property name="geometry">
      <rect>
@@ -792,87 +749,6 @@ QSpinBox:down-button{
 	border-left: 1px solid rgba(0,0,0,0.3);
 
 }</string>
-    </property>
-   </widget>
-   <widget class="QTextBrowser" name="textConsoleMPPT">
-    <property name="enabled">
-     <bool>true</bool>
-    </property>
-    <property name="geometry">
-     <rect>
-      <x>380</x>
-      <y>20</y>
-      <width>331</width>
-      <height>31</height>
-     </rect>
-    </property>
-    <property name="font">
-     <font>
-      <family>Arial</family>
-     </font>
-    </property>
-    <property name="toolTip">
-     <string>Каждые 4 цифры - параметры одного MPPT</string>
-    </property>
-    <property name="styleSheet">
-     <string notr="true">QTextBrowser{
-	background-color:rgba(229,229,234,1); 
-	border-radius: 6;
-	border: none;
-	padding-left: 8px;
-	padding-top: 4px;
-}
-</string>
-    </property>
-    <property name="placeholderText">
-     <string>Параметры MPPT</string>
-    </property>
-   </widget>
-   <widget class="QPushButton" name="btnUpdateMppt">
-    <property name="geometry">
-     <rect>
-      <x>720</x>
-      <y>20</y>
-      <width>30</width>
-      <height>31</height>
-     </rect>
-    </property>
-    <property name="font">
-     <font>
-      <family>Arial</family>
-      <pointsize>11</pointsize>
-      <weight>75</weight>
-      <bold>true</bold>
-     </font>
-    </property>
-    <property name="cursor">
-     <cursorShape>PointingHandCursor</cursorShape>
-    </property>
-    <property name="toolTip">
-     <string>Показать актуальное состояние массива с параметрами MPPT, чтобы проверить какие параметры будут использованы для чертежа (Актуально при добавлении разных MPPT)</string>
-    </property>
-    <property name="styleSheet">
-     <string notr="true">QPushButton{
-	background-color: rgba(229,229,234,1);
-	color: #196dff;
-	border: none;
-	border-radius: 6;
-	border-style: outset;
-}
-QPushButton:hover{
-	background-color: #dceaff; 
-}
-QPushButton:pressed{
-	color: rgba(25, 109, 255, 0.7); 
-	border-radius: 6;
-}</string>
-    </property>
-    <property name="text">
-     <string>C</string>
-    </property>
-    <property name="icon">
-     <iconset>
-      <normaloff>Data/icon_update.jpg</normaloff>Data/icon_update.jpg</iconset>
     </property>
    </widget>
    <widget class="QPushButton" name="btnUpdateConsole">
@@ -1298,44 +1174,103 @@ QPushButton:hover{
      <string>⭯</string>
     </property>
    </widget>
-   <zorder>label_8</zorder>
-   <zorder>inputCount_mppt</zorder>
-   <zorder>textConsoleDraw</zorder>
-   <zorder>label_status</zorder>
-   <zorder>btnDraw</zorder>
-   <zorder>inputCount_input_mppt</zorder>
-   <zorder>inputSolar_count_on_the_chain</zorder>
-   <zorder>inputAll_chain</zorder>
-   <zorder>checkUse_y_connector</zorder>
-   <zorder>checkUse_all_mppt</zorder>
-   <zorder>checkUse_different_mppt</zorder>
-   <zorder>inputName_invertor</zorder>
-   <zorder>inputTitle_grid_line</zorder>
-   <zorder>inputTitle_grid_top</zorder>
-   <zorder>inputNumber_invertor</zorder>
-   <zorder>inputTitle_grid_switch</zorder>
-   <zorder>label_9</zorder>
-   <zorder>checkUse_CloneInvertor</zorder>
-   <zorder>spinBox_CloneInvertor</zorder>
-   <zorder>textConsoleMPPT</zorder>
-   <zorder>btnUpdateMppt</zorder>
-   <zorder>btnUpdateConsole</zorder>
-   <zorder>label_10</zorder>
-   <zorder>label_11</zorder>
-   <zorder>label_12</zorder>
-   <zorder>label_13</zorder>
-   <zorder>label_14</zorder>
-   <zorder>label_15</zorder>
-   <zorder>label_16</zorder>
-   <zorder>label_17</zorder>
-   <zorder>label_18</zorder>
-   <zorder>checkUse_three_phase</zorder>
-   <zorder>checkUse_5or4_line</zorder>
-   <zorder>label_19</zorder>
-   <zorder>inputTitle_grid_line_length</zorder>
-   <zorder>textConsoleCurrent</zorder>
-   <zorder>btnReset</zorder>
-   <zorder>btnAdd_new_mppt</zorder>
+   <widget class="QSpinBox" name="spinBox_numInvertor">
+    <property name="geometry">
+     <rect>
+      <x>380</x>
+      <y>20</y>
+      <width>41</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Arial</family>
+      <weight>75</weight>
+      <bold>true</bold>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QSpinBox{
+	background-color:rgba(229,229,234,1); 
+	border-radius: 6;
+	border: none;
+	padding-left: 8px;
+}
+QSpinBox:hover{
+	background-color:rgba(242,242,247,1);
+}
+QSpinBox:up-button:hover{
+	background-color:rgba(25,109,255, 0.7);
+	border-top-right-radius: 6;
+}
+QSpinBox:up-button:pressed{
+	background-color:rgba(25,109,255, 0.5);
+	border-top-right-radius: 6;
+}
+QSpinBox:up-button{
+	background-color:rgba(229,229,234,1); 
+	border-top-right-radius: 6;
+	border: none;
+	border-left: 1px solid rgba(0,0,0,0.3);
+}
+
+QSpinBox:down-button:hover{
+	background-color:rgba(25,109,255, 0.7);
+	border-bottom-right-radius: 6;
+}
+QSpinBox:down-button:pressed{
+	background-color:rgba(25,109,255, 0.5);
+	border-bottom-right-radius: 6;
+}
+QSpinBox:down-button{
+	background-color:rgba(229,229,234,1); 
+	border-bottom-right-radius: 6;
+	border-left: 1px solid rgba(0,0,0,0.3);
+
+}</string>
+    </property>
+    <property name="readOnly">
+     <bool>false</bool>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="btnAdd_new_mppt">
+    <property name="geometry">
+     <rect>
+      <x>322</x>
+      <y>395</y>
+      <width>31</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Arial</family>
+      <pointsize>14</pointsize>
+      <weight>75</weight>
+      <bold>true</bold>
+     </font>
+    </property>
+    <property name="cursor">
+     <cursorShape>PointingHandCursor</cursorShape>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QPushButton{
+	background-color:rgba(112, 215, 255, 0);
+	color:rgba(0, 0, 0, 0.5);
+	border: none;
+	border-radius: 5;
+	border-style: outset;
+}
+QPushButton:hover{
+	color: black;
+}
+</string>
+    </property>
+    <property name="text">
+     <string>+</string>
+    </property>
+   </widget>
   </widget>
   <widget class="QStatusBar" name="statusBar"/>
  </widget>

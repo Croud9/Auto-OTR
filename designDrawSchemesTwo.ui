@@ -503,7 +503,7 @@ QLineEdit:pressed{
      <rect>
       <x>197</x>
       <y>14</y>
-      <width>131</width>
+      <width>151</width>
       <height>28</height>
      </rect>
     </property>
@@ -518,12 +518,15 @@ QLineEdit:pressed{
     <property name="text">
      <string>Инвертор</string>
     </property>
+    <property name="alignment">
+     <set>Qt::AlignCenter</set>
+    </property>
    </widget>
    <widget class="QCheckBox" name="checkDifferentInvertor">
     <property name="geometry">
      <rect>
-      <x>300</x>
-      <y>21</y>
+      <x>279</x>
+      <y>95</y>
       <width>71</width>
       <height>20</height>
      </rect>
@@ -575,7 +578,7 @@ QLineEdit:pressed{
      <rect>
       <x>398</x>
       <y>15</y>
-      <width>140</width>
+      <width>151</width>
       <height>28</height>
      </rect>
     </property>
@@ -589,6 +592,9 @@ QLineEdit:pressed{
     </property>
     <property name="text">
      <string>Доп</string>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignCenter</set>
     </property>
    </widget>
    <widget class="QLabel" name="label_11">
@@ -818,8 +824,8 @@ QSpinBox:down-button{
    <widget class="QCheckBox" name="checkDifferentOther">
     <property name="geometry">
      <rect>
-      <x>471</x>
-      <y>21</y>
+      <x>474</x>
+      <y>95</y>
       <width>71</width>
       <height>20</height>
      </rect>
@@ -833,61 +839,21 @@ QSpinBox:down-button{
      <string>Разные </string>
     </property>
    </widget>
-   <widget class="QPushButton" name="btnAdd_invertor">
-    <property name="geometry">
-     <rect>
-      <x>247</x>
-      <y>90</y>
-      <width>101</width>
-      <height>31</height>
-     </rect>
-    </property>
-    <property name="font">
-     <font>
-      <family>Arial</family>
-      <pointsize>11</pointsize>
-      <weight>50</weight>
-      <bold>false</bold>
-     </font>
-    </property>
-    <property name="cursor">
-     <cursorShape>PointingHandCursor</cursorShape>
-    </property>
-    <property name="styleSheet">
-     <string notr="true">QPushButton{
-	background-color: rgba(229,229,234,1);
-	color: #196dff;
-	border: none;
-	border-radius: 6;
-	border-style: outset;
-}
-QPushButton:hover{
-	background-color: #dceaff; 
-}
-QPushButton:pressed{
-	color: rgba(25, 109, 255, 0.7); 
-	border-radius: 6;
-}</string>
-    </property>
-    <property name="text">
-     <string>+</string>
-    </property>
-   </widget>
    <widget class="QPushButton" name="btnAdd_other">
     <property name="geometry">
      <rect>
-      <x>448</x>
-      <y>90</y>
-      <width>101</width>
+      <x>440</x>
+      <y>89</y>
+      <width>31</width>
       <height>31</height>
      </rect>
     </property>
     <property name="font">
      <font>
       <family>Arial</family>
-      <pointsize>11</pointsize>
-      <weight>50</weight>
-      <bold>false</bold>
+      <pointsize>14</pointsize>
+      <weight>75</weight>
+      <bold>true</bold>
      </font>
     </property>
     <property name="cursor">
@@ -895,19 +861,16 @@ QPushButton:pressed{
     </property>
     <property name="styleSheet">
      <string notr="true">QPushButton{
-	background-color: rgba(229,229,234,1);
-	color: #196dff;
+	background-color:rgba(112, 215, 255, 0);
+	color:rgba(0, 0, 0, 0.5);
 	border: none;
-	border-radius: 6;
+	border-radius: 5;
 	border-style: outset;
 }
 QPushButton:hover{
-	background-color: #dceaff; 
+	color: black;
 }
-QPushButton:pressed{
-	color: rgba(25, 109, 255, 0.7); 
-	border-radius: 6;
-}</string>
+</string>
     </property>
     <property name="text">
      <string>+</string>
@@ -2546,6 +2509,163 @@ QPushButton:hover{
      <string>Version 1.0</string>
     </property>
    </widget>
+   <widget class="QSpinBox" name="spinBox_numInvertor">
+    <property name="geometry">
+     <rect>
+      <x>154</x>
+      <y>50</y>
+      <width>41</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Arial</family>
+      <weight>75</weight>
+      <bold>true</bold>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QSpinBox{
+	background-color:rgba(229,229,234,1); 
+	border-radius: 6;
+	border: none;
+	padding-left: 8px;
+}
+QSpinBox:hover{
+	background-color:rgba(242,242,247,1);
+}
+QSpinBox:up-button:hover{
+	background-color:rgba(25,109,255, 0.7);
+	border-top-right-radius: 6;
+}
+QSpinBox:up-button:pressed{
+	background-color:rgba(25,109,255, 0.5);
+	border-top-right-radius: 6;
+}
+QSpinBox:up-button{
+	background-color:rgba(229,229,234,1); 
+	border-top-right-radius: 6;
+	border: none;
+	border-left: 1px solid rgba(0,0,0,0.3);
+}
+
+QSpinBox:down-button:hover{
+	background-color:rgba(25,109,255, 0.7);
+	border-bottom-right-radius: 6;
+}
+QSpinBox:down-button:pressed{
+	background-color:rgba(25,109,255, 0.5);
+	border-bottom-right-radius: 6;
+}
+QSpinBox:down-button{
+	background-color:rgba(229,229,234,1); 
+	border-bottom-right-radius: 6;
+	border-left: 1px solid rgba(0,0,0,0.3);
+
+}</string>
+    </property>
+    <property name="readOnly">
+     <bool>false</bool>
+    </property>
+   </widget>
+   <widget class="QSpinBox" name="spinBox_numOther">
+    <property name="geometry">
+     <rect>
+      <x>355</x>
+      <y>50</y>
+      <width>41</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Arial</family>
+      <weight>75</weight>
+      <bold>true</bold>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QSpinBox{
+	background-color:rgba(229,229,234,1); 
+	border-radius: 6;
+	border: none;
+	padding-left: 8px;
+}
+QSpinBox:hover{
+	background-color:rgba(242,242,247,1);
+}
+QSpinBox:up-button:hover{
+	background-color:rgba(25,109,255, 0.7);
+	border-top-right-radius: 6;
+}
+QSpinBox:up-button:pressed{
+	background-color:rgba(25,109,255, 0.5);
+	border-top-right-radius: 6;
+}
+QSpinBox:up-button{
+	background-color:rgba(229,229,234,1); 
+	border-top-right-radius: 6;
+	border: none;
+	border-left: 1px solid rgba(0,0,0,0.3);
+}
+
+QSpinBox:down-button:hover{
+	background-color:rgba(25,109,255, 0.7);
+	border-bottom-right-radius: 6;
+}
+QSpinBox:down-button:pressed{
+	background-color:rgba(25,109,255, 0.5);
+	border-bottom-right-radius: 6;
+}
+QSpinBox:down-button{
+	background-color:rgba(229,229,234,1); 
+	border-bottom-right-radius: 6;
+	border-left: 1px solid rgba(0,0,0,0.3);
+
+}</string>
+    </property>
+    <property name="readOnly">
+     <bool>false</bool>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="btnAdd_invertor">
+    <property name="geometry">
+     <rect>
+      <x>243</x>
+      <y>89</y>
+      <width>31</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Arial</family>
+      <pointsize>14</pointsize>
+      <weight>75</weight>
+      <bold>true</bold>
+     </font>
+    </property>
+    <property name="cursor">
+     <cursorShape>PointingHandCursor</cursorShape>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QPushButton{
+	background-color:rgba(112, 215, 255, 0);
+	color:rgba(0, 0, 0, 0.5);
+	border: none;
+	border-radius: 5;
+	border-style: outset;
+}
+QPushButton:hover{
+	color: black;
+}
+</string>
+    </property>
+    <property name="text">
+     <string>+</string>
+    </property>
+   </widget>
    <zorder>label_2</zorder>
    <zorder>label</zorder>
    <zorder>inputName_other</zorder>
@@ -2572,7 +2692,6 @@ QPushButton:hover{
    <zorder>label_15</zorder>
    <zorder>spinBox_countOther</zorder>
    <zorder>checkDifferentOther</zorder>
-   <zorder>btnAdd_invertor</zorder>
    <zorder>btnAdd_other</zorder>
    <zorder>btnOpen_otherParams</zorder>
    <zorder>inputParam1_invertor</zorder>
@@ -2624,6 +2743,9 @@ QPushButton:hover{
    <zorder>label_29</zorder>
    <zorder>btnReset</zorder>
    <zorder>label_3</zorder>
+   <zorder>spinBox_numInvertor</zorder>
+   <zorder>spinBox_numOther</zorder>
+   <zorder>btnAdd_invertor</zorder>
   </widget>
   <widget class="QStatusBar" name="statusBar"/>
  </widget>

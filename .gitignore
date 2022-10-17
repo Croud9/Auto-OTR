@@ -131,6 +131,7 @@ dmypy.json
 # My
 Data/
 output/
+other/
 ui_designDrawSchemes.py
 ui_designDrawSchemesTwo.py
 ui_designParsing.py

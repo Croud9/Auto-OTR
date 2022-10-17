@@ -1,4 +1,5 @@
 # from curses.ascii import isspace
+from operator import length_hint
 import fitz
 import re
 
@@ -18,8 +19,8 @@ def null_search_params(type_file):
                         'weight_pv', 'p_nom_pv','isc_pv', 'voc_pv', 'imp_pv', 'vmp_pv', 'square_pv',
                         'mu_isc_pv', 'mu_voc_spec_pv', 'v_max_iec_pv', 'r_shunt_pv', 'ncels_pv')               
     elif type_file == 'pvsyst':
-        name_params = ('produced_energy', 'specific_production', 'lati_pdf', 'longi_pdf', 
-                        'nb_PV', 'pnom_PV', 'nb_inverters', 'pnom_inverters', 'perf_ratio', 'balances_and_main')             
+        name_params = ('produced_energy', 'specific_production', 'lati_pdf', 'longi_pdf', 'nb_PV', 
+                        'pnom_PV', 'nb_inverters', 'pnom_inverters', 'perf_ratio', 'balances_and_main', 'found_pv_invertor')             
     elif type_file == 'weather_station':
         name_params = ('view_city', 'strt_monit', 'num_weather_station')
     elif type_file == 'weather':
@@ -139,6 +140,8 @@ def search_in_others_device(path):
 
 def search_in_pdf(path): 
     found_pdf = null_search_params('pvsyst')
+    pv_array_pages = []
+    found_pv_invertor = {}
 
     with fitz.open(path) as doc: 
         for page in doc:
@@ -151,9 +154,72 @@ def search_in_pdf(path):
             if len(content_end) != 0:
                 num_page_end = page.number
                 break
-                 
+        for page in doc:
+            content_end = page.search_for("PV Array Characteristics\n")
+            if len(content_end) != 0:
+                num_page_pv_array = page.number
+                pv_array_pages.append(num_page_pv_array)
+
         content_begin = doc[num_page_begin].get_text()
         content_end = doc[num_page_end].get_text()
+        content_pv_array = ''
+        for num in pv_array_pages:
+            content = doc[num].get_text()
+            content_pv_array += content.split('PV Array Characteristics')[1].split('Array losses')[0].strip("\n").replace('\n', '; ') + '; '
+        
+        total_pv_array = content_pv_array.split('Total PV power')[1].strip("\n").replace('\n', ' ').split('; ')
+        total_pv_array_int = list(filter(lambda x: re.search('^[1-9]\d*(\.\d+)?$', x), total_pv_array))
+        found_pv_invertor['total_num_pv_pdf'] = total_pv_array_int[1]
+        found_pv_invertor['total_num_invertor_pdf'] = total_pv_array_int[-2]
+
+        content_pv_array = content_pv_array.split('Total PV power')[0].split('PV module; ')
+        if not 'Manufacturer' in content_pv_array[0]:
+            del content_pv_array[0]
+        
+        different_module = 0
+        for uniq in content_pv_array:
+            config_module = f'pv_array_config_{different_module}'
+            found_pv_invertor[config_module] = {}
+
+            unique_elements = uniq.split('; ')
+            nom_power = list(filter(lambda x: ' kWac' in x, unique_elements)) 
+            nom_power = nom_power[0].split(' ')
+
+            if float(nom_power[0]) > 500:
+                found_pv_invertor[config_module] = f'Большая мощность инвертора {nom_power[0]} кВА > 500 кВА, AutoOTR не рассчитан на работу с такими инверторами'
+                break
+
+            indx_pv = unique_elements.index('(Custom parameters definition)')
+            indx_invertor = unique_elements.index('(Custom parameters definition)', 6)
+            title_pv = unique_elements[indx_pv - 2]
+            model_pv = unique_elements[indx_pv - 1]
+            title_invertor = unique_elements[indx_invertor- 2]
+            model_invertor = unique_elements[indx_invertor - 1]
+            
+            # pv = unique_elements[indx_pv - 2] + ' ' + unique_elements[indx_pv - 1]
+            # invertor = unique_elements[indx_invertor - 2] + ' ' + unique_elements[indx_invertor - 1]
+
+            found_pv_invertor[config_module][f'title_pv'] = title_pv
+            found_pv_invertor[config_module][f'model_pv'] = model_pv
+            found_pv_invertor[config_module][f'title_invertor'] = title_invertor
+            found_pv_invertor[config_module][f'model_invertor'] = model_invertor
+
+            mppt_elements = list(filter(lambda x: 'MPPT' in x, unique_elements)) 
+            string_elements = list(filter(lambda x: 'Strings' in x, unique_elements)) 
+            
+            for i in range(len(mppt_elements)):
+                sub_array = f'config_{i}'
+                found_pv_invertor[config_module][sub_array] = {}
+
+                element = mppt_elements[i].split(' ')
+                found_pv_invertor[config_module][sub_array]['count_mppt'] = element[0]
+                found_pv_invertor[config_module][sub_array]['count_invertor'] = element[-1]
+
+                element = string_elements[i].split(' ')
+                found_pv_invertor[config_module][sub_array]['count_string'] = element[0]
+                found_pv_invertor[config_module][sub_array]['count_pv'] = element[-1]
+            different_module += 1
+        found_pdf['found_pv_invertor'] = found_pv_invertor
 
         situation = content_begin.split('Situation')[1].split('Project')[0].strip("\n").replace('\n', ' ').split(' ')
         situation_int = list(filter(lambda x: re.search('^[1-9]\d*(\.\d+)?$', x), situation))
@@ -187,5 +253,6 @@ def search_in_pdf(path):
         
 # search_in_invertor("Data/Modules/Invertors/Sungrow/Sungrow_SG110CX_Pvsyst668.OND")
 # search_in_pv("Data/Modules/PV's/Hevel/HJT 390 m2+ (08.2020).PAN")
-# search_in_pdf("Data/PDF in/PVsyst/PVsyst_отчет3.pdf")
+# print(search_in_pdf("Data/PDF in/PVsyst/PVsyst_отчет.pdf"))
+# search_in_pdf("Data/PDF in/PVsyst/PVsyst_отчет2.pdf")
 # print(search_in_others_device("Data/Modules/KTP's/New/КТП1.txt"))

@@ -1,15 +1,16 @@
+from itertools import count
 import draw_schemes
 import designDrawSchemes
+import search_data
 from PyQt5 import QtWidgets
 from PyQt5.QtGui import QRegExpValidator
 from PyQt5.QtCore import QThread, QRegExp, QTimer
 
 class DrawOne(QThread):
-    def __init__(self, params, parametrs, count_invertor, gost_frame_params):
+    def __init__(self, draw_params, gost_frame_params):
         super().__init__()
-        self.params = params
-        self.parametrs = parametrs
-        self.count_invertor = count_invertor
+        self.draw_params = draw_params
+        self.count_invertor = self.draw_params['count_invertor']
         self.gost_frame_params = gost_frame_params
         self.modules = 0
         self.chains = 0
@@ -17,8 +18,7 @@ class DrawOne(QThread):
     def run(self):
         for num in range(self.count_invertor):
             num += 1
-            main_params = self.params.copy()
-            self.num_error = draw_schemes.draw(main_params, self.parametrs, num, self.gost_frame_params)
+            self.num_error = draw_schemes.draw(self.draw_params, num, self.gost_frame_params)
             self.modules += self.num_error[2]
             self.chains += self.num_error[1]
   
@@ -29,14 +29,12 @@ class WindowDraw(QtWidgets.QMainWindow, designDrawSchemes.Ui_WindowDrawSchemes):
         self.validate()
         self.main_window = instance_of_main_window
         self.btnAdd_new_mppt.hide()
-        self.spinBox_CloneInvertor.hide()
         self.btnDraw.clicked.connect(self.draw)
-        self.btnUpdateMppt.clicked.connect(self.update_mppt)
         self.btnAdd_new_mppt.clicked.connect(self.add_mppt)
         self.btnUpdateConsole.clicked.connect(self.update_console)
         self.checkUse_CloneInvertor.clicked.connect(self.show_and_hide_clone_invertor)
-        self.checkUse_different_mppt.clicked.connect(self.show_and_hide_different_mppt)
-        self.checkUse_three_phase.clicked.connect(self.show_and_hide_color_line_because_phase)
+        self.checkUse_different_mppt.stateChanged.connect(self.show_and_hide_different_mppt)
+        self.checkUse_three_phase.stateChanged.connect(self.show_and_hide_color_line_because_phase)
         self.checkUse_5or4_line.clicked.connect(self.show_and_hide_color_line_because_phase)
         self.spinBox_CloneInvertor.setMinimum(1)
         self.inputCount_mppt.textChanged.connect(self.validate_input)
@@ -45,8 +43,10 @@ class WindowDraw(QtWidgets.QMainWindow, designDrawSchemes.Ui_WindowDrawSchemes):
         self.checkUse_y_connector.clicked.connect(self.validate_input)
         self.checkUse_all_mppt.clicked.connect(self.validate_input)
         self.btnReset.clicked.connect(self.reset)
+        self.spinBox_numInvertor.valueChanged.connect(self.up_down_invertor_selection)
+        self.styles()
         self.set_default_params()
-        self.input_params = []
+        self.draw_params = {}
 
     def reset(self):
         self.inputCount_mppt.clear()
@@ -60,20 +60,48 @@ class WindowDraw(QtWidgets.QMainWindow, designDrawSchemes.Ui_WindowDrawSchemes):
         self.checkUse_5or4_line.setCheckState(0)
         self.checkUse_5or4_line.setEnabled(False)
         self.checkUse_CloneInvertor.setCheckState(0)
-        self.textConsoleMPPT.clear()
         self.textConsoleDraw.clear()
         self.textConsoleCurrent.clear()
         self.btnAdd_new_mppt.hide()
-        self.spinBox_CloneInvertor.hide()
-        self.input_params.clear()
-                
-    def set_invertor_params(self, module, mppt, inputs):
-        self.inputName_invertor.setText(f'{module}')
-        self.inputCount_mppt.setText(f'{mppt}')
-        self.inputCount_input_mppt.setText(f'{inputs}')
+
+    def up_down_invertor_selection(self):
+        invertors = self.main_window.invertors
+        self.spinBox_numInvertor.setMinimum(1)
+        self.spinBox_numInvertor.setMaximum(len(invertors))
+        spinbox_val = self.spinBox_numInvertor.value() - 1
+        invertor = invertors[f'found_invertor_{spinbox_val}']
+
+        self.inputName_invertor.setText(f'{invertor["module"]}')
+        self.inputCount_mppt.setText(f'{invertor["mppt"]}')
+        self.inputCount_input_mppt.setText(f'{invertor["inputs"]}')
+        if invertor['phase'] == 3:
+            self.checkUse_three_phase.setCheckState(2)
+        elif invertor['phase'] == 1:
+            self.checkUse_three_phase.setCheckState(0)            
+
+        config_keys = []    
+        for key in invertor.keys():
+            if 'config' in key:
+                config_keys.append(key)
+
+        count_invertors = 0
+        for config in config_keys:
+            count_invertor = invertor[config]['count_invertor']
+            count_string = invertor[config]['count_string']
+            count_pv = invertor[config]['count_pv']
+            if '.' in count_invertor:
+                count_invertors += float(count_invertor)
+                self.checkUse_different_mppt.setCheckState(2) # разные mppt
+
+            else:
+                count_invertors += int(count_invertor)
+                self.checkUse_different_mppt.setCheckState(0)
+            self.inputAll_chain.setText(count_string)
+            self.inputSolar_count_on_the_chain.setText(count_pv)
+        self.spinBox_CloneInvertor.setValue(int(count_invertors))
 
     def set_default_params(self):
-        self.inputName_invertor.setText('Sungrow SG110')
+        # self.inputName_invertor.setText('Sungrow SG110')
         self.inputNumber_invertor.setText('Инвертор')
         self.inputTitle_grid_line.setText('ВБШвнг(A)-LS 4x95')
         self.inputTitle_grid_line_length.setText('180 м')
@@ -156,59 +184,67 @@ class WindowDraw(QtWidgets.QMainWindow, designDrawSchemes.Ui_WindowDrawSchemes):
             
     def check_imput_params(self):
         self.parametrs()
-        num_error = 0
         if self.count_mppt == '':
             self.statusBar.showMessage('Введите количество MPPT', 5000)
             self.statusBar.setStyleSheet("background-color:rgb(255, 105, 97)")
             self.inputCount_mppt.setStyleSheet("border: 1.45px solid red; border-radius: 6; background-color:rgba(242,242,247,1);")
-            num_error += 1
-            return num_error
-        else:
-            self.set_style_default()
-
-        if self.input_mppt == '':
+            return 1
+        elif self.input_mppt == '':
             self.statusBar.showMessage('Введите число входов на МРРТ', 5000)
             self.statusBar.setStyleSheet("background-color:rgb(255, 105, 97)")
             self.inputCount_input_mppt.setStyleSheet("border: 1.45px solid red; border-radius: 6; background-color:rgba(242,242,247,1);")
-            num_error += 1
-            return num_error
-        else:
-            self.set_style_default()
-
-        if self.count_fem == '':
+            return 1
+        elif self.count_fem == '':
             self.statusBar.showMessage('Введите количество ФЭМ в цепочке', 5000)
             self.statusBar.setStyleSheet("background-color:rgb(255, 105, 97)")
             self.inputSolar_count_on_the_chain.setStyleSheet("border: 1.45px solid red; border-radius: 6; background-color:rgba(242,242,247,1);")
-            num_error += 1
-            return num_error
-        else:
-            self.set_style_default()
-
-        if self.all_chain == '':
+            return 1
+        elif self.all_chain == '':
             self.statusBar.showMessage('Введите общее количество цепочек', 5000)
             self.statusBar.setStyleSheet("background-color:rgb(255, 105, 97)")
             self.inputAll_chain.setStyleSheet("border: 1.45px solid red; border-radius: 6; background-color:rgba(242,242,247,1);")
-            num_error += 1
-            return num_error
+            return 1
         else:
             self.set_style_default()
-            print(num_error)
-            return num_error
+            return 0
+
+    def styles(self):
+        self.default_style_input = 'QLineEdit{ background-color:rgba(229,229,234,1);\
+                            border-radius: 6;\
+                            border: none;\
+                            padding-left: 8px }\
+                        QLineEdit:hover{ background-color:rgba(242,242,247,1); }\
+                        QLineEdit:pressed{ background-color:rgba(188,188,192,1);\
+                            border-radius: 12; }'
+        self.default_style_comboBox = 'QComboBox{ background-color:rgba(229,229,234,1);\
+                                border: none;\
+                                border-radius: 6;\
+                                padding-left: 8px;}\
+                            QComboBox:drop-down{ width: 0px;\
+                                height: 0px;\
+                                border: 0px; }\
+                            QComboBox:hover{ background-color:rgba(242,242,247,1); }'
+        self.warning_style_comboBox = 'QComboBox{background-color:rgba(229,229,234,1);\
+                                    border: 1.45px solid red;\
+                                    border-radius: 6;\
+                                    padding-left: 6.55px;}\
+                                QComboBox:drop-down {width: 0px;\
+                                    height: 0px;\
+                                    border: 0px;}'
+        self.warning_style_input = 'border: 1.45px solid red; border-radius: 6; background-color:rgba(242,242,247,1);'
 
     def set_style_default(self):
-        self.inputCount_mppt.setStyleSheet("QLineEdit{\n	background-color:rgba(229,229,234,1); \n	border-radius: 6;\n	border: none;\n}\nQLineEdit:hover{\n	background-color:rgba(242,242,247,1);\n}\nQLineEdit:pressed{\n	background-color:rgba(188,188,192,1);\n	border-radius: 12;\n}")
-        self.inputCount_input_mppt.setStyleSheet("QLineEdit{\n	background-color:rgba(229,229,234,1); \n	border-radius: 6;\n	border: none;\n}\nQLineEdit:hover{\n	background-color:rgba(242,242,247,1);\n}\nQLineEdit:pressed{\n	background-color:rgba(188,188,192,1);\n	border-radius: 12;\n}")
-        self.inputSolar_count_on_the_chain.setStyleSheet("QLineEdit{\n	background-color:rgba(229,229,234,1); \n	border-radius: 6;\n	border: none;\n}\nQLineEdit:hover{\n	background-color:rgba(242,242,247,1);\n}\nQLineEdit:pressed{\n	background-color:rgba(188,188,192,1);\n	border-radius: 12;\n}")
-        self.inputAll_chain.setStyleSheet("QLineEdit{\n	background-color:rgba(229,229,234,1); \n	border-radius: 6;\n	border: none;\n}\nQLineEdit:hover{\n	background-color:rgba(242,242,247,1);\n}\nQLineEdit:pressed{\n	background-color:rgba(188,188,192,1);\n	border-radius: 12;\n}")
+        self.inputCount_mppt.setStyleSheet(self.default_style_input)
+        self.inputCount_input_mppt.setStyleSheet(self.default_style_input)
+        self.inputSolar_count_on_the_chain.setStyleSheet(self.default_style_input)
+        self.inputAll_chain.setStyleSheet(self.default_style_input)
 
         self.statusBar.setStyleSheet("background-color: rgb(255, 255, 255)")
         self.statusBar.showMessage('', 100)
-        # self.statusBar.setStyleSheet("background-color:rgb(48, 219, 91)")
 
     def show_and_hide_different_mppt(self):
         if self.checkUse_different_mppt.isChecked():
             self.btnAdd_new_mppt.show()
-            # self.textConsoleMPPT.clear()
         else:
             self.btnAdd_new_mppt.hide()
 
@@ -219,26 +255,27 @@ class WindowDraw(QtWidgets.QMainWindow, designDrawSchemes.Ui_WindowDrawSchemes):
             self.spinBox_CloneInvertor.hide()
             self.spinBox_CloneInvertor.setValue(1)
 
-    def update_mppt(self):
-        self.textConsoleMPPT.clear()
-        self.textConsoleMPPT.append(f"Актуальное: {self.input_params}")
-
     def update_console(self):
         self.textConsoleDraw.clear()
 
     def add_mppt(self):
         num_error = self.check_imput_params()
         if num_error != 0:
-            return num_error
+            return 1
+        
+        pv = int(self.inputSolar_count_on_the_chain.text())
+        mppt = int(self.inputCount_mppt.text())
+        inputs = int(self.inputCount_input_mppt.text())
+        strings = int(self.inputAll_chain.text())
+        y_connector = True if self.checkUse_y_connector.isChecked() else False
+        all_mppt = True if self.checkUse_all_mppt.isChecked() else False
+
+        self.draw_params[f'config_{len(self.draw_params) + 1}'] = {'count_mppt': mppt,'count_inputs': inputs,'count_pv': pv,
+                            'count_strings': strings, 'use_y_connector': y_connector, 'use_all_mppt': all_mppt}
+        print(self.draw_params)
+
         max_input = int(self.input_mppt) * int(self.count_mppt)
         max_input_y = int(self.input_mppt) * int(self.count_mppt) * 2
-        self.input_params.append(int(self.inputCount_mppt.text()))
-        self.input_params.append(int(self.inputCount_input_mppt.text()))
-        self.input_params.append(int(self.inputSolar_count_on_the_chain.text()))
-        self.input_params.append(int(self.inputAll_chain.text()))
-        # self.textConsoleDraw.append("Параметры MPPT")
-        self.textConsoleMPPT.clear()
-        self.textConsoleMPPT.append(str(self.input_params))
         self.textConsoleDraw.append("----------------------------")
         self.textConsoleDraw.append("ИСХОДНЫЕ ДАННЫЕ:")
         self.textConsoleDraw.append(f"- Число MPPT: {self.count_mppt}")
@@ -247,56 +284,37 @@ class WindowDraw(QtWidgets.QMainWindow, designDrawSchemes.Ui_WindowDrawSchemes):
         self.textConsoleDraw.append(f"-Число цепочек: {self.all_chain}")
         self.textConsoleDraw.append(f"-Максимальное кол-во входов без Y: {max_input}")
         self.textConsoleDraw.append(f"-Максимальное кол-во входов c Y: {max_input_y}")
-        # print(self.input_params)
 
-    def draw(self):
-        num_error = self.check_imput_params()
-        if num_error != 0:
-            return num_error
+    def out_params(self):
+        title_project = self.main_window.inputTitleProject.text()
+        code_project = self.main_window.inputCodeProject.text()            
+        self.text_and_bool = {}
+        self.text_and_bool['title_inv'] = str(self.inputName_invertor.text())
+        self.text_and_bool['num_inv'] = str(self.inputNumber_invertor.text())
+        self.text_and_bool['title_grid_line'] = str(self.inputTitle_grid_line.text())
+        self.text_and_bool['title_grid_line_length'] = str(self.inputTitle_grid_line_length.text())
+        self.text_and_bool['title_grid_top'] = str(self.inputTitle_grid_top.text())
+        self.text_and_bool['title_grid_switch'] = str(self.inputTitle_grid_switch.text())
+        self.text_and_bool['use_three_phase'] = True if self.checkUse_three_phase.isChecked() else False
+        self.text_and_bool['use_5or4_line'] = True if self.checkUse_5or4_line.isChecked() else False
+        self.text_and_bool['count_invertor'] = self.spinBox_CloneInvertor.value() #количество инверторов
 
-        if self.checkUse_different_mppt.checkState() == 0:
-            self.input_params.clear()
-            self.add_mppt()
-
-        count_diffirent_mppt = len(self.input_params) // 4# количество разных mppt
-        parametrs = []
-        parametrs.append(str(self.inputName_invertor.text()))
-        parametrs.append(str(self.inputNumber_invertor.text()))
-        parametrs.append(str(self.inputTitle_grid_line.text()))
-        parametrs.append(str(self.inputTitle_grid_top.text()))
-        parametrs.append(str(self.inputTitle_grid_switch.text()))
-        parametrs.append(True if self.checkUse_y_connector.isChecked() else False) # использовать Y коннекторы Да(True) Нет(False)?
-        parametrs.append(True if self.checkUse_all_mppt.isChecked() else False) # распределять по всем mppt(True) или оставлять пустые(False)?
-        parametrs.append(True if self.checkUse_different_mppt.isChecked() else False) #Режим разных mppt вкл(True)/выкл(False)
-        parametrs.append(count_diffirent_mppt)
-        parametrs.append(True if self.checkUse_three_phase.isChecked() else False) #3-х фахная система вкл(True)/выкл(False)
-        parametrs.append(True if self.checkUse_5or4_line.isChecked() else False) #5/4 провода вкл(True)/выкл(False)
-        parametrs.append(str(self.inputTitle_grid_line_length.text()))
-
-        count_invertor = self.spinBox_CloneInvertor.value() #количество инверторов
-        self.textConsoleDraw.append(f"Кол-во инверторов: {count_invertor}")
-
-        save_input_params = self.input_params.copy()
-
-        if not save_input_params:
-            self.textConsoleDraw.append("Введите заново параметры разных MPPT")
-            self.statusBar.setStyleSheet("background-color:rgb(255, 105, 97)")
-            return
-
-        self.textConsoleDraw.append(f"Номер инвертора: {count_invertor}")
-        if self.checkUse_CloneInvertor.isChecked() != 0:
-            self.input_params = save_input_params.copy()
+        self.draw_params = {**self.draw_params, **self.text_and_bool}
+        self.gost_frame_params = {'title_project': title_project, 'code_project': code_project}
         
+    def draw(self):
+        if self.checkUse_different_mppt.checkState() == 0:
+            self.draw_params.clear()
+            if self.add_mppt() == 1: return
+        
+        self.out_params()
+
         self.btnDraw.setEnabled(False)
         self.btnDraw.setText('Построение чертежа...')
         self.statusBar.showMessage('Пожалуйста, подождите...')
         self.statusBar.setStyleSheet("background-color:rgb(255, 212, 38)")
-        
-        title_project = self.main_window.inputTitleProject.text()
-        code_project = self.main_window.inputCodeProject.text()            
-        gost_frame_params = {'title_project': title_project, 'code_project': code_project} 
-        self.painter_draw_one = DrawOne(self.input_params, parametrs, count_invertor, gost_frame_params)
-
+    
+        self.painter_draw_one = DrawOne(self.draw_params, self.gost_frame_params)
         self.painter_draw_one.finished.connect(self.drawFinished)
         self.painter_draw_one.start()
 
