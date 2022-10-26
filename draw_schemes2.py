@@ -394,57 +394,43 @@ def top_counter(slr, three_phase, counter, names):
         slr += elm.Line().right().length(5).label("Wh \n Счетчик э/э двунаправленный", "center", ofst=(0,-1))
         slr += elm.Line().down().length(1.5)
 
-def draw(all_params, gost_frame_params):
-    print('paraaaaaams',gost_frame_params)
+def draw(data, gost_frame_params):
+    print('ДАнные в чертежнике------', data)
     schemdraw.config(fontsize = 10)
     with schemdraw.Drawing(file=f'Data/Schemes/connect_system.svg', show = False, scale = 0.5, lw = 0.7) as slr:
         module_offset = 5 # начало чертежа модулей
-        count_all_modules = all_params[0][3] + all_params[1][4]
-        yzip = all_params[3][0]# УЗИП
-        counter = all_params[3][1] # Счетчик
-        three_phase = all_params[3][2] #Трёхфазная система?
-        count_invertor = all_params[0][3]
+        count_invertor = data['count_invertor']
+        count_all_modules = count_invertor + data['count_other']
+        counter = data['use_counter'] # Счетчик
+        three_phase = data['use_threePhase'] #Трёхфазная система?
 
         generate_frame(slr) # левая рамка
-        names = [all_params[2][5], all_params[2][6], all_params[2][7], all_params[2][8], all_params[2][9]]
+        names = ['', data['brand_cable_out'], data['cable_out'], data['length_cable_out'], data['type_param_out']]
         top_counter(slr, three_phase, counter, names) # Верхний счетчик
-
-        for_del1 = all_params.copy()
-        for_del2 = all_params.copy()
+        # found_invertor_0
         for t in range(len(all_params[0]) // 20):
-            count_invertor = all_params[0][3]
-            all_params = for_del1
-            print('До', len(all_params[0]) // 20)
-            print(all_params[0])
+            count_invertor = data['count_invertor']
             for i in range(count_invertor):
-                l2_phase = all_params[0][12]
-                l3_phase = all_params[0][14]
                 if three_phase == False:
                     phase2 = False
                     phase3 = False
                 else:
-                    phase2 = l2_phase
-                    phase3 = l3_phase
+                    phase2 = data['red_line_inv']
+                    phase3 = data['green_line_inv']
 
-                yellow_switch_and_line = [all_params[0][16], all_params[0][11]] #l1
-                red_switch_and_line = [all_params[0][17], phase2] #L2
-                blue_switch_and_line = [all_params[0][18], all_params[0][13]] #ноль
-                green_switch_and_line = [all_params[0][19], phase3] #L3
-                black_switch_and_line = all_params[0][15] #земля
+                yellow_switch_and_line = [data['yellow_switch_inv'], data['yellow_line_inv']] #l1
+                red_switch_and_line = [data['red_switch_inv'], phase2] #L2
+                blue_switch_and_line = [data['blue_switch_inv'], data['blue_line_inv']] #ноль
+                green_switch_and_line = [data['green_switch_inv'], phase3] #L3
+                black_switch_and_line = data['black_line_inv'] #земля
                 switch_or_line = [black_switch_and_line, blue_switch_and_line, red_switch_and_line, green_switch_and_line, yellow_switch_and_line]
 
                 slr.here = (module_offset, -17.5)
-                params = ["Инвертор", all_params[0][1], all_params[0][2], all_params[0][0]]
-                names = [all_params[0][8], all_params[0][9], all_params[0][10], f"{all_params[0][4]} {t+1}.{i+1}", all_params[0][5], all_params[0][6], all_params[0][7]]
+                params = ["Инвертор", data['p_max'], data['i_out_max'], data['module']]
+                names = ['', data['brand_cable_inv'], data['length_cable_inv'], f"{data['type_inv']} {t+1}.{i+1}", data['i_nom_inv'], '', '']
 
                 draw_invertor(slr, params, names, switch_or_line) # инвертор
                 module_offset += 5
-
-            del all_params[0][0:20]
-            print('После', len(all_params[0]) // 20)
-            print(all_params[0])
-            if not all_params:
-                return
                 
         for t in range(len(all_params[1]) // 21):
             count_custom = all_params[1][4]
@@ -482,7 +468,7 @@ def draw(all_params, gost_frame_params):
             if not all_params:
                 return
 
-        if yzip == True:
+        if data['use_yzip'] == True:
             if three_phase == False:
                 phase2 = False
                 phase3 = False

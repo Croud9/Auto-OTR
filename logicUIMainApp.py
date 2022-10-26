@@ -172,7 +172,9 @@ class MainApp(QtWidgets.QMainWindow, designRepPDF.Ui_MainWindow):
     def ktp_pattern(self):
         self.inputKTP.clear()
         self.inputKTP.append('Тип оборудования=КТП') # Название КТП
-        self.inputKTP.append('Название КТП=КТПНУ-250/10/0,4-T-KK-УХЛ1') # Название КТП
+        self.inputKTP.append('Название оборудования=КТПНУ-250/10/0,4-T-KK-УХЛ1') # Название КТП
+        self.inputKTP.append('Сила тока, А=Введите значение') 
+        self.inputKTP.append('Мощность, кВт=Введите значение') 
         self.inputKTP.append('Габаритные размеры, ДхШхВ, мм=5000x4800x3300') 
         self.inputKTP.append('Кол-во транспортных единиц, шт=2') 
         self.inputKTP.append('Масса, кг=13000') 
@@ -195,8 +197,11 @@ class MainApp(QtWidgets.QMainWindow, designRepPDF.Ui_MainWindow):
 
     def other_pattern(self):
         self.inputKTP.clear()
-        self.inputKTP.append('Тип оборудования=Значение') # Название КТП
-        self.inputKTP.append('Название оборудования=Значение') # Название КТП
+        self.inputKTP.append('Тип оборудования=Введите значение') # Название КТП
+        self.inputKTP.append('Название оборудования=Введите значение') # Название КТП
+        self.inputKTP.append('Мощность, кВт=Введите значение') # Название КТП
+        self.inputKTP.append('Сила тока, А=Введите значение') # Название КТП
+        self.inputKTP.append('! ДЛЯ АВТОЗАПОЛНЕНИЯ ПАРАМЕТРОВ СХЕМ, ПАРАМЕТРЫ ВЫШЕ ОБЯЗАТЕЛЬНЫ, ПРИ СОХРАНЕНИИ ФАЙЛА УДАЛИТЕ СТРОКИ НИЖЕ, ВКЛЮЧАЯ ЭТУ !') 
         self.inputKTP.append('Название параметра, Единица измерения=Значение') 
         self.inputKTP.append('Название параметра, Единица измерения=Значение') 
         self.inputKTP.append('Пример: (Номинальное напряжение ВН, кВ=10)') 
@@ -1039,9 +1044,6 @@ class MainApp(QtWidgets.QMainWindow, designRepPDF.Ui_MainWindow):
 
                 current['file'] = self.listInvertor_file.currentIndex()
                 current['folder'] = self.listInvertor_folder.currentIndex()
-
-                # self.w4.up_down_invertor_selection()
-                # self.w4.spinBox_numInvertor.setValue(len(self.invertors))
                 current['type_inv'] = 'Инвертор'
                 current['title_grid_line'] = 'ВБШвнг(A)-LS 4x95'
                 current['title_grid_line_length'] = '180 м'
@@ -1050,8 +1052,35 @@ class MainApp(QtWidgets.QMainWindow, designRepPDF.Ui_MainWindow):
                 current['use_5or4_line'] = False
                 current['count_invertor'] = 1 #количество инверторов
                 current['diff_mppt'] = False #количество инверторов
+
+                current['type_inv'] = 'QF'
+                current['i_nom_inv'] = 'C160'
+                current['brand_cable_inv'] = 'ВБШвнг(А)-LS 4x95'
+                current['length_cable_inv'] = '180 м*'
+                if current['phase'] == 3:
+                    current['yellow_line_inv'] = True
+                    current['red_line_inv'] = True 
+                    current['blue_line_inv'] = True
+                    current['green_line_inv'] = True
+                    current['black_line_inv'] = True
+                    current['yellow_switch_inv'] = True
+                    current['red_switch_inv'] = True
+                    current['blue_switch_inv'] = True
+                    current['green_switch_inv'] = True
+                else:
+                    current['red_line_inv'] = False
+                    current['green_line_inv'] = False
+                    current['red_switch_inv'] = False
+                    current['green_switch_inv'] = False
+                    current['yellow_line_inv'] = True
+                    current['blue_line_inv'] = True
+                    current['black_line_inv'] = True
+                    current['yellow_switch_inv'] = True
+                    current['blue_switch_inv'] = True
+
                 print(self.invertors)
                 self.w3.up_down_invertor_selection()
+                self.w4.up_down_invertor_selection()
                 return current
 
     def pv_load(self):
@@ -1069,12 +1098,41 @@ class MainApp(QtWidgets.QMainWindow, designRepPDF.Ui_MainWindow):
             if current_other in select_other: 
                 self.others[f'found_other_{self.spinBox_numKTP.value() - 1}'] = search_data.search_in_others_device(f"{path_to_ktp}/{self.select_title_ktp}/{select_other}") 
                 current = self.others[f'found_other_{self.spinBox_numKTP.value() - 1}']
-                print('текущий: ' ,current)
 
                 current['file'] = self.listKTP_file.currentIndex()
                 current['folder'] = self.listKTP_folder.currentIndex()
+                key_title = 'nil'
+                key_type = 'nil'
+                key_power = 'nil'
+                key_i = 'nil'
+                for key in current.keys():
+                    if 'тип оборудования' in key.lower(): key_type = key
+                    elif 'название оборудования' in key.lower(): key_title = key
+                    elif 'мощность' in key.lower(): key_power = key
+                    elif 'сила тока' in key.lower(): key_i = key
 
-                print('в лоаде', self.others)
+                current['title_other'] = current.get(key_title, 'Н/Д')
+                current['type_other'] = current.get(key_type, 'Н/Д')
+                current['power_other'] = current.get(key_power, 'Н/Д')
+                current['i_other'] = current.get(key_i, 'Н/Д')
+                current['count_other'] = 1
+
+                current['type_param_other'] = 'QF'
+                current['i_nom_other'] = 'C160'
+                current['brand_cable_other'] = 'ВБШвнг(А)-LS 4x95'
+                current['length_cable_other'] = '180 м*'
+                current['red_line_other'] = False
+                current['green_line_other'] = False
+                current['red_switch_other'] = False
+                current['green_switch_other'] = False
+                current['yellow_line_other'] = True
+                current['blue_line_other'] = True
+                current['black_line_other'] = True
+                current['yellow_switch_other'] = True
+                current['blue_switch_other'] = True
+                self.w4.up_down_other_device_selection()
+                # print('текущий: ' ,current)
+                # print('в лоаде', self.others)
 
     def add_invertor(self):
         self.spinBox_numInvertor.show()
@@ -1504,7 +1562,7 @@ class MainApp(QtWidgets.QMainWindow, designRepPDF.Ui_MainWindow):
                 self.add_pv()
         
         self.w3.up_down_invertor_selection()
-        # self.w4.up_down_invertor_selection()
+        self.w4.up_down_invertor_selection()
 
     def convertPvsystFinished(self):
 

@@ -29,6 +29,7 @@ class WindowDraw(QtWidgets.QMainWindow, designDrawSchemes.Ui_WindowDrawSchemes):
         self.setupUi(self)
         self.validate()
         self.spinBox_numInvertor.setMinimum(1)
+        self.spinBox_numInvertor.setEnabled(False)
         self.spinBox_numDifferentMPPT.setMinimum(1)
         self.spinBox_numDifferentMPPT.hide()
         self.spinBox_CloneInvertor.setMinimum(1)
@@ -70,6 +71,7 @@ class WindowDraw(QtWidgets.QMainWindow, designDrawSchemes.Ui_WindowDrawSchemes):
     def invertor_and_config_keys(self):
         invertors = self.main_window.invertors
         self.spinBox_numInvertor.setMaximum(len(invertors))
+        self.spinBox_numInvertor.setEnabled(True)
 
         spinbox_val = self.spinBox_numInvertor.value() - 1
         invertor = invertors[f'found_invertor_{spinbox_val}']
@@ -285,6 +287,7 @@ class WindowDraw(QtWidgets.QMainWindow, designDrawSchemes.Ui_WindowDrawSchemes):
             invertor[config_keys[current_config_index]]['count_string'] = int(self.inputAll_chain.text())
             invertor[config_keys[current_config_index]]['use_all_mppt'] = True if self.checkUse_all_mppt.isChecked() else False
             invertor[config_keys[current_config_index]]['use_y_connector'] = True if self.checkUse_y_connector.isChecked() else False
+        self.main_window.w4.up_down_invertor_selection()
         self.statusBar.showMessage('Данные обновлены',2000)
 
     def spin_diff_mppt(self):
@@ -359,18 +362,6 @@ class WindowDraw(QtWidgets.QMainWindow, designDrawSchemes.Ui_WindowDrawSchemes):
     def out_params(self):
         title_project = self.main_window.inputTitleProject.text()
         code_project = self.main_window.inputCodeProject.text()            
-        # self.text_and_bool = {}
-        # self.text_and_bool['title_inv'] = str(self.inputName_invertor.text())
-        # self.text_and_bool['num_inv'] = str(self.inputNumber_invertor.text())
-        # self.text_and_bool['title_grid_line'] = str(self.inputTitle_grid_line.text())
-        # self.text_and_bool['title_grid_line_length'] = str(self.inputTitle_grid_line_length.text())
-        # self.text_and_bool['title_grid_top'] = str(self.inputTitle_grid_top.text())
-        # self.text_and_bool['title_grid_switch'] = str(self.inputTitle_grid_switch.text())
-        # self.text_and_bool['use_three_phase'] = True if self.checkUse_three_phase.isChecked() else False
-        # self.text_and_bool['use_5or4_line'] = True if self.checkUse_5or4_line.isChecked() else False
-        # self.text_and_bool['count_invertor'] = self.spinBox_CloneInvertor.value() #количество инверторов
-
-        # self.draw_params = {**self.draw_params, **self.text_and_bool}
         self.gost_frame_params = {'title_project': title_project, 'code_project': code_project}
         
     def draw(self):
@@ -388,7 +379,7 @@ class WindowDraw(QtWidgets.QMainWindow, designDrawSchemes.Ui_WindowDrawSchemes):
                 self.statusBar.showMessage('Неверная конфигурация MPPT', 4000)
                 self.statusBar.setStyleSheet("background-color:rgb(255, 212, 38)")
                 QTimer.singleShot(4000, lambda: self.statusBar.setStyleSheet("background-color:rgb(255, 255, 255)"))
-                return print('Ошибонька')
+                return
         
         self.out_params()
 
