@@ -445,10 +445,7 @@ def draw(all_params, gost_frame_params):
             print(all_params[0])
             if not all_params:
                 return
-
-        # invertor_params = []
-        # single_invertor_params = [count, params, names, switch_or_line]
-        # invertor_params.append(invertor_params)
+                
         for t in range(len(all_params[1]) // 21):
             count_custom = all_params[1][4]
             all_params = for_del2

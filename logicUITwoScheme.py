@@ -151,7 +151,6 @@ class WindowDrawTwo(QtWidgets.QMainWindow, designDrawSchemesTwo.Ui_WindowDrawSch
             self.checkGreenSwitchOther.setCheckState(0)
 
     def show_and_hide_color_line_because_phase(self):
-
         if self.checkUse_threePhase.isChecked():
             self.checkRedLineInvertor.setEnabled(True)
             self.checkRedSwitchInvertor.setEnabled(True)
@@ -330,13 +329,11 @@ class WindowDrawTwo(QtWidgets.QMainWindow, designDrawSchemesTwo.Ui_WindowDrawSch
         return self.optional_params
 
     def check_imput_params(self):
-        num_error = 0
         if str(self.inputName_invertor.text()) == '':
             self.statusBar.showMessage('Введите название инвертора', 5000)
             self.statusBar.setStyleSheet("background-color:rgb(255, 105, 97)")
             self.inputName_invertor.setStyleSheet("border: 1.45px solid red; border-radius: 6; background-color:rgba(242,242,247,1);")
-            num_error += 1
-            return num_error
+            return 1
         else:
             self.set_style_default()
 
@@ -344,8 +341,7 @@ class WindowDrawTwo(QtWidgets.QMainWindow, designDrawSchemesTwo.Ui_WindowDrawSch
             self.statusBar.showMessage('Введите мощность инвертора', 5000)
             self.statusBar.setStyleSheet("background-color:rgb(255, 105, 97)")
             self.inputPower_invertor.setStyleSheet("border: 1.45px solid red; border-radius: 6; background-color:rgba(242,242,247,1);")
-            num_error += 1
-            return num_error
+            return 1
         else:
             self.set_style_default()
 
@@ -353,8 +349,7 @@ class WindowDrawTwo(QtWidgets.QMainWindow, designDrawSchemesTwo.Ui_WindowDrawSch
             self.statusBar.showMessage('Введите силу тока в инверторе', 5000)
             self.statusBar.setStyleSheet("background-color:rgb(255, 105, 97)")
             self.inputAmperage_invertor.setStyleSheet("border: 1.45px solid red; border-radius: 6; background-color:rgba(242,242,247,1);")
-            num_error += 1
-            return num_error
+            return 1
         else:
             self.set_style_default()
 
@@ -362,8 +357,7 @@ class WindowDrawTwo(QtWidgets.QMainWindow, designDrawSchemesTwo.Ui_WindowDrawSch
             self.statusBar.showMessage('Введите название доп. оборудования', 5000)
             self.statusBar.setStyleSheet("background-color:rgb(255, 105, 97)")
             self.inputName_other.setStyleSheet("border: 1.45px solid red; border-radius: 6; background-color:rgba(242,242,247,1);")
-            num_error += 1
-            return num_error
+            return 1
         else:
             self.set_style_default()
 
@@ -371,8 +365,7 @@ class WindowDrawTwo(QtWidgets.QMainWindow, designDrawSchemesTwo.Ui_WindowDrawSch
             self.statusBar.showMessage('Введите мощность доп. оборудования', 5000)
             self.statusBar.setStyleSheet("background-color:rgb(255, 105, 97)")
             self.inputPower_other.setStyleSheet("border: 1.45px solid red; border-radius: 6; background-color:rgba(242,242,247,1);")
-            num_error += 1
-            return num_error
+            return 1
         else:
             self.set_style_default()
 
@@ -380,8 +373,7 @@ class WindowDrawTwo(QtWidgets.QMainWindow, designDrawSchemesTwo.Ui_WindowDrawSch
             self.statusBar.showMessage('Введите силу тока в доп. оборудовании', 5000)
             self.statusBar.setStyleSheet("background-color:rgb(255, 105, 97)")
             self.inputAmperage_other.setStyleSheet("border: 1.45px solid red; border-radius: 6; background-color:rgba(242,242,247,1);")
-            num_error += 1
-            return num_error
+            return 1
         else:
             self.set_style_default()
 
@@ -389,13 +381,10 @@ class WindowDrawTwo(QtWidgets.QMainWindow, designDrawSchemesTwo.Ui_WindowDrawSch
             self.statusBar.showMessage('Введите тип доп. оборудования', 5000)
             self.statusBar.setStyleSheet("background-color:rgb(255, 105, 97)")
             self.inputType_other.setStyleSheet("border: 1.45px solid red; border-radius: 6; background-color:rgba(242,242,247,1);")
-            num_error += 1
-            return num_error
+            return 1
         else:
             self.set_style_default()
-
-        print(num_error)
-        return num_error
+        return 0
 
     def set_style_default(self):
         self.inputName_invertor.setStyleSheet("QLineEdit{\n	background-color:rgba(229,229,234,1); \n	border-radius: 6;\n	border: none;\n}\nQLineEdit:hover{\n	background-color:rgba(242,242,247,1);\n}\nQLineEdit:pressed{\n	background-color:rgba(188,188,192,1);\n	border-radius: 12;\n}")

@@ -342,10 +342,13 @@ class MainApp(QtWidgets.QMainWindow, designRepPDF.Ui_MainWindow):
         self.statusBar.showMessage('Браузер закрывается, пожалуйста, подождите...')
         self.statusBar.setStyleSheet("background-color:rgb(255, 212, 38)")
         QtWidgets.QApplication.processEvents()
-        
         # Выполнение загрузки в новом потоке.
         self.parser_close = logicUIParse.Parsing(0, 0, "close")
         self.parser_close.finished.connect(self.closeFinished)
+        del self.w2
+        del self.w3
+        del self.w4
+        del self.w5 
         self.parser_close.start()     
 
     def coordinate_by_address(self):
@@ -1036,13 +1039,19 @@ class MainApp(QtWidgets.QMainWindow, designRepPDF.Ui_MainWindow):
 
                 current['file'] = self.listInvertor_file.currentIndex()
                 current['folder'] = self.listInvertor_folder.currentIndex()
-                # self.w3.set_invertor_params(current['module'], current['mppt'], current['inputs'], current['phase']) # вставка параметров в окно первой схемы
-                # self.w4.set_invertor_params(current['module'], current['p_max'], current['i_out_max'], current['phase']) # вставка параметров в окно второй схемы
-                self.w3.up_down_invertor_selection()
-                self.w3.spinBox_numInvertor.setValue(len(self.invertors))
-                self.w4.up_down_invertor_selection()
-                self.w4.spinBox_numInvertor.setValue(len(self.invertors))
+
+                # self.w4.up_down_invertor_selection()
+                # self.w4.spinBox_numInvertor.setValue(len(self.invertors))
+                current['type_inv'] = 'Инвертор'
+                current['title_grid_line'] = 'ВБШвнг(A)-LS 4x95'
+                current['title_grid_line_length'] = '180 м'
+                current['title_grid_top'] = 'ЩР 0.4 кВ (ВИЭ)'
+                current['title_grid_switch'] = 'QF1 3P 160A'
+                current['use_5or4_line'] = False
+                current['count_invertor'] = 1 #количество инверторов
+                current['diff_mppt'] = False #количество инверторов
                 print(self.invertors)
+                self.w3.up_down_invertor_selection()
                 return current
 
     def pv_load(self):
@@ -1107,10 +1116,10 @@ class MainApp(QtWidgets.QMainWindow, designRepPDF.Ui_MainWindow):
                 self.invertors[f'found_invertor_{index}'] = self.invertors.pop(key)
                 index += 1
             self.up_down_invertor_selection()
-            self.w3.up_down_invertor_selection()
-            self.w3.spinBox_numInvertor.setValue(len(self.invertors))
-            self.w4.up_down_invertor_selection()
-            self.w4.spinBox_numInvertor.setValue(len(self.invertors))
+            # self.w3.up_down_invertor_selection()
+            # self.w3.spinBox_numInvertor.setValue(len(self.invertors))
+            # self.w4.up_down_invertor_selection()
+            # self.w4.spinBox_numInvertor.setValue(len(self.invertors))
         if len(self.invertors) == 1:
             self.btnDelInvertor.hide()
             self.spinBox_numInvertor.hide()
@@ -1393,7 +1402,7 @@ class MainApp(QtWidgets.QMainWindow, designRepPDF.Ui_MainWindow):
         del self.parser_open
 
     def closeFinished(self):
-        del self.parser_close  
+        del self.parser_close 
 
     def convertOneFinished(self):
         self.btnLoadScheme1.setEnabled(True)
@@ -1442,9 +1451,24 @@ class MainApp(QtWidgets.QMainWindow, designRepPDF.Ui_MainWindow):
 
                     if found_inv == True:
                         current_invertor = self.invertor_load()
-
+                        count_invertors = 0
+                        diff_mppt = False
                         for config in config_keys:
                             current_invertor[config] = pvsyst_pvs_invrtrs[config]
+                            current_invertor[config]['use_all_mppt'] = False
+                            current_invertor[config]['use_y_connector'] = False
+
+                            count_invertor = current_invertor[config]['count_invertor']
+                            if '.' in count_invertor:
+                                diff_mppt = True
+                                count_invertors += float(count_invertor)
+                                del current_invertor[config]['count_invertor']
+                            else:
+                                diff_mppt = False
+                                count_invertors = int(count_invertor)
+                                del current_invertor[config]['count_invertor']
+                        current_invertor['count_invertor'] = int(count_invertors)
+                        current_invertor['diff_mppt'] = diff_mppt
                         print('После добавки', current_invertor)
                     else:
                         self.del_invertor()
@@ -1480,7 +1504,7 @@ class MainApp(QtWidgets.QMainWindow, designRepPDF.Ui_MainWindow):
                 self.add_pv()
         
         self.w3.up_down_invertor_selection()
-        self.w4.up_down_invertor_selection()
+        # self.w4.up_down_invertor_selection()
 
     def convertPvsystFinished(self):
 

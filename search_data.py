@@ -13,7 +13,9 @@ def null_search_params(type_file):
                         'depth', 'weight', 'v_mpp_min', 'v_mpp_max', 
                         'tp_nom', 'p_nom', 'tp_lim', 'p_lim', 'tp_lim_abs', 
                         'p_lim_abs', 'phase', 'v_out', 'i_out_max', 
-                        'kpd_max', 'kpd_euro', 'v_abs_max', 'protect')               
+                        'kpd_max', 'kpd_euro', 'v_abs_max', 'protect')
+                        # 'num_inv', 'title_grid_line', 'title_grid_line_length',
+                        # 'title_grid_top', 'title_grid_switch', 'use_5or4_line'             
     elif type_file == 'pv':
         name_params = ('module_pv', 'title_pv', 'model_pv', 'width_pv','height_pv', 'depth_pv', 
                         'weight_pv', 'p_nom_pv','isc_pv', 'voc_pv', 'imp_pv', 'vmp_pv', 'square_pv',
