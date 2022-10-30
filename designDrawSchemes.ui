@@ -9,7 +9,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>767</width>
+    <width>766</width>
     <height>458</height>
    </rect>
   </property>
@@ -390,27 +390,6 @@ QLineEdit:pressed{
     </property>
     <property name="text">
      <string>Цепочки по всем MPPT</string>
-    </property>
-   </widget>
-   <widget class="QCheckBox" name="checkUse_different_mppt">
-    <property name="geometry">
-     <rect>
-      <x>558</x>
-      <y>27</y>
-      <width>111</width>
-      <height>20</height>
-     </rect>
-    </property>
-    <property name="font">
-     <font>
-      <family>Arial</family>
-     </font>
-    </property>
-    <property name="toolTip">
-     <string>Позволяет добавлять разные MPPT в инвертор. Нажимая на кнопку &quot;+&quot; добавляются параметры для каждого MPPT</string>
-    </property>
-    <property name="text">
-     <string>Разные MPPT</string>
     </property>
    </widget>
    <widget class="QLineEdit" name="inputName_invertor">
@@ -1233,9 +1212,9 @@ QSpinBox:down-button{
    <widget class="QPushButton" name="btnAdd_new_mppt">
     <property name="geometry">
      <rect>
-      <x>670</x>
+      <x>680</x>
       <y>20</y>
-      <width>31</width>
+      <width>30</width>
       <height>31</height>
      </rect>
     </property>
@@ -1272,7 +1251,7 @@ QPushButton:hover{
      <rect>
       <x>710</x>
       <y>20</y>
-      <width>41</width>
+      <width>40</width>
       <height>31</height>
      </rect>
     </property>
@@ -1393,6 +1372,73 @@ QPushButton:pressed{
 инверторов</string>
     </property>
    </widget>
+   <widget class="QPushButton" name="btnDelConfig">
+    <property name="geometry">
+     <rect>
+      <x>547</x>
+      <y>22</y>
+      <width>30</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Arial</family>
+      <pointsize>10</pointsize>
+      <weight>75</weight>
+      <bold>true</bold>
+     </font>
+    </property>
+    <property name="cursor">
+     <cursorShape>PointingHandCursor</cursorShape>
+    </property>
+    <property name="toolTip">
+     <string>Удалить</string>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QPushButton{
+	background-color:rgba(112, 215, 255, 0);
+	color:  rgba(0, 0, 0, 0.5);
+	border: none;
+	border-radius: 5;
+	border-style: outset;
+}
+QPushButton:hover{
+	color:rgba(255, 20, 20, 1) ;
+}
+</string>
+    </property>
+    <property name="text">
+     <string>🞫</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_21">
+    <property name="enabled">
+     <bool>true</bool>
+    </property>
+    <property name="geometry">
+     <rect>
+      <x>576</x>
+      <y>30</y>
+      <width>110</width>
+      <height>16</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Arial</family>
+      <pointsize>9</pointsize>
+      <weight>75</weight>
+      <bold>true</bold>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color: rgba(255,255,255,0); </string>
+    </property>
+    <property name="text">
+     <string>Разные MPPT</string>
+    </property>
+   </widget>
    <zorder>label_20</zorder>
    <zorder>label_8</zorder>
    <zorder>inputCount_mppt</zorder>
@@ -1403,7 +1449,6 @@ QPushButton:pressed{
    <zorder>inputAll_chain</zorder>
    <zorder>checkUse_y_connector</zorder>
    <zorder>checkUse_all_mppt</zorder>
-   <zorder>checkUse_different_mppt</zorder>
    <zorder>inputName_invertor</zorder>
    <zorder>inputTitle_grid_line</zorder>
    <zorder>inputTitle_grid_top</zorder>
@@ -1431,6 +1476,8 @@ QPushButton:pressed{
    <zorder>btnAdd_new_mppt</zorder>
    <zorder>spinBox_numDifferentMPPT</zorder>
    <zorder>btnSaveConfig</zorder>
+   <zorder>btnDelConfig</zorder>
+   <zorder>label_21</zorder>
   </widget>
   <widget class="QStatusBar" name="statusBar"/>
  </widget>

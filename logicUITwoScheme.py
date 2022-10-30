@@ -1,5 +1,6 @@
-from operator import invert
+# from operator import invert
 import draw_schemes2
+import styles_responce
 import designDrawSchemesTwo
 from PyQt5 import QtWidgets
 from PyQt5.QtCore import QTimer, QThread
@@ -32,41 +33,20 @@ class WindowDrawTwo(QtWidgets.QMainWindow, designDrawSchemesTwo.Ui_WindowDrawSch
         self.checkRedLineOther.clicked.connect(self.show_and_hide_switch)
         self.checkBlueLineOther.clicked.connect(self.show_and_hide_switch)
         self.checkGreenLineOther.clicked.connect(self.show_and_hide_switch)
-        self.btnResultInfo.clicked.connect(self.result_info)
         self.btnReset.clicked.connect(self.reset)
         self.btnSaveConfig.clicked.connect(self.save_config)
         self.btnDraw.pressed.connect(self.draw)
         self.spinBox_numInvertor.valueChanged.connect(self.up_down_invertor_selection)
         self.spinBox_numOther.valueChanged.connect(self.up_down_other_device_selection)
-        self.set_default_params()
-        self.invertor_params = []
-        self.other_params = []
-        self.optional_params = []
-        self.checkbox_params = []
-        self.all_params = [self.invertor_params, self.other_params, self.optional_params, self.checkbox_params]   
+        self.set_default_params() 
 
     def reset(self):
         self.checkUse_threePhase.setCheckState(2)
         self.checkUse_yzip.setCheckState(0)
         self.checkUse_counter.setCheckState(0)
         self.textConsoleDraw.clear()
-        self.invertor_params.clear()
-        self.other_params.clear()
-        self.optional_params.clear()
-        self.checkbox_params.clear()
 
     def set_default_params(self):
-        # Основные параемтры инвертора
-        # self.inputName_invertor.setText("Sungrow SG110CX")
-        # self.inputPower_invertor.setText('110')
-        # self.inputAmperage_invertor.setText('158.8')
-
-        # Основные параметры доп модулей
-        # self.inputName_other.setText('Sungrow COM100E')
-        # self.inputPower_other.setText('0.01')
-        # self.inputAmperage_other.setText('0.05')
-        # self.inputType_other.setText('Контроллер')
-
         # Доп параметры инвертора
         self.inputParam1_invertor.setText('QF')
         self.inputParam2_invertor.setText('C160')
@@ -111,9 +91,8 @@ class WindowDrawTwo(QtWidgets.QMainWindow, designDrawSchemesTwo.Ui_WindowDrawSch
         self.checkBlueSwitchOther.setCheckState(2)
         self.checkBlackLineOther.setCheckState(2)
 
-    def show_other_params(self):  # открытие доп параметров
+    def show_other_params(self):
         if self.width() == 950 and self.height() == 335:
-            # self.textConsoleMPPT.clear()
             self.setFixedSize(950, 620)
             self.btnOpen_otherParams.setText('Скрыть')
         else:
@@ -193,164 +172,42 @@ class WindowDrawTwo(QtWidgets.QMainWindow, designDrawSchemesTwo.Ui_WindowDrawSch
             self.checkBlueSwitchOther.setCheckState(2)
             self.checkBlackLineOther.setCheckState(2)
 
-    def result_info(self):
-        len_invertor_params = len(self.invertor_params)
-        len_other_params = len(self.other_params)
-
-        # self.textConsoleDraw.clear()
-        self.textConsoleDraw.append(f"В схему добавлено:")
-        self.textConsoleDraw.append(f"-- Кол-во инверторов: {len_invertor_params // 20}")
-        self.textConsoleDraw.append(f"-- Кол-во дополнительных модулей: {len_other_params // 21}")
-        self.textConsoleDraw.append(f"-- Узип") if self.checkUse_yzip.isChecked() else False
-        self.textConsoleDraw.append(f"-- Счетчик") if self.checkUse_counter.isChecked() else False
-        self.textConsoleDraw.append(f"-- Трёхфазная система") if self.checkUse_threePhase.isChecked() else False
-
-    def add_invertor(self):
-        self.invertor_params.append(str(self.inputName_invertor.text()))
-        self.invertor_params.append(str(self.inputPower_invertor.text()))
-        self.invertor_params.append(str(self.inputAmperage_invertor.text()))
-        self.invertor_params.append(self.spinBox_countInvertor.value())
-
-        self.invertor_params.append(str(self.inputParam1_invertor.text()))
-        self.invertor_params.append(str(self.inputParam2_invertor.text())) #5
-        self.invertor_params.append("")
-        self.invertor_params.append("")
-        self.invertor_params.append("")
-        self.invertor_params.append(str(self.inputParam6_invertor.text()))
-        self.invertor_params.append(str(self.inputParam7_invertor.text()))
-
-        self.invertor_params.append(True if self.checkYellowLineInvertor.isChecked() else False)
-        self.invertor_params.append(True if self.checkRedLineInvertor.isChecked() else False) #12
-        self.invertor_params.append(True if self.checkBlueLineInvertor.isChecked() else False)
-        self.invertor_params.append(True if self.checkGreenLineInvertor.isChecked() else False) #14
-        self.invertor_params.append(True if self.checkBlackLineInvertor.isChecked() else False)
-
-        self.invertor_params.append(True if self.checkYellowSwitchInvertor.isChecked() else False)
-        self.invertor_params.append(True if self.checkRedSwitchInvertor.isChecked() else False)
-        self.invertor_params.append(True if self.checkBlueSwitchInvertor.isChecked() else False)
-        self.invertor_params.append(True if self.checkGreenSwitchInvertor.isChecked() else False)
-
-        self.textConsoleDraw.append(f"Добавлен Инвертор {str(self.inputName_invertor.text())} \n Мощность: {str(self.inputPower_invertor.text())} \n Сила тока: {str(self.inputAmperage_invertor.text())} \n Кол-во: {self.spinBox_countInvertor.value()}")
-        return self.invertor_params
-
-    def add_other(self):
-        self.other_params.append(str(self.inputName_other.text()))
-        self.other_params.append(str(self.inputPower_other.text()))
-        self.other_params.append(str(self.inputAmperage_other.text()))
-        self.other_params.append(str(self.inputType_other.text()))
-        self.other_params.append(self.spinBox_countOther.value())
-
-        self.other_params.append(str(self.inputParam1_other.text()))
-        self.other_params.append(str(self.inputParam2_other.text()))
-        self.other_params.append("")
-        self.other_params.append("")
-        self.other_params.append("")
-        self.other_params.append(str(self.inputParam6_other.text()))
-        self.other_params.append(str(self.inputParam7_other.text()))
-
-        self.other_params.append(True if self.checkYellowLineOther.isChecked() else False)
-        self.other_params.append(True if self.checkRedLineOther.isChecked() else False)
-        self.other_params.append(True if self.checkBlueLineOther.isChecked() else False)
-        self.other_params.append(True if self.checkGreenLineOther.isChecked() else False)
-        self.other_params.append(True if self.checkBlackLineOther.isChecked() else False)
-
-        self.other_params.append(True if self.checkYellowSwitchOther.isChecked() else False)
-        self.other_params.append(True if self.checkRedSwitchOther.isChecked() else False)
-        self.other_params.append(True if self.checkBlueSwitchOther.isChecked() else False)
-        self.other_params.append(True if self.checkGreenSwitchOther.isChecked() else False)
-
-        self.textConsoleDraw.append(f"Добавлен {str(self.inputType_other.text())}: {str(self.inputName_other.text())} \n Мощность: {str(self.inputPower_other.text())} \n Сила тока: {str(self.inputAmperage_other.text())} \n Кол-во: {self.spinBox_countOther.value()}")
-        return self.other_params
-
-    def optional_parametrs(self):
-        self.optional_params.append(str(self.inputParam1_yzip.text()))
-        self.optional_params.append(str(self.inputParam2_yzip.text()))
-        self.optional_params.append(str(self.inputParam3_yzip.text()))
-        self.optional_params.append("")
-        self.optional_params.append("")
-
-        self.optional_params.append("")
-        self.optional_params.append(str(self.inputParam2_out.text()))
-        self.optional_params.append(str(self.inputParam3_out.text()))
-        self.optional_params.append(str(self.inputParam4_out.text()))
-        self.optional_params.append(str(self.inputParam5_out.text()))
-        return self.optional_params
-
     def check_imput_params(self):
+        self.set_style_default()
         if str(self.inputName_invertor.text()) == '':
-            self.statusBar.showMessage('Введите название инвертора', 5000)
-            self.statusBar.setStyleSheet("background-color:rgb(255, 105, 97)")
-            self.inputName_invertor.setStyleSheet("border: 1.45px solid red; border-radius: 6; background-color:rgba(242,242,247,1);")
+            styles_responce.no_fill_field(self, self.inputName_invertor)
+            return 1
+        elif str(self.inputPower_invertor.text()) == '':
+            styles_responce.no_fill_field(self, self.inputPower_invertor)
+            return 1
+        elif str(self.inputAmperage_invertor.text()) == '':
+            styles_responce.no_fill_field(self, self.inputAmperage_invertor)
+            return 1
+        elif str(self.inputName_other.text()) == '':
+            styles_responce.no_fill_field(self, self.inputName_other)
+            return 1
+        elif str(self.inputPower_other.text()) == '':
+            styles_responce.no_fill_field(self, self.inputPower_other)
+            return 1
+        elif str(self.inputAmperage_other.text()) == '':
+            styles_responce.no_fill_field(self, self.inputAmperage_other)
+            return 1
+        elif str(self.inputType_other.text()) == '':
+            styles_responce.no_fill_field(self, self.inputType_other)
             return 1
         else:
-            self.set_style_default()
-
-        if str(self.inputPower_invertor.text()) == '':
-            self.statusBar.showMessage('Введите мощность инвертора', 5000)
-            self.statusBar.setStyleSheet("background-color:rgb(255, 105, 97)")
-            self.inputPower_invertor.setStyleSheet("border: 1.45px solid red; border-radius: 6; background-color:rgba(242,242,247,1);")
-            return 1
-        else:
-            self.set_style_default()
-
-        if str(self.inputAmperage_invertor.text()) == '':
-            self.statusBar.showMessage('Введите силу тока в инверторе', 5000)
-            self.statusBar.setStyleSheet("background-color:rgb(255, 105, 97)")
-            self.inputAmperage_invertor.setStyleSheet("border: 1.45px solid red; border-radius: 6; background-color:rgba(242,242,247,1);")
-            return 1
-        else:
-            self.set_style_default()
-
-        if str(self.inputName_other.text()) == '':
-            self.statusBar.showMessage('Введите название доп. оборудования', 5000)
-            self.statusBar.setStyleSheet("background-color:rgb(255, 105, 97)")
-            self.inputName_other.setStyleSheet("border: 1.45px solid red; border-radius: 6; background-color:rgba(242,242,247,1);")
-            return 1
-        else:
-            self.set_style_default()
-
-        if str(self.inputPower_other.text()) == '':
-            self.statusBar.showMessage('Введите мощность доп. оборудования', 5000)
-            self.statusBar.setStyleSheet("background-color:rgb(255, 105, 97)")
-            self.inputPower_other.setStyleSheet("border: 1.45px solid red; border-radius: 6; background-color:rgba(242,242,247,1);")
-            return 1
-        else:
-            self.set_style_default()
-
-        if str(self.inputAmperage_other.text()) == '':
-            self.statusBar.showMessage('Введите силу тока в доп. оборудовании', 5000)
-            self.statusBar.setStyleSheet("background-color:rgb(255, 105, 97)")
-            self.inputAmperage_other.setStyleSheet("border: 1.45px solid red; border-radius: 6; background-color:rgba(242,242,247,1);")
-            return 1
-        else:
-            self.set_style_default()
-
-        if str(self.inputType_other.text()) == '':
-            self.statusBar.showMessage('Введите тип доп. оборудования', 5000)
-            self.statusBar.setStyleSheet("background-color:rgb(255, 105, 97)")
-            self.inputType_other.setStyleSheet("border: 1.45px solid red; border-radius: 6; background-color:rgba(242,242,247,1);")
-            return 1
-        else:
-            self.set_style_default()
-        return 0
+            return 0
 
     def set_style_default(self):
-        default_style_input = 'QLineEdit{ background-color:rgba(229,229,234,1);\
-                            border-radius: 6;\
-                            border: none;\
-                            padding-left: 8px }\
-                        QLineEdit:hover{ background-color:rgba(242,242,247,1); }\
-                        QLineEdit:pressed{ background-color:rgba(188,188,192,1);\
-                            border-radius: 12; }'
-        self.inputName_invertor.setStyleSheet(default_style_input)
-        self.inputPower_invertor.setStyleSheet(default_style_input)
-        self.inputAmperage_invertor.setStyleSheet(default_style_input)
-        self.inputName_other.setStyleSheet(default_style_input)
-        self.inputPower_other.setStyleSheet(default_style_input)
-        self.inputAmperage_other.setStyleSheet(default_style_input)
-        self.inputType_other.setStyleSheet(default_style_input)
+        self.inputName_invertor.setStyleSheet(styles_responce.default_style_input)
+        self.inputPower_invertor.setStyleSheet(styles_responce.default_style_input)
+        self.inputAmperage_invertor.setStyleSheet(styles_responce.default_style_input)
+        self.inputName_other.setStyleSheet(styles_responce.default_style_input)
+        self.inputPower_other.setStyleSheet(styles_responce.default_style_input)
+        self.inputAmperage_other.setStyleSheet(styles_responce.default_style_input)
+        self.inputType_other.setStyleSheet(styles_responce.default_style_input)
 
-        self.statusBar.setStyleSheet("background-color: rgb(255, 255, 255)")
+        self.statusBar.setStyleSheet(styles_responce.status_white)
         self.statusBar.showMessage('', 100)
 
     def save_config(self):
@@ -400,8 +257,8 @@ class WindowDrawTwo(QtWidgets.QMainWindow, designDrawSchemesTwo.Ui_WindowDrawSch
         other['red_switch_other'] = True if self.checkRedSwitchOther.isChecked() else False
         other['blue_switch_other'] = True if self.checkBlueSwitchOther.isChecked() else False
         other['green_switch_other'] = True if self.checkGreenSwitchOther.isChecked() else False
+        self.statusBar.showMessage(styles_responce.status_ok, 2000)
         self.main_window.w3.up_down_invertor_selection()
-        # print('Вторая схема: ', invertor)
 
     def invertor_and_config_keys(self):
         invertors = self.main_window.invertors
@@ -496,24 +353,18 @@ class WindowDrawTwo(QtWidgets.QMainWindow, designDrawSchemesTwo.Ui_WindowDrawSch
         self.btnDraw.setEnabled(False)
         self.btnDraw.setText('Построение чертежа...')
         self.statusBar.showMessage('Пожалуйста, подождите...')
-        self.statusBar.setStyleSheet("background-color:rgb(255, 212, 38)")
+        self.statusBar.setStyleSheet(styles_responce.status_yellow)
         self.painter = DrawTwo(self.draw_params, self.gost_frame_params)
         self.painter.finished.connect(self.drawFinished)
         self.painter.start()
         
     def drawFinished(self):
-        self.all_params.clear()
-        self.invertor_params.clear()
-        self.other_params.clear()
-        self.optional_params.clear()
         self.statusBar.showMessage('Чертеж успешно построен', 4000)
-        self.statusBar.setStyleSheet("background-color:rgb(48, 219, 91)")
-        QTimer.singleShot(4000, lambda: self.statusBar.setStyleSheet("background-color:rgb(255, 255, 255)"))
+        self.statusBar.setStyleSheet(styles_responce.status_green)
+        QTimer.singleShot(4000, lambda: self.statusBar.setStyleSheet(styles_responce.status_white))
         self.textConsoleDraw.append(f"------------------------------------")
-
         self.btnDraw.setEnabled(True)
         self.btnDraw.setText('Построить')
-        # Удаление потока после его использования.
         del self.painter
 
  

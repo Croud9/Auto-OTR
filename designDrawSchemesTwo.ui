@@ -1549,46 +1549,6 @@ QLineEdit:pressed{
      <set>Qt::AlignCenter</set>
     </property>
    </widget>
-   <widget class="QPushButton" name="btnResultInfo">
-    <property name="geometry">
-     <rect>
-      <x>881</x>
-      <y>270</y>
-      <width>51</width>
-      <height>21</height>
-     </rect>
-    </property>
-    <property name="font">
-     <font>
-      <family>Arial</family>
-      <pointsize>9</pointsize>
-      <weight>75</weight>
-      <bold>true</bold>
-     </font>
-    </property>
-    <property name="cursor">
-     <cursorShape>PointingHandCursor</cursorShape>
-    </property>
-    <property name="styleSheet">
-     <string notr="true">QPushButton{
-	background-color: rgba(229,229,234,1);
-	color: #196dff;
-	border: none;
-	border-radius: 6;
-	border-style: outset;
-}
-QPushButton:hover{
-	background-color: #dceaff; 
-}
-QPushButton:pressed{
-	color: rgba(25, 109, 255, 0.7); 
-	border-radius: 6;
-}</string>
-    </property>
-    <property name="text">
-     <string>Итог</string>
-    </property>
-   </widget>
    <widget class="QCheckBox" name="checkRedLineInvertor">
     <property name="geometry">
      <rect>
@@ -2711,7 +2671,6 @@ QPushButton:pressed{
    <zorder>inputParam4_out</zorder>
    <zorder>inputParam3_out</zorder>
    <zorder>label_25</zorder>
-   <zorder>btnResultInfo</zorder>
    <zorder>checkRedLineInvertor</zorder>
    <zorder>checkBlueLineInvertor</zorder>
    <zorder>checkGreenLineInvertor</zorder>

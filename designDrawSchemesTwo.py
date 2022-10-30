@@ -871,30 +871,6 @@ class Ui_WindowDrawSchemesTwo(object):
         self.label_25.setFont(font)
         self.label_25.setAlignment(QtCore.Qt.AlignCenter)
         self.label_25.setObjectName("label_25")
-        self.btnResultInfo = QtWidgets.QPushButton(self.centralwidget)
-        self.btnResultInfo.setGeometry(QtCore.QRect(881, 270, 51, 21))
-        font = QtGui.QFont()
-        font.setFamily("Arial")
-        font.setPointSize(9)
-        font.setBold(True)
-        font.setWeight(75)
-        self.btnResultInfo.setFont(font)
-        self.btnResultInfo.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
-        self.btnResultInfo.setStyleSheet("QPushButton{\n"
-"    background-color: rgba(229,229,234,1);\n"
-"    color: #196dff;\n"
-"    border: none;\n"
-"    border-radius: 6;\n"
-"    border-style: outset;\n"
-"}\n"
-"QPushButton:hover{\n"
-"    background-color: #dceaff; \n"
-"}\n"
-"QPushButton:pressed{\n"
-"    color: rgba(25, 109, 255, 0.7); \n"
-"    border-radius: 6;\n"
-"}")
-        self.btnResultInfo.setObjectName("btnResultInfo")
         self.checkRedLineInvertor = QtWidgets.QCheckBox(self.centralwidget)
         self.checkRedLineInvertor.setGeometry(QtCore.QRect(229, 530, 31, 21))
         font = QtGui.QFont()
@@ -1499,7 +1475,6 @@ class Ui_WindowDrawSchemesTwo(object):
         self.inputParam4_out.raise_()
         self.inputParam3_out.raise_()
         self.label_25.raise_()
-        self.btnResultInfo.raise_()
         self.checkRedLineInvertor.raise_()
         self.checkBlueLineInvertor.raise_()
         self.checkGreenLineInvertor.raise_()
@@ -1559,7 +1534,6 @@ class Ui_WindowDrawSchemesTwo(object):
         self.label_23.setText(_translate("WindowDrawSchemesTwo", "Длина"))
         self.label_24.setText(_translate("WindowDrawSchemesTwo", "Дополнительные параметры"))
         self.label_25.setText(_translate("WindowDrawSchemesTwo", "Параметры выхода"))
-        self.btnResultInfo.setText(_translate("WindowDrawSchemesTwo", "Итог"))
         self.checkRedLineInvertor.setToolTip(_translate("WindowDrawSchemesTwo", "Красный провод"))
         self.checkBlueLineInvertor.setToolTip(_translate("WindowDrawSchemesTwo", "Синий провод"))
         self.checkGreenLineInvertor.setToolTip(_translate("WindowDrawSchemesTwo", "Зеленый провод"))

@@ -16,6 +16,7 @@ import logicUITwoScheme
 import search_data
 import validate
 import geocoding
+import styles_responce
 import glob, fitz, requests, sys, os # загрузка модулей
 os.environ['path'] += r';Data/file_sys/dlls' # для работы cairosvg
 import cairosvg
@@ -313,8 +314,8 @@ class MainApp(QtWidgets.QMainWindow, designRepPDF.Ui_MainWindow):
     def validation(self):
         if self.listRoof.currentText() == "Выберите":
             self.statusBar.showMessage('Выберите тип крыши', 5000)
-            self.statusBar.setStyleSheet("background-color:rgb(255, 105, 97)")
-            self.listRoof.setStyleSheet("QComboBox{background-color:rgba(229,229,234,1); border: 1.45px solid red; border-radius: 6; padding-left: 6.55px;} QComboBox:drop-down {width: 0px; height: 0px; border: 0px;}")
+            self.statusBar.setStyleSheet(styles_responce.status_red)
+            self.listRoof.setStyleSheet(styles_responce.warning_style_comboBox)
             return 0
         else:
             self.set_style_default()
@@ -323,7 +324,7 @@ class MainApp(QtWidgets.QMainWindow, designRepPDF.Ui_MainWindow):
         self.opacity_effect = QtWidgets.QGraphicsOpacityEffect()
         self.opacity_effect.setOpacity(0.6)
         if validate.internet() == True:
-            self.statusBar.setStyleSheet("background-color:rgb(255, 255, 255)")
+            self.statusBar.setStyleSheet(styles_responce.status_white)
             self.btnWifi.hide()
             self.btnRP5.setEnabled(True)
             self.btnRP5.setGraphicsEffect(self.opacity_effect.setOpacity(1))
@@ -339,13 +340,13 @@ class MainApp(QtWidgets.QMainWindow, designRepPDF.Ui_MainWindow):
             return False
 
     def set_style_default(self):
-        self.listRoof.setStyleSheet("QComboBox{\n	background-color:rgba(229,229,234,1); \n	border: none;\n	border-radius: 6;\n	padding-left: 8px;\n}\n\nQComboBox:drop-down \n{\n    width: 0px;\n    height: 0px;\n    border: 0px;\n}\nQComboBox:hover{\n	background-color:rgba(242,242,247,1);\n}\n")
-        self.statusBar.setStyleSheet("background-color:rgb(255, 255, 255)")
+        self.listRoof.setStyleSheet(styles_responce.default_style_comboBox)
+        self.statusBar.setStyleSheet(styles_responce.status_white)
         self.statusBar.showMessage('', 100)
  
     def closeEvent(self, event):
         self.statusBar.showMessage('Браузер закрывается, пожалуйста, подождите...')
-        self.statusBar.setStyleSheet("background-color:rgb(255, 212, 38)")
+        self.statusBar.setStyleSheet(styles_responce.status_yellow)
         QtWidgets.QApplication.processEvents()
         # Выполнение загрузки в новом потоке.
         self.parser_close = logicUIParse.Parsing(0, 0, "close")
@@ -363,11 +364,10 @@ class MainApp(QtWidgets.QMainWindow, designRepPDF.Ui_MainWindow):
             self.inputAddressLong.setText(coord['longitude'])
             self.inputAddress.setText(coord['full_address'])
             self.w2.inputCity.setText(coord['city'])
-
         else:
             self.statusBar.showMessage(coord['error'], 4000)
-            self.statusBar.setStyleSheet("background-color:rgba(255, 169, 31, 0.89)")
-            QTimer.singleShot(4000, lambda: self.statusBar.setStyleSheet("background-color:rgb(255, 255, 255)"))
+            self.statusBar.setStyleSheet(styles_responce.status_orange)
+            QTimer.singleShot(4000, lambda: self.statusBar.setStyleSheet(styles_responce.status_white))
 
     def show_button_coordinates(self):
         if self.btnSearchCoordinates.isHidden():
@@ -389,8 +389,8 @@ class MainApp(QtWidgets.QMainWindow, designRepPDF.Ui_MainWindow):
         with open(f"Data/Modules/KTP's/New/{file_name}.txt", 'w') as file:
             file.write(params) # Название КТП
         self.statusBar.showMessage('Файл создан!', 4000)
-        self.statusBar.setStyleSheet("background-color:rgb(48, 219, 91)")
-        QTimer.singleShot(4000, lambda: self.statusBar.setStyleSheet("background-color:rgb(255, 255, 255)"))
+        self.statusBar.setStyleSheet(styles_responce.status_green)
+        QTimer.singleShot(4000, lambda: self.statusBar.setStyleSheet(styles_responce.status_white))
         self.other_select()
 
     def hide(self):
@@ -805,7 +805,7 @@ class MainApp(QtWidgets.QMainWindow, designRepPDF.Ui_MainWindow):
             # self.btnRP5.setText('Запуск..')
             self.startAnimation()
             self.statusBar.showMessage('Идет первоначальный запуск браузера, пожалуйста, подождите...')
-            self.statusBar.setStyleSheet("background-color:rgb(255, 212, 38)")
+            self.statusBar.setStyleSheet(styles_responce.status_yellow)
             self.parser_open = logicUIParse.Parsing(0, 0, "open")
             self.parser_open.finished.connect(self.showParserFinished)
             self.parser_open.start()
@@ -829,74 +829,80 @@ class MainApp(QtWidgets.QMainWindow, designRepPDF.Ui_MainWindow):
         self.w5.show()
         self.w5.setFixedSize(1220,620)
 
+    def hide_btn(self, btn_device):
+        if btn_device == True:
+            QTimer.singleShot(250, lambda: self.label_11.hide())
+            QTimer.singleShot(250, lambda: self.btnDelPvsystData.hide())
+            QTimer.singleShot(800, lambda: self.btnOne.hide()) 
+        else:
+            QTimer.singleShot(800, lambda: self.btnDrawScheme.hide())
+            QTimer.singleShot(800, lambda: self.btnDrawSchemeTwo.hide())
+            QTimer.singleShot(250, lambda: self.btnLoadScheme1.hide())
+            QTimer.singleShot(250, lambda: self.btnLoadScheme2.hide())
+            QTimer.singleShot(250, lambda: self.btnDelSchemeOneData.hide())
+            QTimer.singleShot(250, lambda: self.btnDelSchemeTwoData.hide())
+            QTimer.singleShot(250, lambda: self.label_12.hide())
+            QTimer.singleShot(250, lambda: self.label_13.hide())
+
+    def animate_btn(self, y, btn, instance, begin = False):
+        instance.setEasingCurve(QEasingCurve.InOutCubic)
+        if begin == True:
+            btn.show()
+            instance.setStartValue(QPoint(950, y))
+            instance.setEndValue(QPoint(843, y))
+        else:
+            instance.setEndValue(QPoint(950, y))
+        instance.setDuration(800)
+        instance.finished.connect(lambda: self.animate_btn_finished(instance))
+        instance.start()
+
+    def animate_btn_finished(self, instance):
+        del instance
+
     def show_and_hide_device_button(self):
         x = 843
         x_other = 897
-        y_start = -50
-        if self.btnDrawScheme.isHidden():
-            self.y_btn = 16 
+        inst_btn = QPropertyAnimation(self.btnOne, b"pos")
+        if self.btnDrawScheme.isHidden() or self.btnDrawScheme.y() == 100:
+            y_one_btn = 16 
             y_title = 71
             y_del = 25
         else:
-            self.y_btn = 183
+            y_one_btn = 183
             y_title = 239
             y_del = 190
 
-        # y = 16 
-        if self.btnOne.isHidden():
-            self.btnOne.show()
-            self.anim = QPropertyAnimation(self.btnOne, b"pos")
-            self.anim.setEasingCurve(QEasingCurve.InOutCubic)
-            self.anim.setStartValue(QPoint(x, y_start))
-            self.anim.setEndValue(QPoint(x, self.y_btn))
-            self.anim.setDuration(1000)
-            self.anim.start()
-            QTimer.singleShot(1100, lambda: self.label_11.show())
+        if self.btnOne.isHidden(): # Появление
+            self.animate_btn(y_one_btn, self.btnOne, inst_btn, True)
+            QTimer.singleShot(900, lambda: self.label_11.show())
             self.hide_del_button_device()
             self.label_11.move(x, y_title)
             self.btnDelPvsystData.move(x_other, y_del)
-        else:
-            if self.y_one_btn == 100:
-                self.anim1 = QPropertyAnimation(self.btnOne, b"pos")
-                self.anim1.setEasingCurve(QEasingCurve.InOutCubic)
-                self.anim1.setEndValue(QPoint(x, y_start))
-                self.anim1.setDuration(1000)
-                self.anim1.start()
-                QTimer.singleShot(250, lambda: self.label_11.hide())
-                QTimer.singleShot(250, lambda: self.btnDelPvsystData.hide())
-                QTimer.singleShot(1000, lambda: self.btnOne.hide())
-                self.y_one_btn = 16
-                y_two_btn = 100
-                y_one_title = 71
-                y_two_title = 155
-                y_one_del = 20
-                y_two_del = 103
-                y_one_load = 35
-                y_two_load = 118
-                QTimer.singleShot(600, lambda: self.btnDrawScheme.move(x, self.y_one_btn))
-                QTimer.singleShot(600, lambda: self.btnDrawSchemeTwo.move(x, y_two_btn))
-                QTimer.singleShot(600, lambda: self.label_12.move(x, y_one_title))
-                QTimer.singleShot(600, lambda: self.label_13.move(x, y_two_title))
-                QTimer.singleShot(600, lambda: self.btnLoadScheme1.move(x_other, y_one_load))
-                QTimer.singleShot(600, lambda: self.btnLoadScheme2.move(x_other, y_two_load))
-                QTimer.singleShot(600, lambda: self.btnDelSchemeOneData.move(x_other, y_one_del))
-                QTimer.singleShot(600, lambda: self.btnDelSchemeTwoData.move(x_other, y_two_del))
+        else: # исчезание
+            if not self.btnDrawScheme.isHidden(): 
+                self.animate_btn(y_one_btn, self.btnOne, inst_btn)
+                self.hide_btn(True)
+                QTimer.singleShot(600, lambda: self.btnDrawScheme.move(x, 16))
+                QTimer.singleShot(600, lambda: self.btnDrawSchemeTwo.move(x, 100))
+                QTimer.singleShot(600, lambda: self.label_12.move(x, 71))
+                QTimer.singleShot(600, lambda: self.label_13.move(x, 155))
+                QTimer.singleShot(600, lambda: self.btnLoadScheme1.move(x_other, 35))
+                QTimer.singleShot(600, lambda: self.btnLoadScheme2.move(x_other, 118))
+                QTimer.singleShot(600, lambda: self.btnDelSchemeOneData.move(x_other, 20))
+                QTimer.singleShot(600, lambda: self.btnDelSchemeTwoData.move(x_other, 103))
             else:
-                self.anim1 = QPropertyAnimation(self.btnOne, b"pos")
-                self.anim1.setEasingCurve(QEasingCurve.InOutCubic)
-                self.anim1.setEndValue(QPoint(x, y_start))
-                self.anim1.setDuration(1000)
-                self.anim1.start()
-                QTimer.singleShot(250, lambda: self.label_11.hide())
-                QTimer.singleShot(250, lambda: self.btnDelPvsystData.hide())
-                QTimer.singleShot(1000, lambda: self.btnOne.hide())
+                self.animate_btn(y_one_btn, self.btnOne, inst_btn)
+                self.hide_btn(True)
                       
     def show_and_hide_schemes_button(self):
+        inst_btn_one = QPropertyAnimation(self.btnDrawScheme, b"pos")
+        inst_btn_two = QPropertyAnimation(self.btnDrawSchemeTwo, b"pos")
+        inst_btn_one_del = QPropertyAnimation(self.btnDrawScheme, b"pos")
+        inst_btn_two_del = QPropertyAnimation(self.btnDrawSchemeTwo, b"pos")
         x = 843
         x_other = 897
-        y_start = -50
-        if self.btnOne.isHidden():
-            self.y_one_btn = 16
+        if self.btnOne.isHidden() or self.btnOne.y() == 183:
+            y_one_btn = 16
             y_two_btn = 100
             y_one_title = 71
             y_two_title = 155
@@ -905,7 +911,7 @@ class MainApp(QtWidgets.QMainWindow, designRepPDF.Ui_MainWindow):
             y_one_load = 35
             y_two_load = 118
         else:
-            self.y_one_btn = 100
+            y_one_btn = 100
             y_two_btn = 183
             y_one_title = 155
             y_two_title = 239
@@ -914,28 +920,13 @@ class MainApp(QtWidgets.QMainWindow, designRepPDF.Ui_MainWindow):
             y_one_load = 118
             y_two_load = 200
 
-        # y_one = 100
-        # y_two = 183
         if self.btnDrawScheme.isHidden():
-            self.btnDrawScheme.show()
-            self.btnDrawSchemeTwo.show()
-
-            self.anim2 = QPropertyAnimation(self.btnDrawScheme, b"pos")
-            self.anim2.setEasingCurve(QEasingCurve.InOutCubic)
-            self.anim2.setStartValue(QPoint(x, y_start))
-            self.anim2.setEndValue(QPoint(x, self.y_one_btn))
-            self.anim2.setDuration(900)
-            self.anim2.start()
-            self.anima = QPropertyAnimation(self.btnDrawSchemeTwo, b"pos")
-            self.anima.setEasingCurve(QEasingCurve.InOutCubic)
-            self.anima.setStartValue(QPoint(x, y_start))
-            self.anima.setEndValue(QPoint(x, y_two_btn))
-            self.anima.setDuration(800)
-            self.anima.start()
-            QTimer.singleShot(1100, lambda: self.label_12.show())
-            QTimer.singleShot(1100, lambda: self.label_13.show())
-            QTimer.singleShot(1100, lambda: self.btnLoadScheme1.show())
-            QTimer.singleShot(1100, lambda: self.btnLoadScheme2.show())
+            self.animate_btn(y_one_btn, self.btnDrawScheme, inst_btn_one, True)
+            self.animate_btn(y_two_btn, self.btnDrawSchemeTwo, inst_btn_two, True)
+            QTimer.singleShot(900, lambda: self.label_12.show())
+            QTimer.singleShot(900, lambda: self.label_13.show())
+            QTimer.singleShot(900, lambda: self.btnLoadScheme1.show())
+            QTimer.singleShot(900, lambda: self.btnLoadScheme2.show())
             self.hide_del_button_schemes()
             self.label_12.move(x, y_one_title)
             self.label_13.move(x, y_two_title)
@@ -944,26 +935,10 @@ class MainApp(QtWidgets.QMainWindow, designRepPDF.Ui_MainWindow):
             self.btnDelSchemeOneData.move(x_other, y_one_del)
             self.btnDelSchemeTwoData.move(x_other, y_two_del)
         else:
-            if self.y_one_btn == 100: 
-                pass
-                self.anim = QPropertyAnimation(self.btnDrawScheme, b"pos")
-                self.anim.setEasingCurve(QEasingCurve.InOutCubic)
-                self.anim.setEndValue(QPoint(x, y_start))
-                self.anim.setDuration(1000)
-                self.anim.start()
-                self.anima = QPropertyAnimation(self.btnDrawSchemeTwo, b"pos")
-                self.anima.setEasingCurve(QEasingCurve.InOutCubic)
-                self.anima.setEndValue(QPoint(x, y_start))
-                self.anima.setDuration(1000)
-                self.anima.start()
-                QTimer.singleShot(1000, lambda: self.btnDrawScheme.hide())
-                QTimer.singleShot(1000, lambda: self.btnDrawSchemeTwo.hide())
-                QTimer.singleShot(250, lambda: self.btnLoadScheme1.hide())
-                QTimer.singleShot(250, lambda: self.btnLoadScheme2.hide())
-                QTimer.singleShot(250, lambda: self.btnDelSchemeOneData.hide())
-                QTimer.singleShot(250, lambda: self.btnDelSchemeTwoData.hide())
-                QTimer.singleShot(250, lambda: self.label_12.hide())
-                QTimer.singleShot(250, lambda: self.label_13.hide())
+            if not self.btnOne.isHidden(): 
+                self.animate_btn(y_one_btn, self.btnDrawScheme, inst_btn_one_del)
+                self.animate_btn(y_two_btn, self.btnDrawSchemeTwo, inst_btn_two_del)
+                self.hide_btn(False)
                 self.y_btn = 16 
                 y_title = 71
                 y_del = 25
@@ -971,24 +946,9 @@ class MainApp(QtWidgets.QMainWindow, designRepPDF.Ui_MainWindow):
                 QTimer.singleShot(800, lambda: self.label_11.move(x, y_title))
                 QTimer.singleShot(800, lambda: self.btnDelPvsystData.move(x_other, y_del))
             else: 
-                self.anim = QPropertyAnimation(self.btnDrawScheme, b"pos")
-                self.anim.setEasingCurve(QEasingCurve.InOutCubic)
-                self.anim.setEndValue(QPoint(x, y_start))
-                self.anim.setDuration(1000)
-                self.anim.start()
-                self.anima = QPropertyAnimation(self.btnDrawSchemeTwo, b"pos")
-                self.anima.setEasingCurve(QEasingCurve.InOutCubic)
-                self.anima.setEndValue(QPoint(x, y_start))
-                self.anima.setDuration(1000)
-                self.anima.start()
-                QTimer.singleShot(1000, lambda: self.btnDrawScheme.hide())
-                QTimer.singleShot(1000, lambda: self.btnDrawSchemeTwo.hide())
-                QTimer.singleShot(250, lambda: self.btnLoadScheme1.hide())
-                QTimer.singleShot(250, lambda: self.btnLoadScheme2.hide())
-                QTimer.singleShot(250, lambda: self.btnDelSchemeOneData.hide())
-                QTimer.singleShot(250, lambda: self.btnDelSchemeTwoData.hide())
-                QTimer.singleShot(250, lambda: self.label_12.hide())
-                QTimer.singleShot(250, lambda: self.label_13.hide())
+                self.animate_btn(y_one_btn, self.btnDrawScheme, inst_btn_one_del)
+                self.animate_btn(y_two_btn, self.btnDrawSchemeTwo, inst_btn_two_del)
+                self.hide_btn(False)
 
     def roof_select(self):
         self.current_roof = self.listRoof.currentIndex()
@@ -1036,11 +996,12 @@ class MainApp(QtWidgets.QMainWindow, designRepPDF.Ui_MainWindow):
                 current = self.invertors[f'found_invertor_{self.spinBox_numInvertor.value() - 1}']
                 if current['broken_file'] == True:
                     self.statusBar.showMessage('Битый файл, данные не загружены', 4000)
-                    self.statusBar.setStyleSheet("background-color:rgb(255, 212, 38)")
-                    QTimer.singleShot(4000, lambda: self.statusBar.setStyleSheet("background-color:rgb(255, 255, 255)"))
+                    self.statusBar.setStyleSheet(styles_responce.status_yellow)
+                    QTimer.singleShot(4000, lambda: self.statusBar.setStyleSheet(styles_responce.status_white))
                 else:
                     self.statusBar.showMessage('', 100)
-                    self.statusBar.setStyleSheet("background-color:rgb(255, 255, 255)")
+                    self.statusBar.showMessage(styles_responce.status_ok, 2000)
+                    self.statusBar.setStyleSheet(styles_responce.status_white)
 
                 current['file'] = self.listInvertor_file.currentIndex()
                 current['folder'] = self.listInvertor_folder.currentIndex()
@@ -1078,7 +1039,6 @@ class MainApp(QtWidgets.QMainWindow, designRepPDF.Ui_MainWindow):
                     current['yellow_switch_inv'] = True
                     current['blue_switch_inv'] = True
 
-                print(self.invertors)
                 self.w3.up_down_invertor_selection()
                 self.w4.up_down_invertor_selection()
                 return current
@@ -1091,13 +1051,14 @@ class MainApp(QtWidgets.QMainWindow, designRepPDF.Ui_MainWindow):
                 current = self.pvs[f'found_pv_{self.spinBox_numPV.value() - 1}']
                 current['file'] = self.listPV_file.currentIndex()
                 current['folder'] = self.listPV_folder.currentIndex()
+                self.statusBar.showMessage(styles_responce.status_ok, 2000)
 
     def other_load(self):
         current_other = self.listKTP_file.currentText()
         for select_other in self.type_other_modules:
             if current_other in select_other: 
-                self.others[f'found_other_{self.spinBox_numKTP.value() - 1}'] = search_data.search_in_others_device(f"{path_to_ktp}/{self.select_title_ktp}/{select_other}") 
                 current = self.others[f'found_other_{self.spinBox_numKTP.value() - 1}']
+                current['table_data'] = search_data.search_in_others_device(f"{path_to_ktp}/{self.select_title_ktp}/{select_other}") 
 
                 current['file'] = self.listKTP_file.currentIndex()
                 current['folder'] = self.listKTP_folder.currentIndex()
@@ -1105,16 +1066,16 @@ class MainApp(QtWidgets.QMainWindow, designRepPDF.Ui_MainWindow):
                 key_type = 'nil'
                 key_power = 'nil'
                 key_i = 'nil'
-                for key in current.keys():
+                for key in current['table_data'].keys():
                     if 'тип оборудования' in key.lower(): key_type = key
                     elif 'название оборудования' in key.lower(): key_title = key
                     elif 'мощность' in key.lower(): key_power = key
                     elif 'сила тока' in key.lower(): key_i = key
 
-                current['title_other'] = current.get(key_title, 'Н/Д')
-                current['type_other'] = current.get(key_type, 'Н/Д')
-                current['power_other'] = current.get(key_power, 'Н/Д')
-                current['i_other'] = current.get(key_i, 'Н/Д')
+                current['title_other'] = current['table_data'].get(key_title, 'Н/Д')
+                current['type_other'] = current['table_data'].get(key_type, 'Н/Д')
+                current['power_other'] = current['table_data'].get(key_power, 'Н/Д')
+                current['i_other'] = current['table_data'].get(key_i, 'Н/Д')
                 current['count_other'] = 1
 
                 current['type_param_other'] = 'QF'
@@ -1131,38 +1092,44 @@ class MainApp(QtWidgets.QMainWindow, designRepPDF.Ui_MainWindow):
                 current['yellow_switch_other'] = True
                 current['blue_switch_other'] = True
                 self.w4.up_down_other_device_selection()
-                # print('текущий: ' ,current)
-                # print('в лоаде', self.others)
+                self.statusBar.showMessage(styles_responce.status_ok, 2000)
+                print(current)
 
     def add_invertor(self):
-        self.spinBox_numInvertor.show()
-        self.btnDelInvertor.show() 
-        self.listInvertor_file.clear()
-        self.listInvertor_folder.setCurrentIndex(0)
-        self.invertors[f'found_invertor_{len(self.invertors)}'] = search_data.null_search_params('invertor')
-        self.spinBox_numInvertor.setMinimum(1)
-        self.spinBox_numInvertor.setMaximum(len(self.invertors))
-        self.spinBox_numInvertor.setValue(len(self.invertors))
+        current_load = f'found_invertor_{self.spinBox_numInvertor.value() - 1}'
+        if self.listInvertor_file.currentText() != "" and self.invertors[current_load]['module'] != 'Н/Д':
+            self.spinBox_numInvertor.show()
+            self.btnDelInvertor.show() 
+            self.listInvertor_file.clear()
+            self.listInvertor_folder.setCurrentIndex(0)
+            self.invertors[f'found_invertor_{len(self.invertors)}'] = search_data.null_search_params('invertor')
+            self.spinBox_numInvertor.setMinimum(1)
+            self.spinBox_numInvertor.setMaximum(len(self.invertors))
+            self.spinBox_numInvertor.setValue(len(self.invertors))
 
     def add_pv(self):
-        self.spinBox_numPV.show()
-        self.btnDelPV.show() 
-        self.listPV_file.clear()
-        self.listPV_folder.setCurrentIndex(0)
-        self.pvs[f'found_pv_{len(self.pvs)}'] = search_data.null_search_params('pv')
-        self.spinBox_numPV.setMinimum(1)
-        self.spinBox_numPV.setMaximum(len(self.pvs))
-        self.spinBox_numPV.setValue(len(self.pvs))
+        current_load = f'found_pv_{self.spinBox_numPV.value() - 1}'
+        if self.listPV_folder.currentText() != "Выберите" and self.pvs[current_load]['module_pv'] != 'Н/Д':
+            self.spinBox_numPV.show()
+            self.btnDelPV.show() 
+            self.listPV_file.clear()
+            self.listPV_folder.setCurrentIndex(0)
+            self.pvs[f'found_pv_{len(self.pvs)}'] = search_data.null_search_params('pv')
+            self.spinBox_numPV.setMinimum(1)
+            self.spinBox_numPV.setMaximum(len(self.pvs))
+            self.spinBox_numPV.setValue(len(self.pvs))
 
     def add_other(self):
-        self.spinBox_numKTP.show()
-        self.btnDelOther.show() 
-        self.listKTP_file.clear()
-        self.listKTP_folder.setCurrentIndex(0)
-        self.others[f'found_other_{len(self.others)}'] = {}
-        self.spinBox_numKTP.setMinimum(1)
-        self.spinBox_numKTP.setMaximum(len(self.others))
-        self.spinBox_numKTP.setValue(len(self.others))
+        current_load = f'found_other_{self.spinBox_numKTP.value() - 1}'
+        if self.listKTP_folder.currentText() != "Выберите" and len(self.others[current_load]) != 0 :
+            self.spinBox_numKTP.show()
+            self.btnDelOther.show() 
+            self.listKTP_file.clear()
+            self.listKTP_folder.setCurrentIndex(0)
+            self.others[f'found_other_{len(self.others)}'] = {}
+            self.spinBox_numKTP.setMinimum(1)
+            self.spinBox_numKTP.setMaximum(len(self.others))
+            self.spinBox_numKTP.setValue(len(self.others)) 
 
     def del_invertor(self):
         if len(self.invertors) > 1:
@@ -1174,10 +1141,8 @@ class MainApp(QtWidgets.QMainWindow, designRepPDF.Ui_MainWindow):
                 self.invertors[f'found_invertor_{index}'] = self.invertors.pop(key)
                 index += 1
             self.up_down_invertor_selection()
-            # self.w3.up_down_invertor_selection()
-            # self.w3.spinBox_numInvertor.setValue(len(self.invertors))
-            # self.w4.up_down_invertor_selection()
-            # self.w4.spinBox_numInvertor.setValue(len(self.invertors))
+            self.w3.up_down_invertor_selection()
+            self.w4.up_down_invertor_selection()
         if len(self.invertors) == 1:
             self.btnDelInvertor.hide()
             self.spinBox_numInvertor.hide()
@@ -1206,6 +1171,7 @@ class MainApp(QtWidgets.QMainWindow, designRepPDF.Ui_MainWindow):
                 self.others[f'found_other_{index}'] = self.others.pop(key)
                 index += 1
             self.up_down_other_selection()
+            self.w4.up_down_other_device_selection()
         if len(self.others) == 1:
             self.btnDelOther.hide()
             self.spinBox_numKTP.hide()
@@ -1272,22 +1238,22 @@ class MainApp(QtWidgets.QMainWindow, designRepPDF.Ui_MainWindow):
         self.path_pvsyst = ''
         self.hide_del_button_device()
         self.statusBar.showMessage('Файл PVsyst исключен из отчета', 2500)
-        self.statusBar.setStyleSheet("background-color: rgba(229,229,234,1); color:  #3b83ff; font-weight: bold;")
-        QTimer.singleShot(2500, lambda: self.statusBar.setStyleSheet("background-color:rgb(255, 255, 255)"))
+        self.statusBar.setStyleSheet(styles_responce.status_info)
+        QTimer.singleShot(2500, lambda: self.statusBar.setStyleSheet(styles_responce.status_white))
 
     def del_scheme_one(self):
         self.delete_pdf('detailed')
         self.hide_del_button_schemes()
         self.statusBar.showMessage('Файл первого чертежа исключен из отчета', 2500)
-        self.statusBar.setStyleSheet("background-color: rgba(229,229,234,1); color:  #3b83ff; font-weight: bold;")
-        QTimer.singleShot(2500, lambda: self.statusBar.setStyleSheet("background-color:rgb(255, 255, 255)"))
+        self.statusBar.setStyleSheet(styles_responce.status_info)
+        QTimer.singleShot(2500, lambda: self.statusBar.setStyleSheet(styles_responce.status_white))
 
     def del_scheme_two(self):
         self.delete_pdf('general')
         self.hide_del_button_schemes()
         self.statusBar.showMessage('Файл второго чертежа исключен из отчета', 2500)
-        self.statusBar.setStyleSheet("background-color: rgba(229,229,234,1); color:  #3b83ff; font-weight: bold;")
-        QTimer.singleShot(2500, lambda: self.statusBar.setStyleSheet("background-color:rgb(255, 255, 255)"))
+        self.statusBar.setStyleSheet(styles_responce.status_info)
+        QTimer.singleShot(2500, lambda: self.statusBar.setStyleSheet(styles_responce.status_white))
         
     def pvsyst(self):
         self.path_pvsyst = QtWidgets.QFileDialog.getOpenFileName(self, 'Выберите файл', path_to_pdf_pvsyst, "*.pdf")[0] #открытие диалога для выбора файла
@@ -1411,8 +1377,8 @@ class MainApp(QtWidgets.QMainWindow, designRepPDF.Ui_MainWindow):
                 pass
         except PermissionError:
             self.statusBar.showMessage('Открыт pdf файл отчета, закройте его и повторите попытку', 4000)
-            self.statusBar.setStyleSheet("background-color:rgb(255, 105, 97)")
-            QTimer.singleShot(4000, lambda: self.statusBar.setStyleSheet("background-color:rgb(255, 255, 255)"))
+            self.statusBar.setStyleSheet(styles_responce.status_red)
+            QTimer.singleShot(4000, lambda: self.statusBar.setStyleSheet(styles_responce.status_white))
             return
 
         if self.validation() == 0:
@@ -1431,10 +1397,8 @@ class MainApp(QtWidgets.QMainWindow, designRepPDF.Ui_MainWindow):
             print(main_params)
             
             self.btnForm.setEnabled(False)
-            # self.btnForm.setText('...')
             self.statusBar.showMessage('Пожалуйста, подождите...')
-            self.statusBar.setStyleSheet("background-color:rgb(255, 212, 38)")
-            # Выполнение загрузки в новом потоке.
+            self.statusBar.setStyleSheet(styles_responce.status_yellow)
             self.builder = BuildDoc(main_params)
             self.builder.finished.connect(self.buildFinished)
             self.builder.start()
@@ -1445,17 +1409,14 @@ class MainApp(QtWidgets.QMainWindow, designRepPDF.Ui_MainWindow):
             self.w2.setWindowIcon(QtGui.QIcon('Data/icons/graficon.png'))
             self.w2.show()
             self.w2.setFixedSize(915, 430)
-
             self.statusBar.showMessage('Успешно!', 4000)
-            self.statusBar.setStyleSheet("background-color:rgb(48, 219, 91)")
-            QTimer.singleShot(4000, lambda: self.statusBar.setStyleSheet("background-color:rgb(255, 255, 255)"))
+            self.statusBar.setStyleSheet(styles_responce.status_green)
+            QTimer.singleShot(4000, lambda: self.statusBar.setStyleSheet(styles_responce.status_white))
             self.btnRP5.setEnabled(True)
-            # self.btnRP5.setText('RP5')
         else:
             self.statusBar.showMessage('Что-то пошло не так с браузером, попробуйте запустить снова')
-            self.statusBar.setStyleSheet("background-color:rgb(255, 212, 38)")
+            self.statusBar.setStyleSheet(styles_responce.status_yellow)
             self.btnRP5.setEnabled(True)
-            # self.btnRP5.setText('RP5')
         self.stopAnimation()
         del self.parser_open
 
@@ -1513,8 +1474,18 @@ class MainApp(QtWidgets.QMainWindow, designRepPDF.Ui_MainWindow):
                         diff_mppt = False
                         for config in config_keys:
                             current_invertor[config] = pvsyst_pvs_invrtrs[config]
+                            max_chain = int(current_invertor[config]['count_mppt']) * int(current_invertor['inputs'])
+                            max_chain_y = max_chain * 2
+                            count_strings = int(current_invertor[config]['count_string'])
+                            print(max_chain)
+                            print(max_chain_y)
+                            print(count_strings)
+                            if count_strings > max_chain and count_strings <= max_chain_y:
+                                print('Прошлооооооооооооооооо')
+                                current_invertor[config]['use_y_connector'] = True
+                            else:
+                                current_invertor[config]['use_y_connector'] = False
                             current_invertor[config]['use_all_mppt'] = False
-                            current_invertor[config]['use_y_connector'] = False
 
                             count_invertor = current_invertor[config]['count_invertor']
                             if '.' in count_invertor:
@@ -1578,13 +1549,13 @@ class MainApp(QtWidgets.QMainWindow, designRepPDF.Ui_MainWindow):
         array_pv = self.found_pdf['found_pv_invertor']['pv_array_config_0']
         if isinstance(array_pv, str):
             self.statusBar.showMessage(array_pv, 4000)
-            self.statusBar.setStyleSheet("background-color:rgb(255, 212, 38)")
-            QTimer.singleShot(4000, lambda: self.statusBar.setStyleSheet("background-color:rgb(255, 255, 255)"))
+            self.statusBar.setStyleSheet(styles_responce.status_yellow)
+            QTimer.singleShot(4000, lambda: self.statusBar.setStyleSheet(styles_responce.status_white))
         else:
             self.set_draw_params()
             self.statusBar.showMessage('Параметры схем сконфигурированы, проверьте данные и постройте', 4000)
-            self.statusBar.setStyleSheet("background-color:rgb(48, 219, 91)")
-            QTimer.singleShot(4000, lambda: self.statusBar.setStyleSheet("background-color:rgb(255, 255, 255)"))
+            self.statusBar.setStyleSheet(styles_responce.status_green)
+            QTimer.singleShot(4000, lambda: self.statusBar.setStyleSheet(styles_responce.status_white))
         self.btnOne.setEnabled(True)
         self.hide_del_button_device()
         self.stopAnimation()
@@ -1593,13 +1564,12 @@ class MainApp(QtWidgets.QMainWindow, designRepPDF.Ui_MainWindow):
     def buildFinished(self):
         self.textConsole.append("Отчет сформирован!")
         self.statusBar.showMessage('Отчет сформирован!', 4000)
-        self.statusBar.setStyleSheet("background-color:rgb(48, 219, 91)")
-        QTimer.singleShot(4000, lambda: self.statusBar.setStyleSheet("background-color:rgb(255, 255, 255)"))
+        self.statusBar.setStyleSheet(styles_responce.status_green)
+        QTimer.singleShot(4000, lambda: self.statusBar.setStyleSheet(styles_responce.status_white))
         self.merge_pdf()
         self.stopAnimation()
         self.btnOpenPDF.show()
         self.label_10.setText('Создать')
-        # self.label_10.hide()
         self.btnForm.setEnabled(True)
         del self.builder
 

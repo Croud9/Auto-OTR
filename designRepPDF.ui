@@ -395,7 +395,7 @@ QLineEdit:pressed{
      <rect>
       <x>710</x>
       <y>19</y>
-      <width>111</width>
+      <width>131</width>
       <height>35</height>
      </rect>
     </property>
@@ -2656,7 +2656,7 @@ QSpinBox:down-button{
     <property name="geometry">
      <rect>
       <x>223</x>
-      <y>234</y>
+      <y>237</y>
       <width>41</width>
       <height>31</height>
      </rect>
@@ -2664,9 +2664,9 @@ QSpinBox:down-button{
     <property name="font">
      <font>
       <family>Arial</family>
-      <pointsize>17</pointsize>
-      <weight>75</weight>
-      <bold>true</bold>
+      <pointsize>13</pointsize>
+      <weight>50</weight>
+      <bold>false</bold>
      </font>
     </property>
     <property name="cursor">
@@ -2689,7 +2689,7 @@ QPushButton:hover{
 </string>
     </property>
     <property name="text">
-     <string>ᛃ</string>
+     <string>🌍</string>
     </property>
    </widget>
    <widget class="QPushButton" name="btnDelPvsystData">

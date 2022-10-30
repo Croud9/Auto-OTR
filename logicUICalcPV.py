@@ -8,6 +8,7 @@ import designCalcPV  # Это наш конвертированный файл �
 import pandas as pd
 import gzip
 import search_data
+import styles_responce
 from PyQt5.QtCore import QRegExp
 from PyQt5.QtWidgets import *
 from PyQt5.QtGui import QRegExpValidator
@@ -57,7 +58,6 @@ class CalcPV(QtWidgets.QMainWindow, designCalcPV.Ui_MainWindow):
         self.validate()
         self.import_sp()
         self.chng(0)
-        self.styles()
         self.set_wrap_header_table()
         self.comboBox_city.currentIndexChanged.connect(self.chng)
         self.comboBox_stcnoct.setCurrentIndex(0)
@@ -68,9 +68,8 @@ class CalcPV(QtWidgets.QMainWindow, designCalcPV.Ui_MainWindow):
         self.listPV_folder.addItem("Выберите")
         company_pv = sorted(os.listdir(path_to_pv))
         self.listPV_folder.addItems(company_pv)
-        self.tableWidget.resize(669,450)
-        self.tableWidget.setSizeAdjustPolicy(
-            QtWidgets.QAbstractScrollArea.AdjustToContents)
+        self.tableWidget.resize(669, 450)
+        self.tableWidget.setSizeAdjustPolicy(QtWidgets.QAbstractScrollArea.AdjustToContents)
         self.tableWidget.resizeColumnsToContents()
 
     def set_wrap_header_table(self):
@@ -91,31 +90,6 @@ class CalcPV(QtWidgets.QMainWindow, designCalcPV.Ui_MainWindow):
                 alignment = default
             model.setHeaderData(
                 col, QtCore.Qt.Horizontal, alignment, QtCore.Qt.TextAlignmentRole)
-
-    def styles(self):
-        self.default_style_input = 'QLineEdit{ background-color:rgba(229,229,234,1);\
-                            border-radius: 6;\
-                            border: none;\
-                            padding-left: 8px }\
-                        QLineEdit:hover{ background-color:rgba(242,242,247,1); }\
-                        QLineEdit:pressed{ background-color:rgba(188,188,192,1);\
-                            border-radius: 12; }'
-        self.default_style_comboBox = 'QComboBox{ background-color:rgba(229,229,234,1);\
-                                border: none;\
-                                border-radius: 6;\
-                                padding-left: 8px;}\
-                            QComboBox:drop-down{ width: 0px;\
-                                height: 0px;\
-                                border: 0px; }\
-                            QComboBox:hover{ background-color:rgba(242,242,247,1); }'
-        self.warning_style_comboBox = 'QComboBox{background-color:rgba(229,229,234,1);\
-                                    border: 1.45px solid red;\
-                                    border-radius: 6;\
-                                    padding-left: 6.55px;}\
-                                QComboBox:drop-down {width: 0px;\
-                                    height: 0px;\
-                                    border: 0px;}'
-        self.warning_style_input = 'border: 1.45px solid red; border-radius: 6; background-color:rgba(242,242,247,1);'
 
     def input_data(self):
         self.comboBox_stcnoct.addItem("Выберите систему")
@@ -149,33 +123,24 @@ class CalcPV(QtWidgets.QMainWindow, designCalcPV.Ui_MainWindow):
 
     def validate(self):
         reg_ex = QRegExp('^-?(0|[1-9]\d*)(\.[0-9]{1,4})?$')
-
         for field in self.fields_text:
             field.setValidator(QRegExpValidator(reg_ex, field))
 
     def cmbBX(self):
         if self.comboBox_stcnoct.currentText() == "Выберите систему":
             self.statusBar.showMessage('Выберите условия расчета!', 5000)
-            self.statusBar.setStyleSheet("background-color:rgb(255, 105, 97)")
-            self.comboBox_stcnoct.setStyleSheet(self.warning_style_comboBox)
+            self.statusBar.setStyleSheet(styles_responce.status_red)
+            self.comboBox_stcnoct.setStyleSheet(styles_responce.warning_style_comboBox)
         else:
             self.check_imput_params()
-            self.comboBox_stcnoct.setStyleSheet(self.default_style_comboBox)
-
-    def red_status(self):
-        self.statusBar.setStyleSheet("background-color:rgb(255, 105, 97)")
-        QTimer.singleShot(5000, lambda: self.statusBar.setStyleSheet("background-color: rgb(255,255,255)"))
+            self.comboBox_stcnoct.setStyleSheet(styles_responce.default_style_comboBox)
 
     def valid_input_field(self, field):
         if field.text() == '' and field != self.lineEdit_noct and self.comboBox_stcnoct.currentText() == "STC":
-            self.statusBar.showMessage('Введите значение в выделенное поле', 5000)
-            self.red_status()
-            field.setStyleSheet(self.warning_style_input)
+            styles_responce.no_fill_field(self, field)
             return False
         elif field.text() == '' and self.comboBox_stcnoct.currentText() == "NOCT":
-            self.statusBar.showMessage('Введите значение в выделенное поле', 5000)
-            self.red_status()
-            field.setStyleSheet(self.warning_style_input)
+            styles_responce.no_fill_field(self, field)
             return False
         else:
             return True
@@ -200,31 +165,29 @@ class CalcPV(QtWidgets.QMainWindow, designCalcPV.Ui_MainWindow):
             self.resultNoct()
             self.statusBar.showMessage('Расчет выполнился при NOCT ', 10000)
             self.u_in_report()
-        # self.tableWidget.resizeColumnsToContents()
-        self.set_style_default()
              
     def set_style_default(self):      
-        self.lineEdit_calcmintemp.setStyleSheet(self.default_style_input)
-        self.lineEdit_calcmaxtemp.setStyleSheet(self.default_style_input)
-        self.lineEdit_min.setStyleSheet(self.default_style_input)
-        self.lineEdit_max.setStyleSheet(self.default_style_input)
-        self.lineEdit_mintemp.setStyleSheet(self.default_style_input)
-        self.lineEdit_countfem.setStyleSheet(self.default_style_input)
-        self.lineEdit_countparallel.setStyleSheet(self.default_style_input)
-        self.lineEdit_noct.setStyleSheet(self.default_style_input)
-        self.lineEdit_irradiance.setStyleSheet(self.default_style_input)
-        self.lineEdit_pnom.setStyleSheet(self.default_style_input) #PAN or imput
-        self.lineEdit_isc.setStyleSheet(self.default_style_input)
-        self.lineEdit_voc.setStyleSheet(self.default_style_input)
-        self.lineEdit_imp.setStyleSheet(self.default_style_input)
-        self.lineEdit_vmp.setStyleSheet(self.default_style_input)
-        self.lineEdit_muisc.setStyleSheet(self.default_style_input)
-        self.lineEdit_muvocspec.setStyleSheet(self.default_style_input)
-        self.lineEdit_vmaxiec.setStyleSheet(self.default_style_input)
-        self.lineEdit_rshunt.setStyleSheet(self.default_style_input)
-        self.lineEdit_ncels.setStyleSheet(self.default_style_input)
-        self.lineEdit_umax_pogran.setStyleSheet(self.default_style_input)
-        self.lineEdit_imax_pogran.setStyleSheet(self.default_style_input)
+        self.lineEdit_calcmintemp.setStyleSheet(styles_responce.default_style_input)
+        self.lineEdit_calcmaxtemp.setStyleSheet(styles_responce.default_style_input)
+        self.lineEdit_min.setStyleSheet(styles_responce.default_style_input)
+        self.lineEdit_max.setStyleSheet(styles_responce.default_style_input)
+        self.lineEdit_mintemp.setStyleSheet(styles_responce.default_style_input)
+        self.lineEdit_countfem.setStyleSheet(styles_responce.default_style_input)
+        self.lineEdit_countparallel.setStyleSheet(styles_responce.default_style_input)
+        self.lineEdit_noct.setStyleSheet(styles_responce.default_style_input)
+        self.lineEdit_irradiance.setStyleSheet(styles_responce.default_style_input)
+        self.lineEdit_pnom.setStyleSheet(styles_responce.default_style_input) #PAN or imput
+        self.lineEdit_isc.setStyleSheet(styles_responce.default_style_input)
+        self.lineEdit_voc.setStyleSheet(styles_responce.default_style_input)
+        self.lineEdit_imp.setStyleSheet(styles_responce.default_style_input)
+        self.lineEdit_vmp.setStyleSheet(styles_responce.default_style_input)
+        self.lineEdit_muisc.setStyleSheet(styles_responce.default_style_input)
+        self.lineEdit_muvocspec.setStyleSheet(styles_responce.default_style_input)
+        self.lineEdit_vmaxiec.setStyleSheet(styles_responce.default_style_input)
+        self.lineEdit_rshunt.setStyleSheet(styles_responce.default_style_input)
+        self.lineEdit_ncels.setStyleSheet(styles_responce.default_style_input)
+        self.lineEdit_umax_pogran.setStyleSheet(styles_responce.default_style_input)
+        self.lineEdit_imax_pogran.setStyleSheet(styles_responce.default_style_input)
 
     def pv_select(self):
         self.listPV_file.clear()
@@ -273,7 +236,7 @@ class CalcPV(QtWidgets.QMainWindow, designCalcPV.Ui_MainWindow):
             self.nummuisc = float(self.lineEdit_muisc.text())
         except ValueError:
             self.statusBar.showMessage('Недопустимое значение в muISC', 10000 )
-            self.statusBar.setStyleSheet("background-color:rgb(255, 105, 97)")
+            self.statusBar.setStyleSheet(styles_responce.status_red)
             return 1
         self.nummuvocspec = float(self.lineEdit_muvocspec.text())
         self.numvmaxiec = float(self.lineEdit_vmaxiec.text())
@@ -1314,7 +1277,7 @@ class CalcPV(QtWidgets.QMainWindow, designCalcPV.Ui_MainWindow):
             self.adddata(sheet)
             wbk.save(filename)
             self.statusBar.showMessage('Файл успешно сохранен!', 10000)
-            self.statusBar.setStyleSheet("background-color:rgb(48, 219, 91)")
+            self.statusBar.setStyleSheet(styles_responce.status_green)
 
     def adddata(self, sheet):
         for currentColumn in range(self.tableWidget.columnCount()):

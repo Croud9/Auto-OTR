@@ -1,5 +1,6 @@
 import designParsing
 import parsingSelenium
+import styles_responce
 import requests, os, re
 from datetime import date
 from os.path import isfile, join
@@ -94,11 +95,11 @@ class WindowParse(QtWidgets.QMainWindow, designParsing.Ui_WindowRP5):
         try:
             response = requests.get("http://www.google.com")
             # print("response code: ", response.status_code)
-            self.statusBar.setStyleSheet("background-color:rgb(255, 255, 255)")
+            self.statusBar.setStyleSheet(styles_responce.status_white)
             return 1
         except requests.ConnectionError:
             self.statusBar.showMessage('Нет подключения к интернету', 10000)
-            self.statusBar.setStyleSheet("background-color:rgb(255, 105, 97)")
+            self.statusBar.setStyleSheet(styles_responce.status_red)
             print("Could not connect")
             return 0
    
@@ -114,7 +115,7 @@ class WindowParse(QtWidgets.QMainWindow, designParsing.Ui_WindowRP5):
         c = self.inputCity.text()
         if c is None or c == '' or len(c) == 0:
             self.statusBar.showMessage('Введите город в строку поиска!', 5000)
-            self.statusBar.setStyleSheet("background-color:rgb(255, 105, 97)")
+            self.statusBar.setStyleSheet(styles_responce.status_red)
             self.opacity(self.btnDwnld_T, True)
             self.opacity(self.btnParse, True)
             self.btnSearch.setEnabled(True)
@@ -124,7 +125,7 @@ class WindowParse(QtWidgets.QMainWindow, designParsing.Ui_WindowRP5):
             return 0
         elif len(c) == 1:
             self.statusBar.showMessage('Слишком короткий запрос!', 5000)
-            self.statusBar.setStyleSheet("background-color:rgb(255, 105, 97)")
+            self.statusBar.setStyleSheet(styles_responce.status_red)
             self.opacity(self.btnDwnld_T, True)
             self.opacity(self.btnParse, True)
             self.btnSearch.setEnabled(True)
@@ -135,7 +136,6 @@ class WindowParse(QtWidgets.QMainWindow, designParsing.Ui_WindowRP5):
         elif internet == 0:
             return 0
         else:
-            # self.statusBar.setStyleSheet("background-color:rgb(255, 255, 255)")
             return 1
 
     def parsing_search(self):
@@ -151,10 +151,10 @@ class WindowParse(QtWidgets.QMainWindow, designParsing.Ui_WindowRP5):
         # self.textConsole.append("Идет поиск...")
         self.listCity.clear()
         self.statusBar.showMessage('Пожалуйста, подождите...')
-        self.statusBar.setStyleSheet("background-color:rgb(255, 212, 38)")
+        self.statusBar.setStyleSheet(styles_responce.status_yellow)
         QtWidgets.QApplication.processEvents()
         
-        self.statusBar.setStyleSheet("background-color:rgb(255, 212, 38)")
+        self.statusBar.setStyleSheet(styles_responce.status_yellow)
         
         # Выполнение загрузки в новом потоке.
         self.parser_search = Parsing(city, 0, "search")
@@ -172,7 +172,7 @@ class WindowParse(QtWidgets.QMainWindow, designParsing.Ui_WindowRP5):
         self.textConsole.append("...")
         self.textConsole.append("Подгрузка дополнительной информации о населенном пункте...")
         self.statusBar.showMessage('Пожалуйста, подождите...')
-        self.statusBar.setStyleSheet("background-color:rgb(255, 212, 38)")
+        self.statusBar.setStyleSheet(styles_responce.status_yellow)
         # QtWidgets.QApplication.processEvents()
 
         list_city = self.listCity.currentIndex()
@@ -187,13 +187,13 @@ class WindowParse(QtWidgets.QMainWindow, designParsing.Ui_WindowRP5):
         if self.check_inCity() == 0:
             return num_error
         self.statusBar.showMessage('Пожалуйста, подождите...')
-        self.statusBar.setStyleSheet("background-color:rgb(255, 212, 38)")
+        self.statusBar.setStyleSheet(styles_responce.status_yellow)
 
         lc = self.listCity
         list_city = lc.currentIndex()
         if lc is None or lc == '' or len(lc) == 0 or list_city == -1 :
             self.statusBar.showMessage('Не-а, не так быстро :)', 10000)
-            self.statusBar.setStyleSheet("background-color:rgb(255, 105, 97)")
+            self.statusBar.setStyleSheet(styles_responce.status_red)
             self.textConsole.append("Выполните поиск или выберите город из списка")
             self.opacity(self.btnDwnld_T, True )
             self.opacity(self.btnParse, True )
@@ -222,7 +222,7 @@ class WindowParse(QtWidgets.QMainWindow, designParsing.Ui_WindowRP5):
         self.btnParse.setEnabled(False)
         self.btnParse.setText('Скачивание...')
         self.statusBar.showMessage('Пожалуйста, подождите...')
-        self.statusBar.setStyleSheet("background-color:rgb(255, 212, 38)")
+        self.statusBar.setStyleSheet(styles_responce.status_yellow)
         QtWidgets.QApplication.processEvents()
 
         check = self.parsing_date_load(1)
@@ -233,7 +233,7 @@ class WindowParse(QtWidgets.QMainWindow, designParsing.Ui_WindowRP5):
         self.textConsole.append("...")
         self.textConsole.append("Формирование ссылки... *Может занять до 30сек")
         self.statusBar.showMessage('Пожалуйста, подождите...')
-        self.statusBar.setStyleSheet("background-color:rgb(255, 212, 38)")
+        self.statusBar.setStyleSheet(styles_responce.status_yellow)
         QtWidgets.QApplication.processEvents()
         
         # Выполнение загрузки в новом потоке.
@@ -267,13 +267,13 @@ class WindowParse(QtWidgets.QMainWindow, designParsing.Ui_WindowRP5):
             # window.import_rp5()
             self.textConsole.append("Файл загружен! Данные внесены в поля с пометкой RP5. Архив находится в arhiv.xls.gz")
             self.statusBar.showMessage('Файл загружен!', 5000)
-            self.statusBar.setStyleSheet("background-color:rgb(48, 219, 91)")
-            QTimer.singleShot(5000, lambda: self.statusBar.setStyleSheet("background-color:rgb(255, 255, 255)"))
+            self.statusBar.setStyleSheet(styles_responce.status_green)
+            QTimer.singleShot(5000, lambda: self.statusBar.setStyleSheet(styles_responce.status_white))
         else:
             self.textConsole.append("Не получилось сформировать ссылку, попробуйте загрузить еще раз *При большой выборке файл загружается с 2-3 раза")
             self.statusBar.showMessage('Ссылка не сформирована', 5000)
-            self.statusBar.setStyleSheet("background-color:rgb(255, 105, 97)")
-            QTimer.singleShot(5000, lambda: self.statusBar.setStyleSheet("background-color:rgb(255, 255, 255)"))
+            self.statusBar.setStyleSheet(styles_responce.status_red)
+            QTimer.singleShot(5000, lambda: self.statusBar.setStyleSheet(styles_responce.status_white))
         self.opacity(self.btnParse, True )
         # Удаление потока после его использования.
         self.btnParse.setText('Скачать архив')
@@ -310,16 +310,16 @@ class WindowParse(QtWidgets.QMainWindow, designParsing.Ui_WindowRP5):
             self.textConsoleClimat.append(f"{str(self.parser_load.return_download['climat'])}")
             del self.parser_load.return_download['climat']
             self.statusBar.showMessage('Данные успешно подгружены!', 5000)
-            self.statusBar.setStyleSheet("background-color:rgb(48, 219, 91)")
-            QTimer.singleShot(5000, lambda: self.statusBar.setStyleSheet("background-color:rgb(255, 255, 255)"))
+            self.statusBar.setStyleSheet(styles_responce.status_green)
+            QTimer.singleShot(5000, lambda: self.statusBar.setStyleSheet(styles_responce.status_white))
             self.parse_params = self.parser_load.return_download.copy()
             self.main_window.w5.lineEdit_min.setText(str(float(self.parse_params['min_temp'])))
             self.main_window.w5.lineEdit_max.setText(str(float(self.parse_params['max_temp'])))
         else:
             self.textConsole.append("Не рассчиталось, попробуйте подгрузить еще раз")
             self.statusBar.showMessage('Проблема', 5000)
-            self.statusBar.setStyleSheet("background-color:rgb(255, 105, 97)")
-            QTimer.singleShot(5000, lambda: self.statusBar.setStyleSheet("background-color:rgb(255, 255, 255)"))
+            self.statusBar.setStyleSheet(styles_responce.status_red)
+            QTimer.singleShot(5000, lambda: self.statusBar.setStyleSheet(styles_responce.status_white))
         # Удаление потока после его использования.
         self.stopAnimation()
         self.opacity(self.btnDwnld_T, True )
@@ -329,7 +329,7 @@ class WindowParse(QtWidgets.QMainWindow, designParsing.Ui_WindowRP5):
     def dataFinished(self):
         self.textConsole.append(f"Выбран: {str(self.parser_data.current_city['view_city'])}, №: {str(self.parser_data.current_city['num_weather_station'])},{str(self.parser_data.current_city['strt_monit'])}")
         self.statusBar.showMessage('Населенный пункт подгружен', 5000)
-        self.statusBar.setStyleSheet("background-color:rgb(48, 219, 91)")
+        self.statusBar.setStyleSheet(styles_responce.status_green)
         QTimer.singleShot(5000, lambda: self.statusBar.setStyleSheet("background-color: rgb(255, 255, 255)"))
         self.parse_params_current_city = self.parser_data.current_city.copy()
         # Удаление потока после его использования.
@@ -341,18 +341,18 @@ class WindowParse(QtWidgets.QMainWindow, designParsing.Ui_WindowRP5):
 
     def searchFinished(self):
         if self.parser_search.return_search == 0:
-            self.statusBar.setStyleSheet("background-color:rgb(255, 105, 97)")
+            self.statusBar.setStyleSheet(styles_responce.status_red)
             self.statusBar.showMessage('Что-то пошло не так!', 5000)
-            QTimer.singleShot(5000, lambda: self.statusBar.setStyleSheet("background-color:rgb(255, 255, 255)"))
+            QTimer.singleShot(5000, lambda: self.statusBar.setStyleSheet(styles_responce.status_white))
             self.opacity(self.btnDwnld_T, True)
             self.opacity(self.btnParse, True)
             self.btnSearch.setEnabled(True)
             self.btnSearch.setText('Найти')
             return self.textConsole.append("По Вашему запросу ничего не найдено")
         elif self.parser_search.return_search == 1:
-            self.statusBar.setStyleSheet("background-color:rgb(255, 105, 97)")
+            self.statusBar.setStyleSheet(styles_responce.status_red)
             self.statusBar.showMessage('Что-то пошло не так!', 5000)
-            QTimer.singleShot(5000, lambda: self.statusBar.setStyleSheet("background-color:rgb(255, 255, 255)"))
+            QTimer.singleShot(5000, lambda: self.statusBar.setStyleSheet(styles_responce.status_white))
             self.opacity(self.btnDwnld_T, True)
             self.opacity(self.btnParse, True)
             self.btnSearch.setEnabled(True)
@@ -363,8 +363,8 @@ class WindowParse(QtWidgets.QMainWindow, designParsing.Ui_WindowRP5):
         self.listCity.addItems(all_parameters)
         self.textConsole.append("Поиск закончен, выберите город из списка выше")
         self.statusBar.showMessage('Успешно!', 5000)
-        self.statusBar.setStyleSheet("background-color:rgb(48, 219, 91)")
-        QTimer.singleShot(5000, lambda: self.statusBar.setStyleSheet("background-color:rgb(255, 255, 255)"))
+        self.statusBar.setStyleSheet(styles_responce.status_green)
+        QTimer.singleShot(5000, lambda: self.statusBar.setStyleSheet(styles_responce.status_white))
         self.opacity(self.btnDwnld_T, True)
         self.opacity(self.btnParse, True)
         self.btnSearch.setEnabled(True)
