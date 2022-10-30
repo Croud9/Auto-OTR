@@ -575,10 +575,10 @@ def calculation(slr, fem_offset, data):
         use_y_connector = data[config]['use_y_connector']
         use_all_mppt = data[config]['use_all_mppt']
         # Входные данные
-        count_mppt = data[config]['count_mppt']# Число mppt
-        count_input_mppt = data[config]['count_inputs'] # Число входов mppt
-        solar_count_on_the_chain = data[config]['count_pv']  #Число фэм модулей в цепочке
-        all_chain = data[config]['count_strings']#  число цепочек
+        count_mppt = int(data[config]['count_mppt'])# Число mppt
+        count_input_mppt = int(data['inputs']) # Число входов mppt
+        solar_count_on_the_chain = int(data[config]['count_pv'])  #Число фэм модулей в цепочке
+        all_chain = int(data[config]['count_string'])#  число цепочек
         all_modules += all_chain * solar_count_on_the_chain
         # Расчет
         count_chain = all_chain // count_mppt #  число цепочек в одном MPPT
@@ -656,27 +656,24 @@ def calculation(slr, fem_offset, data):
         print("Двойные цепочки:", double)
         print("Доп. цепочки:", remains)
         print("Остаток:", onest)
+
         num_error = 0
         if all_chain < count_mppt and use_all_mppt == True:
             print("!!Кол-во цепочек меньше числа MPPT, невозможно заполгнить все MPPT!!")
-            num_error = 1
-            return num_error, 0
+            return {'error': 1}
         elif all_chain > max_input and use_y_connector == False:
             print("Данное количесво цепочек не вмещается, примените Y коннекторы, либо измените конфигурацию MPPT")
-            num_error = 3
-            return num_error, 0
+            return {'error': 3}
         elif all_chain <= max_input and use_y_connector == True and use_all_mppt == True:
             print("Данное количесво цепочек слишком мало чтобы заполнить все MPPT применяя Y коннекторы, уберите Y коннекторы или полное заполнение")
-            num_error = 4
-            return num_error, 0
+            return {'error': 4}
         elif all_chain > max_input_y:
             print("!!Слишком большое количество цепочек!!")
-            num_error = 5
-            return num_error, 0
+            return {'error': 5}
 
         fem_plus_chain = generate_fem(slr, solar_count_on_the_chain, fem_offset, count_mppt, count_chain, use_y_connector, use_all_mppt, flag, count_input_mppt, one, onest, remains, double, double_remains, add)
         fem_offset = fem_plus_chain[0]
-    return num_error, fem_plus_chain, max_input, max_input_y, all_modules
+    return {'error': num_error, 'fem_chain': fem_plus_chain, 'all_modules': all_modules}
 
 def draw(data, i, gost_frame_params):
     global two_num
@@ -691,20 +688,20 @@ def draw(data, i, gost_frame_params):
 
         fem_offset = 0 # начало чертежа
         
-        three_phase = data['use_three_phase']
+        three_phase = True if int(data['phase'] )== 3 else False
         five_line = data['use_5or4_line']
         len_title = data['title_grid_line_length']
 
         # Расчет
         fem_plus_chain = calculation(slr, fem_offset, data)
-        if fem_plus_chain[0] != 0:
-            return fem_plus_chain[0], 0
+        if fem_plus_chain['error'] != 0:
+            return {'error': fem_plus_chain['error']}
 
         # Построение общей рамки и правой части
-        slr += (bot_line_invertor := elm.Line().right().at(fem_plus_chain[1][1][-1].center, dy = -4).length(5))
+        slr += (bot_line_invertor := elm.Line().right().at(fem_plus_chain['fem_chain'][1][-1].center, dy = -4).length(5))
         slr.here = (0, 3)
 
-        names = [data['title_inv'], f"{data['num_inv']} {str(i)}", data['title_grid_line'], data['title_grid_top'], data['title_grid_switch']]
+        names = [data['module'], f"{data['type_inv']} {str(i)}", data['title_grid_line'], data['title_grid_top'], data['title_grid_switch']]
         generate_frame(slr, names, bot_line_invertor, three_phase, five_line, len_title)
 
         config_keys = [] 
@@ -713,7 +710,7 @@ def draw(data, i, gost_frame_params):
             if 'config' in key:
                 config_keys.append(key)
         for config in config_keys:
-            counts_pv.append(data[config]['count_pv'])
+            counts_pv.append(int(data[config]['count_pv']))
         max_count_pv = max(counts_pv)
         if int(max_count_pv) % 2 == 0:
             solar_count_on_the_chain = (int(max_count_pv) // 2) * 1.5 if int(max_count_pv) != 1 else 1.5
@@ -721,7 +718,7 @@ def draw(data, i, gost_frame_params):
             solar_count_on_the_chain = (int(max_count_pv) // 2 + 1) * 1.5 if int(max_count_pv) != 1 else 1.5
 
         width = 28.5 + solar_count_on_the_chain
-        height = (fem_plus_chain[1][0] - 3) * -1
+        height = (fem_plus_chain['fem_chain'][0] - 3) * -1
         slr.here = (-4 - solar_count_on_the_chain, 3)
 
         data = {'width': width, 'height': height, 'title_prjct': gost_frame_params['title_project'],
@@ -734,4 +731,4 @@ def draw(data, i, gost_frame_params):
     srcfile = f'Data/Schemes/invertor{i}.svg'
     trgfile = f'Data/Schemes/invertor{i}_codec.svg'
     encode_file.to_utf8(srcfile, trgfile)
-    return 0, two_num, fem_plus_chain[4]
+    return {'error': fem_plus_chain['error'], 'chains': two_num, 'modules': fem_plus_chain['all_modules']}

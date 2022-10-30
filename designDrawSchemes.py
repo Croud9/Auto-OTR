@@ -15,7 +15,7 @@ class Ui_WindowDrawSchemes(object):
     def setupUi(self, WindowDrawSchemes):
         WindowDrawSchemes.setObjectName("WindowDrawSchemes")
         WindowDrawSchemes.setEnabled(True)
-        WindowDrawSchemes.resize(767, 458)
+        WindowDrawSchemes.resize(766, 458)
         font = QtGui.QFont()
         font.setFamily("Arial")
         WindowDrawSchemes.setFont(font)
@@ -74,6 +74,7 @@ class Ui_WindowDrawSchemes(object):
         font.setBold(True)
         font.setWeight(75)
         self.label_8.setFont(font)
+        self.label_8.setStyleSheet("background-color: rgba(255,255,255,0); ")
         self.label_8.setObjectName("label_8")
         self.inputCount_mppt = QtWidgets.QLineEdit(self.centralwidget)
         self.inputCount_mppt.setGeometry(QtCore.QRect(20, 60, 151, 31))
@@ -113,14 +114,6 @@ class Ui_WindowDrawSchemes(object):
 "}\n"
 "")
         self.textConsoleDraw.setObjectName("textConsoleDraw")
-        self.label_status = QtWidgets.QLabel(self.centralwidget)
-        self.label_status.setGeometry(QtCore.QRect(420, 10, 41, 21))
-        font = QtGui.QFont()
-        font.setFamily("Arial")
-        font.setPointSize(19)
-        self.label_status.setFont(font)
-        self.label_status.setText("")
-        self.label_status.setObjectName("label_status")
         self.btnDraw = QtWidgets.QPushButton(self.centralwidget)
         self.btnDraw.setGeometry(QtCore.QRect(20, 390, 151, 41))
         font = QtGui.QFont()
@@ -230,12 +223,6 @@ class Ui_WindowDrawSchemes(object):
         self.checkUse_all_mppt.setFont(font)
         self.checkUse_all_mppt.setStyleSheet("")
         self.checkUse_all_mppt.setObjectName("checkUse_all_mppt")
-        self.checkUse_different_mppt = QtWidgets.QCheckBox(self.centralwidget)
-        self.checkUse_different_mppt.setGeometry(QtCore.QRect(210, 402, 111, 20))
-        font = QtGui.QFont()
-        font.setFamily("Arial")
-        self.checkUse_different_mppt.setFont(font)
-        self.checkUse_different_mppt.setObjectName("checkUse_different_mppt")
         self.inputName_invertor = QtWidgets.QLineEdit(self.centralwidget)
         self.inputName_invertor.setGeometry(QtCore.QRect(210, 60, 151, 31))
         font = QtGui.QFont()
@@ -365,15 +352,10 @@ class Ui_WindowDrawSchemes(object):
         font.setBold(True)
         font.setWeight(75)
         self.label_9.setFont(font)
+        self.label_9.setStyleSheet("background-color: rgba(255,255,255,0); ")
         self.label_9.setObjectName("label_9")
-        self.checkUse_CloneInvertor = QtWidgets.QCheckBox(self.centralwidget)
-        self.checkUse_CloneInvertor.setGeometry(QtCore.QRect(210, 365, 101, 20))
-        font = QtGui.QFont()
-        font.setFamily("Arial")
-        self.checkUse_CloneInvertor.setFont(font)
-        self.checkUse_CloneInvertor.setObjectName("checkUse_CloneInvertor")
         self.spinBox_CloneInvertor = QtWidgets.QSpinBox(self.centralwidget)
-        self.spinBox_CloneInvertor.setGeometry(QtCore.QRect(320, 360, 41, 31))
+        self.spinBox_CloneInvertor.setGeometry(QtCore.QRect(320, 362, 41, 31))
         font = QtGui.QFont()
         font.setFamily("Arial")
         font.setBold(True)
@@ -452,6 +434,7 @@ class Ui_WindowDrawSchemes(object):
         font.setFamily("Arial")
         font.setPointSize(8)
         self.label_10.setFont(font)
+        self.label_10.setStyleSheet("background-color: rgba(255,255,255,0); ")
         self.label_10.setObjectName("label_10")
         self.label_11 = QtWidgets.QLabel(self.centralwidget)
         self.label_11.setEnabled(True)
@@ -460,6 +443,7 @@ class Ui_WindowDrawSchemes(object):
         font.setFamily("Arial")
         font.setPointSize(8)
         self.label_11.setFont(font)
+        self.label_11.setStyleSheet("background-color: rgba(255,255,255,0); ")
         self.label_11.setObjectName("label_11")
         self.label_12 = QtWidgets.QLabel(self.centralwidget)
         self.label_12.setEnabled(True)
@@ -468,6 +452,7 @@ class Ui_WindowDrawSchemes(object):
         font.setFamily("Arial")
         font.setPointSize(8)
         self.label_12.setFont(font)
+        self.label_12.setStyleSheet("background-color: rgba(255,255,255,0); ")
         self.label_12.setObjectName("label_12")
         self.label_13 = QtWidgets.QLabel(self.centralwidget)
         self.label_13.setEnabled(True)
@@ -476,6 +461,7 @@ class Ui_WindowDrawSchemes(object):
         font.setFamily("Arial")
         font.setPointSize(8)
         self.label_13.setFont(font)
+        self.label_13.setStyleSheet("background-color: rgba(255,255,255,0); ")
         self.label_13.setObjectName("label_13")
         self.label_14 = QtWidgets.QLabel(self.centralwidget)
         self.label_14.setEnabled(True)
@@ -484,6 +470,7 @@ class Ui_WindowDrawSchemes(object):
         font.setFamily("Arial")
         font.setPointSize(8)
         self.label_14.setFont(font)
+        self.label_14.setStyleSheet("background-color: rgba(255,255,255,0); ")
         self.label_14.setObjectName("label_14")
         self.label_15 = QtWidgets.QLabel(self.centralwidget)
         self.label_15.setEnabled(True)
@@ -492,6 +479,7 @@ class Ui_WindowDrawSchemes(object):
         font.setFamily("Arial")
         font.setPointSize(8)
         self.label_15.setFont(font)
+        self.label_15.setStyleSheet("background-color: rgba(255,255,255,0); ")
         self.label_15.setObjectName("label_15")
         self.label_16 = QtWidgets.QLabel(self.centralwidget)
         self.label_16.setEnabled(True)
@@ -500,6 +488,7 @@ class Ui_WindowDrawSchemes(object):
         font.setFamily("Arial")
         font.setPointSize(8)
         self.label_16.setFont(font)
+        self.label_16.setStyleSheet("background-color: rgba(255,255,255,0); ")
         self.label_16.setObjectName("label_16")
         self.label_17 = QtWidgets.QLabel(self.centralwidget)
         self.label_17.setEnabled(True)
@@ -508,6 +497,7 @@ class Ui_WindowDrawSchemes(object):
         font.setFamily("Arial")
         font.setPointSize(8)
         self.label_17.setFont(font)
+        self.label_17.setStyleSheet("background-color: rgba(255,255,255,0); ")
         self.label_17.setObjectName("label_17")
         self.label_18 = QtWidgets.QLabel(self.centralwidget)
         self.label_18.setEnabled(True)
@@ -516,6 +506,7 @@ class Ui_WindowDrawSchemes(object):
         font.setFamily("Arial")
         font.setPointSize(8)
         self.label_18.setFont(font)
+        self.label_18.setStyleSheet("background-color: rgba(255,255,255,0); ")
         self.label_18.setObjectName("label_18")
         self.checkUse_three_phase = QtWidgets.QCheckBox(self.centralwidget)
         self.checkUse_three_phase.setGeometry(QtCore.QRect(20, 326, 171, 17))
@@ -536,6 +527,7 @@ class Ui_WindowDrawSchemes(object):
         font.setFamily("Arial")
         font.setPointSize(8)
         self.label_19.setFont(font)
+        self.label_19.setStyleSheet("background-color: rgba(255,255,255,0); ")
         self.label_19.setObjectName("label_19")
         self.inputTitle_grid_line_length = QtWidgets.QLineEdit(self.centralwidget)
         self.inputTitle_grid_line_length.setGeometry(QtCore.QRect(210, 216, 151, 31))
@@ -598,7 +590,7 @@ class Ui_WindowDrawSchemes(object):
 "")
         self.btnReset.setObjectName("btnReset")
         self.spinBox_numInvertor = QtWidgets.QSpinBox(self.centralwidget)
-        self.spinBox_numInvertor.setGeometry(QtCore.QRect(380, 20, 41, 31))
+        self.spinBox_numInvertor.setGeometry(QtCore.QRect(320, 20, 41, 31))
         font = QtGui.QFont()
         font.setFamily("Arial")
         font.setBold(True)
@@ -645,7 +637,7 @@ class Ui_WindowDrawSchemes(object):
         self.spinBox_numInvertor.setReadOnly(False)
         self.spinBox_numInvertor.setObjectName("spinBox_numInvertor")
         self.btnAdd_new_mppt = QtWidgets.QPushButton(self.centralwidget)
-        self.btnAdd_new_mppt.setGeometry(QtCore.QRect(322, 395, 31, 31))
+        self.btnAdd_new_mppt.setGeometry(QtCore.QRect(680, 20, 30, 31))
         font = QtGui.QFont()
         font.setFamily("Arial")
         font.setPointSize(14)
@@ -665,6 +657,157 @@ class Ui_WindowDrawSchemes(object):
 "}\n"
 "")
         self.btnAdd_new_mppt.setObjectName("btnAdd_new_mppt")
+        self.spinBox_numDifferentMPPT = QtWidgets.QSpinBox(self.centralwidget)
+        self.spinBox_numDifferentMPPT.setGeometry(QtCore.QRect(710, 20, 40, 31))
+        font = QtGui.QFont()
+        font.setFamily("Arial")
+        font.setBold(True)
+        font.setWeight(75)
+        self.spinBox_numDifferentMPPT.setFont(font)
+        self.spinBox_numDifferentMPPT.setStyleSheet("QSpinBox{\n"
+"    background-color:rgba(229,229,234,1); \n"
+"    border-radius: 6;\n"
+"    border: none;\n"
+"    padding-left: 8px;\n"
+"}\n"
+"QSpinBox:hover{\n"
+"    background-color:rgba(242,242,247,1);\n"
+"}\n"
+"QSpinBox:up-button:hover{\n"
+"    background-color:rgba(25,109,255, 0.7);\n"
+"    border-top-right-radius: 6;\n"
+"}\n"
+"QSpinBox:up-button:pressed{\n"
+"    background-color:rgba(25,109,255, 0.5);\n"
+"    border-top-right-radius: 6;\n"
+"}\n"
+"QSpinBox:up-button{\n"
+"    background-color:rgba(229,229,234,1); \n"
+"    border-top-right-radius: 6;\n"
+"    border: none;\n"
+"    border-left: 1px solid rgba(0,0,0,0.3);\n"
+"}\n"
+"\n"
+"QSpinBox:down-button:hover{\n"
+"    background-color:rgba(25,109,255, 0.7);\n"
+"    border-bottom-right-radius: 6;\n"
+"}\n"
+"QSpinBox:down-button:pressed{\n"
+"    background-color:rgba(25,109,255, 0.5);\n"
+"    border-bottom-right-radius: 6;\n"
+"}\n"
+"QSpinBox:down-button{\n"
+"    background-color:rgba(229,229,234,1); \n"
+"    border-bottom-right-radius: 6;\n"
+"    border-left: 1px solid rgba(0,0,0,0.3);\n"
+"\n"
+"}")
+        self.spinBox_numDifferentMPPT.setReadOnly(False)
+        self.spinBox_numDifferentMPPT.setObjectName("spinBox_numDifferentMPPT")
+        self.btnSaveConfig = QtWidgets.QPushButton(self.centralwidget)
+        self.btnSaveConfig.setGeometry(QtCore.QRect(380, 20, 61, 31))
+        font = QtGui.QFont()
+        font.setFamily("Arial")
+        font.setPointSize(9)
+        font.setBold(True)
+        font.setWeight(75)
+        self.btnSaveConfig.setFont(font)
+        self.btnSaveConfig.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
+        self.btnSaveConfig.setStyleSheet("QPushButton{\n"
+"    background-color: rgba(229,229,234,1);\n"
+"    color: #196dff;\n"
+"    border: none;\n"
+"    border-radius: 12;\n"
+"    border-style: outset;\n"
+"}\n"
+"QPushButton:hover{\n"
+"    background-color: #dceaff; \n"
+"}\n"
+"QPushButton:pressed{\n"
+"    color: rgba(25, 109, 255, 0.7); \n"
+"    border-radius: 12;\n"
+"}")
+        self.btnSaveConfig.setObjectName("btnSaveConfig")
+        self.label_20 = QtWidgets.QLabel(self.centralwidget)
+        self.label_20.setEnabled(True)
+        self.label_20.setGeometry(QtCore.QRect(211, 362, 101, 31))
+        font = QtGui.QFont()
+        font.setFamily("Arial")
+        font.setPointSize(8)
+        self.label_20.setFont(font)
+        self.label_20.setStyleSheet("background-color: rgba(255,255,255,0); ")
+        self.label_20.setObjectName("label_20")
+        self.btnDelConfig = QtWidgets.QPushButton(self.centralwidget)
+        self.btnDelConfig.setGeometry(QtCore.QRect(547, 22, 30, 31))
+        font = QtGui.QFont()
+        font.setFamily("Arial")
+        font.setPointSize(10)
+        font.setBold(True)
+        font.setWeight(75)
+        self.btnDelConfig.setFont(font)
+        self.btnDelConfig.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
+        self.btnDelConfig.setStyleSheet("QPushButton{\n"
+"    background-color:rgba(112, 215, 255, 0);\n"
+"    color:  rgba(0, 0, 0, 0.5);\n"
+"    border: none;\n"
+"    border-radius: 5;\n"
+"    border-style: outset;\n"
+"}\n"
+"QPushButton:hover{\n"
+"    color:rgba(255, 20, 20, 1) ;\n"
+"}\n"
+"")
+        self.btnDelConfig.setObjectName("btnDelConfig")
+        self.label_21 = QtWidgets.QLabel(self.centralwidget)
+        self.label_21.setEnabled(True)
+        self.label_21.setGeometry(QtCore.QRect(576, 30, 110, 16))
+        font = QtGui.QFont()
+        font.setFamily("Arial")
+        font.setPointSize(9)
+        font.setBold(True)
+        font.setWeight(75)
+        self.label_21.setFont(font)
+        self.label_21.setStyleSheet("background-color: rgba(255,255,255,0); ")
+        self.label_21.setObjectName("label_21")
+        self.label_20.raise_()
+        self.label_8.raise_()
+        self.inputCount_mppt.raise_()
+        self.textConsoleDraw.raise_()
+        self.btnDraw.raise_()
+        self.inputCount_input_mppt.raise_()
+        self.inputSolar_count_on_the_chain.raise_()
+        self.inputAll_chain.raise_()
+        self.checkUse_y_connector.raise_()
+        self.checkUse_all_mppt.raise_()
+        self.inputName_invertor.raise_()
+        self.inputTitle_grid_line.raise_()
+        self.inputTitle_grid_top.raise_()
+        self.inputNumber_invertor.raise_()
+        self.inputTitle_grid_switch.raise_()
+        self.label_9.raise_()
+        self.spinBox_CloneInvertor.raise_()
+        self.btnUpdateConsole.raise_()
+        self.label_10.raise_()
+        self.label_11.raise_()
+        self.label_12.raise_()
+        self.label_13.raise_()
+        self.label_14.raise_()
+        self.label_15.raise_()
+        self.label_16.raise_()
+        self.label_17.raise_()
+        self.label_18.raise_()
+        self.checkUse_three_phase.raise_()
+        self.checkUse_5or4_line.raise_()
+        self.label_19.raise_()
+        self.inputTitle_grid_line_length.raise_()
+        self.textConsoleCurrent.raise_()
+        self.btnReset.raise_()
+        self.spinBox_numInvertor.raise_()
+        self.btnAdd_new_mppt.raise_()
+        self.spinBox_numDifferentMPPT.raise_()
+        self.btnSaveConfig.raise_()
+        self.btnDelConfig.raise_()
+        self.label_21.raise_()
         WindowDrawSchemes.setCentralWidget(self.centralwidget)
         self.statusBar = QtWidgets.QStatusBar(WindowDrawSchemes)
         self.statusBar.setObjectName("statusBar")
@@ -687,15 +830,11 @@ class Ui_WindowDrawSchemes(object):
         self.checkUse_y_connector.setText(_translate("WindowDrawSchemes", "Y коннекторы"))
         self.checkUse_all_mppt.setToolTip(_translate("WindowDrawSchemes", "Распределяет цепочки по всем свободным MPPT, если кол-во цепочек не меньше кол-ва MPPT, если параметр неактивен, то цепочки полностью последовательно заполняют свободные MPPT"))
         self.checkUse_all_mppt.setText(_translate("WindowDrawSchemes", "Цепочки по всем MPPT"))
-        self.checkUse_different_mppt.setToolTip(_translate("WindowDrawSchemes", "Позволяет добавлять разные MPPT в инвертор. Нажимая на кнопку \"+\" добавляются параметры для каждого MPPT"))
-        self.checkUse_different_mppt.setText(_translate("WindowDrawSchemes", "Разные MPPT"))
         self.inputName_invertor.setToolTip(_translate("WindowDrawSchemes", "Название инвертора"))
         self.inputTitle_grid_line.setToolTip(_translate("WindowDrawSchemes", "Наименование расплогаемое на проводе до свича"))
         self.inputTitle_grid_top.setToolTip(_translate("WindowDrawSchemes", "Наименование распологаемое сверху после свича"))
         self.inputNumber_invertor.setToolTip(_translate("WindowDrawSchemes", "Тип инвертора"))
         self.label_9.setText(_translate("WindowDrawSchemes", "Инвертор"))
-        self.checkUse_CloneInvertor.setToolTip(_translate("WindowDrawSchemes", "Формирует несколько одинаковых инверторов"))
-        self.checkUse_CloneInvertor.setText(_translate("WindowDrawSchemes", "Несколько"))
         self.spinBox_CloneInvertor.setToolTip(_translate("WindowDrawSchemes", "Количество схем одинаковых инверторов"))
         self.btnUpdateConsole.setToolTip(_translate("WindowDrawSchemes", "Очистить консоль"))
         self.btnUpdateConsole.setText(_translate("WindowDrawSchemes", "D"))
@@ -717,3 +856,9 @@ class Ui_WindowDrawSchemes(object):
         self.btnReset.setToolTip(_translate("WindowDrawSchemes", "Добавить MPPT"))
         self.btnReset.setText(_translate("WindowDrawSchemes", "⭯"))
         self.btnAdd_new_mppt.setText(_translate("WindowDrawSchemes", "+"))
+        self.btnSaveConfig.setText(_translate("WindowDrawSchemes", "Save"))
+        self.label_20.setText(_translate("WindowDrawSchemes", "Кол-во\n"
+"инверторов"))
+        self.btnDelConfig.setToolTip(_translate("WindowDrawSchemes", "Удалить"))
+        self.btnDelConfig.setText(_translate("WindowDrawSchemes", "🞫"))
+        self.label_21.setText(_translate("WindowDrawSchemes", "Разные MPPT"))

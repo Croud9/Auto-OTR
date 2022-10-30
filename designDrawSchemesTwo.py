@@ -15,7 +15,7 @@ class Ui_WindowDrawSchemesTwo(object):
     def setupUi(self, WindowDrawSchemesTwo):
         WindowDrawSchemesTwo.setObjectName("WindowDrawSchemesTwo")
         WindowDrawSchemesTwo.setEnabled(True)
-        WindowDrawSchemesTwo.resize(947, 631)
+        WindowDrawSchemesTwo.resize(947, 661)
         font = QtGui.QFont()
         font.setFamily("Arial")
         WindowDrawSchemesTwo.setFont(font)
@@ -93,7 +93,7 @@ class Ui_WindowDrawSchemesTwo(object):
         self.inputName_other.setObjectName("inputName_other")
         self.textConsoleDraw = QtWidgets.QTextBrowser(self.centralwidget)
         self.textConsoleDraw.setEnabled(True)
-        self.textConsoleDraw.setGeometry(QtCore.QRect(561, 20, 371, 161))
+        self.textConsoleDraw.setGeometry(QtCore.QRect(561, 50, 371, 241))
         font = QtGui.QFont()
         font.setFamily("Arial")
         self.textConsoleDraw.setFont(font)
@@ -308,26 +308,6 @@ class Ui_WindowDrawSchemesTwo(object):
         self.label_9.setFont(font)
         self.label_9.setAlignment(QtCore.Qt.AlignCenter)
         self.label_9.setObjectName("label_9")
-        self.checkDifferentInvertor = QtWidgets.QCheckBox(self.centralwidget)
-        self.checkDifferentInvertor.setGeometry(QtCore.QRect(279, 95, 71, 20))
-        font = QtGui.QFont()
-        font.setFamily("Arial")
-        self.checkDifferentInvertor.setFont(font)
-        self.checkDifferentInvertor.setObjectName("checkDifferentInvertor")
-        self.textConsoleModule = QtWidgets.QTextBrowser(self.centralwidget)
-        self.textConsoleModule.setEnabled(True)
-        self.textConsoleModule.setGeometry(QtCore.QRect(561, 191, 370, 100))
-        font = QtGui.QFont()
-        font.setFamily("Arial")
-        self.textConsoleModule.setFont(font)
-        self.textConsoleModule.setStyleSheet("QTextBrowser{\n"
-"    background-color:rgba(229,229,234,1); \n"
-"    border-radius: 6;\n"
-"    border: none;\n"
-"    padding: 8 4 8 8;\n"
-"}\n"
-"")
-        self.textConsoleModule.setObjectName("textConsoleModule")
         self.label_10 = QtWidgets.QLabel(self.centralwidget)
         self.label_10.setEnabled(True)
         self.label_10.setGeometry(QtCore.QRect(398, 15, 151, 28))
@@ -471,33 +451,6 @@ class Ui_WindowDrawSchemesTwo(object):
 "\n"
 "}")
         self.spinBox_countOther.setObjectName("spinBox_countOther")
-        self.checkDifferentOther = QtWidgets.QCheckBox(self.centralwidget)
-        self.checkDifferentOther.setGeometry(QtCore.QRect(474, 95, 71, 20))
-        font = QtGui.QFont()
-        font.setFamily("Arial")
-        self.checkDifferentOther.setFont(font)
-        self.checkDifferentOther.setObjectName("checkDifferentOther")
-        self.btnAdd_other = QtWidgets.QPushButton(self.centralwidget)
-        self.btnAdd_other.setGeometry(QtCore.QRect(440, 89, 31, 31))
-        font = QtGui.QFont()
-        font.setFamily("Arial")
-        font.setPointSize(14)
-        font.setBold(True)
-        font.setWeight(75)
-        self.btnAdd_other.setFont(font)
-        self.btnAdd_other.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
-        self.btnAdd_other.setStyleSheet("QPushButton{\n"
-"    background-color:rgba(112, 215, 255, 0);\n"
-"    color:rgba(0, 0, 0, 0.5);\n"
-"    border: none;\n"
-"    border-radius: 5;\n"
-"    border-style: outset;\n"
-"}\n"
-"QPushButton:hover{\n"
-"    color: black;\n"
-"}\n"
-"")
-        self.btnAdd_other.setObjectName("btnAdd_other")
         self.btnOpen_otherParams = QtWidgets.QPushButton(self.centralwidget)
         self.btnOpen_otherParams.setGeometry(QtCore.QRect(20, 250, 171, 41))
         font = QtGui.QFont()
@@ -918,177 +871,101 @@ class Ui_WindowDrawSchemesTwo(object):
         self.label_25.setFont(font)
         self.label_25.setAlignment(QtCore.Qt.AlignCenter)
         self.label_25.setObjectName("label_25")
-        self.btnShowInvertor = QtWidgets.QPushButton(self.centralwidget)
-        self.btnShowInvertor.setGeometry(QtCore.QRect(880, 191, 51, 21))
-        font = QtGui.QFont()
-        font.setFamily("Arial")
-        font.setPointSize(9)
-        font.setBold(True)
-        font.setWeight(75)
-        self.btnShowInvertor.setFont(font)
-        self.btnShowInvertor.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
-        self.btnShowInvertor.setStyleSheet("QPushButton{\n"
-"    background-color: rgba(229,229,234,1);\n"
-"    color: #196dff;\n"
-"    border: none;\n"
-"    border-radius: 6;\n"
-"    border-style: outset;\n"
-"}\n"
-"QPushButton:hover{\n"
-"    background-color: #dceaff; \n"
-"}\n"
-"QPushButton:pressed{\n"
-"    color: rgba(25, 109, 255, 0.7); \n"
-"    border-radius: 6;\n"
-"}")
-        self.btnShowInvertor.setObjectName("btnShowInvertor")
-        self.btnShowOther = QtWidgets.QPushButton(self.centralwidget)
-        self.btnShowOther.setGeometry(QtCore.QRect(880, 270, 51, 21))
-        font = QtGui.QFont()
-        font.setFamily("Arial")
-        font.setPointSize(9)
-        font.setBold(True)
-        font.setWeight(75)
-        self.btnShowOther.setFont(font)
-        self.btnShowOther.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
-        self.btnShowOther.setStyleSheet("QPushButton{\n"
-"    background-color: rgba(229,229,234,1);\n"
-"    color: #196dff;\n"
-"    border: none;\n"
-"    border-radius: 6;\n"
-"    border-style: outset;\n"
-"}\n"
-"QPushButton:hover{\n"
-"    background-color: #dceaff; \n"
-"}\n"
-"QPushButton:pressed{\n"
-"    color: rgba(25, 109, 255, 0.7); \n"
-"    border-radius: 6;\n"
-"}")
-        self.btnShowOther.setObjectName("btnShowOther")
-        self.btnResultInfo = QtWidgets.QPushButton(self.centralwidget)
-        self.btnResultInfo.setGeometry(QtCore.QRect(881, 160, 51, 21))
-        font = QtGui.QFont()
-        font.setFamily("Arial")
-        font.setPointSize(9)
-        font.setBold(True)
-        font.setWeight(75)
-        self.btnResultInfo.setFont(font)
-        self.btnResultInfo.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
-        self.btnResultInfo.setStyleSheet("QPushButton{\n"
-"    background-color: rgba(229,229,234,1);\n"
-"    color: #196dff;\n"
-"    border: none;\n"
-"    border-radius: 6;\n"
-"    border-style: outset;\n"
-"}\n"
-"QPushButton:hover{\n"
-"    background-color: #dceaff; \n"
-"}\n"
-"QPushButton:pressed{\n"
-"    color: rgba(25, 109, 255, 0.7); \n"
-"    border-radius: 6;\n"
-"}")
-        self.btnResultInfo.setObjectName("btnResultInfo")
         self.checkRedLineInvertor = QtWidgets.QCheckBox(self.centralwidget)
-        self.checkRedLineInvertor.setGeometry(QtCore.QRect(230, 530, 21, 21))
+        self.checkRedLineInvertor.setGeometry(QtCore.QRect(229, 530, 31, 21))
         font = QtGui.QFont()
         font.setFamily("Arial")
         self.checkRedLineInvertor.setFont(font)
         self.checkRedLineInvertor.setStyleSheet("QCheckBox{\n"
 "    background-color:red; \n"
-"    border-radius: 5;\n"
 "    border: none;\n"
 "    padding-left: 3.5;\n"
 "}")
         self.checkRedLineInvertor.setText("")
         self.checkRedLineInvertor.setObjectName("checkRedLineInvertor")
         self.checkBlueLineInvertor = QtWidgets.QCheckBox(self.centralwidget)
-        self.checkBlueLineInvertor.setGeometry(QtCore.QRect(263, 530, 22, 21))
+        self.checkBlueLineInvertor.setGeometry(QtCore.QRect(260, 530, 31, 21))
         font = QtGui.QFont()
         font.setFamily("Arial")
         self.checkBlueLineInvertor.setFont(font)
         self.checkBlueLineInvertor.setStyleSheet("QCheckBox{\n"
 "    background-color:blue; \n"
-"    border-radius: 5;\n"
 "    border: none;\n"
 "    padding-left: 3.5;\n"
 "}")
         self.checkBlueLineInvertor.setText("")
         self.checkBlueLineInvertor.setObjectName("checkBlueLineInvertor")
         self.checkGreenLineInvertor = QtWidgets.QCheckBox(self.centralwidget)
-        self.checkGreenLineInvertor.setGeometry(QtCore.QRect(296, 530, 22, 21))
+        self.checkGreenLineInvertor.setGeometry(QtCore.QRect(291, 530, 31, 21))
         font = QtGui.QFont()
         font.setFamily("Arial")
         self.checkGreenLineInvertor.setFont(font)
         self.checkGreenLineInvertor.setStyleSheet("QCheckBox{\n"
 "    background-color:lightgreen; \n"
-"    border-radius: 5;\n"
 "    border: none;\n"
 "    padding-left: 3.5;\n"
 "}")
         self.checkGreenLineInvertor.setText("")
         self.checkGreenLineInvertor.setObjectName("checkGreenLineInvertor")
         self.checkBlackLineInvertor = QtWidgets.QCheckBox(self.centralwidget)
-        self.checkBlackLineInvertor.setGeometry(QtCore.QRect(326, 530, 21, 21))
+        self.checkBlackLineInvertor.setGeometry(QtCore.QRect(322, 530, 31, 21))
         font = QtGui.QFont()
         font.setFamily("Arial")
         self.checkBlackLineInvertor.setFont(font)
         self.checkBlackLineInvertor.setStyleSheet("QCheckBox{\n"
 "    background-color:black; \n"
-"    border-radius: 5;\n"
+"    border-top-right-radius: 5;\n"
+"    border-bottom-right-radius: 5;\n"
 "    border: none;\n"
 "    padding-left: 3.5;\n"
 "}")
         self.checkBlackLineInvertor.setText("")
         self.checkBlackLineInvertor.setObjectName("checkBlackLineInvertor")
         self.checkBlueLineOther = QtWidgets.QCheckBox(self.centralwidget)
-        self.checkBlueLineOther.setGeometry(QtCore.QRect(461, 530, 22, 21))
+        self.checkBlueLineOther.setGeometry(QtCore.QRect(460, 530, 31, 21))
         font = QtGui.QFont()
         font.setFamily("Arial")
         self.checkBlueLineOther.setFont(font)
         self.checkBlueLineOther.setStyleSheet("QCheckBox{\n"
 "    background-color:blue; \n"
-"    border-radius: 5;\n"
 "    border: none;\n"
 "    padding-left: 3.5;\n"
 "}")
         self.checkBlueLineOther.setText("")
         self.checkBlueLineOther.setObjectName("checkBlueLineOther")
         self.checkRedLineOther = QtWidgets.QCheckBox(self.centralwidget)
-        self.checkRedLineOther.setGeometry(QtCore.QRect(429, 530, 21, 21))
+        self.checkRedLineOther.setGeometry(QtCore.QRect(429, 530, 31, 21))
         font = QtGui.QFont()
         font.setFamily("Arial")
         self.checkRedLineOther.setFont(font)
         self.checkRedLineOther.setStyleSheet("QCheckBox{\n"
 "    background-color:red; \n"
-"    border-radius: 5;\n"
 "    border: none;\n"
 "    padding-left: 3.5;\n"
 "}")
         self.checkRedLineOther.setText("")
         self.checkRedLineOther.setObjectName("checkRedLineOther")
         self.checkBlackLineOther = QtWidgets.QCheckBox(self.centralwidget)
-        self.checkBlackLineOther.setGeometry(QtCore.QRect(526, 530, 21, 21))
+        self.checkBlackLineOther.setGeometry(QtCore.QRect(522, 530, 31, 21))
         font = QtGui.QFont()
         font.setFamily("Arial")
         self.checkBlackLineOther.setFont(font)
         self.checkBlackLineOther.setStyleSheet("QCheckBox{\n"
 "    background-color:black; \n"
-"    border-radius: 5;\n"
+"    border-top-right-radius: 5;\n"
+"    border-bottom-right-radius: 5;\n"
 "    border: none;\n"
 "    padding-left: 3.5;\n"
 "}")
         self.checkBlackLineOther.setText("")
         self.checkBlackLineOther.setObjectName("checkBlackLineOther")
         self.checkGreenLineOther = QtWidgets.QCheckBox(self.centralwidget)
-        self.checkGreenLineOther.setGeometry(QtCore.QRect(494, 530, 22, 21))
+        self.checkGreenLineOther.setGeometry(QtCore.QRect(491, 530, 31, 21))
         font = QtGui.QFont()
         font.setFamily("Arial")
         self.checkGreenLineOther.setFont(font)
         self.checkGreenLineOther.setStyleSheet("QCheckBox{\n"
 "    background-color:lightgreen; \n"
-"    border-radius: 5;\n"
 "    border: none;\n"
 "    padding-left: 3.5;\n"
 "}")
@@ -1103,7 +980,7 @@ class Ui_WindowDrawSchemesTwo(object):
         self.label_26.setFont(font)
         self.label_26.setObjectName("label_26")
         self.checkBlueSwitchOther = QtWidgets.QCheckBox(self.centralwidget)
-        self.checkBlueSwitchOther.setGeometry(QtCore.QRect(463, 555, 20, 20))
+        self.checkBlueSwitchOther.setGeometry(QtCore.QRect(462, 555, 20, 20))
         font = QtGui.QFont()
         font.setFamily("Arial")
         self.checkBlueSwitchOther.setFont(font)
@@ -1129,7 +1006,7 @@ class Ui_WindowDrawSchemesTwo(object):
         self.checkRedSwitchOther.setText("")
         self.checkRedSwitchOther.setObjectName("checkRedSwitchOther")
         self.checkBlueSwitchInvertor = QtWidgets.QCheckBox(self.centralwidget)
-        self.checkBlueSwitchInvertor.setGeometry(QtCore.QRect(264, 555, 20, 20))
+        self.checkBlueSwitchInvertor.setGeometry(QtCore.QRect(262, 555, 20, 20))
         font = QtGui.QFont()
         font.setFamily("Arial")
         self.checkBlueSwitchInvertor.setFont(font)
@@ -1142,7 +1019,7 @@ class Ui_WindowDrawSchemesTwo(object):
         self.checkBlueSwitchInvertor.setText("")
         self.checkBlueSwitchInvertor.setObjectName("checkBlueSwitchInvertor")
         self.checkGreenSwitchOther = QtWidgets.QCheckBox(self.centralwidget)
-        self.checkGreenSwitchOther.setGeometry(QtCore.QRect(496, 555, 20, 20))
+        self.checkGreenSwitchOther.setGeometry(QtCore.QRect(493, 555, 20, 20))
         font = QtGui.QFont()
         font.setFamily("Arial")
         self.checkGreenSwitchOther.setFont(font)
@@ -1168,7 +1045,7 @@ class Ui_WindowDrawSchemesTwo(object):
         self.checkRedSwitchInvertor.setText("")
         self.checkRedSwitchInvertor.setObjectName("checkRedSwitchInvertor")
         self.checkGreenSwitchInvertor = QtWidgets.QCheckBox(self.centralwidget)
-        self.checkGreenSwitchInvertor.setGeometry(QtCore.QRect(298, 555, 20, 20))
+        self.checkGreenSwitchInvertor.setGeometry(QtCore.QRect(293, 555, 20, 20))
         font = QtGui.QFont()
         font.setFamily("Arial")
         self.checkGreenSwitchInvertor.setFont(font)
@@ -1189,13 +1066,14 @@ class Ui_WindowDrawSchemesTwo(object):
         self.label_27.setFont(font)
         self.label_27.setObjectName("label_27")
         self.checkYellowLineInvertor = QtWidgets.QCheckBox(self.centralwidget)
-        self.checkYellowLineInvertor.setGeometry(QtCore.QRect(198, 530, 21, 21))
+        self.checkYellowLineInvertor.setGeometry(QtCore.QRect(198, 530, 31, 21))
         font = QtGui.QFont()
         font.setFamily("Arial")
         self.checkYellowLineInvertor.setFont(font)
         self.checkYellowLineInvertor.setStyleSheet("QCheckBox{\n"
 "    background-color: rgb(252,237,63); \n"
-"    border-radius: 5;\n"
+"    border-top-left-radius: 5;\n"
+"    border-bottom-left-radius: 5;\n"
 "    border: none;\n"
 "    padding-left: 3.5;\n"
 "}\n"
@@ -1229,13 +1107,14 @@ class Ui_WindowDrawSchemesTwo(object):
         self.checkYellowSwitchOther.setText("")
         self.checkYellowSwitchOther.setObjectName("checkYellowSwitchOther")
         self.checkYellowLineOther = QtWidgets.QCheckBox(self.centralwidget)
-        self.checkYellowLineOther.setGeometry(QtCore.QRect(398, 530, 21, 21))
+        self.checkYellowLineOther.setGeometry(QtCore.QRect(398, 530, 31, 21))
         font = QtGui.QFont()
         font.setFamily("Arial")
         self.checkYellowLineOther.setFont(font)
         self.checkYellowLineOther.setStyleSheet("QCheckBox{\n"
 "    background-color: rgb(252,237,63); \n"
-"    border-radius: 5;\n"
+"    border-top-left-radius: 5;\n"
+"    border-bottom-left-radius: 5;\n"
 "    border: none;\n"
 "    padding-left: 3.5;\n"
 "}")
@@ -1304,28 +1183,6 @@ class Ui_WindowDrawSchemesTwo(object):
 "}\n"
 "")
         self.btnReset.setObjectName("btnReset")
-        self.label = QtWidgets.QLabel(self.centralwidget)
-        self.label.setGeometry(QtCore.QRect(198, 530, 150, 47))
-        self.label.setStyleSheet("QLabel{\n"
-"    background-color:rgba(188,188,192,1);\n"
-"    border-radius: 6;\n"
-"    border: none;\n"
-"    padding-left: 8px\n"
-"}\n"
-"")
-        self.label.setText("")
-        self.label.setObjectName("label")
-        self.label_2 = QtWidgets.QLabel(self.centralwidget)
-        self.label_2.setGeometry(QtCore.QRect(398, 530, 150, 47))
-        self.label_2.setStyleSheet("QLabel{\n"
-"    background-color:rgba(188,188,192,1);\n"
-"    border-radius: 6;\n"
-"    border: none;\n"
-"    padding-left: 8px\n"
-"}\n"
-"")
-        self.label_2.setText("")
-        self.label_2.setObjectName("label_2")
         self.label_3 = QtWidgets.QLabel(self.centralwidget)
         self.label_3.setGeometry(QtCore.QRect(864, 560, 140, 16))
         font = QtGui.QFont()
@@ -1433,29 +1290,148 @@ class Ui_WindowDrawSchemesTwo(object):
 "}")
         self.spinBox_numOther.setReadOnly(False)
         self.spinBox_numOther.setObjectName("spinBox_numOther")
-        self.btnAdd_invertor = QtWidgets.QPushButton(self.centralwidget)
-        self.btnAdd_invertor.setGeometry(QtCore.QRect(243, 89, 31, 31))
+        self.btnSaveConfig = QtWidgets.QPushButton(self.centralwidget)
+        self.btnSaveConfig.setGeometry(QtCore.QRect(19, 10, 61, 31))
         font = QtGui.QFont()
         font.setFamily("Arial")
-        font.setPointSize(14)
+        font.setPointSize(9)
         font.setBold(True)
         font.setWeight(75)
-        self.btnAdd_invertor.setFont(font)
-        self.btnAdd_invertor.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
-        self.btnAdd_invertor.setStyleSheet("QPushButton{\n"
-"    background-color:rgba(112, 215, 255, 0);\n"
-"    color:rgba(0, 0, 0, 0.5);\n"
+        self.btnSaveConfig.setFont(font)
+        self.btnSaveConfig.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
+        self.btnSaveConfig.setStyleSheet("QPushButton{\n"
+"    background-color: rgba(229,229,234,1);\n"
+"    color: #196dff;\n"
 "    border: none;\n"
-"    border-radius: 5;\n"
+"    border-radius: 12;\n"
 "    border-style: outset;\n"
 "}\n"
 "QPushButton:hover{\n"
-"    color: black;\n"
+"    background-color: #dceaff; \n"
+"}\n"
+"QPushButton:pressed{\n"
+"    color: rgba(25, 109, 255, 0.7); \n"
+"    border-radius: 12;\n"
+"}")
+        self.btnSaveConfig.setObjectName("btnSaveConfig")
+        self.label_4 = QtWidgets.QLabel(self.centralwidget)
+        self.label_4.setGeometry(QtCore.QRect(198, 530, 31, 48))
+        self.label_4.setStyleSheet("QLabel{\n"
+"    background-color: rgb(252,237,63); \n"
+"    border-top-left-radius: 5;\n"
+"    border-bottom-left-radius: 5;\n"
+"    border: none;\n"
+"    padding-left: 8px\n"
 "}\n"
 "")
-        self.btnAdd_invertor.setObjectName("btnAdd_invertor")
-        self.label_2.raise_()
-        self.label.raise_()
+        self.label_4.setText("")
+        self.label_4.setObjectName("label_4")
+        self.label_5 = QtWidgets.QLabel(self.centralwidget)
+        self.label_5.setGeometry(QtCore.QRect(229, 530, 31, 47))
+        self.label_5.setStyleSheet("QLabel{\n"
+"    background-color:red; \n"
+"    border: none;\n"
+"    padding-left: 8px\n"
+"}\n"
+"")
+        self.label_5.setText("")
+        self.label_5.setObjectName("label_5")
+        self.label_6 = QtWidgets.QLabel(self.centralwidget)
+        self.label_6.setGeometry(QtCore.QRect(291, 530, 31, 47))
+        self.label_6.setStyleSheet("QLabel{\n"
+"    background-color:lightgreen; \n"
+"    border: none;\n"
+"    padding-left: 8px\n"
+"}\n"
+"")
+        self.label_6.setText("")
+        self.label_6.setObjectName("label_6")
+        self.label_7 = QtWidgets.QLabel(self.centralwidget)
+        self.label_7.setGeometry(QtCore.QRect(260, 530, 31, 47))
+        self.label_7.setStyleSheet("QLabel{\n"
+"    background-color:blue; \n"
+"    border: none;\n"
+"    padding-left: 8px\n"
+"}\n"
+"")
+        self.label_7.setText("")
+        self.label_7.setObjectName("label_7")
+        self.label_8 = QtWidgets.QLabel(self.centralwidget)
+        self.label_8.setGeometry(QtCore.QRect(322, 530, 31, 47))
+        self.label_8.setStyleSheet("QLabel{\n"
+"    background-color:black; \n"
+"    border-top-right-radius: 5;\n"
+"    border-bottom-right-radius: 5; \n"
+"    border: none;\n"
+"    padding-left: 8px\n"
+"}\n"
+"")
+        self.label_8.setText("")
+        self.label_8.setObjectName("label_8")
+        self.label_19 = QtWidgets.QLabel(self.centralwidget)
+        self.label_19.setGeometry(QtCore.QRect(460, 530, 31, 47))
+        self.label_19.setStyleSheet("QLabel{\n"
+"    background-color:blue; \n"
+"    border: none;\n"
+"    padding-left: 8px\n"
+"}\n"
+"")
+        self.label_19.setText("")
+        self.label_19.setObjectName("label_19")
+        self.label_20 = QtWidgets.QLabel(self.centralwidget)
+        self.label_20.setGeometry(QtCore.QRect(522, 530, 31, 47))
+        self.label_20.setStyleSheet("QLabel{\n"
+"    background-color:black; \n"
+"    border-top-right-radius: 5;\n"
+"    border-bottom-right-radius: 5; \n"
+"    border: none;\n"
+"    padding-left: 8px\n"
+"}\n"
+"")
+        self.label_20.setText("")
+        self.label_20.setObjectName("label_20")
+        self.label_21 = QtWidgets.QLabel(self.centralwidget)
+        self.label_21.setGeometry(QtCore.QRect(429, 530, 31, 47))
+        self.label_21.setStyleSheet("QLabel{\n"
+"    background-color:red; \n"
+"    border: none;\n"
+"    padding-left: 8px\n"
+"}\n"
+"")
+        self.label_21.setText("")
+        self.label_21.setObjectName("label_21")
+        self.label_28 = QtWidgets.QLabel(self.centralwidget)
+        self.label_28.setGeometry(QtCore.QRect(491, 530, 31, 47))
+        self.label_28.setStyleSheet("QLabel{\n"
+"    background-color:lightgreen; \n"
+"    border: none;\n"
+"    padding-left: 8px\n"
+"}\n"
+"")
+        self.label_28.setText("")
+        self.label_28.setObjectName("label_28")
+        self.label_30 = QtWidgets.QLabel(self.centralwidget)
+        self.label_30.setGeometry(QtCore.QRect(398, 530, 31, 47))
+        self.label_30.setStyleSheet("QLabel{\n"
+"    background-color: rgb(252,237,63); \n"
+"    border-top-left-radius: 5;\n"
+"    border-bottom-left-radius: 5;\n"
+"    border: none;\n"
+"    padding-left: 8px\n"
+"}\n"
+"")
+        self.label_30.setText("")
+        self.label_30.setObjectName("label_30")
+        self.label_28.raise_()
+        self.label_20.raise_()
+        self.label_19.raise_()
+        self.label_30.raise_()
+        self.label_21.raise_()
+        self.label_8.raise_()
+        self.label_6.raise_()
+        self.label_7.raise_()
+        self.label_5.raise_()
+        self.label_4.raise_()
         self.inputName_other.raise_()
         self.textConsoleDraw.raise_()
         self.btnDraw.raise_()
@@ -1469,8 +1445,6 @@ class Ui_WindowDrawSchemesTwo(object):
         self.inputAmperage_other.raise_()
         self.inputType_other.raise_()
         self.label_9.raise_()
-        self.checkDifferentInvertor.raise_()
-        self.textConsoleModule.raise_()
         self.label_10.raise_()
         self.label_11.raise_()
         self.label_12.raise_()
@@ -1479,8 +1453,6 @@ class Ui_WindowDrawSchemesTwo(object):
         self.label_14.raise_()
         self.label_15.raise_()
         self.spinBox_countOther.raise_()
-        self.checkDifferentOther.raise_()
-        self.btnAdd_other.raise_()
         self.btnOpen_otherParams.raise_()
         self.inputParam1_invertor.raise_()
         self.inputParam2_invertor.raise_()
@@ -1503,9 +1475,6 @@ class Ui_WindowDrawSchemesTwo(object):
         self.inputParam4_out.raise_()
         self.inputParam3_out.raise_()
         self.label_25.raise_()
-        self.btnShowInvertor.raise_()
-        self.btnShowOther.raise_()
-        self.btnResultInfo.raise_()
         self.checkRedLineInvertor.raise_()
         self.checkBlueLineInvertor.raise_()
         self.checkGreenLineInvertor.raise_()
@@ -1533,7 +1502,7 @@ class Ui_WindowDrawSchemesTwo(object):
         self.label_3.raise_()
         self.spinBox_numInvertor.raise_()
         self.spinBox_numOther.raise_()
-        self.btnAdd_invertor.raise_()
+        self.btnSaveConfig.raise_()
         WindowDrawSchemesTwo.setCentralWidget(self.centralwidget)
         self.statusBar = QtWidgets.QStatusBar(WindowDrawSchemesTwo)
         self.statusBar.setObjectName("statusBar")
@@ -1551,16 +1520,12 @@ class Ui_WindowDrawSchemesTwo(object):
         self.checkUse_yzip.setText(_translate("WindowDrawSchemesTwo", "УЗИП"))
         self.checkUse_counter.setText(_translate("WindowDrawSchemesTwo", "Счетчик"))
         self.label_9.setText(_translate("WindowDrawSchemesTwo", "Инвертор"))
-        self.checkDifferentInvertor.setText(_translate("WindowDrawSchemesTwo", "Разные "))
-        self.textConsoleModule.setPlaceholderText(_translate("WindowDrawSchemesTwo", "Характеристики модулей"))
         self.label_10.setText(_translate("WindowDrawSchemesTwo", "Доп"))
         self.label_11.setText(_translate("WindowDrawSchemesTwo", "Название:"))
         self.label_12.setText(_translate("WindowDrawSchemesTwo", "Число:"))
         self.label_13.setText(_translate("WindowDrawSchemesTwo", "Мощность, кВт:"))
         self.label_14.setText(_translate("WindowDrawSchemesTwo", "Сила тока, А:"))
         self.label_15.setText(_translate("WindowDrawSchemesTwo", "Тип:"))
-        self.checkDifferentOther.setText(_translate("WindowDrawSchemesTwo", "Разные "))
-        self.btnAdd_other.setText(_translate("WindowDrawSchemesTwo", "+"))
         self.btnOpen_otherParams.setText(_translate("WindowDrawSchemesTwo", "Подробнее"))
         self.label_16.setText(_translate("WindowDrawSchemesTwo", "УЗИП"))
         self.label_17.setText(_translate("WindowDrawSchemesTwo", "Тип"))
@@ -1569,9 +1534,6 @@ class Ui_WindowDrawSchemesTwo(object):
         self.label_23.setText(_translate("WindowDrawSchemesTwo", "Длина"))
         self.label_24.setText(_translate("WindowDrawSchemesTwo", "Дополнительные параметры"))
         self.label_25.setText(_translate("WindowDrawSchemesTwo", "Параметры выхода"))
-        self.btnShowInvertor.setText(_translate("WindowDrawSchemesTwo", "Инв."))
-        self.btnShowOther.setText(_translate("WindowDrawSchemesTwo", "Доп."))
-        self.btnResultInfo.setText(_translate("WindowDrawSchemesTwo", "Итог"))
         self.checkRedLineInvertor.setToolTip(_translate("WindowDrawSchemesTwo", "Красный провод"))
         self.checkBlueLineInvertor.setToolTip(_translate("WindowDrawSchemesTwo", "Синий провод"))
         self.checkGreenLineInvertor.setToolTip(_translate("WindowDrawSchemesTwo", "Зеленый провод"))
@@ -1588,4 +1550,4 @@ class Ui_WindowDrawSchemesTwo(object):
         self.btnReset.setToolTip(_translate("WindowDrawSchemesTwo", "Добавить MPPT"))
         self.btnReset.setText(_translate("WindowDrawSchemesTwo", "⭯"))
         self.label_3.setText(_translate("WindowDrawSchemesTwo", "Version 1.0"))
-        self.btnAdd_invertor.setText(_translate("WindowDrawSchemesTwo", "+"))
+        self.btnSaveConfig.setText(_translate("WindowDrawSchemesTwo", "Save"))

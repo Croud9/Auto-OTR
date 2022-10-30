@@ -636,16 +636,16 @@ class docPDF():
             
             if len(list(data['others'].values())[0]) != 0:
                 for num_device, params_device in data['others'].items():
-                    type_device = list(params_device.values())[0]
-                    name_device = list(params_device.values())[1]
-                    key_type_device = list(params_device.keys())[0]
-                    key_name_device = list(params_device.keys())[1]
+                    type_device = list(params_device['table_data'].values())[0]
+                    name_device = list(params_device['table_data'].values())[1]
                     other_params = [[Paragraph(f'<b>{type_device}</b>', self.styleNormalTable), Paragraph(f'<b>{name_device}</b>', self.styleNormalTable)],]
-                    del params_device[key_type_device]
-                    del params_device[key_name_device]
-                    del params_device['file']
-                    del params_device['folder']
-                    for title, value in params_device.items():
+                    key_type_device = list(params_device['table_data'].keys())[0]
+                    key_name_device = list(params_device['table_data'].keys())[1]
+                    del params_device['table_data'][key_type_device]
+                    del params_device['table_data'][key_name_device]
+                    # del params_device['file']
+                    # del params_device['folder']
+                    for title, value in params_device['table_data'].items():
                         other_params.append([Paragraph(f'{title}', self.styleNormalTable), Paragraph(f'{value}', self.styleNormalTable)],)
 
                     table_other_params = Table(other_params, colWidths=[None, 1.8*inch], style = [('ALIGN',(1,1),(-1,-1),'CENTRE'),
