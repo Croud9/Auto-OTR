@@ -705,7 +705,7 @@ class Ui_WindowDrawSchemes(object):
         self.spinBox_numDifferentMPPT.setReadOnly(False)
         self.spinBox_numDifferentMPPT.setObjectName("spinBox_numDifferentMPPT")
         self.btnSaveConfig = QtWidgets.QPushButton(self.centralwidget)
-        self.btnSaveConfig.setGeometry(QtCore.QRect(380, 20, 61, 31))
+        self.btnSaveConfig.setGeometry(QtCore.QRect(374, 14, 41, 41))
         font = QtGui.QFont()
         font.setFamily("Arial")
         font.setPointSize(9)
@@ -714,19 +714,22 @@ class Ui_WindowDrawSchemes(object):
         self.btnSaveConfig.setFont(font)
         self.btnSaveConfig.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
         self.btnSaveConfig.setStyleSheet("QPushButton{\n"
-"    background-color: rgba(229,229,234,1);\n"
-"    color: #196dff;\n"
+"    /*background-color: #196dff;*/\n"
+"    background-color:rgba(112, 215, 255, 0);\n"
+"    color: white;\n"
 "    border: none;\n"
 "    border-radius: 12;\n"
 "    border-style: outset;\n"
 "}\n"
 "QPushButton:hover{\n"
-"    background-color: #dceaff; \n"
+"    border-bottom: 3px solid white;\n"
+"    border-radius: 3; \n"
 "}\n"
 "QPushButton:pressed{\n"
-"    color: rgba(25, 109, 255, 0.7); \n"
-"    border-radius: 12;\n"
+"    border-bottom: 0px solid white;\n"
+"    border-radius: 3;\n"
 "}")
+        self.btnSaveConfig.setText("")
         self.btnSaveConfig.setObjectName("btnSaveConfig")
         self.label_20 = QtWidgets.QLabel(self.centralwidget)
         self.label_20.setEnabled(True)
@@ -856,7 +859,6 @@ class Ui_WindowDrawSchemes(object):
         self.btnReset.setToolTip(_translate("WindowDrawSchemes", "Добавить MPPT"))
         self.btnReset.setText(_translate("WindowDrawSchemes", "⭯"))
         self.btnAdd_new_mppt.setText(_translate("WindowDrawSchemes", "+"))
-        self.btnSaveConfig.setText(_translate("WindowDrawSchemes", "Save"))
         self.label_20.setText(_translate("WindowDrawSchemes", "Кол-во\n"
 "инверторов"))
         self.btnDelConfig.setToolTip(_translate("WindowDrawSchemes", "Удалить"))

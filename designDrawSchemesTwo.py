@@ -1291,7 +1291,7 @@ class Ui_WindowDrawSchemesTwo(object):
         self.spinBox_numOther.setReadOnly(False)
         self.spinBox_numOther.setObjectName("spinBox_numOther")
         self.btnSaveConfig = QtWidgets.QPushButton(self.centralwidget)
-        self.btnSaveConfig.setGeometry(QtCore.QRect(19, 10, 61, 31))
+        self.btnSaveConfig.setGeometry(QtCore.QRect(14, 10, 41, 41))
         font = QtGui.QFont()
         font.setFamily("Arial")
         font.setPointSize(9)
@@ -1300,19 +1300,22 @@ class Ui_WindowDrawSchemesTwo(object):
         self.btnSaveConfig.setFont(font)
         self.btnSaveConfig.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
         self.btnSaveConfig.setStyleSheet("QPushButton{\n"
-"    background-color: rgba(229,229,234,1);\n"
-"    color: #196dff;\n"
+"    /*background-color: #196dff;*/\n"
+"    background-color:rgba(112, 215, 255, 0);\n"
+"    color: white;\n"
 "    border: none;\n"
 "    border-radius: 12;\n"
 "    border-style: outset;\n"
 "}\n"
 "QPushButton:hover{\n"
-"    background-color: #dceaff; \n"
+"    border-bottom: 3px solid white;\n"
+"    border-radius: 3; \n"
 "}\n"
 "QPushButton:pressed{\n"
-"    color: rgba(25, 109, 255, 0.7); \n"
-"    border-radius: 12;\n"
+"    border-bottom: 0px solid white;\n"
+"    border-radius: 3;\n"
 "}")
+        self.btnSaveConfig.setText("")
         self.btnSaveConfig.setObjectName("btnSaveConfig")
         self.label_4 = QtWidgets.QLabel(self.centralwidget)
         self.label_4.setGeometry(QtCore.QRect(198, 530, 31, 48))
@@ -1550,4 +1553,3 @@ class Ui_WindowDrawSchemesTwo(object):
         self.btnReset.setToolTip(_translate("WindowDrawSchemesTwo", "Добавить MPPT"))
         self.btnReset.setText(_translate("WindowDrawSchemesTwo", "⭯"))
         self.label_3.setText(_translate("WindowDrawSchemesTwo", "Version 1.0"))
-        self.btnSaveConfig.setText(_translate("WindowDrawSchemesTwo", "Save"))

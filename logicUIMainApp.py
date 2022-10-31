@@ -859,25 +859,63 @@ class MainApp(QtWidgets.QMainWindow, designRepPDF.Ui_MainWindow):
     def animate_btn_finished(self, instance):
         del instance
 
+    def show_device_btn(self):
+        x = 843
+        x_other = 897
+        if self.btnDrawScheme.isHidden() or self.btnDrawScheme.y() == 100:
+            y_title = 71
+            y_del = 25
+        else:
+            y_title = 239
+            y_del = 190
+        if self.btnOne.x() == 843:
+            self.label_11.show()
+            self.hide_del_button_device()
+            self.label_11.move(x, y_title)
+            self.btnDelPvsystData.move(x_other, y_del)
+
+    def show_schemes_btn(self):
+        x = 843
+        x_other = 897
+        if self.btnOne.isHidden() or self.btnOne.y() == 183:
+            y_one_title = 71
+            y_two_title = 155
+            y_one_del = 20
+            y_two_del = 103
+            y_one_load = 35
+            y_two_load = 118
+        else:
+            y_one_title = 155
+            y_two_title = 239
+            y_one_del = 103
+            y_two_del = 185
+            y_one_load = 118
+            y_two_load = 200
+        if self.btnDrawScheme.x() == 843:
+            self.label_12.show()
+            self.label_13.show()
+            self.btnLoadScheme1.show()
+            self.btnLoadScheme2.show()
+            self.hide_del_button_schemes()
+            self.label_12.move(x, y_one_title)
+            self.label_13.move(x, y_two_title)
+            self.btnLoadScheme1.move(x_other, y_one_load)
+            self.btnLoadScheme2.move(x_other, y_two_load)
+            self.btnDelSchemeOneData.move(x_other, y_one_del)
+            self.btnDelSchemeTwoData.move(x_other, y_two_del)
+
     def show_and_hide_device_button(self):
         x = 843
         x_other = 897
         inst_btn = QPropertyAnimation(self.btnOne, b"pos")
         if self.btnDrawScheme.isHidden() or self.btnDrawScheme.y() == 100:
             y_one_btn = 16 
-            y_title = 71
-            y_del = 25
         else:
             y_one_btn = 183
-            y_title = 239
-            y_del = 190
 
         if self.btnOne.isHidden(): # Появление
             self.animate_btn(y_one_btn, self.btnOne, inst_btn, True)
-            QTimer.singleShot(900, lambda: self.label_11.show())
-            self.hide_del_button_device()
-            self.label_11.move(x, y_title)
-            self.btnDelPvsystData.move(x_other, y_del)
+            QTimer.singleShot(900, lambda: self.show_device_btn())
         else: # исчезание
             if not self.btnDrawScheme.isHidden(): 
                 self.animate_btn(y_one_btn, self.btnOne, inst_btn)
@@ -904,36 +942,14 @@ class MainApp(QtWidgets.QMainWindow, designRepPDF.Ui_MainWindow):
         if self.btnOne.isHidden() or self.btnOne.y() == 183:
             y_one_btn = 16
             y_two_btn = 100
-            y_one_title = 71
-            y_two_title = 155
-            y_one_del = 20
-            y_two_del = 103
-            y_one_load = 35
-            y_two_load = 118
         else:
             y_one_btn = 100
             y_two_btn = 183
-            y_one_title = 155
-            y_two_title = 239
-            y_one_del = 103
-            y_two_del = 185
-            y_one_load = 118
-            y_two_load = 200
 
         if self.btnDrawScheme.isHidden():
             self.animate_btn(y_one_btn, self.btnDrawScheme, inst_btn_one, True)
             self.animate_btn(y_two_btn, self.btnDrawSchemeTwo, inst_btn_two, True)
-            QTimer.singleShot(900, lambda: self.label_12.show())
-            QTimer.singleShot(900, lambda: self.label_13.show())
-            QTimer.singleShot(900, lambda: self.btnLoadScheme1.show())
-            QTimer.singleShot(900, lambda: self.btnLoadScheme2.show())
-            self.hide_del_button_schemes()
-            self.label_12.move(x, y_one_title)
-            self.label_13.move(x, y_two_title)
-            self.btnLoadScheme1.move(x_other, y_one_load)
-            self.btnLoadScheme2.move(x_other, y_two_load)
-            self.btnDelSchemeOneData.move(x_other, y_one_del)
-            self.btnDelSchemeTwoData.move(x_other, y_two_del)
+            QTimer.singleShot(900, lambda: self.show_schemes_btn())
         else:
             if not self.btnOne.isHidden(): 
                 self.animate_btn(y_one_btn, self.btnDrawScheme, inst_btn_one_del)

@@ -4,6 +4,8 @@ import styles_responce
 import designDrawSchemesTwo
 from PyQt5 import QtWidgets
 from PyQt5.QtCore import QTimer, QThread
+from PyQt5.QtGui import *
+from PyQt5.QtCore import *
 
 class DrawTwo(QThread):
     def __init__(self, params, gost_frame_params):
@@ -38,6 +40,8 @@ class WindowDrawTwo(QtWidgets.QMainWindow, designDrawSchemesTwo.Ui_WindowDrawSch
         self.btnDraw.pressed.connect(self.draw)
         self.spinBox_numInvertor.valueChanged.connect(self.up_down_invertor_selection)
         self.spinBox_numOther.valueChanged.connect(self.up_down_other_device_selection)
+        self.btnSaveConfig.setIcon(QIcon('data/cons/dop/save.png'))
+        self.btnSaveConfig.setIconSize(QSize(30, 30))
         self.set_default_params() 
 
     def reset(self):

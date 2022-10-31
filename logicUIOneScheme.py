@@ -4,6 +4,8 @@ import styles_responce
 from PyQt5 import QtWidgets
 from PyQt5.QtGui import QRegExpValidator
 from PyQt5.QtCore import QThread, QRegExp, QTimer
+from PyQt5.QtGui import *
+from PyQt5.QtCore import *
 
 class DrawOne(QThread):
     def __init__(self, draw_params, gost_frame_params):
@@ -47,8 +49,10 @@ class WindowDraw(QtWidgets.QMainWindow, designDrawSchemes.Ui_WindowDrawSchemes):
         self.checkUse_all_mppt.stateChanged.connect(self.validate_input)
         self.btnReset.clicked.connect(self.reset)
         self.spinBox_numInvertor.valueChanged.connect(self.up_down_invertor_selection)
-        self.spinBox_numDifferentMPPT.valueChanged.connect(self.spin_diff_mppt)
+        self.spinBox_numDifferentMPPT.valueChanged.connect(lambda: self.spin_diff_mppt(False))
         self.btnSaveConfig.clicked.connect(self.save_config)
+        self.btnSaveConfig.setIcon(QIcon('data/cons/dop/save.png'))
+        self.btnSaveConfig.setIconSize(QSize(30, 30))
         self.draw_params = {}
 
     def reset(self):
@@ -99,7 +103,7 @@ class WindowDraw(QtWidgets.QMainWindow, designDrawSchemes.Ui_WindowDrawSchemes):
 
         if invertor['diff_mppt'] == True:
             self.show_and_hide_different_mppt(True) # разные mppt
-            self.spin_diff_mppt()
+            self.spin_diff_mppt(False)
         else:
             for config in config_keys:
                 self.inputSolar_count_on_the_chain.setText(str(invertor[config]['count_pv']))
@@ -251,11 +255,13 @@ class WindowDraw(QtWidgets.QMainWindow, designDrawSchemes.Ui_WindowDrawSchemes):
         self.main_window.w4.up_down_invertor_selection()
         self.statusBar.showMessage(styles_responce.status_ok, 2000)
 
-    def spin_diff_mppt(self):
+    def spin_diff_mppt(self, add_new_mppt):
         invertor = self.invertor_and_config_keys()[0]
         config_keys = self.invertor_and_config_keys()[1]
         self.spinBox_numDifferentMPPT.show()
         self.spinBox_numDifferentMPPT.setMaximum(len(config_keys))
+        if add_new_mppt == True:
+            self.spinBox_numDifferentMPPT.setValue(len(config_keys))
         current_config_index = self.spinBox_numDifferentMPPT.value() - 1
 
         self.inputSolar_count_on_the_chain.setText(str(invertor[config_keys[current_config_index]]['count_pv']))
@@ -263,25 +269,12 @@ class WindowDraw(QtWidgets.QMainWindow, designDrawSchemes.Ui_WindowDrawSchemes):
         self.inputAll_chain.setText(str(invertor[config_keys[current_config_index]]['count_string']))
         self.checkUse_all_mppt.setCheckState(2 if invertor[config_keys[current_config_index]]['use_all_mppt'] == True else 0)
         self.checkUse_y_connector.setCheckState(2 if invertor[config_keys[current_config_index]]['use_y_connector'] == True else 0)
-
-    def spin_diff_mpp_for_add(self):
-        invertor = self.invertor_and_config_keys()[0]
-        config_keys = self.invertor_and_config_keys()[1]
-        self.spinBox_numDifferentMPPT.show()
-        self.spinBox_numDifferentMPPT.setMaximum(len(config_keys))
-        self.spinBox_numDifferentMPPT.setValue(len(config_keys))
-        current_config_index = self.spinBox_numDifferentMPPT.value() - 1
-
-        self.inputSolar_count_on_the_chain.setText(str(invertor[config_keys[current_config_index]]['count_pv']))
-        self.inputCount_mppt.setText(str(invertor[config_keys[current_config_index]]['count_mppt']))
-        self.inputAll_chain.setText(str(invertor[config_keys[current_config_index]]['count_string']))
-        self.checkUse_all_mppt.setCheckState(2 if invertor[config_keys[current_config_index]]['use_all_mppt'] == True else 0)
-        self.checkUse_y_connector.setCheckState(2 if invertor[config_keys[current_config_index]]['use_y_connector'] == True else 0)
+        if len(config_keys) > 1:
+            self.btnDelConfig.show()
 
     def add_mppt(self):
         if self.check_imput_params() != 0:
             return 1
-        
         mppt = int(self.inputCount_mppt.text())
         inputs = int(self.inputCount_input_mppt.text())
         pv = int(self.inputSolar_count_on_the_chain.text())
@@ -300,16 +293,20 @@ class WindowDraw(QtWidgets.QMainWindow, designDrawSchemes.Ui_WindowDrawSchemes):
         invertor[name] = {'count_mppt': mppt, 'count_pv': pv,
                         'count_string': strings, 'use_y_connector': y_connector, 'use_all_mppt': all_mppt}
         invertor['diff_mppt'] = True
-        self.spin_diff_mpp_for_add()
-        if self.spinBox_numDifferentMPPT.value() > 1:
-            self.btnDelConfig.show()
+        self.spin_diff_mppt(True)
 
     def del_mppt(self):
         invertor = self.invertor_and_config_keys()[0]
         config_keys = self.invertor_and_config_keys()[1]
         current_config_index = self.spinBox_numDifferentMPPT.value() - 1
         del invertor[config_keys[current_config_index]]
-        self.spin_diff_mpp_for_add()
+        del config_keys[current_config_index]
+        index = 0
+        for key in config_keys:
+            invertor[f'config_{index}'] = invertor.pop(key)
+            index += 1
+
+        self.spin_diff_mppt(True)
         if self.spinBox_numDifferentMPPT.value() == 1:
             self.show_and_hide_different_mppt(False)
 
@@ -327,7 +324,7 @@ class WindowDraw(QtWidgets.QMainWindow, designDrawSchemes.Ui_WindowDrawSchemes):
 
         for num in range(1, len(config_keys)):
             self.spinBox_numDifferentMPPT.setValue(num)
-            self.spin_diff_mppt()
+            self.spin_diff_mppt(False)
             if self.validate_input() != 0:
                 self.statusBar.showMessage('Неверная конфигурация MPPT', 4000)
                 self.statusBar.setStyleSheet(styles_responce.status_yellow)
