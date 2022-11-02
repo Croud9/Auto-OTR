@@ -35,8 +35,8 @@ def ones():
 
     try:
         serv = ChromeService(chromedriver_autoinstaller.install())
-    except error.URLError:
-        print("Удаленный хост принудительно разорвал существующее подключение'")
+    except Exception:
+        print("Удаленный хост принудительно разорвал существующее подключение")
         return 1
 
     serv.creationflags = CREATE_NO_WINDOW
@@ -51,7 +51,7 @@ def ones():
     except Exception:
         browser.quit()
         print("ИНТЕРНЕТ ЛЁГ")
-        return 1
+        return 2
 
 def search(city):
     global start

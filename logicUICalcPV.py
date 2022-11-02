@@ -8,6 +8,7 @@ import designCalcPV  # Это наш конвертированный файл �
 import pandas as pd
 import gzip
 import search_data
+import validate
 import styles_responce
 from PyQt5.QtCore import QRegExp
 from PyQt5.QtWidgets import *
@@ -55,7 +56,7 @@ class CalcPV(QtWidgets.QMainWindow, designCalcPV.Ui_MainWindow):
         self.setWindowIcon(QtGui.QIcon('Data/icons/solar-panels.png'))
         self.setupUi(self)  # Это нужно для инициализации нашего дизайна
         self.input_data()
-        self.validate()
+        validate.validate_number(self.fields_text)
         self.import_sp()
         self.chng(0)
         self.set_wrap_header_table()
@@ -120,11 +121,6 @@ class CalcPV(QtWidgets.QMainWindow, designCalcPV.Ui_MainWindow):
             self.lineEdit_min.setText(str(row[3]).replace(",", "."))
             self.lineEdit_max.setText(str(row[1]).replace(",", "."))
             self.lineEdit_mintemp.setText(str(row[2]).replace(",", "."))
-
-    def validate(self):
-        reg_ex = QRegExp('^-?(0|[1-9]\d*)(\.[0-9]{1,4})?$')
-        for field in self.fields_text:
-            field.setValidator(QRegExpValidator(reg_ex, field))
 
     def cmbBX(self):
         if self.comboBox_stcnoct.currentText() == "Выберите систему":
@@ -197,14 +193,16 @@ class CalcPV(QtWidgets.QMainWindow, designCalcPV.Ui_MainWindow):
             self.type_pv_modules = sorted(os.listdir(modules_file))
             names_modules = []
             for name in self.type_pv_modules:
-                names_modules.append(name.split(".")[0])
+                names_modules.append(name[:-4])
             self.listPV_file.addItems(names_modules)
+        return names_modules
 
     def pv_load(self):
         current_pv = self.listPV_file.currentText()
         for select_pv in self.type_pv_modules:
             if current_pv in select_pv: 
-                self.found_pv = search_data.search_in_pv(f"{path_to_pv}/{self.select_title_pv}/{select_pv}") 
+                extension = select_pv[-4:] 
+                self.found_pv = search_data.search_in_pv(f"{path_to_pv}/{self.select_title_pv}/{current_pv + extension}") 
                 self.lineEdit_pnom.setText(str(self.found_pv['p_nom_pv'])) #вывод в программу данных из файла
                 self.lineEdit_isc.setText(str(self.found_pv['isc_pv']))
                 self.lineEdit_voc.setText(str(self.found_pv['voc_pv']))

@@ -1,5 +1,6 @@
 import designParsing
 import parsingSelenium
+import validate
 import styles_responce
 import requests, os, re
 from datetime import date
@@ -92,12 +93,10 @@ class WindowParse(QtWidgets.QMainWindow, designParsing.Ui_WindowRP5):
         self.labelLoading.hide()
              
     def checkNet(self):
-        try:
-            response = requests.get("http://www.google.com")
-            # print("response code: ", response.status_code)
+        if validate.internet() == True:
             self.statusBar.setStyleSheet(styles_responce.status_white)
             return 1
-        except requests.ConnectionError:
+        else:
             self.statusBar.showMessage('Нет подключения к интернету', 10000)
             self.statusBar.setStyleSheet(styles_responce.status_red)
             print("Could not connect")
@@ -139,16 +138,15 @@ class WindowParse(QtWidgets.QMainWindow, designParsing.Ui_WindowRP5):
             return 1
 
     def parsing_search(self):
+        if self.check_inCity() == 0:
+            return
         self.btnSearch.setEnabled(False)
         self.opacity(self.btnDwnld_T, False)
         self.opacity(self.btnParse, False)
         self.startAnimation()
         self.btnSearch.setText('Поиск...')
-        if self.check_inCity() == 0:
-            return
         city = self.inputCity.text()
         self.textConsole.clear()
-        # self.textConsole.append("Идет поиск...")
         self.listCity.clear()
         self.statusBar.showMessage('Пожалуйста, подождите...')
         self.statusBar.setStyleSheet(styles_responce.status_yellow)

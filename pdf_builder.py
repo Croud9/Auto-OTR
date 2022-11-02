@@ -187,9 +187,9 @@ class docPDF():
         self.story.append(PageBreak())
         self.story.append(Paragraph("<b>1 Термины и сокращения</b>", self.styleH1))
         self.story.append(Spacer(1, 12))
-        self.story.append(Paragraph("В ОТР приняты следующие сокращения:", self.styleNormal))
+        self.story.append(Paragraph("В ОТР приняты следующие сокращения, представленные в таблице 1:", self.styleNormal))
         self.story.append(Spacer(1, 12))
-
+        self.story.append(Paragraph("Таблица 1 — Термины и сокращения", self.styleNormal))
         table_cut = Table(
         [
         [Paragraph('<b>Сокращение</b>', self.styleNormalTable), Paragraph('<b>Значение</b>', self.styleNormalTable)],
@@ -220,21 +220,21 @@ class docPDF():
         self.story.append(Spacer(1, 170))
         self.story.append(Paragraph("<b>Переделанный опросный лист под отчет</b>", self.styleCenter))
         self.story.append(Spacer(1, 12))
-        img = Image("Data/Images/flat,800x800,075,f.jpg", 3*inch, 3*inch)
+        img = Image("Data/Images/where_layout.jpg", 3*inch, 3*inch)
         self.story.append(img)
         # Вставить готовый опросный лист
 
     # Раздел 3
     def section_3(self, data):
         self.story.append(PageBreak())
-        self.story.append(Paragraph("<b>3	Место размещения объекта</b>", self.styleH1))
+        self.story.append(Paragraph("<b>3 Место размещения объекта</b>", self.styleH1))
         self.story.append(Spacer(1, 12))
         
         if data["block_3_1"] == False:
             self.story.append(Paragraph("<b>3.1	Описание границ участка</b>", self.styleH2))
             self.story.append(Spacer(1, 12))
             # Настроить отступы
-            self.story.append(Paragraph(f"По данным предпроектного обследования и,согласно исходным данным, \
+            self.story.append(Paragraph(f"По данным предпроектного обследования и согласно исходным данным, \
                                     объект – {data['type_object']}, расположенный по адресу: {data['address']} \
                                     Координаты - {data['lati_ui']}, {data['longi_ui']}", self.styleNormal))
             self.story.append(Paragraph("<b>Вручную описать инфраструктуру территории или выписать данные из отчета ППО.</b>", self.styleNormal))
@@ -254,8 +254,8 @@ class docPDF():
             self.story.append(Spacer(1, 12))
             self.story.append(Paragraph(f"{data['climate_info']}", self.styleNormal))
             self.story.append(Paragraph(f"Общая климатическая характеристика площадки строительства (по данным метеостанции № {data['num_weather_station']}, \
-                                    за срок наблюдения с {start_range} по {end_range} данные сайта https://rp5.ru ):", self.styleNormal))
-
+                                    за срок наблюдения с {start_range} по {end_range} данные сайта https://rp5.ru ) представлена в таблице 3.1", self.styleNormal))
+            self.story.append(Paragraph("Таблица 3.1 - Общая климатическая характеристика площадки строительства", self.styleNormal))
             self.story.append(Spacer(1, 12))
             table_rp5 = Table(
             [
@@ -290,19 +290,19 @@ class docPDF():
             self.story.append(Spacer(1, 20))
             self.story.append(Paragraph("<b>Нет шаблона</b>", self.styleCenter))
             self.story.append(Spacer(1, 12))
-            img = Image("Data/Images/flat,800x800,075,f.jpg", 3*inch, 3*inch)
+            img = Image("Data/Images/where_layout.jpg", 3*inch, 3*inch)
             self.story.append(img)
 
             self.story.append(Spacer(1, 24))
         if data["block_3_4"] == False:
-            self.story.append(Paragraph("<b>3.4	 Точка подключения объекта</b>", self.styleH2))
+            self.story.append(Paragraph("<b>3.4 Точка подключения объекта</b>", self.styleH2))
             self.story.append(Spacer(1, 12))
             # Настроить отступы
             self.story.append(Paragraph(f'Подключение инверторов производится в существующую сеть объекта на напряжение {data["u_dot_in"]} кВ согласно схеме присоединения:', self.styleNormal))
             self.story.append(Spacer(1, 12))
-            self.story.append(Paragraph("Удаленность инверторов от соответствующих точек присоединения представлено в таблице ниже:", self.styleNormal))
-
+            self.story.append(Paragraph("Удаленность инверторов от соответствующих точек присоединения представлено в таблице 3.2:", self.styleNormal))
             self.story.append(Spacer(1, 12))
+            self.story.append(Paragraph("Таблица 3.2 - Удаленность инверторов от соответствующих точек присоединения", self.styleNormal))
             table_invertor = Table(
             [
             [Paragraph('<b>Инвертор</b>', self.styleNormalTable), Paragraph('<b>Расстояние до точки подключения, м</b>', self.styleNormalTable)],
@@ -325,16 +325,31 @@ class docPDF():
         self.story.append(Spacer(1, 170))
         self.story.append(Paragraph("<b>Нет шаблона</b>", self.styleCenter))
         self.story.append(Spacer(1, 12))
-        img = Image("Data/Images/flat,800x800,075,f.jpg", 3*inch, 3*inch)
+        img = Image("Data/Images/where_layout.jpg", 3*inch, 3*inch)
         self.story.append(img)
 
     # Раздел 5
     def section_5(self, data):
+        phases = []
+        modules = []
+        num_table = 0
+        all_strings = 0 
+
+        for invertor, params in data['invertors'].items():
+            for key in params.keys():
+                if 'config' in key:
+                    all_strings += int(params[key]['count_string'])
+            phases.append(params["phase"])
+            modules.append(params["module"])
+        phases = ', '.join(str(v) for v in phases)
+        modules = ', '.join(str(v) for v in modules)
+
         self.story.append(PageBreak())
         self.story.append(Paragraph("<b>5 Основные параметры СЭС</b>", self.styleH1))
         self.story.append(Spacer(1, 12))
         
         if data["block_5_1"] == False:
+
             self.story.append(Paragraph("<b>5.1 Назначение и состав СЭС</b>", self.styleH2))
             self.story.append(Spacer(1, 12))
             self.story.append(Paragraph(f"Назначение СЭС – выработка электрической энергии путем фотоэлектрического преобразования \
@@ -351,12 +366,13 @@ class docPDF():
                                     Инвертор подключен кабелем переменного тока к ячейке {data['u_dot_in']} кВ;", self.styleNormal))
             self.story.append(Paragraph("<bullet>&bull;</bullet> оборудования для мониторинга выработки мощности;", self.styleNormal))
             self.story.append(Spacer(1, 12))
-            self.story.append(Paragraph(f"Массив ФЭМ состоит из <b>????</b> цепочек, собранных суммарно из {data['nb_PV']} ФЭМ. \
+            self.story.append(Paragraph(f"Массив ФЭМ состоит из {all_strings} цепочек, собранных суммарно из {data['nb_PV']} ФЭМ. \
                                     Цепочки подключаются к инвертору солнечным кабелем постоянного тока, \
                                     изоляция которого обладает повышенной стойкостью к воздействию ультрафиолета.", self.styleNormal))
             self.story.append(Paragraph("Информацию о работе системы и её состоянии обслуживающий персонал получает с помощью облачного сервиса.", self.styleNormal))
             self.story.append(Paragraph("Основные технико-экономические параметры работы СЭС представлены в таблице 5.1.", self.styleNormal))
-            self.story.append(Paragraph("Таблица 5.1 — Основные технологические характеристики СЭС", self.styleNormal))
+            num_table += 1
+            self.story.append(Paragraph(f"Таблица 5.{num_table} - Основные технологические характеристики СЭС", self.styleNormal))
 
             ses_params = [
             [Paragraph('<b>Наименование показателя</b>', self.styleNormalTable), Paragraph('<b>Единица измерения</b>', self.styleNormalTable), Paragraph('<b>Величина</b>', self.styleNormalTable)],
@@ -423,19 +439,20 @@ class docPDF():
             self.story.append(Paragraph("ФЭМ закрепляются на специальные несущие конструкции, заземляются и выставляются на определенные расчетом углы работы. \
                                     Данное закрепление позволяет выдерживать ветровые и снеговые нагрузки, \
                                     действующие на массив ФЭМ в течении всего срока эксплуатации станции. ", self.styleNormal))
-            self.story.append(Paragraph("Основные технические характеристики панелей ФЭМ представлены в таблице 5.2.", self.styleNormal))
+            self.story.append(Paragraph("Основные технические характеристики панелей ФЭМ представлены в таблице 5.3", self.styleNormal))
             
             if data['calcPV'] != {}:
+                num_table += 1
                 calcPV = data['calcPV']
-                self.story.append(Paragraph("Таблица 5.1 — Напряжения фотоэлектрических модулей", self.styleNormal))
+                self.story.append(Paragraph(f"Таблица 5.{num_table} — Напряжения фотоэлектрических модулей", self.styleNormal))
                 table_fem = [
-                ['', Paragraph('<b>STC</b>', self.styleNormalTable),'','', Paragraph('<b>NOCT</b>', self.styleNormalTable)],
-                ['', Paragraph('Расч. Мин', self.styleNormalTable), Paragraph('Абс.мин', self.styleNormalTable), Paragraph('Мин 0.98', self.styleNormalTable),
-                            Paragraph('Расч. Мин', self.styleNormalTable), Paragraph('Абс.мин', self.styleNormalTable), Paragraph('Мин 0.98', self.styleNormalTable)],
-                [Paragraph('Число ФЭМ в цепочке', self.styleNormalTable), Paragraph(f"{calcPV['temperature'][0]}", self.styleNormalTable), 
-                            Paragraph(f"{calcPV['temperature'][1]}", self.styleNormalTable), Paragraph(f"{calcPV['temperature'][2]}", self.styleNormalTable),
-                            Paragraph(f"{calcPV['temperature'][0]}", self.styleNormalTable), Paragraph(f"{calcPV['temperature'][1]}", self.styleNormalTable), 
-                            Paragraph(f"{calcPV['temperature'][2]}", self.styleNormalTable)],
+                ['', Paragraph('<b>Напряжение, В STC</b>', self.styleNormalTable),'','', Paragraph('<b>Напряжение, В NOCT</b>', self.styleNormalTable)],
+                ['', Paragraph('Расч. мин.', self.styleNormalTable), Paragraph('Абс. мин.', self.styleNormalTable), Paragraph('Мин. 0.98', self.styleNormalTable),
+                            Paragraph('Расч. мин.', self.styleNormalTable), Paragraph('Абс. мин.', self.styleNormalTable), Paragraph('Мин. 0.98', self.styleNormalTable)],
+                [Paragraph('Число ФЭМ в цепочке', self.styleNormalTable), Paragraph(f"{calcPV['temperature'][0]} °С", self.styleNormalTable), 
+                            Paragraph(f"{calcPV['temperature'][1]} °С", self.styleNormalTable), Paragraph(f"{calcPV['temperature'][2]} °С", self.styleNormalTable),
+                            Paragraph(f"{calcPV['temperature'][0]} °С", self.styleNormalTable), Paragraph(f"{calcPV['temperature'][1]} °С", self.styleNormalTable), 
+                            Paragraph(f"{calcPV['temperature'][2]} °С", self.styleNormalTable)],
                 [Paragraph(f"{calcPV['countPV'][0]}", self.styleNormalTable), 
                             Paragraph(f"{calcPV['stc_U1'][0][0]}", self.styleNormalTable), Paragraph(f"{calcPV['stc_U1'][0][1]}", self.styleNormalTable), Paragraph(f"{calcPV['stc_U1'][0][2]}", self.styleNormalTable),
                             Paragraph(f"{calcPV['noct_U1'][0][0]}", self.styleNormalTable), Paragraph(f"{calcPV['noct_U1'][0][1]}", self.styleNormalTable), Paragraph(f"{calcPV['noct_U1'][0][2]}", self.styleNormalTable)],
@@ -483,9 +500,10 @@ class docPDF():
                 self.story.append(Paragraph(f"На основании расчетов выбрано {calcPV['countPV'][0]} ФЭМ", self.styleNormal))
                 self.story.append(Spacer(1, 12))
 
-            self.story.append(Paragraph("Таблица 5.2 — Технические характеристики фотоэлектрических модулей", self.styleNormal))
-            
             for k, pv in data['pvs'].items():
+                num_table += 1
+                self.story.append(Spacer(1, 12))
+                self.story.append(Paragraph(f"Таблица 5.{num_table} - Технические характеристики фотоэлектрических модулей", self.styleNormal))
                 table_fem_params = Table(
                 [
                 [Paragraph('<b>Наименование показателя</b>', self.styleNormalTable), Paragraph('<b>Единица измерения</b>', self.styleNormalTable), Paragraph(f"<b>{pv['module_pv']}</b>", self.styleNormalTable)],
@@ -504,7 +522,6 @@ class docPDF():
                 ('BOX', (0,0), (-1,-1), 0.25, colors.black),
                 ]))
                 self.story.append(table_fem_params)
-                self.story.append(Spacer(1, 12))
                 # table_other_params = Table(other_params, colWidths=[None, 1.2*inch, 1.2*inch], style = [('ALIGN',(1,1),(-1,-1),'CENTRE'),
                 # ('INNERGRID', (0,0), (-1,-1), 0.25, colors.black),
                 # ('BOX', (0,0), (-1,-1), 0.25, colors.black),
@@ -533,32 +550,32 @@ class docPDF():
                 self.story.append(Paragraph("Масса пригрузов в удельном эквиваленте (кг/м2) определяется результатом расчета отрывающей нагрузки \
                                         на конструкцию после проведения предпроектного обследования кровли и здания. ", self.styleNormal))
                 self.story.append(Paragraph("Угол наклона ФЭМ на кровле здания принимается таким, чтобы обеспечить максимальную выработку электроэнергии.", self.styleNormal))
-                self.story.append(Paragraph("Примерный вид опорных конструкций показан на рисунке __.", self.styleNormal))
+                self.story.append(Paragraph("Примерный вид опорных конструкций показан на рисунке 1.", self.styleNormal))
                 img = Image(path_to_image + "Кровля/плоская/Балласт З-В.jpg", 6*inch, 3*inch)
                 self.story.append(img)
                 self.story.append(Spacer(1, 12))
-                self.story.append(Paragraph("Рисунок __ - Опорные конструкции.", self.styleCenter))
+                self.story.append(Paragraph("Рисунок 1 - Опорные конструкции.", self.styleCenter))
             elif data["roof"] == 2:
                 #2 скатная
                 self.story.append(Paragraph("Крепление ФЭМ к кровле осуществляется посредством типовых металлоконструкций \
                                         с проникновением в несущие элементы кровли здания. Герметичность кровли не нарушается. ", self.styleNormal))
                 self.story.append(Paragraph("Угол наклона и ориентация ФЭМ принимается по углу и ориентации ската кровли.", self.styleNormal))
-                self.story.append(Paragraph("Примерный вид опорных конструкций показан на рисунке __.", self.styleNormal))
+                self.story.append(Paragraph("Примерный вид опорных конструкций показан на рисунке 1.", self.styleNormal))
                 img = Image(path_to_image + "Кровля/скатная/черепица.jpg", 6*inch, 3*inch)
                 self.story.append(img)
                 self.story.append(Spacer(1, 12))
-                self.story.append(Paragraph("Рисунок __ - Опорные конструкции.", self.styleCenter))
+                self.story.append(Paragraph("Рисунок 1 - Опорные конструкции.", self.styleCenter))
             elif data["roof"] == 3:
                 #3 фикс
                 self.story.append(Paragraph("ФЭМ устанавливаются на опорные столы в конфигурации __х__ (__ ряда по __модулей в ряду), \
                                         сориентированных по сторонам света на юг. Опорный стол состоит из стальных свай и набора \
                                         алюминиевого профиля с метизами для крепления ФЭМ. ", self.styleNormal))
-                self.story.append(Paragraph("Примерный вид опорных конструкций показан на рисунке __.", self.styleNormal))
+                self.story.append(Paragraph("Примерный вид опорных конструкций показан на рисунке 1.", self.styleNormal))
                 img = Image(path_to_image + "Кровля/фиксы/Чертеж фикс 4 ряда.png", 3*inch, 4*inch)
                 self.story.append(img)
                 img = Image(path_to_image + "Кровля/фиксы/Вид фикс 4 ряда.png", 5*inch, 3*inch)
                 self.story.append(img)
-                self.story.append(Paragraph("Рисунок __ - Опорные конструкции.", self.styleCenter))
+                self.story.append(Paragraph("Рисунок 1 - Опорные конструкции.", self.styleCenter))
                 self.story.append(Spacer(1, 12))
                 self.story.append(Paragraph("На объекте предусматривается установка __ опорных конструкций. Шаг между двумя опорными \
                                         конструкциями в направлении север-юг (питч) составляет __ м.", self.styleNormal))
@@ -568,15 +585,6 @@ class docPDF():
                                         до нижней кромки ОК ФЭМ – __ мм.", self.styleNormal))
             
         if data["block_5_1_3"] == False:
-            phases = []
-            modules = []
-
-            for invertor, params in data['invertors'].items():
-                phases.append(params["phase"])
-                modules.append(params["module"])
-            phases = ', '.join(str(v) for v in phases)
-            modules = ', '.join(str(v) for v in modules)
-
             self.story.append(PageBreak())
             self.story.append(Paragraph("<b>5.1.3 Инверторное оборудование</b>", self.styleH2))
             self.story.append(Spacer(1, 12))
@@ -584,13 +592,14 @@ class docPDF():
                                     в переменное {phases}-х фазное напряжение, использованы инверторы. Для преобразования постоянного тока \
                                     в переменный к установке приняты инверторы {modules}.", self.styleNormal))
             self.story.append(Paragraph("Схемы объединения ФЭМ в цепочки и подключение к инвертору представлены на чертежах ___.", self.styleNormal))
-            img = Image(path_to_image + "Инверторы/Sungrow_Invertor.png", 5*inch, 4*inch)
-            self.story.append(img)
-            self.story.append(Paragraph("Рисунок __ – Внешний вид инвертора", self.styleCenter))
-            self.story.append(Spacer(1, 12))
-            self.story.append(Paragraph("Таблица __  – Параметры инверторов", self.styleNormal))
+            # img = Image(path_to_image + "Инверторы/Sungrow_Invertor.png", 5*inch, 4*inch)
+            # self.story.append(img)
+            # self.story.append(Paragraph("Рисунок __ – Внешний вид инвертора", self.styleCenter))
 
             for key, invertor in data['invertors'].items():
+                num_table += 1
+                self.story.append(Spacer(1, 12))
+                self.story.append(Paragraph(f"Таблица 5.{num_table} - Параметры инверторов", self.styleNormal))
                 table_invertor_params = Table(
                 [
                 [Paragraph('<b>Характеристики</b>', self.styleNormalTable), Paragraph(f'<b>Инвертор {invertor["module"]}</b>', self.styleNormalTable)],
@@ -602,7 +611,7 @@ class docPDF():
                                         {invertor["p_lim"]} кВА <br/> \
                                         {invertor["p_lim_abs"]} кВА', self.styleNormalTable)],
                 [Paragraph('Диапазон выходного напряжения переменного тока', self.styleNormalTable), Paragraph(f'{invertor["phase"]} ф., {invertor["v_out"]} В', self.styleNormalTable)],
-                [Paragraph('Максимальный выходной ток', self.styleNormalTable), Paragraph(f'≤ {invertor["i_out_max"]} В', self.styleNormalTable)],
+                [Paragraph('Максимальный выходной ток', self.styleNormalTable), Paragraph(f'≤ {invertor["i_out_max"]} А', self.styleNormalTable)],
                 [Paragraph('Максимальный КПД преобразования', self.styleNormalTable), Paragraph(f'{invertor["kpd_max"]}%', self.styleNormalTable)],
                 [Paragraph('Европейский показатель КПД', self.styleNormalTable), Paragraph(f'{invertor["kpd_euro"]}%', self.styleNormalTable)],
                 [Paragraph('Диапазон выходной частоты', self.styleNormalTable), Paragraph('55 – 65 Гц', self.styleNormalTable)],
@@ -625,18 +634,18 @@ class docPDF():
                 ('BOX', (0,0), (-1,-1), 0.25, colors.black),
                 ]))
                 self.story.append(table_invertor_params)
-                self.story.append(Spacer(1, 12))
             
         if data["block_5_1_4"] == False:
             self.story.append(PageBreak())
             self.story.append(Paragraph("<b>5.1.4 Другое силовое оборудование</b>", self.styleH2))
-            self.story.append(Spacer(1, 12))
-            self.story.append(Paragraph("Характеристики КТП представлены в таблице №__:", self.styleNormal))
-            self.story.append(Paragraph("Таблица №__", self.styleNormal))
+            # self.story.append(Paragraph("Характеристики КТП представлены в таблице №__:", self.styleNormal))
             
             if len(list(data['others'].values())[0]) != 0:
                 for num_device, params_device in data['others'].items():
+                    num_table += 1
                     type_device = list(params_device['table_data'].values())[0]
+                    self.story.append(Spacer(1, 12))
+                    self.story.append(Paragraph(f"Таблица 5.{num_table} - Параметры {type_device}", self.styleNormal))
                     name_device = list(params_device['table_data'].values())[1]
                     other_params = [[Paragraph(f'<b>{type_device}</b>', self.styleNormalTable), Paragraph(f'<b>{name_device}</b>', self.styleNormalTable)],]
                     key_type_device = list(params_device['table_data'].keys())[0]
@@ -671,16 +680,27 @@ class docPDF():
             self.story.append(Paragraph("<b>5.3 Электротехнические решения</b>", self.styleH2))
             self.story.append(Spacer(1, 12))
             self.story.append(Paragraph("Размещение панелей ФЭМ предусматривается на опорных конструкциях. ", self.styleNormal))
-            self.story.append(Paragraph("Для земных СЭС – закрепление металлоконструкций предусматривается при помощи стоек, погружаемых в грунт.", self.styleNormal))
-            self.story.append(Paragraph("Для крышных СЭС без проникновения в кровлю – установка ФЭМ осуществляется при помощи типовых металлоконструкций \
-                                    без крепления к поверхности кровли, с применением пригруза (ж/б плит или аналогичного материала, \
-                                    не подверженного длительному разрушению от воздействия климатических факторов окружающей среды). \
-                                    Масса пригруза – (определить проектом) кг. на один ФЭМ.", self.styleNormal))
-            self.story.append(Paragraph("Для крышных СЭС с проникновения в кровлю – установка ФЭМ осуществляется при помощи типовых металлоконструкций \
-                                    с крепления к поверхности кровли или металлоконструкций здания.", self.styleNormal))
-            self.story.append(Paragraph("Для преобразования постоянного тока от массива ФЭМ в переменный, предусматривается установка инвертора/-ов (название инверторов).\
+            if data["roof"] == 1: #1 плоская
+                self.story.append(Paragraph("Установка ФЭМ осуществляется при помощи типовых металлоконструкций \
+                                        без крепления к поверхности кровли, с применением пригруза (ж/б плит или аналогичного материала, \
+                                        не подверженного длительному разрушению от воздействия климатических факторов окружающей среды). \
+                                        Масса пригруза – (определить проектом) кг. на один ФЭМ.", self.styleNormal))
+            elif data["roof"] == 2: #2 скатная
+                self.story.append(Paragraph("Установка ФЭМ осуществляется при помощи типовых металлоконструкций \
+                                        с крепления к поверхности кровли или металлоконструкций здания.", self.styleNormal))
+            elif data["roof"] == 3: #3 фикс
+                self.story.append(Paragraph("Закрепление металлоконструкций предусматривается при помощи стоек, погружаемых в грунт.", self.styleNormal))
+            
+            if len(modules) == 1:
+                titles_invertors = f"инвертора {modules}"
+            elif len(modules) > 1: 
+                titles_invertors = f"инверторов {modules}"
+            else:
+                titles_invertors = "инверторов Н/Д"
+
+            self.story.append(Paragraph(f"Для преобразования постоянного тока от массива ФЭМ в переменный, предусматривается установка {titles_invertors}.\
                                     Распределение панелей ФЭМ по инверторам представлена в таблице (номер таблицы). Выдача мощности с инверторов выполняется \
-                                    на напряжение 0,4/6/10/35 кВ (выбрать нужное) на секции шин (указать), шкаф/щит (указать),\
+                                    на напряжение {data['u_dot_in']} кВ на секции шин (указать), шкаф/щит (указать),\
                                     сущ./новый автоматический выключатель/ячейку (указать).", self.styleNormal))
 
         if data["block_5_4"] == False:
@@ -719,7 +739,7 @@ class docPDF():
             self.story.append(Spacer(1, 170))
             self.story.append(Paragraph("<b>Нет шаблона</b>", self.styleCenter))
             self.story.append(Spacer(1, 12))
-            img = Image("Data/Images/flat,800x800,075,f.jpg", 3*inch, 3*inch)
+            img = Image("Data/Images/where_layout.jpg", 3*inch, 3*inch)
             self.story.append(img)
             
         if data["block_5_6"] == False:
@@ -728,7 +748,7 @@ class docPDF():
             self.story.append(Spacer(1, 170))
             self.story.append(Paragraph("<b>Нет шаблона</b>", self.styleCenter))
             self.story.append(Spacer(1, 12))
-            img = Image("Data/Images/flat,800x800,075,f.jpg", 3*inch, 3*inch)
+            img = Image("Data/Images/where_layout.jpg", 3*inch, 3*inch)
             self.story.append(img)
 
     # Раздел 6
@@ -894,49 +914,54 @@ class docPDF():
             self.story.append(Spacer(1, 12))
             if data["path_to_pvsyst"] != " ":
                 patch_imgs_pvsyst = "Data/Images/PVsyst"
+                numbers_pages = []
                 img_files_pvsyst = [f for f in os.listdir(patch_imgs_pvsyst) if os.path.isfile(os.path.join(patch_imgs_pvsyst, f))]
-                for i in range(len(img_files_pvsyst)):
-                    i += 1
-                    fname = open(f"Data/Images/PVsyst/page-{i}.png", 'rb')
+                for page in img_files_pvsyst:
+                    numbers_pages.append(int(page.split('.')[0].split('-')[1]))
+                numbers_pages.sort()    
+                for num_page in numbers_pages:
+                    fname = open(f"Data/Images/PVsyst/page-{num_page}.png", 'rb')
                     img = Image(fname, 6*inch, 9*inch)
                     self.story.append(img)
                     self.images_pvsyst.append(fname)
-                    if i != len(img_files_pvsyst):
+                    if num_page != numbers_pages[-1]:
                         self.story.append(PageBreak())
                     else:
                         break
                 
-        if data["block_8_2"] == False:
-            self.story.append(PageBreak())
-            self.story.append(Paragraph("<b>8.2 Структурная схема</b>", self.styleNormal))
-            self.story.append(Spacer(1, 12))
-            # img = Image("Data/Images/1.png", 8*inch, 5*inch)
-            # self.story.append(img)
+        # if data["block_8_2"] == False:
+        #     self.story.append(PageBreak())
+        #     self.story.append(Paragraph("<b>8.2 Структурная схема</b>", self.styleNormal))
+        #     self.story.append(Spacer(1, 12))
+        #     self.story.append(Paragraph("<b>Нет шаблона</b>", self.styleCenter))
+        #     self.story.append(Spacer(1, 12))
+        #     img = Image("Data/Images/where_layout.jpg", 3*inch, 3*inch)
+        #     self.story.append(img)
 
-        if data["block_8_3"] == False:
-            self.story.append(PageBreak())
-            self.story.append(Paragraph("<b>8.3 Схема электрическая принципиальная</b>", self.styleNormal))
-            self.story.append(Spacer(1, 12))
-            # img = Image("Data/Images/2.png", 6*inch, 9*inch)
-            # self.story.append(img)
+        # if data["block_8_3"] == False:
+        #     self.story.append(PageBreak())
+        #     self.story.append(Paragraph("<b>8.3 Схема электрическая принципиальная</b>", self.styleNormal))
+        #     self.story.append(Spacer(1, 12))
+        #     # img = Image("Data/Images/2.png", 6*inch, 9*inch)
+        #     # self.story.append(img)
             
-        if data["block_8_4"] == False:
-            self.story.append(PageBreak())
-            self.story.append(Paragraph("<b>8.4 Схема постоянного тока</b>", self.styleNormal))
-            self.story.append(Spacer(1, 170))
-            self.story.append(Paragraph("<b>Нет шаблона</b>", self.styleCenter))
-            self.story.append(Spacer(1, 12))
-            img = Image("Data/Images/flat,800x800,075,f.jpg", 3*inch, 3*inch)
-            self.story.append(img)
+        # if data["block_8_4"] == False:
+        #     self.story.append(PageBreak())
+        #     self.story.append(Paragraph("<b>8.4 Схема постоянного тока</b>", self.styleNormal))
+        #     self.story.append(Spacer(1, 170))
+        #     # self.story.append(Paragraph("<b>Нет шаблона</b>", self.styleCenter))
+        #     # self.story.append(Spacer(1, 12))
+        #     # img = Image("Data/Images/where_layout.jpg", 3*inch, 3*inch)
+        #     # self.story.append(img)
 
-        if data["block_8_5"] == False:
-            self.story.append(PageBreak())
-            self.story.append(Paragraph("<b>8.5 План размещения</b>", self.styleNormal))
-            self.story.append(Spacer(1, 170))
-            self.story.append(Paragraph("<b>Нет шаблона</b>", self.styleCenter))
-            self.story.append(Spacer(1, 12))
-            img = Image("Data/Images/flat,800x800,075,f.jpg", 3*inch, 3*inch)
-            self.story.append(img)
+        # if data["block_8_5"] == False:
+        #     self.story.append(PageBreak())
+        #     self.story.append(Paragraph("<b>8.5 План размещения</b>", self.styleNormal))
+        #     self.story.append(Spacer(1, 170))
+        #     self.story.append(Paragraph("<b>Нет шаблона</b>", self.styleCenter))
+        #     self.story.append(Spacer(1, 12))
+        #     img = Image("Data/Images/where_layout.jpg", 3*inch, 3*inch)
+        #     self.story.append(img)
 
         if data["block_8_6"] == False:
             self.story.append(PageBreak())
@@ -944,7 +969,7 @@ class docPDF():
             self.story.append(Spacer(1, 170))
             self.story.append(Paragraph("<b>Нет шаблона</b>", self.styleCenter))
             self.story.append(Spacer(1, 12))
-            img = Image("Data/Images/flat,800x800,075,f.jpg", 3*inch, 3*inch)
+            img = Image("Data/Images/where_layout.jpg", 3*inch, 3*inch)
             self.story.append(img)
     
     def build(self, **data):

@@ -2,9 +2,8 @@ import schemdraw
 import schemdraw.elements as elm
 import gost_frame
 import encode_file
-from svglib.svglib import svg2rlg
-from reportlab.graphics import renderPDF
-from fontTools.ttLib import TTFont
+import os 
+from os.path import isfile, join
 
 def generate_frame(slr, names, bot_line_invertor, three_phase, five_line, len_title):
     offset_r_side_txt = 0.4
@@ -683,8 +682,14 @@ def draw(data, i, gost_frame_params):
     number_mppt = 0
     num = 0
 
+    fp_invertor = 'Data/Schemes/Invertor/'
+    files_in_invertor = [f for f in os.listdir(fp_invertor) if isfile(join(fp_invertor, f))]
+    if len(files_in_invertor) != 0:
+        for file in files_in_invertor:
+            os.remove(fp_invertor + f"/{file}")  
+
     schemdraw.config(fontsize = 10)
-    with schemdraw.Drawing(file=f'Data/Schemes/invertor{i}.svg', show=False, scale = 0.5, lw = 0.7, font = 'sans-serif') as slr:
+    with schemdraw.Drawing(file=f'Data/Schemes/Invertor/invertor{i}.svg', show=False, scale = 0.5, lw = 0.7, font = 'sans-serif') as slr:
 
         fem_offset = 0 # начало чертежа
         
@@ -728,7 +733,7 @@ def draw(data, i, gost_frame_params):
         print("Чертеж построен")
         print("Всего цепочек:", two_num)
 
-    srcfile = f'Data/Schemes/invertor{i}.svg'
-    trgfile = f'Data/Schemes/invertor{i}_codec.svg'
+    srcfile = f'Data/Schemes/Invertor/invertor{i}.svg'
+    trgfile = f'Data/Schemes/Invertor/invertor{i}_codec.svg'
     encode_file.to_utf8(srcfile, trgfile)
     return {'error': fem_plus_chain['error'], 'chains': two_num, 'modules': fem_plus_chain['all_modules']}

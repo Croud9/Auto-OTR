@@ -74,8 +74,9 @@ class СonvertFiles(QThread):
             for filename in all_files:
                 with fitz.open(filename) as doc:  
                     for page in doc:  # iterate through the pages
-                        pix = page.get_pixmap(matrix=mat)  # render page to an image #matrix=mat
-                        pix.save(f"Data/Images/PVsyst/page-{page.number + 1}.png")  # store image as a PNG  
+                        if page.number != 0:
+                            pix = page.get_pixmap(matrix=mat)  # render page to an image #matrix=mat
+                            pix.save(f"Data/Images/PVsyst/page-{page.number + 1}.png")  # store image as a PNG  
 
 class MainApp(QtWidgets.QMainWindow, designRepPDF.Ui_MainWindow):
     def __init__(self):
@@ -84,6 +85,7 @@ class MainApp(QtWidgets.QMainWindow, designRepPDF.Ui_MainWindow):
         self.setupUi(self)  # Это нужно для инициализации нашего дизайна
         self.hide()
         self.input_data()
+        validate.validate_number(self.fields_text)
         self.internet_on()
         self.btnWifi.clicked.connect(self.internet_on)
         self.btnKTPTemplate.clicked.connect(self.ktp_pattern)
@@ -109,7 +111,6 @@ class MainApp(QtWidgets.QMainWindow, designRepPDF.Ui_MainWindow):
         self.btnSlideMenuKTP.clicked.connect(self.slide_menu_ktp)
         self.btnLoadScheme1.clicked.connect(self.load_scheme_one)
         self.btnLoadScheme2.clicked.connect(self.load_scheme_two)
-        # self.btnForm.hover.connect(self.validation)
         self.btnAddKTPParams.clicked.connect(self.ktp_generate_file)
         self.listRoof.activated.connect(self.roof_select)
         self.listInvertor_folder.activated.connect(self.invertor_select)
@@ -133,9 +134,6 @@ class MainApp(QtWidgets.QMainWindow, designRepPDF.Ui_MainWindow):
         self.spinBox_numInvertor.valueChanged.connect(self.up_down_invertor_selection)
         self.spinBox_numPV.valueChanged.connect(self.up_down_pv_selection)
         self.spinBox_numKTP.valueChanged.connect(self.up_down_other_selection)
-
-        self.movie = QMovie('data/cons/loading_gif250trans.gif')
-        self.labelLoading.setMovie(self.movie)
 
     def startAnimation(self):
         self.movie.start()
@@ -282,6 +280,9 @@ class MainApp(QtWidgets.QMainWindow, designRepPDF.Ui_MainWindow):
         self.listKTP_folder.addItem("Выберите")
         company_ktp = sorted(os.listdir(path_to_ktp))
         self.listKTP_folder.addItems(company_ktp)
+        self.movie = QMovie('data/cons/loading_gif250trans.gif')
+        self.labelLoading.setMovie(self.movie)
+        self.fields_text = [self.inputUDotIn, self.inputAddressLat, self.inputAddressLong]
 
     def open_result_doc(self):
         os.startfile("Data\Report\Auto-OTR.pdf")
@@ -348,13 +349,12 @@ class MainApp(QtWidgets.QMainWindow, designRepPDF.Ui_MainWindow):
         self.statusBar.showMessage('Браузер закрывается, пожалуйста, подождите...')
         self.statusBar.setStyleSheet(styles_responce.status_yellow)
         QtWidgets.QApplication.processEvents()
-        # Выполнение загрузки в новом потоке.
-        self.parser_close = logicUIParse.Parsing(0, 0, "close")
-        self.parser_close.finished.connect(self.closeFinished)
         del self.w2
         del self.w3
         del self.w4
         del self.w5 
+        self.parser_close = logicUIParse.Parsing(0, 0, "close")
+        self.parser_close.finished.connect(self.closeFinished)
         self.parser_close.start()     
 
     def coordinate_by_address(self):
@@ -794,10 +794,20 @@ class MainApp(QtWidgets.QMainWindow, designRepPDF.Ui_MainWindow):
             self.checkBox_8_4.setCheckState(0)
             self.checkBox_8_5.setCheckState(0)
             self.checkBox_8_6.setCheckState(0)
-        
+
+    def check_open_parse_window(self):
+        if (self.browser_status == None or self.browser_status > 0) and self.w2.isHidden():
+            print("Проверка связи")
+            self.statusBar.showMessage('Браузер не может запуститься, возможно проблема в слабом интернет соединении')
+            self.statusBar.setStyleSheet(styles_responce.status_red)
+            QTimer.singleShot(4000, lambda: self.statusBar.setStyleSheet(styles_responce.status_white))
+            self.stopAnimation()
+            # del self.parser_open
+            self.btnRP5.setEnabled(True)
+
     def show_window_parse(self):  # открытие окна погоды
         QtWidgets.QApplication.processEvents()
-        if self.browser_status == None:
+        if self.browser_status == None or self.browser_status > 0:
             if self.internet_on() == False:
                 return
             # self.btnRP5
@@ -807,6 +817,7 @@ class MainApp(QtWidgets.QMainWindow, designRepPDF.Ui_MainWindow):
             self.statusBar.showMessage('Идет первоначальный запуск браузера, пожалуйста, подождите...')
             self.statusBar.setStyleSheet(styles_responce.status_yellow)
             self.parser_open = logicUIParse.Parsing(0, 0, "open")
+            QTimer.singleShot(30000, lambda: self.check_open_parse_window())
             self.parser_open.finished.connect(self.showParserFinished)
             self.parser_open.start()
         elif self.w2.isHidden():
@@ -1008,7 +1019,8 @@ class MainApp(QtWidgets.QMainWindow, designRepPDF.Ui_MainWindow):
         current_invertor = self.listInvertor_file.currentText()
         for select_invertor in self.type_modules:
             if current_invertor in select_invertor: 
-                self.invertors[f'found_invertor_{self.spinBox_numInvertor.value() - 1}'] = search_data.search_in_invertor(f"{path_to_invertors}/{self.select_title_invertor}/{select_invertor}") 
+                extension = select_invertor[-4:]
+                self.invertors[f'found_invertor_{self.spinBox_numInvertor.value() - 1}'] = search_data.search_in_invertor(f"{path_to_invertors}/{self.select_title_invertor}/{current_invertor + extension}") 
                 current = self.invertors[f'found_invertor_{self.spinBox_numInvertor.value() - 1}']
                 if current['broken_file'] == True:
                     self.statusBar.showMessage('Битый файл, данные не загружены', 4000)
@@ -1062,8 +1074,9 @@ class MainApp(QtWidgets.QMainWindow, designRepPDF.Ui_MainWindow):
     def pv_load(self):
         current_pv = self.listPV_file.currentText()
         for select_pv in self.type_pv_modules:
-            if current_pv in select_pv: 
-                self.pvs[f'found_pv_{self.spinBox_numPV.value() - 1}'] = search_data.search_in_pv(f"{path_to_pv}/{self.select_title_pv}/{select_pv}") 
+            if current_pv in select_pv:
+                extension = select_pv[-4:] 
+                self.pvs[f'found_pv_{self.spinBox_numPV.value() - 1}'] = search_data.search_in_pv(f"{path_to_pv}/{self.select_title_pv}/{current_pv + extension}") 
                 current = self.pvs[f'found_pv_{self.spinBox_numPV.value() - 1}']
                 current['file'] = self.listPV_file.currentIndex()
                 current['folder'] = self.listPV_folder.currentIndex()
@@ -1072,10 +1085,10 @@ class MainApp(QtWidgets.QMainWindow, designRepPDF.Ui_MainWindow):
     def other_load(self):
         current_other = self.listKTP_file.currentText()
         for select_other in self.type_other_modules:
-            if current_other in select_other: 
+            if current_other in select_other:
+                extension = select_other[-4:]  
                 current = self.others[f'found_other_{self.spinBox_numKTP.value() - 1}']
-                current['table_data'] = search_data.search_in_others_device(f"{path_to_ktp}/{self.select_title_ktp}/{select_other}") 
-
+                current['table_data'] = search_data.search_in_others_device(f"{path_to_ktp}/{self.select_title_ktp}/{current_other + extension}") 
                 current['file'] = self.listKTP_file.currentIndex()
                 current['folder'] = self.listKTP_folder.currentIndex()
                 key_title = 'nil'
@@ -1272,10 +1285,12 @@ class MainApp(QtWidgets.QMainWindow, designRepPDF.Ui_MainWindow):
         QTimer.singleShot(2500, lambda: self.statusBar.setStyleSheet(styles_responce.status_white))
         
     def pvsyst(self):
-        self.path_pvsyst = QtWidgets.QFileDialog.getOpenFileName(self, 'Выберите файл', path_to_pdf_pvsyst, "*.pdf")[0] #открытие диалога для выбора файла
-        print(self.path_pvsyst)
+        path = QtWidgets.QFileDialog.getOpenFileName(self, 'Выберите файл', path_to_pdf_pvsyst, "*.pdf")[0] #открытие диалога для выбора файла
+        print(path)
         self.hide_del_button_device()
-        if len(self.path_pvsyst) != 0:
+        if len(path) != 0:
+            self.path_pvsyst = path
+            print(self.path_pvsyst)
             self.delete_pdf('pvsyst')
             self.textConsole.append("- Загружен отчет PVsyst")
             self.btnOne.setEnabled(False)
@@ -1285,7 +1300,8 @@ class MainApp(QtWidgets.QMainWindow, designRepPDF.Ui_MainWindow):
             self.converter_pvsyst.start()
 
     def load_scheme_one(self):
-        self.pathes_detail_schemes = QtWidgets.QFileDialog.getOpenFileNames(self, 'Выберите файл', path_to_schemes, "*.svg")[0] #открытие диалога для выбора файла
+        self.pathes_detail_schemes = QtWidgets.QFileDialog.getOpenFileNames(self, 'Выберите файлы схем инверторa', 
+                                                                            path_to_schemes + '/Invertor', "*.svg")[0]
         print(self.pathes_detail_schemes)
         self.hide_del_button_schemes()
         if len(self.pathes_detail_schemes) != 0:
@@ -1297,7 +1313,8 @@ class MainApp(QtWidgets.QMainWindow, designRepPDF.Ui_MainWindow):
             self.converter1.start()
         
     def load_scheme_two(self):
-        self.path_general_schemes = [QtWidgets.QFileDialog.getOpenFileName(self, 'Выберите файл', path_to_schemes, "*.svg")[0]] #открытие диалога для выбора файла
+        self.path_general_schemes = [QtWidgets.QFileDialog.getOpenFileName(self, 'Выберите файл схемы станции', 
+                                                                            path_to_schemes + '/General', "*.svg")[0]]
         print( self.path_general_schemes)
         self.hide_del_button_schemes()
         if len(self.path_general_schemes[0]) != 0:
@@ -1316,6 +1333,8 @@ class MainApp(QtWidgets.QMainWindow, designRepPDF.Ui_MainWindow):
         files_in_detailed = [f for f in os.listdir(fp_detailed) if isfile(join(fp_detailed, f))]
         with open("Data/Report/Report.pdf", 'rb') as report: 
             pdf_merger.append(report)
+        with open("Data/PDF in/Struct_scheme_example.pdf", 'rb') as report: 
+            pdf_merger.append(report)
         if len(files_in_general) != 0 and self.path_general_schemes != " ":
             with open(fp_general + f"/{files_in_general[0]}", 'rb') as image_fd: 
                 pdf_merger.append(image_fd)
@@ -1323,6 +1342,8 @@ class MainApp(QtWidgets.QMainWindow, designRepPDF.Ui_MainWindow):
             for i in range(len(files_in_detailed)):
                 with open(fp_detailed + f"/{files_in_detailed[i]}", 'rb') as image_fd: 
                     pdf_merger.append(image_fd)
+        with open("Data/PDF in/Plane_set_example.pdf", 'rb') as report: 
+            pdf_merger.append(report)
         with open("Data/Report/Auto-OTR.pdf", 'wb') as output_file:
             pdf_merger.write(output_file)
         del pdf_merger  
@@ -1427,12 +1448,17 @@ class MainApp(QtWidgets.QMainWindow, designRepPDF.Ui_MainWindow):
             self.w2.setFixedSize(915, 430)
             self.statusBar.showMessage('Успешно!', 4000)
             self.statusBar.setStyleSheet(styles_responce.status_green)
-            QTimer.singleShot(4000, lambda: self.statusBar.setStyleSheet(styles_responce.status_white))
-            self.btnRP5.setEnabled(True)
+        elif self.browser_status == 1:
+            self.statusBar.showMessage('Удаленный хост принудительно разорвал существующее подключение', 4000)
+            self.statusBar.setStyleSheet(styles_responce.status_red)
+        elif self.browser_status == 2:
+            self.statusBar.showMessage('Слабое или нестабильное интеренет подключение', 4000)
+            self.statusBar.setStyleSheet(styles_responce.status_red)
         else:
-            self.statusBar.showMessage('Что-то пошло не так с браузером, попробуйте запустить снова')
-            self.statusBar.setStyleSheet(styles_responce.status_yellow)
-            self.btnRP5.setEnabled(True)
+            self.statusBar.showMessage('Что-то пошло не так, попробуйте запустить снова', 4000)
+            self.statusBar.setStyleSheet(styles_responce.status_red)
+        QTimer.singleShot(4000, lambda: self.statusBar.setStyleSheet(styles_responce.status_white))
+        self.btnRP5.setEnabled(True)
         self.stopAnimation()
         del self.parser_open
 
@@ -1493,11 +1519,7 @@ class MainApp(QtWidgets.QMainWindow, designRepPDF.Ui_MainWindow):
                             max_chain = int(current_invertor[config]['count_mppt']) * int(current_invertor['inputs'])
                             max_chain_y = max_chain * 2
                             count_strings = int(current_invertor[config]['count_string'])
-                            print(max_chain)
-                            print(max_chain_y)
-                            print(count_strings)
                             if count_strings > max_chain and count_strings <= max_chain_y:
-                                print('Прошлооооооооооооооооо')
                                 current_invertor[config]['use_y_connector'] = True
                             else:
                                 current_invertor[config]['use_y_connector'] = False
@@ -1515,6 +1537,8 @@ class MainApp(QtWidgets.QMainWindow, designRepPDF.Ui_MainWindow):
                         current_invertor['count_invertor'] = int(count_invertors)
                         current_invertor['diff_mppt'] = diff_mppt
                         print('После добавки', current_invertor)
+                        self.w3.up_down_invertor_selection()
+                        self.w4.up_down_invertor_selection()
                     else:
                         self.del_invertor()
                         self.textConsole.append(f"Инвертор {pvsyst_pvs_invrtrs['model_invertor']} не найден")
@@ -1539,17 +1563,16 @@ class MainApp(QtWidgets.QMainWindow, designRepPDF.Ui_MainWindow):
                     if found_pv == True:
                         self.pv_load()
                     else:
-                        self.textConsole.append(f"ФЭМ {pvsyst_pvs_invrtrs['model_invertor']} не найден")
+                        self.textConsole.append(f"ФЭМ {pvsyst_pvs_invrtrs['model_pv']} не найден")
 
             if found_pv_company == False:
-                self.textConsole.append(f"Компания ФЭМ {pvsyst_pvs_invrtrs['title_invertor']} не найдена")
+                self.textConsole.append(f"Компания ФЭМ {pvsyst_pvs_invrtrs['title_pv']} не найдена")
 
             if count_diff_inv > 1 and num < count_diff_inv - 1 :
                 self.add_invertor()
                 self.add_pv()
-        
-        self.w3.up_down_invertor_selection()
-        self.w4.up_down_invertor_selection()
+        print(self.invertors)
+        print(self.pvs)
 
     def convertPvsystFinished(self):
 

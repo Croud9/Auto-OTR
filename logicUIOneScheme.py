@@ -1,6 +1,7 @@
 import draw_schemes
 import designDrawSchemes
 import styles_responce
+import validate
 from PyQt5 import QtWidgets
 from PyQt5.QtGui import QRegExpValidator
 from PyQt5.QtCore import QThread, QRegExp, QTimer
@@ -28,32 +29,36 @@ class WindowDraw(QtWidgets.QMainWindow, designDrawSchemes.Ui_WindowDrawSchemes):
     def __init__(self, instance_of_main_window):
         super().__init__()
         self.setupUi(self)
-        self.validate()
+        self.input_data()
+        validate.validate_number(self.fields_text)
+        self.main_window = instance_of_main_window
+        self.btnDraw.clicked.connect(self.draw)
+        self.btnAdd_new_mppt.clicked.connect(self.add_mppt)
+        self.btnDelConfig.clicked.connect(self.del_mppt)
+        self.btnUpdateConsole.clicked.connect(self.update_console)
+        self.btnReset.clicked.connect(self.reset)
+        self.btnSaveConfig.clicked.connect(self.save_config)
+        self.checkUse_5or4_line.clicked.connect(self.show_and_hide_color_line_because_phase)
+        self.inputCount_mppt.textChanged.connect(self.validate_input)
+        self.inputAll_chain.textChanged.connect(self.validate_input)
+        self.inputCount_input_mppt.textChanged.connect(self.validate_input)
+        self.checkUse_three_phase.stateChanged.connect(self.show_and_hide_color_line_because_phase)
+        self.checkUse_y_connector.stateChanged.connect(self.validate_input)
+        self.checkUse_all_mppt.stateChanged.connect(self.validate_input)
+        self.spinBox_numInvertor.valueChanged.connect(self.up_down_invertor_selection)
+        self.spinBox_numDifferentMPPT.valueChanged.connect(lambda: self.spin_diff_mppt(False))
+
+    def input_data(self):
         self.spinBox_numInvertor.setMinimum(1)
         self.spinBox_numInvertor.setEnabled(False)
         self.spinBox_numDifferentMPPT.setMinimum(1)
         self.spinBox_numDifferentMPPT.hide()
         self.btnDelConfig.hide()
         self.spinBox_CloneInvertor.setMinimum(1)
-        self.main_window = instance_of_main_window
-        self.btnDraw.clicked.connect(self.draw)
-        self.btnAdd_new_mppt.clicked.connect(self.add_mppt)
-        self.btnDelConfig.clicked.connect(self.del_mppt)
-        self.btnUpdateConsole.clicked.connect(self.update_console)
-        self.checkUse_three_phase.stateChanged.connect(self.show_and_hide_color_line_because_phase)
-        self.checkUse_5or4_line.clicked.connect(self.show_and_hide_color_line_because_phase)
-        self.inputCount_mppt.textChanged.connect(self.validate_input)
-        self.inputCount_input_mppt.textChanged.connect(self.validate_input)
-        self.inputAll_chain.textChanged.connect(self.validate_input)
-        self.checkUse_y_connector.stateChanged.connect(self.validate_input)
-        self.checkUse_all_mppt.stateChanged.connect(self.validate_input)
-        self.btnReset.clicked.connect(self.reset)
-        self.spinBox_numInvertor.valueChanged.connect(self.up_down_invertor_selection)
-        self.spinBox_numDifferentMPPT.valueChanged.connect(lambda: self.spin_diff_mppt(False))
-        self.btnSaveConfig.clicked.connect(self.save_config)
         self.btnSaveConfig.setIcon(QIcon('data/cons/dop/save.png'))
         self.btnSaveConfig.setIconSize(QSize(30, 30))
         self.draw_params = {}
+        self.fields_text = [self.inputCount_mppt, self.inputCount_input_mppt, self.inputSolar_count_on_the_chain, self.inputAll_chain]
 
     def reset(self):
         self.inputCount_mppt.clear()
@@ -124,13 +129,6 @@ class WindowDraw(QtWidgets.QMainWindow, designDrawSchemes.Ui_WindowDrawSchemes):
         else:
             self.checkUse_5or4_line.setEnabled(False)
             self.checkUse_5or4_line.setCheckState(0)
-
-    def validate(self): #валидация вводимых данных
-        reg_ex = QRegExp('^-?(0|[1-9]\d*)(\.[0-9]{1,4})?$')
-        self.inputCount_mppt.setValidator(QRegExpValidator(reg_ex, self.inputCount_mppt))
-        self.inputCount_input_mppt.setValidator(QRegExpValidator(reg_ex, self.inputCount_input_mppt))
-        self.inputSolar_count_on_the_chain.setValidator(QRegExpValidator(reg_ex, self.inputSolar_count_on_the_chain))
-        self.inputAll_chain.setValidator(QRegExpValidator(reg_ex, self.inputAll_chain))
 
     def validate_input(self): #валидация вводимых данных
         false_value = ['Н/Д', '']
@@ -253,7 +251,9 @@ class WindowDraw(QtWidgets.QMainWindow, designDrawSchemes.Ui_WindowDrawSchemes):
             invertor[config_keys[current_config_index]]['use_all_mppt'] = True if self.checkUse_all_mppt.isChecked() else False
             invertor[config_keys[current_config_index]]['use_y_connector'] = True if self.checkUse_y_connector.isChecked() else False
         self.main_window.w4.up_down_invertor_selection()
-        self.statusBar.showMessage(styles_responce.status_ok, 2000)
+        self.statusBar.showMessage('Параметры сохранены', 2000)
+        self.statusBar.setStyleSheet(styles_responce.status_green)
+        QTimer.singleShot(2000, lambda: self.statusBar.setStyleSheet(styles_responce.status_white))
 
     def spin_diff_mppt(self, add_new_mppt):
         invertor = self.invertor_and_config_keys()[0]
@@ -320,7 +320,10 @@ class WindowDraw(QtWidgets.QMainWindow, designDrawSchemes.Ui_WindowDrawSchemes):
         config_keys = self.invertor_and_config_keys()[1]
 
         if not config_keys:
-            return print("Сохраните параметры")
+            self.statusBar.showMessage('Сохраните параметры', 2000)
+            self.statusBar.setStyleSheet(styles_responce.status_yellow)
+            QTimer.singleShot(2000, lambda: self.statusBar.setStyleSheet(styles_responce.status_white))
+            return 
 
         for num in range(1, len(config_keys)):
             self.spinBox_numDifferentMPPT.setValue(num)

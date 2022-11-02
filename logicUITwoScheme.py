@@ -1,6 +1,7 @@
 # from operator import invert
 import draw_schemes2
 import styles_responce
+import validate
 import designDrawSchemesTwo
 from PyQt5 import QtWidgets
 from PyQt5.QtCore import QTimer, QThread
@@ -20,12 +21,9 @@ class WindowDrawTwo(QtWidgets.QMainWindow, designDrawSchemesTwo.Ui_WindowDrawSch
     def __init__(self, instance_of_main_window):
         super().__init__()
         self.setupUi(self)
+        self.input_data() 
+        validate.validate_number(self.fields_text)
         self.main_window = instance_of_main_window
-        self.spinBox_numInvertor.setMinimum(1)
-        self.spinBox_numInvertor.setEnabled(False)
-        self.spinBox_numOther.setMinimum(1)
-        self.spinBox_numOther.setEnabled(False)
-        self.checkUse_threePhase.stateChanged.connect(self.show_and_hide_color_line_because_phase)
         self.btnOpen_otherParams.clicked.connect(self.show_other_params)
         self.checkYellowLineInvertor.clicked.connect(self.show_and_hide_switch)
         self.checkRedLineInvertor.clicked.connect(self.show_and_hide_switch)
@@ -35,14 +33,12 @@ class WindowDrawTwo(QtWidgets.QMainWindow, designDrawSchemesTwo.Ui_WindowDrawSch
         self.checkRedLineOther.clicked.connect(self.show_and_hide_switch)
         self.checkBlueLineOther.clicked.connect(self.show_and_hide_switch)
         self.checkGreenLineOther.clicked.connect(self.show_and_hide_switch)
-        self.btnReset.clicked.connect(self.reset)
         self.btnSaveConfig.clicked.connect(self.save_config)
+        self.btnReset.clicked.connect(self.reset)
         self.btnDraw.pressed.connect(self.draw)
+        self.checkUse_threePhase.stateChanged.connect(self.show_and_hide_color_line_because_phase)
         self.spinBox_numInvertor.valueChanged.connect(self.up_down_invertor_selection)
         self.spinBox_numOther.valueChanged.connect(self.up_down_other_device_selection)
-        self.btnSaveConfig.setIcon(QIcon('data/cons/dop/save.png'))
-        self.btnSaveConfig.setIconSize(QSize(30, 30))
-        self.set_default_params() 
 
     def reset(self):
         self.checkUse_threePhase.setCheckState(2)
@@ -50,7 +46,13 @@ class WindowDrawTwo(QtWidgets.QMainWindow, designDrawSchemesTwo.Ui_WindowDrawSch
         self.checkUse_counter.setCheckState(0)
         self.textConsoleDraw.clear()
 
-    def set_default_params(self):
+    def input_data(self):
+        self.spinBox_numInvertor.setMinimum(1)
+        self.spinBox_numInvertor.setEnabled(False)
+        self.spinBox_numOther.setMinimum(1)
+        self.spinBox_numOther.setEnabled(False)
+        self.btnSaveConfig.setIcon(QIcon('data/cons/dop/save.png'))
+        self.btnSaveConfig.setIconSize(QSize(30, 30))
         # Доп параметры инвертора
         self.inputParam1_invertor.setText('QF')
         self.inputParam2_invertor.setText('C160')
@@ -94,6 +96,7 @@ class WindowDrawTwo(QtWidgets.QMainWindow, designDrawSchemesTwo.Ui_WindowDrawSch
         self.checkBlueLineOther.setCheckState(2)
         self.checkBlueSwitchOther.setCheckState(2)
         self.checkBlackLineOther.setCheckState(2)
+        self.fields_text = [self.inputPower_invertor, self.inputAmperage_invertor, self.inputPower_other, self.inputAmperage_other]
 
     def show_other_params(self):
         if self.width() == 950 and self.height() == 335:
@@ -261,8 +264,11 @@ class WindowDrawTwo(QtWidgets.QMainWindow, designDrawSchemesTwo.Ui_WindowDrawSch
         other['red_switch_other'] = True if self.checkRedSwitchOther.isChecked() else False
         other['blue_switch_other'] = True if self.checkBlueSwitchOther.isChecked() else False
         other['green_switch_other'] = True if self.checkGreenSwitchOther.isChecked() else False
-        self.statusBar.showMessage(styles_responce.status_ok, 2000)
-        self.main_window.w3.up_down_invertor_selection()
+        if invertor.get('title_grid_line', False) != False:
+            self.main_window.w3.up_down_invertor_selection()
+        self.statusBar.showMessage('Параметры сохранены', 2000)
+        self.statusBar.setStyleSheet(styles_responce.status_green)
+        QTimer.singleShot(2000, lambda: self.statusBar.setStyleSheet(styles_responce.status_white))
 
     def invertor_and_config_keys(self):
         invertors = self.main_window.invertors
@@ -349,7 +355,13 @@ class WindowDrawTwo(QtWidgets.QMainWindow, designDrawSchemesTwo.Ui_WindowDrawSch
         self.draw_params['type_param_out'] = str(self.inputParam5_out.text())
 
     def draw(self):
+        invertors = self.main_window.invertors
         if self.check_imput_params() != 0:
+            return
+        if invertors['found_invertor_0']['module'] == 'Н/Д':
+            self.statusBar.showMessage('Сохраните параметры', 2000)
+            self.statusBar.setStyleSheet(styles_responce.status_yellow)
+            QTimer.singleShot(2000, lambda: self.statusBar.setStyleSheet(styles_responce.status_white))
             return
 
         self.out_params()

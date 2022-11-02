@@ -1,8 +1,15 @@
-import requests
+import socket
+from PyQt5.QtGui import QRegExpValidator
+from PyQt5.QtCore import QRegExp
+
+def validate_number(fields_text): #валидация пропускает только числа
+    reg_ex = QRegExp('^-?(0|[1-9]\d*)(\.[0-9]{1,4})?$')
+    for field in fields_text:
+        field.setValidator(QRegExpValidator(reg_ex, field))
 
 def internet():
     try:
-        response = requests.get("http://www.google.com")
+        socket.create_connection(("1.1.1.1", 53))
         return True
-    except requests.ConnectionError:
+    except OSError:
         return False

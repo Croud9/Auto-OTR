@@ -1,9 +1,7 @@
-from encodings.utf_8 import encode
 import schemdraw
 import schemdraw.elements as elm
-from svglib.svglib import svg2rlg
-from reportlab.graphics import renderPDF
-from fontTools.ttLib import TTFont
+import os 
+from os.path import isfile, join
 import gost_frame
 import encode_file
 
@@ -384,7 +382,14 @@ def top_counter(slr, three_phase, counter, names):
 
 def draw(data, gost_frame_params):
     schemdraw.config(fontsize = 10)
-    with schemdraw.Drawing(file=f'Data/Schemes/connect_system.svg', show = False, scale = 0.5, lw = 0.7) as slr:
+
+    fp_general = 'Data/Schemes/General/'
+    files_in_general = [f for f in os.listdir(fp_general) if isfile(join(fp_general, f))]
+    if len(files_in_general) != 0:
+        for file in files_in_general:
+            os.remove(fp_general + f"/{file}")  
+
+    with schemdraw.Drawing(file=f'Data/Schemes/General/connect_system.svg', show = False, scale = 0.5, lw = 0.7) as slr:
         module_offset = 5 # начало чертежа модулей
         count_all_modules = 0
         counter = data['use_counter'] 
@@ -481,6 +486,6 @@ def draw(data, gost_frame_params):
         data = {'width': width, 'height': height, 'title_prjct': gost_frame_params['title_project'],
                 'code_prjct': gost_frame_params['code_project'], 'type_scheme': 'Cхема электрическая \n принципиальная'}
         gost_frame.all_frame(slr, **data)
-    srcfile = 'Data/Schemes/connect_system.svg'
-    trgfile = 'Data/Schemes/connect_system_codec.svg'
+    srcfile = 'Data/Schemes/General/connect_system.svg'
+    trgfile = 'Data/Schemes/General/connect_system_codec.svg'
     encode_file.to_utf8(srcfile, trgfile)
