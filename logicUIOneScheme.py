@@ -81,11 +81,14 @@ class WindowDraw(QtWidgets.QMainWindow, designDrawSchemes.Ui_WindowDrawSchemes):
         spinbox_val = self.spinBox_numInvertor.value() - 1
         invertor = invertors[f'found_invertor_{spinbox_val}']
 
-        config_keys = []    
+        config_keys = []
+        local_keys = []    
         for key in invertor.keys():
-            if 'config' in key:
+            if 'local' in key:
+                local_keys.append(key)    
+            elif 'config' in key:
                 config_keys.append(key)
-        return invertor, config_keys    
+        return invertor, config_keys, local_keys    
 
     def up_down_invertor_selection(self):
         invertor = self.invertor_and_config_keys()[0]
@@ -228,6 +231,7 @@ class WindowDraw(QtWidgets.QMainWindow, designDrawSchemes.Ui_WindowDrawSchemes):
 
         invertor = self.invertor_and_config_keys()[0]
         config_keys = self.invertor_and_config_keys()[1]
+        local_keys = self.invertor_and_config_keys()[2]
 
         current_config_index = self.spinBox_numDifferentMPPT.value() - 1
 
@@ -241,6 +245,11 @@ class WindowDraw(QtWidgets.QMainWindow, designDrawSchemes.Ui_WindowDrawSchemes):
         invertor['use_5or4_line'] = True if self.checkUse_5or4_line.isChecked() else False
         invertor['inputs'] = int(self.inputCount_input_mppt.text())
         invertor['count_invertor'] = self.spinBox_CloneInvertor.value() #количество инверторов
+        for num in range(int(invertor['count_invertor'])):
+            current_local = f'local_{num}'
+            if not current_local in local_keys:
+                invertor[current_local] = {'controller': False, 'commutator': False, 'left_yzip': False, 'right_yzip': False}
+
         if not config_keys:
             self.add_mppt()
             invertor['diff_mppt'] = False
@@ -251,6 +260,7 @@ class WindowDraw(QtWidgets.QMainWindow, designDrawSchemes.Ui_WindowDrawSchemes):
             invertor[config_keys[current_config_index]]['use_all_mppt'] = True if self.checkUse_all_mppt.isChecked() else False
             invertor[config_keys[current_config_index]]['use_y_connector'] = True if self.checkUse_y_connector.isChecked() else False
         self.main_window.w4.up_down_invertor_selection()
+        self.main_window.w6.up_down_invertor_selection()
         self.statusBar.showMessage('Параметры сохранены', 2000)
         self.statusBar.setStyleSheet(styles_responce.status_green)
         QTimer.singleShot(2000, lambda: self.statusBar.setStyleSheet(styles_responce.status_white))

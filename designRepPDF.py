@@ -15,7 +15,7 @@ class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
         MainWindow.setEnabled(True)
-        MainWindow.resize(1044, 405)
+        MainWindow.resize(1179, 800)
         font = QtGui.QFont()
         font.setFamily("Arial")
         font.setBold(False)
@@ -82,7 +82,7 @@ class Ui_MainWindow(object):
 "")
         self.textConsole.setObjectName("textConsole")
         self.btnOne = QtWidgets.QPushButton(self.centralwidget)
-        self.btnOne.setGeometry(QtCore.QRect(843, 16, 61, 51))
+        self.btnOne.setGeometry(QtCore.QRect(917, 16, 61, 51))
         font = QtGui.QFont()
         font.setFamily("Arial")
         font.setPointSize(9)
@@ -108,20 +108,6 @@ class Ui_MainWindow(object):
 "}")
         self.btnOne.setText("")
         self.btnOne.setObjectName("btnOne")
-        self.label_for_slide = QtWidgets.QLabel(self.centralwidget)
-        self.label_for_slide.setGeometry(QtCore.QRect(266, 286, 431, 20))
-        font = QtGui.QFont()
-        font.setFamily("Arial")
-        font.setPointSize(9)
-        font.setBold(True)
-        font.setWeight(75)
-        self.label_for_slide.setFont(font)
-        self.label_for_slide.setStyleSheet("background-color: rgba(255,255,255,0); \n"
-"border-radius: 5;\n"
-"border: none;\n"
-"padding: 2;")
-        self.label_for_slide.setAlignment(QtCore.Qt.AlignCenter)
-        self.label_for_slide.setObjectName("label_for_slide")
         self.btnForm = QtWidgets.QPushButton(self.centralwidget)
         self.btnForm.setGeometry(QtCore.QRect(110, 100, 61, 51))
         font = QtGui.QFont()
@@ -177,7 +163,7 @@ class Ui_MainWindow(object):
         self.btnRP5.setText("")
         self.btnRP5.setObjectName("btnRP5")
         self.btnDrawScheme = QtWidgets.QPushButton(self.centralwidget)
-        self.btnDrawScheme.setGeometry(QtCore.QRect(843, 100, 61, 51))
+        self.btnDrawScheme.setGeometry(QtCore.QRect(917, 100, 61, 51))
         font = QtGui.QFont()
         font.setFamily("Arial")
         font.setPointSize(9)
@@ -204,7 +190,7 @@ class Ui_MainWindow(object):
         self.btnDrawScheme.setText("")
         self.btnDrawScheme.setObjectName("btnDrawScheme")
         self.btnDrawSchemeTwo = QtWidgets.QPushButton(self.centralwidget)
-        self.btnDrawSchemeTwo.setGeometry(QtCore.QRect(843, 183, 61, 51))
+        self.btnDrawSchemeTwo.setGeometry(QtCore.QRect(917, 183, 61, 51))
         font = QtGui.QFont()
         font.setFamily("Arial")
         font.setPointSize(9)
@@ -230,117 +216,6 @@ class Ui_MainWindow(object):
 "}")
         self.btnDrawSchemeTwo.setText("")
         self.btnDrawSchemeTwo.setObjectName("btnDrawSchemeTwo")
-        self.inputTitleProject = QtWidgets.QLineEdit(self.centralwidget)
-        self.inputTitleProject.setGeometry(QtCore.QRect(266, 16, 325, 41))
-        font = QtGui.QFont()
-        font.setFamily("Arial")
-        font.setBold(True)
-        font.setWeight(75)
-        self.inputTitleProject.setFont(font)
-        self.inputTitleProject.setStyleSheet("QLineEdit{\n"
-"    background-color:rgba(229,229,234,1); \n"
-"    border-radius: 6;\n"
-"    border: none;\n"
-"    padding-left: 8px\n"
-"}\n"
-"QLineEdit:hover{\n"
-"    background-color:rgba(242,242,247,1);\n"
-"}\n"
-"QLineEdit:pressed{\n"
-"    background-color:rgba(188,188,192,1);\n"
-"    border-radius: 12;\n"
-"}")
-        self.inputTitleProject.setInputMask("")
-        self.inputTitleProject.setText("")
-        self.inputTitleProject.setPlaceholderText("")
-        self.inputTitleProject.setObjectName("inputTitleProject")
-        self.label_2 = QtWidgets.QLabel(self.centralwidget)
-        self.label_2.setGeometry(QtCore.QRect(710, 19, 131, 35))
-        font = QtGui.QFont()
-        font.setFamily("Arial")
-        font.setPointSize(9)
-        font.setBold(True)
-        font.setWeight(75)
-        self.label_2.setFont(font)
-        self.label_2.setStyleSheet("background-color: rgba(255,255,255,0); ")
-        self.label_2.setScaledContents(False)
-        self.label_2.setObjectName("label_2")
-        self.label_4 = QtWidgets.QLabel(self.centralwidget)
-        self.label_4.setGeometry(QtCore.QRect(710, 140, 71, 16))
-        font = QtGui.QFont()
-        font.setFamily("Arial")
-        font.setPointSize(9)
-        font.setBold(True)
-        font.setWeight(75)
-        self.label_4.setFont(font)
-        self.label_4.setStyleSheet("background-color: rgba(255,255,255,0); ")
-        self.label_4.setObjectName("label_4")
-        self.inputClient = QtWidgets.QLineEdit(self.centralwidget)
-        self.inputClient.setGeometry(QtCore.QRect(267, 126, 429, 41))
-        font = QtGui.QFont()
-        font.setFamily("Arial")
-        font.setBold(True)
-        font.setWeight(75)
-        self.inputClient.setFont(font)
-        self.inputClient.setStyleSheet("QLineEdit{\n"
-"    background-color:rgba(229,229,234,1); \n"
-"    border-radius: 6;\n"
-"    border: none;\n"
-"    padding-left: 8px\n"
-"}\n"
-"QLineEdit:hover{\n"
-"    background-color:rgba(242,242,247,1);\n"
-"}\n"
-"QLineEdit:pressed{\n"
-"    background-color:rgba(188,188,192,1);\n"
-"    border-radius: 12;\n"
-"}")
-        self.inputClient.setInputMask("")
-        self.inputClient.setText("")
-        self.inputClient.setPlaceholderText("")
-        self.inputClient.setObjectName("inputClient")
-        self.listRoof = QtWidgets.QComboBox(self.centralwidget)
-        self.listRoof.setGeometry(QtCore.QRect(266, 180, 429, 41))
-        font = QtGui.QFont()
-        font.setFamily("Arial")
-        font.setBold(True)
-        font.setWeight(75)
-        self.listRoof.setFont(font)
-        self.listRoof.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
-        self.listRoof.setAutoFillBackground(False)
-        self.listRoof.setStyleSheet("QComboBox{\n"
-"    background-color:rgba(229,229,234,1); \n"
-"    border: none;\n"
-"    border-radius: 6;\n"
-"    padding-left: 8px;\n"
-"}\n"
-"\n"
-"QComboBox:drop-down \n"
-"{\n"
-"    width: 0px;\n"
-"    height: 0px;\n"
-"    border: 0px;\n"
-"}\n"
-"QComboBox:hover{\n"
-"    background-color:rgba(242,242,247,1);\n"
-"}\n"
-"")
-        self.listRoof.setInputMethodHints(QtCore.Qt.ImhNone)
-        self.listRoof.setEditable(False)
-        self.listRoof.setCurrentText("")
-        self.listRoof.setModelColumn(0)
-        self.listRoof.setProperty("placeholderText", "")
-        self.listRoof.setObjectName("listRoof")
-        self.label_5 = QtWidgets.QLabel(self.centralwidget)
-        self.label_5.setGeometry(QtCore.QRect(710, 183, 191, 35))
-        font = QtGui.QFont()
-        font.setFamily("Arial")
-        font.setPointSize(9)
-        font.setBold(True)
-        font.setWeight(75)
-        self.label_5.setFont(font)
-        self.label_5.setStyleSheet("background-color: rgba(255,255,255,0); ")
-        self.label_5.setObjectName("label_5")
         self.btnSchemes = QtWidgets.QPushButton(self.centralwidget)
         self.btnSchemes.setGeometry(QtCore.QRect(110, 16, 61, 51))
         font = QtGui.QFont()
@@ -396,268 +271,8 @@ class Ui_MainWindow(object):
 "}")
         self.btnDevice.setText("")
         self.btnDevice.setObjectName("btnDevice")
-        self.checkBox_8_1 = QtWidgets.QCheckBox(self.centralwidget)
-        self.checkBox_8_1.setGeometry(QtCore.QRect(646, 65, 51, 19))
-        font = QtGui.QFont()
-        font.setFamily("Arial")
-        font.setBold(True)
-        font.setWeight(75)
-        self.checkBox_8_1.setFont(font)
-        self.checkBox_8_1.setAutoFillBackground(False)
-        self.checkBox_8_1.setStyleSheet("background-color: rgba(255,255,255,0); \n"
-"border-radius: 5;\n"
-"border: none;\n"
-"padding: 2;")
-        self.checkBox_8_1.setObjectName("checkBox_8_1")
-        self.checkBox_8_2 = QtWidgets.QCheckBox(self.centralwidget)
-        self.checkBox_8_2.setGeometry(QtCore.QRect(646, 84, 51, 19))
-        font = QtGui.QFont()
-        font.setFamily("Arial")
-        font.setBold(True)
-        font.setWeight(75)
-        self.checkBox_8_2.setFont(font)
-        self.checkBox_8_2.setAutoFillBackground(False)
-        self.checkBox_8_2.setStyleSheet("background-color: rgba(255,255,255,0); \n"
-"border-radius: 5;\n"
-"border: none;\n"
-"padding: 2;")
-        self.checkBox_8_2.setObjectName("checkBox_8_2")
-        self.checkBox_8_4 = QtWidgets.QCheckBox(self.centralwidget)
-        self.checkBox_8_4.setGeometry(QtCore.QRect(646, 122, 51, 19))
-        font = QtGui.QFont()
-        font.setFamily("Arial")
-        font.setBold(True)
-        font.setWeight(75)
-        self.checkBox_8_4.setFont(font)
-        self.checkBox_8_4.setAutoFillBackground(False)
-        self.checkBox_8_4.setStyleSheet("background-color: rgba(255,255,255,0); \n"
-"border-radius: 5;\n"
-"border: none;\n"
-"padding: 2;")
-        self.checkBox_8_4.setObjectName("checkBox_8_4")
-        self.checkBox_8_3 = QtWidgets.QCheckBox(self.centralwidget)
-        self.checkBox_8_3.setGeometry(QtCore.QRect(646, 103, 51, 19))
-        font = QtGui.QFont()
-        font.setFamily("Arial")
-        font.setBold(True)
-        font.setWeight(75)
-        self.checkBox_8_3.setFont(font)
-        self.checkBox_8_3.setAutoFillBackground(False)
-        self.checkBox_8_3.setStyleSheet("background-color: rgba(255,255,255,0); \n"
-"border-radius: 5;\n"
-"border: none;\n"
-"padding: 2;")
-        self.checkBox_8_3.setObjectName("checkBox_8_3")
-        self.checkBox_5_1_3 = QtWidgets.QCheckBox(self.centralwidget)
-        self.checkBox_5_1_3.setGeometry(QtCore.QRect(538, 111, 61, 19))
-        font = QtGui.QFont()
-        font.setFamily("Arial")
-        font.setBold(True)
-        font.setWeight(75)
-        self.checkBox_5_1_3.setFont(font)
-        self.checkBox_5_1_3.setAutoFillBackground(False)
-        self.checkBox_5_1_3.setStyleSheet("background-color: rgba(255,255,255,0); \n"
-"border-radius: 5;\n"
-"border: none;\n"
-"padding: 2;")
-        self.checkBox_5_1_3.setObjectName("checkBox_5_1_3")
-        self.checkBox_3_1 = QtWidgets.QCheckBox(self.centralwidget)
-        self.checkBox_3_1.setGeometry(QtCore.QRect(372, 64, 51, 19))
-        font = QtGui.QFont()
-        font.setFamily("Arial")
-        font.setBold(True)
-        font.setWeight(75)
-        self.checkBox_3_1.setFont(font)
-        self.checkBox_3_1.setAutoFillBackground(False)
-        self.checkBox_3_1.setStyleSheet("background-color: rgba(255,255,255,0); \n"
-"border-radius: 5;\n"
-"border: none;\n"
-"padding: 2;")
-        self.checkBox_3_1.setObjectName("checkBox_3_1")
-        self.checkBox_8_5 = QtWidgets.QCheckBox(self.centralwidget)
-        self.checkBox_8_5.setGeometry(QtCore.QRect(646, 141, 51, 19))
-        font = QtGui.QFont()
-        font.setFamily("Arial")
-        font.setBold(True)
-        font.setWeight(75)
-        self.checkBox_8_5.setFont(font)
-        self.checkBox_8_5.setAutoFillBackground(False)
-        self.checkBox_8_5.setStyleSheet("background-color: rgba(255,255,255,0); \n"
-"border-radius: 5;\n"
-"border: none;\n"
-"padding: 2;")
-        self.checkBox_8_5.setObjectName("checkBox_8_5")
-        self.checkBox_8_6 = QtWidgets.QCheckBox(self.centralwidget)
-        self.checkBox_8_6.setGeometry(QtCore.QRect(646, 160, 51, 19))
-        font = QtGui.QFont()
-        font.setFamily("Arial")
-        font.setBold(True)
-        font.setWeight(75)
-        self.checkBox_8_6.setFont(font)
-        self.checkBox_8_6.setAutoFillBackground(False)
-        self.checkBox_8_6.setStyleSheet("background-color: rgba(255,255,255,0); \n"
-"border-radius: 5;\n"
-"border: none;\n"
-"padding: 2;")
-        self.checkBox_8_6.setObjectName("checkBox_8_6")
-        self.checkBox_5_3 = QtWidgets.QCheckBox(self.centralwidget)
-        self.checkBox_5_3.setGeometry(QtCore.QRect(482, 104, 51, 19))
-        font = QtGui.QFont()
-        font.setFamily("Arial")
-        font.setBold(True)
-        font.setWeight(75)
-        self.checkBox_5_3.setFont(font)
-        self.checkBox_5_3.setAutoFillBackground(False)
-        self.checkBox_5_3.setStyleSheet("background-color: rgba(255,255,255,0); \n"
-"border-radius: 5;\n"
-"border: none;\n"
-"padding: 2;")
-        self.checkBox_5_3.setObjectName("checkBox_5_3")
-        self.checkBox_5_4 = QtWidgets.QCheckBox(self.centralwidget)
-        self.checkBox_5_4.setGeometry(QtCore.QRect(482, 124, 51, 19))
-        font = QtGui.QFont()
-        font.setFamily("Arial")
-        font.setBold(True)
-        font.setWeight(75)
-        self.checkBox_5_4.setFont(font)
-        self.checkBox_5_4.setAutoFillBackground(False)
-        self.checkBox_5_4.setStyleSheet("background-color: rgba(255,255,255,0); \n"
-"border-radius: 5;\n"
-"border: none;\n"
-"padding: 2;")
-        self.checkBox_5_4.setObjectName("checkBox_5_4")
-        self.checkBox_5_5 = QtWidgets.QCheckBox(self.centralwidget)
-        self.checkBox_5_5.setGeometry(QtCore.QRect(482, 144, 51, 19))
-        font = QtGui.QFont()
-        font.setFamily("Arial")
-        font.setBold(True)
-        font.setWeight(75)
-        self.checkBox_5_5.setFont(font)
-        self.checkBox_5_5.setAutoFillBackground(False)
-        self.checkBox_5_5.setStyleSheet("background-color: rgba(255,255,255,0); \n"
-"border-radius: 5;\n"
-"border: none;\n"
-"padding: 2;")
-        self.checkBox_5_5.setObjectName("checkBox_5_5")
-        self.checkBox_3_3 = QtWidgets.QCheckBox(self.centralwidget)
-        self.checkBox_3_3.setGeometry(QtCore.QRect(372, 104, 51, 19))
-        font = QtGui.QFont()
-        font.setFamily("Arial")
-        font.setBold(True)
-        font.setWeight(75)
-        self.checkBox_3_3.setFont(font)
-        self.checkBox_3_3.setAutoFillBackground(False)
-        self.checkBox_3_3.setStyleSheet("background-color: rgba(255,255,255,0); \n"
-"border-radius: 5;\n"
-"border: none;\n"
-"padding: 2;")
-        self.checkBox_3_3.setObjectName("checkBox_3_3")
-        self.checkBox_5_6 = QtWidgets.QCheckBox(self.centralwidget)
-        self.checkBox_5_6.setGeometry(QtCore.QRect(482, 164, 51, 19))
-        font = QtGui.QFont()
-        font.setFamily("Arial")
-        font.setBold(True)
-        font.setWeight(75)
-        self.checkBox_5_6.setFont(font)
-        self.checkBox_5_6.setAutoFillBackground(False)
-        self.checkBox_5_6.setStyleSheet("background-color: rgba(255,255,255,0); \n"
-"border-radius: 5;\n"
-"border: none;\n"
-"padding: 2;")
-        self.checkBox_5_6.setObjectName("checkBox_5_6")
-        self.checkBox_5_1_2 = QtWidgets.QCheckBox(self.centralwidget)
-        self.checkBox_5_1_2.setGeometry(QtCore.QRect(538, 92, 61, 19))
-        font = QtGui.QFont()
-        font.setFamily("Arial")
-        font.setBold(True)
-        font.setWeight(75)
-        self.checkBox_5_1_2.setFont(font)
-        self.checkBox_5_1_2.setAutoFillBackground(False)
-        self.checkBox_5_1_2.setStyleSheet("background-color: rgba(255,255,255,0); \n"
-"border-radius: 5;\n"
-"border: none;\n"
-"padding: 2;")
-        self.checkBox_5_1_2.setObjectName("checkBox_5_1_2")
-        self.checkBox_5_1_4 = QtWidgets.QCheckBox(self.centralwidget)
-        self.checkBox_5_1_4.setGeometry(QtCore.QRect(538, 130, 61, 19))
-        font = QtGui.QFont()
-        font.setFamily("Arial")
-        font.setBold(True)
-        font.setWeight(75)
-        self.checkBox_5_1_4.setFont(font)
-        self.checkBox_5_1_4.setAutoFillBackground(False)
-        self.checkBox_5_1_4.setStyleSheet("background-color: rgba(255,255,255,0); \n"
-"border-radius: 5;\n"
-"border: none;\n"
-"padding: 2;")
-        self.checkBox_5_1_4.setObjectName("checkBox_5_1_4")
-        self.checkBox_5_2 = QtWidgets.QCheckBox(self.centralwidget)
-        self.checkBox_5_2.setGeometry(QtCore.QRect(482, 84, 51, 19))
-        font = QtGui.QFont()
-        font.setFamily("Arial")
-        font.setBold(True)
-        font.setWeight(75)
-        self.checkBox_5_2.setFont(font)
-        self.checkBox_5_2.setAutoFillBackground(False)
-        self.checkBox_5_2.setStyleSheet("background-color: rgba(255,255,255,0); \n"
-"border-radius: 5;\n"
-"border: none;\n"
-"padding: 2;")
-        self.checkBox_5_2.setObjectName("checkBox_5_2")
-        self.checkBox_3_4 = QtWidgets.QCheckBox(self.centralwidget)
-        self.checkBox_3_4.setGeometry(QtCore.QRect(372, 125, 51, 19))
-        font = QtGui.QFont()
-        font.setFamily("Arial")
-        font.setBold(True)
-        font.setWeight(75)
-        self.checkBox_3_4.setFont(font)
-        self.checkBox_3_4.setAutoFillBackground(False)
-        self.checkBox_3_4.setStyleSheet("background-color: rgba(255,255,255,0); \n"
-"border-radius: 5;\n"
-"border: none;\n"
-"padding: 2;")
-        self.checkBox_3_4.setObjectName("checkBox_3_4")
-        self.checkBox_3_2 = QtWidgets.QCheckBox(self.centralwidget)
-        self.checkBox_3_2.setGeometry(QtCore.QRect(372, 84, 51, 19))
-        font = QtGui.QFont()
-        font.setFamily("Arial")
-        font.setBold(True)
-        font.setWeight(75)
-        self.checkBox_3_2.setFont(font)
-        self.checkBox_3_2.setAutoFillBackground(False)
-        self.checkBox_3_2.setStyleSheet("background-color: rgba(255,255,255,0); \n"
-"border-radius: 5;\n"
-"border: none;\n"
-"padding: 2;")
-        self.checkBox_3_2.setObjectName("checkBox_3_2")
-        self.checkBox_5_1_1 = QtWidgets.QCheckBox(self.centralwidget)
-        self.checkBox_5_1_1.setGeometry(QtCore.QRect(538, 73, 61, 19))
-        font = QtGui.QFont()
-        font.setFamily("Arial")
-        font.setBold(True)
-        font.setWeight(75)
-        self.checkBox_5_1_1.setFont(font)
-        self.checkBox_5_1_1.setAutoFillBackground(False)
-        self.checkBox_5_1_1.setStyleSheet("background-color: rgba(255,255,255,0); \n"
-"border-radius: 5;\n"
-"border: none;\n"
-"padding: 2;")
-        self.checkBox_5_1_1.setObjectName("checkBox_5_1_1")
-        self.checkBox_5_1 = QtWidgets.QCheckBox(self.centralwidget)
-        self.checkBox_5_1.setGeometry(QtCore.QRect(482, 64, 51, 19))
-        font = QtGui.QFont()
-        font.setFamily("Arial")
-        font.setBold(True)
-        font.setWeight(75)
-        self.checkBox_5_1.setFont(font)
-        self.checkBox_5_1.setAutoFillBackground(False)
-        self.checkBox_5_1.setStyleSheet("background-color: rgba(255,255,255,0); \n"
-"border-radius: 5;\n"
-"border: none;\n"
-"padding: 2;")
-        self.checkBox_5_1.setObjectName("checkBox_5_1")
         self.btnLoadScheme2 = QtWidgets.QPushButton(self.centralwidget)
-        self.btnLoadScheme2.setGeometry(QtCore.QRect(897, 200, 31, 20))
+        self.btnLoadScheme2.setGeometry(QtCore.QRect(971, 200, 31, 20))
         font = QtGui.QFont()
         font.setFamily("Arial")
         font.setPointSize(9)
@@ -678,7 +293,7 @@ class Ui_MainWindow(object):
 "")
         self.btnLoadScheme2.setObjectName("btnLoadScheme2")
         self.btnLoadScheme1 = QtWidgets.QPushButton(self.centralwidget)
-        self.btnLoadScheme1.setGeometry(QtCore.QRect(897, 118, 31, 20))
+        self.btnLoadScheme1.setGeometry(QtCore.QRect(971, 118, 31, 20))
         font = QtGui.QFont()
         font.setFamily("Arial")
         font.setPointSize(9)
@@ -698,224 +313,8 @@ class Ui_MainWindow(object):
 "}\n"
 "")
         self.btnLoadScheme1.setObjectName("btnLoadScheme1")
-        self.listInvertor_folder = QtWidgets.QComboBox(self.centralwidget)
-        self.listInvertor_folder.setGeometry(QtCore.QRect(266, 16, 91, 41))
-        font = QtGui.QFont()
-        font.setFamily("Arial")
-        font.setBold(True)
-        font.setWeight(75)
-        self.listInvertor_folder.setFont(font)
-        self.listInvertor_folder.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
-        self.listInvertor_folder.setStyleSheet("QComboBox{\n"
-"    background-color:rgba(229,229,234,1); \n"
-"    border: none;\n"
-"    border-radius: 6;\n"
-"    padding-left: 8px;\n"
-"}\n"
-"\n"
-"QComboBox:drop-down \n"
-"{\n"
-"    width: 0px;\n"
-"    height: 0px;\n"
-"    border: 0px;\n"
-"}\n"
-"QComboBox:hover{\n"
-"    background-color:rgba(242,242,247,1);\n"
-"}\n"
-"")
-        self.listInvertor_folder.setInputMethodHints(QtCore.Qt.ImhNone)
-        self.listInvertor_folder.setEditable(False)
-        self.listInvertor_folder.setCurrentText("")
-        self.listInvertor_folder.setProperty("placeholderText", "")
-        self.listInvertor_folder.setObjectName("listInvertor_folder")
-        self.label_6 = QtWidgets.QLabel(self.centralwidget)
-        self.label_6.setGeometry(QtCore.QRect(714, 240, 91, 16))
-        font = QtGui.QFont()
-        font.setFamily("Arial")
-        font.setPointSize(9)
-        font.setBold(True)
-        font.setWeight(75)
-        self.label_6.setFont(font)
-        self.label_6.setText("")
-        self.label_6.setObjectName("label_6")
-        self.listInvertor_file = QtWidgets.QComboBox(self.centralwidget)
-        self.listInvertor_file.setGeometry(QtCore.QRect(368, 16, 327, 41))
-        font = QtGui.QFont()
-        font.setFamily("Arial")
-        font.setPointSize(8)
-        font.setBold(True)
-        font.setWeight(75)
-        self.listInvertor_file.setFont(font)
-        self.listInvertor_file.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
-        self.listInvertor_file.setStyleSheet("QComboBox{\n"
-"    background-color:rgba(229,229,234,1); \n"
-"    border: none;\n"
-"    border-radius: 6;\n"
-"    padding-left: 8px;\n"
-"}\n"
-"\n"
-"QComboBox:drop-down \n"
-"{\n"
-"    width: 0px;\n"
-"    height: 0px;\n"
-"    border: 0px;\n"
-"}\n"
-"QComboBox:hover{\n"
-"    background-color:rgba(242,242,247,1);\n"
-"}\n"
-"")
-        self.listInvertor_file.setInputMethodHints(QtCore.Qt.ImhNone)
-        self.listInvertor_file.setEditable(False)
-        self.listInvertor_file.setCurrentText("")
-        self.listInvertor_file.setProperty("placeholderText", "")
-        self.listInvertor_file.setObjectName("listInvertor_file")
-        self.inputCodeProject = QtWidgets.QLineEdit(self.centralwidget)
-        self.inputCodeProject.setGeometry(QtCore.QRect(604, 16, 91, 41))
-        font = QtGui.QFont()
-        font.setFamily("Arial")
-        font.setBold(True)
-        font.setWeight(75)
-        self.inputCodeProject.setFont(font)
-        self.inputCodeProject.setStyleSheet("QLineEdit{\n"
-"    background-color:rgba(229,229,234,1); \n"
-"    border-radius: 6;\n"
-"    border: none;\n"
-"    padding-left: 8px\n"
-"}\n"
-"QLineEdit:hover{\n"
-"    background-color:rgba(242,242,247,1);\n"
-"}\n"
-"QLineEdit:pressed{\n"
-"    background-color:rgba(188,188,192,1);\n"
-"    border-radius: 12;\n"
-"}")
-        self.inputCodeProject.setInputMask("")
-        self.inputCodeProject.setText("")
-        self.inputCodeProject.setPlaceholderText("")
-        self.inputCodeProject.setObjectName("inputCodeProject")
-        self.label_3 = QtWidgets.QLabel(self.centralwidget)
-        self.label_3.setGeometry(QtCore.QRect(710, 82, 131, 16))
-        font = QtGui.QFont()
-        font.setFamily("Arial")
-        font.setPointSize(9)
-        font.setBold(True)
-        font.setWeight(75)
-        self.label_3.setFont(font)
-        self.label_3.setStyleSheet("background-color: rgba(255,255,255,0); ")
-        self.label_3.setObjectName("label_3")
-        self.btnShow3 = QtWidgets.QPushButton(self.centralwidget)
-        self.btnShow3.setGeometry(QtCore.QRect(366, 45, 31, 16))
-        font = QtGui.QFont()
-        font.setFamily("Arial")
-        font.setPointSize(8)
-        font.setBold(True)
-        font.setItalic(False)
-        font.setUnderline(False)
-        font.setWeight(75)
-        font.setStrikeOut(False)
-        font.setKerning(True)
-        font.setStyleStrategy(QtGui.QFont.PreferAntialias)
-        self.btnShow3.setFont(font)
-        self.btnShow3.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
-        self.btnShow3.setStyleSheet("background-color: rgba(255,255,255,0); \n"
-"border-radius: 5;\n"
-"border: none;\n"
-"padding: 2;")
-        self.btnShow3.setObjectName("btnShow3")
-        self.btnShow5 = QtWidgets.QPushButton(self.centralwidget)
-        self.btnShow5.setGeometry(QtCore.QRect(466, 45, 51, 16))
-        font = QtGui.QFont()
-        font.setFamily("Arial")
-        font.setPointSize(8)
-        font.setBold(True)
-        font.setWeight(75)
-        self.btnShow5.setFont(font)
-        self.btnShow5.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
-        self.btnShow5.setStyleSheet("background-color: rgba(255,255,255,0); \n"
-"border-radius: 5;\n"
-"border: none;\n"
-"padding: 2;")
-        self.btnShow5.setObjectName("btnShow5")
-        self.btnShow8 = QtWidgets.QPushButton(self.centralwidget)
-        self.btnShow8.setGeometry(QtCore.QRect(626, 45, 57, 16))
-        font = QtGui.QFont()
-        font.setFamily("Arial")
-        font.setPointSize(8)
-        font.setBold(True)
-        font.setWeight(75)
-        self.btnShow8.setFont(font)
-        self.btnShow8.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
-        self.btnShow8.setStyleSheet("background-color: rgba(255,255,255,0); \n"
-"border-radius: 5;\n"
-"border: none;\n"
-"padding: 2;")
-        self.btnShow8.setObjectName("btnShow8")
-        self.checkBox_7 = QtWidgets.QCheckBox(self.centralwidget)
-        self.checkBox_7.setGeometry(QtCore.QRect(592, 26, 34, 20))
-        font = QtGui.QFont()
-        font.setFamily("Arial")
-        font.setBold(True)
-        font.setWeight(75)
-        self.checkBox_7.setFont(font)
-        self.checkBox_7.setObjectName("checkBox_7")
-        self.checkBox_8 = QtWidgets.QCheckBox(self.centralwidget)
-        self.checkBox_8.setGeometry(QtCore.QRect(647, 26, 34, 20))
-        font = QtGui.QFont()
-        font.setFamily("Arial")
-        font.setBold(True)
-        font.setWeight(75)
-        self.checkBox_8.setFont(font)
-        self.checkBox_8.setObjectName("checkBox_8")
-        self.checkBox_2 = QtWidgets.QCheckBox(self.centralwidget)
-        self.checkBox_2.setGeometry(QtCore.QRect(320, 26, 34, 20))
-        font = QtGui.QFont()
-        font.setFamily("Arial")
-        font.setBold(True)
-        font.setWeight(75)
-        self.checkBox_2.setFont(font)
-        self.checkBox_2.setObjectName("checkBox_2")
-        self.checkBox_4 = QtWidgets.QCheckBox(self.centralwidget)
-        self.checkBox_4.setGeometry(QtCore.QRect(429, 26, 34, 20))
-        font = QtGui.QFont()
-        font.setFamily("Arial")
-        font.setBold(True)
-        font.setWeight(75)
-        self.checkBox_4.setFont(font)
-        self.checkBox_4.setObjectName("checkBox_4")
-        self.checkBox_5 = QtWidgets.QCheckBox(self.centralwidget)
-        self.checkBox_5.setGeometry(QtCore.QRect(483, 26, 38, 20))
-        font = QtGui.QFont()
-        font.setFamily("Arial")
-        font.setBold(True)
-        font.setWeight(75)
-        self.checkBox_5.setFont(font)
-        self.checkBox_5.setObjectName("checkBox_5")
-        self.checkBox_6 = QtWidgets.QCheckBox(self.centralwidget)
-        self.checkBox_6.setGeometry(QtCore.QRect(538, 26, 34, 20))
-        font = QtGui.QFont()
-        font.setFamily("Arial")
-        font.setBold(True)
-        font.setWeight(75)
-        self.checkBox_6.setFont(font)
-        self.checkBox_6.setObjectName("checkBox_6")
-        self.checkBox_3 = QtWidgets.QCheckBox(self.centralwidget)
-        self.checkBox_3.setGeometry(QtCore.QRect(374, 26, 34, 20))
-        font = QtGui.QFont()
-        font.setFamily("Arial")
-        font.setBold(True)
-        font.setWeight(75)
-        self.checkBox_3.setFont(font)
-        self.checkBox_3.setObjectName("checkBox_3")
-        self.checkBox_1 = QtWidgets.QCheckBox(self.centralwidget)
-        self.checkBox_1.setGeometry(QtCore.QRect(265, 26, 34, 20))
-        font = QtGui.QFont()
-        font.setFamily("Arial")
-        font.setBold(True)
-        font.setWeight(75)
-        self.checkBox_1.setFont(font)
-        self.checkBox_1.setObjectName("checkBox_1")
         self.btnOpenPDF = QtWidgets.QPushButton(self.centralwidget)
-        self.btnOpenPDF.setGeometry(QtCore.QRect(220, 293, 91, 31))
+        self.btnOpenPDF.setGeometry(QtCore.QRect(97, 329, 71, 31))
         font = QtGui.QFont()
         font.setFamily("Arial")
         font.setPointSize(9)
@@ -940,475 +339,8 @@ class Ui_MainWindow(object):
 "}\n"
 "")
         self.btnOpenPDF.setObjectName("btnOpenPDF")
-        self.listPV_file = QtWidgets.QComboBox(self.centralwidget)
-        self.listPV_file.setGeometry(QtCore.QRect(368, 71, 327, 41))
-        font = QtGui.QFont()
-        font.setFamily("Arial")
-        font.setPointSize(8)
-        font.setBold(True)
-        font.setWeight(75)
-        self.listPV_file.setFont(font)
-        self.listPV_file.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
-        self.listPV_file.setStyleSheet("QComboBox{\n"
-"    background-color:rgba(229,229,234,1); \n"
-"    border: none;\n"
-"    border-radius: 6;\n"
-"    padding-left: 8px;\n"
-"}\n"
-"\n"
-"QComboBox:drop-down \n"
-"{\n"
-"    width: 0px;\n"
-"    height: 0px;\n"
-"    border: 0px;\n"
-"}\n"
-"QComboBox:hover{\n"
-"    background-color:rgba(242,242,247,1);\n"
-"}\n"
-"")
-        self.listPV_file.setInputMethodHints(QtCore.Qt.ImhNone)
-        self.listPV_file.setEditable(False)
-        self.listPV_file.setCurrentText("")
-        self.listPV_file.setProperty("placeholderText", "")
-        self.listPV_file.setObjectName("listPV_file")
-        self.listPV_folder = QtWidgets.QComboBox(self.centralwidget)
-        self.listPV_folder.setGeometry(QtCore.QRect(266, 71, 91, 41))
-        font = QtGui.QFont()
-        font.setFamily("Arial")
-        font.setBold(True)
-        font.setWeight(75)
-        self.listPV_folder.setFont(font)
-        self.listPV_folder.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
-        self.listPV_folder.setStyleSheet("QComboBox{\n"
-"    background-color:rgba(229,229,234,1); \n"
-"    border: none;\n"
-"    border-radius: 6;\n"
-"    padding-left: 8px;\n"
-"}\n"
-"\n"
-"QComboBox:drop-down \n"
-"{\n"
-"    width: 0px;\n"
-"    height: 0px;\n"
-"    border: 0px;\n"
-"}\n"
-"QComboBox:hover{\n"
-"    background-color:rgba(242,242,247,1);\n"
-"}\n"
-"")
-        self.listPV_folder.setInputMethodHints(QtCore.Qt.ImhNone)
-        self.listPV_folder.setEditable(False)
-        self.listPV_folder.setCurrentText("")
-        self.listPV_folder.setProperty("placeholderText", "")
-        self.listPV_folder.setObjectName("listPV_folder")
-        self.listKTP_folder = QtWidgets.QComboBox(self.centralwidget)
-        self.listKTP_folder.setGeometry(QtCore.QRect(267, 126, 91, 41))
-        font = QtGui.QFont()
-        font.setFamily("Arial")
-        font.setBold(True)
-        font.setWeight(75)
-        self.listKTP_folder.setFont(font)
-        self.listKTP_folder.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
-        self.listKTP_folder.setStyleSheet("QComboBox{\n"
-"    background-color:rgba(229,229,234,1); \n"
-"    border: none;\n"
-"    border-radius: 6;\n"
-"    padding-left: 8px;\n"
-"}\n"
-"\n"
-"QComboBox:drop-down \n"
-"{\n"
-"    width: 0px;\n"
-"    height: 0px;\n"
-"    border: 0px;\n"
-"}\n"
-"QComboBox:hover{\n"
-"    background-color:rgba(242,242,247,1);\n"
-"}\n"
-"")
-        self.listKTP_folder.setInputMethodHints(QtCore.Qt.ImhNone)
-        self.listKTP_folder.setEditable(False)
-        self.listKTP_folder.setCurrentText("")
-        self.listKTP_folder.setProperty("placeholderText", "")
-        self.listKTP_folder.setObjectName("listKTP_folder")
-        self.listKTP_file = QtWidgets.QComboBox(self.centralwidget)
-        self.listKTP_file.setGeometry(QtCore.QRect(369, 126, 327, 41))
-        font = QtGui.QFont()
-        font.setFamily("Arial")
-        font.setPointSize(8)
-        font.setBold(True)
-        font.setWeight(75)
-        self.listKTP_file.setFont(font)
-        self.listKTP_file.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
-        self.listKTP_file.setStyleSheet("QComboBox{\n"
-"    background-color:rgba(229,229,234,1); \n"
-"    border: none;\n"
-"    border-radius: 6;\n"
-"    padding-left: 8px;\n"
-"}\n"
-"\n"
-"QComboBox:drop-down \n"
-"{\n"
-"    width: 0px;\n"
-"    height: 0px;\n"
-"    border: 0px;\n"
-"}\n"
-"QComboBox:hover{\n"
-"    background-color:rgba(242,242,247,1);\n"
-"}\n"
-"")
-        self.listKTP_file.setInputMethodHints(QtCore.Qt.ImhNone)
-        self.listKTP_file.setEditable(False)
-        self.listKTP_file.setCurrentText("")
-        self.listKTP_file.setProperty("placeholderText", "")
-        self.listKTP_file.setObjectName("listKTP_file")
-        self.inputUDotIn = QtWidgets.QLineEdit(self.centralwidget)
-        self.inputUDotIn.setGeometry(QtCore.QRect(266, 180, 140, 41))
-        font = QtGui.QFont()
-        font.setFamily("Arial")
-        font.setBold(True)
-        font.setWeight(75)
-        self.inputUDotIn.setFont(font)
-        self.inputUDotIn.setStyleSheet("QLineEdit{\n"
-"    background-color:rgba(229,229,234,1); \n"
-"    border-radius: 6;\n"
-"    border: none;\n"
-"    padding-left: 8px\n"
-"}\n"
-"QLineEdit:hover{\n"
-"    background-color:rgba(242,242,247,1);\n"
-"}\n"
-"QLineEdit:pressed{\n"
-"    background-color:rgba(188,188,192,1);\n"
-"    border-radius: 12;\n"
-"}")
-        self.inputUDotIn.setInputMask("")
-        self.inputUDotIn.setText("")
-        self.inputUDotIn.setPlaceholderText("")
-        self.inputUDotIn.setObjectName("inputUDotIn")
-        self.inputAddress = QtWidgets.QLineEdit(self.centralwidget)
-        self.inputAddress.setGeometry(QtCore.QRect(266, 234, 429, 41))
-        font = QtGui.QFont()
-        font.setFamily("Arial")
-        font.setBold(True)
-        font.setWeight(75)
-        self.inputAddress.setFont(font)
-        self.inputAddress.setStyleSheet("QLineEdit{\n"
-"    background-color:rgba(229,229,234,1); \n"
-"    border-radius: 6;\n"
-"    border: none;\n"
-"    padding-left: 8px\n"
-"}\n"
-"QLineEdit:hover{\n"
-"    background-color:rgba(242,242,247,1);\n"
-"}\n"
-"QLineEdit:pressed{\n"
-"    background-color:rgba(188,188,192,1);\n"
-"    border-radius: 12;\n"
-"}")
-        self.inputAddress.setInputMask("")
-        self.inputAddress.setText("")
-        self.inputAddress.setPlaceholderText("")
-        self.inputAddress.setObjectName("inputAddress")
-        self.inputObjectType = QtWidgets.QLineEdit(self.centralwidget)
-        self.inputObjectType.setGeometry(QtCore.QRect(266, 71, 429, 41))
-        font = QtGui.QFont()
-        font.setFamily("Arial")
-        font.setBold(True)
-        font.setWeight(75)
-        self.inputObjectType.setFont(font)
-        self.inputObjectType.setStyleSheet("QLineEdit{\n"
-"    background-color:rgba(229,229,234,1); \n"
-"    border-radius: 6;\n"
-"    border: none;\n"
-"    padding-left: 8px\n"
-"}\n"
-"QLineEdit:hover{\n"
-"    background-color:rgba(242,242,247,1);\n"
-"}\n"
-"QLineEdit:pressed{\n"
-"    background-color:rgba(188,188,192,1);\n"
-"    border-radius: 12;\n"
-"}")
-        self.inputObjectType.setInputMask("")
-        self.inputObjectType.setText("")
-        self.inputObjectType.setPlaceholderText("")
-        self.inputObjectType.setObjectName("inputObjectType")
-        self.inputAddressLat = QtWidgets.QLineEdit(self.centralwidget)
-        self.inputAddressLat.setGeometry(QtCore.QRect(418, 180, 129, 41))
-        font = QtGui.QFont()
-        font.setFamily("Arial")
-        font.setBold(True)
-        font.setWeight(75)
-        self.inputAddressLat.setFont(font)
-        self.inputAddressLat.setStyleSheet("QLineEdit{\n"
-"    background-color:rgba(229,229,234,1); \n"
-"    border-radius: 6;\n"
-"    border: none;\n"
-"    padding-left: 8px\n"
-"}\n"
-"QLineEdit:hover{\n"
-"    background-color:rgba(242,242,247,1);\n"
-"}\n"
-"QLineEdit:pressed{\n"
-"    background-color:rgba(188,188,192,1);\n"
-"    border-radius: 12;\n"
-"}")
-        self.inputAddressLat.setInputMask("")
-        self.inputAddressLat.setText("")
-        self.inputAddressLat.setPlaceholderText("")
-        self.inputAddressLat.setObjectName("inputAddressLat")
-        self.inputAddressLong = QtWidgets.QLineEdit(self.centralwidget)
-        self.inputAddressLong.setGeometry(QtCore.QRect(559, 180, 137, 41))
-        font = QtGui.QFont()
-        font.setFamily("Arial")
-        font.setBold(True)
-        font.setWeight(75)
-        self.inputAddressLong.setFont(font)
-        self.inputAddressLong.setStyleSheet("QLineEdit{\n"
-"    background-color:rgba(229,229,234,1); \n"
-"    border-radius: 6;\n"
-"    border: none;\n"
-"    padding-left: 8px\n"
-"}\n"
-"QLineEdit:hover{\n"
-"    background-color:rgba(242,242,247,1);\n"
-"}\n"
-"QLineEdit:pressed{\n"
-"    background-color:rgba(188,188,192,1);\n"
-"    border-radius: 12;\n"
-"}")
-        self.inputAddressLong.setInputMask("")
-        self.inputAddressLong.setText("")
-        self.inputAddressLong.setPlaceholderText("")
-        self.inputAddressLong.setObjectName("inputAddressLong")
-        self.btnAddInvertor = QtWidgets.QPushButton(self.centralwidget)
-        self.btnAddInvertor.setGeometry(QtCore.QRect(227, 20, 31, 31))
-        font = QtGui.QFont()
-        font.setFamily("Arial")
-        font.setPointSize(14)
-        font.setBold(True)
-        font.setWeight(75)
-        self.btnAddInvertor.setFont(font)
-        self.btnAddInvertor.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
-        self.btnAddInvertor.setStyleSheet("QPushButton{\n"
-"    background-color:rgba(112, 215, 255, 0);\n"
-"    color:rgba(0, 0, 0, 0.5);\n"
-"    border: none;\n"
-"    border-radius: 5;\n"
-"    border-style: outset;\n"
-"}\n"
-"QPushButton:hover{\n"
-"    color: black;\n"
-"}\n"
-"")
-        self.btnAddInvertor.setObjectName("btnAddInvertor")
-        self.spinBox_numInvertor = QtWidgets.QSpinBox(self.centralwidget)
-        self.spinBox_numInvertor.setGeometry(QtCore.QRect(655, 16, 41, 41))
-        font = QtGui.QFont()
-        font.setFamily("Arial")
-        font.setBold(True)
-        font.setWeight(75)
-        self.spinBox_numInvertor.setFont(font)
-        self.spinBox_numInvertor.setStyleSheet("QSpinBox{\n"
-"    background-color:rgba(229,229,234,1); \n"
-"    border-radius: 6;\n"
-"    border: none;\n"
-"    padding-left: 8px;\n"
-"}\n"
-"QSpinBox:hover{\n"
-"    background-color:rgba(242,242,247,1);\n"
-"}\n"
-"QSpinBox:up-button:hover{\n"
-"    background-color:rgba(25,109,255, 0.7);\n"
-"    border-top-right-radius: 6;\n"
-"}\n"
-"QSpinBox:up-button:pressed{\n"
-"    background-color:rgba(25,109,255, 0.5);\n"
-"    border-top-right-radius: 6;\n"
-"}\n"
-"QSpinBox:up-button{\n"
-"    background-color:rgba(229,229,234,1); \n"
-"    border-top-right-radius: 6;\n"
-"    border: none;\n"
-"    border-left: 1px solid rgba(0,0,0,0.3);\n"
-"}\n"
-"\n"
-"QSpinBox:down-button:hover{\n"
-"    background-color:rgba(25,109,255, 0.7);\n"
-"    border-bottom-right-radius: 6;\n"
-"}\n"
-"QSpinBox:down-button:pressed{\n"
-"    background-color:rgba(25,109,255, 0.5);\n"
-"    border-bottom-right-radius: 6;\n"
-"}\n"
-"QSpinBox:down-button{\n"
-"    background-color:rgba(229,229,234,1); \n"
-"    border-bottom-right-radius: 6;\n"
-"    border-left: 1px solid rgba(0,0,0,0.3);\n"
-"\n"
-"}")
-        self.spinBox_numInvertor.setReadOnly(False)
-        self.spinBox_numInvertor.setObjectName("spinBox_numInvertor")
-        self.btnAddPV = QtWidgets.QPushButton(self.centralwidget)
-        self.btnAddPV.setGeometry(QtCore.QRect(227, 75, 31, 31))
-        font = QtGui.QFont()
-        font.setFamily("Arial")
-        font.setPointSize(14)
-        font.setBold(True)
-        font.setWeight(75)
-        self.btnAddPV.setFont(font)
-        self.btnAddPV.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
-        self.btnAddPV.setStyleSheet("QPushButton{\n"
-"    background-color:rgba(112, 215, 255, 0);\n"
-"    color:rgba(0, 0, 0, 0.5);\n"
-"    border: none;\n"
-"    border-radius: 5;\n"
-"    border-style: outset;\n"
-"}\n"
-"QPushButton:hover{\n"
-"    color: black;\n"
-"}\n"
-"")
-        self.btnAddPV.setObjectName("btnAddPV")
-        self.spinBox_numPV = QtWidgets.QSpinBox(self.centralwidget)
-        self.spinBox_numPV.setGeometry(QtCore.QRect(654, 71, 41, 41))
-        font = QtGui.QFont()
-        font.setFamily("Arial")
-        font.setBold(True)
-        font.setWeight(75)
-        self.spinBox_numPV.setFont(font)
-        self.spinBox_numPV.setStyleSheet("QSpinBox{\n"
-"    background-color:rgba(229,229,234,1); \n"
-"    border-radius: 6;\n"
-"    border: none;\n"
-"    padding-left: 8px\n"
-"}\n"
-"QSpinBox:hover{\n"
-"    background-color:rgba(242,242,247,1);\n"
-"}\n"
-"QSpinBox:up-button:hover{\n"
-"    background-color:rgba(25,109,255, 0.7);\n"
-"    border-top-right-radius: 6;\n"
-"}\n"
-"QSpinBox:up-button:pressed{\n"
-"    background-color:rgba(25,109,255, 0.5);\n"
-"    border-top-right-radius: 6;\n"
-"}\n"
-"QSpinBox:up-button{\n"
-"    background-color:rgba(229,229,234,1); \n"
-"    border-top-right-radius: 6;\n"
-"    border: none;\n"
-"    border-left: 1px solid rgba(0,0,0,0.3);\n"
-"}\n"
-"\n"
-"QSpinBox:down-button:hover{\n"
-"    background-color:rgba(25,109,255, 0.7);\n"
-"    border-bottom-right-radius: 6;\n"
-"}\n"
-"QSpinBox:down-button:pressed{\n"
-"    background-color:rgba(25,109,255, 0.5);\n"
-"    border-bottom-right-radius: 6;\n"
-"}\n"
-"QSpinBox:down-button{\n"
-"    background-color:rgba(229,229,234,1); \n"
-"    border-bottom-right-radius: 6;\n"
-"    border-left: 1px solid rgba(0,0,0,0.3);\n"
-"\n"
-"}")
-        self.spinBox_numPV.setReadOnly(False)
-        self.spinBox_numPV.setObjectName("spinBox_numPV")
-        self.btnAddKTP = QtWidgets.QPushButton(self.centralwidget)
-        self.btnAddKTP.setGeometry(QtCore.QRect(227, 129, 31, 31))
-        font = QtGui.QFont()
-        font.setFamily("Arial")
-        font.setPointSize(14)
-        font.setBold(True)
-        font.setWeight(75)
-        self.btnAddKTP.setFont(font)
-        self.btnAddKTP.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
-        self.btnAddKTP.setStyleSheet("QPushButton{\n"
-"    background-color:rgba(112, 215, 255, 0);\n"
-"    color:rgba(0, 0, 0, 0.5);\n"
-"    border: none;\n"
-"    border-radius: 5;\n"
-"    border-style: outset;\n"
-"}\n"
-"QPushButton:hover{\n"
-"    color: black;\n"
-"}\n"
-"")
-        self.btnAddKTP.setObjectName("btnAddKTP")
-        self.spinBox_numKTP = QtWidgets.QSpinBox(self.centralwidget)
-        self.spinBox_numKTP.setGeometry(QtCore.QRect(656, 126, 41, 41))
-        font = QtGui.QFont()
-        font.setFamily("Arial")
-        font.setBold(True)
-        font.setWeight(75)
-        self.spinBox_numKTP.setFont(font)
-        self.spinBox_numKTP.setStyleSheet("QSpinBox{\n"
-"    background-color:rgba(229,229,234,1); \n"
-"    border-radius: 6;\n"
-"    border: none;\n"
-"    padding-left: 8px\n"
-"}\n"
-"QSpinBox:hover{\n"
-"    background-color:rgba(242,242,247,1);\n"
-"}\n"
-"QSpinBox:up-button:hover{\n"
-"    background-color:rgba(25,109,255, 0.7);\n"
-"    border-top-right-radius: 6;\n"
-"}\n"
-"QSpinBox:up-button:pressed{\n"
-"    background-color:rgba(25,109,255, 0.5);\n"
-"    border-top-right-radius: 6;\n"
-"}\n"
-"QSpinBox:up-button{\n"
-"    background-color:rgba(229,229,234,1); \n"
-"    border-top-right-radius: 6;\n"
-"    border: none;\n"
-"    border-left: 1px solid rgba(0,0,0,0.3);\n"
-"}\n"
-"\n"
-"QSpinBox:down-button:hover{\n"
-"    background-color:rgba(25,109,255, 0.7);\n"
-"    border-bottom-right-radius: 6;\n"
-"}\n"
-"QSpinBox:down-button:pressed{\n"
-"    background-color:rgba(25,109,255, 0.5);\n"
-"    border-bottom-right-radius: 6;\n"
-"}\n"
-"QSpinBox:down-button{\n"
-"    background-color:rgba(229,229,234,1); \n"
-"    border-bottom-right-radius: 6;\n"
-"    border-left: 1px solid rgba(0,0,0,0.3);\n"
-"\n"
-"}")
-        self.spinBox_numKTP.setReadOnly(False)
-        self.spinBox_numKTP.setObjectName("spinBox_numKTP")
-        self.btnSearchCoordinates = QtWidgets.QPushButton(self.centralwidget)
-        self.btnSearchCoordinates.setGeometry(QtCore.QRect(223, 237, 41, 31))
-        font = QtGui.QFont()
-        font.setFamily("Arial")
-        font.setPointSize(13)
-        font.setBold(False)
-        font.setWeight(50)
-        self.btnSearchCoordinates.setFont(font)
-        self.btnSearchCoordinates.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
-        self.btnSearchCoordinates.setStyleSheet("QPushButton{\n"
-"    background-color:rgba(112, 215, 255, 0);\n"
-"    color:  #3b83ff;\n"
-"    border: none;\n"
-"    border-radius: 5;\n"
-"    border-style: outset;\n"
-"}\n"
-"QPushButton:hover{\n"
-"    color:rgba(0, 20, 240, 0.93) ;\n"
-"}\n"
-"")
-        self.btnSearchCoordinates.setObjectName("btnSearchCoordinates")
         self.btnDelPvsystData = QtWidgets.QPushButton(self.centralwidget)
-        self.btnDelPvsystData.setGeometry(QtCore.QRect(897, 25, 31, 31))
+        self.btnDelPvsystData.setGeometry(QtCore.QRect(971, 25, 31, 31))
         font = QtGui.QFont()
         font.setFamily("Arial")
         font.setPointSize(11)
@@ -1429,7 +361,7 @@ class Ui_MainWindow(object):
 "")
         self.btnDelPvsystData.setObjectName("btnDelPvsystData")
         self.btnDelSchemeTwoData = QtWidgets.QPushButton(self.centralwidget)
-        self.btnDelSchemeTwoData.setGeometry(QtCore.QRect(897, 185, 31, 21))
+        self.btnDelSchemeTwoData.setGeometry(QtCore.QRect(971, 185, 31, 21))
         font = QtGui.QFont()
         font.setFamily("Arial")
         font.setPointSize(11)
@@ -1450,7 +382,7 @@ class Ui_MainWindow(object):
 "")
         self.btnDelSchemeTwoData.setObjectName("btnDelSchemeTwoData")
         self.btnDelSchemeOneData = QtWidgets.QPushButton(self.centralwidget)
-        self.btnDelSchemeOneData.setGeometry(QtCore.QRect(897, 103, 31, 20))
+        self.btnDelSchemeOneData.setGeometry(QtCore.QRect(971, 103, 31, 20))
         font = QtGui.QFont()
         font.setFamily("Arial")
         font.setPointSize(11)
@@ -1470,27 +402,6 @@ class Ui_MainWindow(object):
 "}\n"
 "")
         self.btnDelSchemeOneData.setObjectName("btnDelSchemeOneData")
-        self.btnDelInvertor = QtWidgets.QPushButton(self.centralwidget)
-        self.btnDelInvertor.setGeometry(QtCore.QRect(780, 21, 31, 31))
-        font = QtGui.QFont()
-        font.setFamily("Arial")
-        font.setPointSize(11)
-        font.setBold(True)
-        font.setWeight(75)
-        self.btnDelInvertor.setFont(font)
-        self.btnDelInvertor.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
-        self.btnDelInvertor.setStyleSheet("QPushButton{\n"
-"    background-color:rgba(112, 215, 255, 0);\n"
-"    color:  rgba(0, 0, 0, 0.5);\n"
-"    border: none;\n"
-"    border-radius: 5;\n"
-"    border-style: outset;\n"
-"}\n"
-"QPushButton:hover{\n"
-"    color:rgba(255, 20, 20, 1) ;\n"
-"}\n"
-"")
-        self.btnDelInvertor.setObjectName("btnDelInvertor")
         self.label_7 = QtWidgets.QLabel(self.centralwidget)
         self.label_7.setGeometry(QtCore.QRect(29, 70, 101, 16))
         font = QtGui.QFont()
@@ -1535,76 +446,13 @@ class Ui_MainWindow(object):
         self.label_10.setStyleSheet("background-color: rgba(255,255,255,0);\n"
 "color:rgba(0, 0, 0, 0.5); ")
         self.label_10.setObjectName("label_10")
-        self.btnSlideMenuDevices = QtWidgets.QPushButton(self.centralwidget)
-        self.btnSlideMenuDevices.setGeometry(QtCore.QRect(426, 307, 20, 21))
-        font = QtGui.QFont()
-        font.setFamily("Arial")
-        font.setPointSize(11)
-        font.setBold(True)
-        font.setWeight(75)
-        self.btnSlideMenuDevices.setFont(font)
-        self.btnSlideMenuDevices.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
-        self.btnSlideMenuDevices.setStyleSheet("QPushButton{\n"
-"    background-color:rgba(112, 215, 255, 0);\n"
-"    color:  #3b83ff;\n"
-"    border: none;\n"
-"    border-radius: 5;\n"
-"    border-style: outset;\n"
-"}\n"
-"QPushButton:hover{\n"
-"    color:rgba(0, 20, 240, 0.93) ;\n"
-"}\n"
-"")
-        self.btnSlideMenuDevices.setObjectName("btnSlideMenuDevices")
-        self.btnSlideMenuPassport = QtWidgets.QPushButton(self.centralwidget)
-        self.btnSlideMenuPassport.setGeometry(QtCore.QRect(458, 307, 20, 21))
-        font = QtGui.QFont()
-        font.setFamily("Arial")
-        font.setPointSize(11)
-        font.setBold(True)
-        font.setWeight(75)
-        self.btnSlideMenuPassport.setFont(font)
-        self.btnSlideMenuPassport.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
-        self.btnSlideMenuPassport.setStyleSheet("QPushButton{\n"
-"    background-color:rgba(112, 215, 255, 0);\n"
-"    color:  #3b83ff;\n"
-"    border: none;\n"
-"    border-radius: 5;\n"
-"    border-style: outset;\n"
-"}\n"
-"QPushButton:hover{\n"
-"    color:rgba(0, 20, 240, 0.93) ;\n"
-"}\n"
-"")
-        self.btnSlideMenuPassport.setObjectName("btnSlideMenuPassport")
-        self.btnSlideMenuDelete = QtWidgets.QPushButton(self.centralwidget)
-        self.btnSlideMenuDelete.setGeometry(QtCore.QRect(490, 307, 20, 21))
-        font = QtGui.QFont()
-        font.setFamily("Arial")
-        font.setPointSize(11)
-        font.setBold(True)
-        font.setWeight(75)
-        self.btnSlideMenuDelete.setFont(font)
-        self.btnSlideMenuDelete.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
-        self.btnSlideMenuDelete.setStyleSheet("QPushButton{\n"
-"    background-color:rgba(112, 215, 255, 0);\n"
-"    color:  #3b83ff;\n"
-"    border: none;\n"
-"    border-radius: 5;\n"
-"    border-style: outset;\n"
-"}\n"
-"QPushButton:hover{\n"
-"    color:rgba(0, 20, 240, 0.93) ;\n"
-"}\n"
-"")
-        self.btnSlideMenuDelete.setObjectName("btnSlideMenuDelete")
         self.labelLoading = QtWidgets.QLabel(self.centralwidget)
         self.labelLoading.setGeometry(QtCore.QRect(70, 270, 91, 71))
         self.labelLoading.setStyleSheet("background-color:rgba(112, 215, 255, 0);")
         self.labelLoading.setAlignment(QtCore.Qt.AlignCenter)
         self.labelLoading.setObjectName("labelLoading")
         self.label_11 = QtWidgets.QLabel(self.centralwidget)
-        self.label_11.setGeometry(QtCore.QRect(843, 71, 61, 16))
+        self.label_11.setGeometry(QtCore.QRect(917, 71, 61, 16))
         font = QtGui.QFont()
         font.setFamily("Arial")
         font.setPointSize(8)
@@ -1616,7 +464,7 @@ class Ui_MainWindow(object):
         self.label_11.setAlignment(QtCore.Qt.AlignCenter)
         self.label_11.setObjectName("label_11")
         self.label_12 = QtWidgets.QLabel(self.centralwidget)
-        self.label_12.setGeometry(QtCore.QRect(843, 155, 61, 16))
+        self.label_12.setGeometry(QtCore.QRect(917, 155, 61, 16))
         font = QtGui.QFont()
         font.setFamily("Arial")
         font.setPointSize(8)
@@ -1628,7 +476,7 @@ class Ui_MainWindow(object):
         self.label_12.setAlignment(QtCore.Qt.AlignCenter)
         self.label_12.setObjectName("label_12")
         self.label_13 = QtWidgets.QLabel(self.centralwidget)
-        self.label_13.setGeometry(QtCore.QRect(843, 239, 61, 16))
+        self.label_13.setGeometry(QtCore.QRect(917, 239, 61, 16))
         font = QtGui.QFont()
         font.setFamily("Arial")
         font.setPointSize(8)
@@ -1639,144 +487,8 @@ class Ui_MainWindow(object):
 "color:rgba(0, 0, 0, 0.5);")
         self.label_13.setAlignment(QtCore.Qt.AlignCenter)
         self.label_13.setObjectName("label_13")
-        self.inputKTP = QtWidgets.QTextBrowser(self.centralwidget)
-        self.inputKTP.setEnabled(True)
-        self.inputKTP.setGeometry(QtCore.QRect(266, 16, 430, 259))
-        font = QtGui.QFont()
-        font.setFamily("Arial")
-        font.setBold(False)
-        font.setUnderline(False)
-        font.setWeight(50)
-        font.setStrikeOut(False)
-        self.inputKTP.setFont(font)
-        self.inputKTP.setStyleSheet("QTextBrowser{\n"
-"    background-color:rgba(229,229,234,1); \n"
-"    border-radius: 6;\n"
-"    border: none;\n"
-"    padding: 8 4 8 8;\n"
-"}\n"
-"")
-        self.inputKTP.setReadOnly(False)
-        self.inputKTP.setObjectName("inputKTP")
-        self.btnSlideMenuKTP = QtWidgets.QPushButton(self.centralwidget)
-        self.btnSlideMenuKTP.setGeometry(QtCore.QRect(520, 307, 20, 21))
-        font = QtGui.QFont()
-        font.setFamily("Arial")
-        font.setPointSize(11)
-        font.setBold(True)
-        font.setWeight(75)
-        self.btnSlideMenuKTP.setFont(font)
-        self.btnSlideMenuKTP.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
-        self.btnSlideMenuKTP.setStyleSheet("QPushButton{\n"
-"    background-color:rgba(112, 215, 255, 0);\n"
-"    color:  #3b83ff;\n"
-"    border: none;\n"
-"    border-radius: 5;\n"
-"    border-style: outset;\n"
-"}\n"
-"QPushButton:hover{\n"
-"    color:rgba(0, 20, 240, 0.93) ;\n"
-"}\n"
-"")
-        self.btnSlideMenuKTP.setObjectName("btnSlideMenuKTP")
-        self.btnAddKTPParams = QtWidgets.QPushButton(self.centralwidget)
-        self.btnAddKTPParams.setGeometry(QtCore.QRect(685, 277, 31, 31))
-        font = QtGui.QFont()
-        font.setFamily("Arial")
-        font.setPointSize(14)
-        font.setBold(True)
-        font.setWeight(75)
-        self.btnAddKTPParams.setFont(font)
-        self.btnAddKTPParams.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
-        self.btnAddKTPParams.setStyleSheet("QPushButton{\n"
-"    background-color:rgba(112, 215, 255, 0);\n"
-"    color:rgba(0, 0, 0, 0.5);\n"
-"    border: none;\n"
-"    border-radius: 5;\n"
-"    border-style: outset;\n"
-"}\n"
-"QPushButton:hover{\n"
-"    color: black;\n"
-"}\n"
-"")
-        self.btnAddKTPParams.setObjectName("btnAddKTPParams")
-        self.inputNameFileKTP = QtWidgets.QLineEdit(self.centralwidget)
-        self.inputNameFileKTP.setGeometry(QtCore.QRect(565, 312, 131, 41))
-        font = QtGui.QFont()
-        font.setFamily("Arial")
-        font.setBold(True)
-        font.setWeight(75)
-        self.inputNameFileKTP.setFont(font)
-        self.inputNameFileKTP.setStyleSheet("QLineEdit{\n"
-"    background-color:rgba(229,229,234,1); \n"
-"    border-radius: 6;\n"
-"    border: none;\n"
-"    padding-left: 8px\n"
-"}\n"
-"QLineEdit:hover{\n"
-"    background-color:rgba(242,242,247,1);\n"
-"}\n"
-"QLineEdit:pressed{\n"
-"    background-color:rgba(188,188,192,1);\n"
-"    border-radius: 12;\n"
-"}")
-        self.inputNameFileKTP.setInputMask("")
-        self.inputNameFileKTP.setText("")
-        self.inputNameFileKTP.setObjectName("inputNameFileKTP")
-        self.btnKTPTemplate = QtWidgets.QPushButton(self.centralwidget)
-        self.btnKTPTemplate.setGeometry(QtCore.QRect(705, 138, 41, 20))
-        font = QtGui.QFont()
-        font.setFamily("Arial")
-        font.setPointSize(9)
-        font.setBold(True)
-        font.setItalic(False)
-        font.setUnderline(False)
-        font.setWeight(75)
-        font.setStrikeOut(False)
-        font.setKerning(True)
-        font.setStyleStrategy(QtGui.QFont.PreferAntialias)
-        self.btnKTPTemplate.setFont(font)
-        self.btnKTPTemplate.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
-        self.btnKTPTemplate.setStyleSheet("QPushButton{\n"
-"    background-color:rgba(112, 215, 255, 0);\n"
-"    color:rgba(0, 0, 0, 0.5);\n"
-"    border: none;\n"
-"    border-radius: 5;\n"
-"    border-style: outset;\n"
-"}\n"
-"QPushButton:hover{\n"
-"    color: black;\n"
-"}\n"
-"")
-        self.btnKTPTemplate.setObjectName("btnKTPTemplate")
-        self.btnOtherTemplate = QtWidgets.QPushButton(self.centralwidget)
-        self.btnOtherTemplate.setGeometry(QtCore.QRect(704, 79, 61, 20))
-        font = QtGui.QFont()
-        font.setFamily("Arial")
-        font.setPointSize(9)
-        font.setBold(True)
-        font.setItalic(False)
-        font.setUnderline(False)
-        font.setWeight(75)
-        font.setStrikeOut(False)
-        font.setKerning(True)
-        font.setStyleStrategy(QtGui.QFont.PreferAntialias)
-        self.btnOtherTemplate.setFont(font)
-        self.btnOtherTemplate.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
-        self.btnOtherTemplate.setStyleSheet("QPushButton{\n"
-"    background-color:rgba(112, 215, 255, 0);\n"
-"    color:rgba(0, 0, 0, 0.5);\n"
-"    border: none;\n"
-"    border-radius: 5;\n"
-"    border-style: outset;\n"
-"}\n"
-"QPushButton:hover{\n"
-"    color: black;\n"
-"}\n"
-"")
-        self.btnOtherTemplate.setObjectName("btnOtherTemplate")
         self.btnCalcPV = QtWidgets.QPushButton(self.centralwidget)
-        self.btnCalcPV.setGeometry(QtCore.QRect(843, 264, 61, 51))
+        self.btnCalcPV.setGeometry(QtCore.QRect(917, 264, 61, 51))
         font = QtGui.QFont()
         font.setFamily("Arial")
         font.setPointSize(9)
@@ -1803,7 +515,7 @@ class Ui_MainWindow(object):
         self.btnCalcPV.setText("")
         self.btnCalcPV.setObjectName("btnCalcPV")
         self.label_14 = QtWidgets.QLabel(self.centralwidget)
-        self.label_14.setGeometry(QtCore.QRect(843, 320, 61, 16))
+        self.label_14.setGeometry(QtCore.QRect(917, 320, 61, 16))
         font = QtGui.QFont()
         font.setFamily("Arial")
         font.setPointSize(8)
@@ -1895,8 +607,229 @@ class Ui_MainWindow(object):
 "}")
         self.btnWifi.setText("")
         self.btnWifi.setObjectName("btnWifi")
-        self.btnDelPV = QtWidgets.QPushButton(self.centralwidget)
-        self.btnDelPV.setGeometry(QtCore.QRect(780, 72, 31, 31))
+        self.btnDrawStructuralScheme = QtWidgets.QPushButton(self.centralwidget)
+        self.btnDrawStructuralScheme.setGeometry(QtCore.QRect(922, 348, 61, 51))
+        font = QtGui.QFont()
+        font.setFamily("Arial")
+        font.setPointSize(9)
+        font.setBold(True)
+        font.setWeight(75)
+        self.btnDrawStructuralScheme.setFont(font)
+        self.btnDrawStructuralScheme.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
+        self.btnDrawStructuralScheme.setStyleSheet("QPushButton{\n"
+"    background-color: rgba(229,229,234,1);\n"
+"    color: #196dff;\n"
+"    border: none;\n"
+"    border-radius: 12;\n"
+"    border-style: outset;\n"
+"}\n"
+"QPushButton:hover{\n"
+"    background-color: #dceaff; \n"
+"}\n"
+"QPushButton:pressed{\n"
+"    color: rgba(25, 109, 255, 0.7); \n"
+"    border-radius: 12;\n"
+"}")
+        self.btnDrawStructuralScheme.setObjectName("btnDrawStructuralScheme")
+        self.label_15 = QtWidgets.QLabel(self.centralwidget)
+        self.label_15.setGeometry(QtCore.QRect(910, 402, 91, 20))
+        font = QtGui.QFont()
+        font.setFamily("Arial")
+        font.setPointSize(8)
+        font.setBold(True)
+        font.setWeight(75)
+        self.label_15.setFont(font)
+        self.label_15.setStyleSheet("background-color: rgba(255,255,255,0); \n"
+"color:rgba(0, 0, 0, 0.5);")
+        self.label_15.setAlignment(QtCore.Qt.AlignCenter)
+        self.label_15.setObjectName("label_15")
+        self.tabWidget = QtWidgets.QTabWidget(self.centralwidget)
+        self.tabWidget.setGeometry(QtCore.QRect(230, 0, 681, 391))
+        font = QtGui.QFont()
+        font.setFamily("Arial")
+        font.setPointSize(9)
+        font.setBold(True)
+        font.setWeight(75)
+        self.tabWidget.setFont(font)
+        self.tabWidget.setAutoFillBackground(False)
+        self.tabWidget.setStyleSheet("QTabBar::tab { \n"
+"    padding: 10px;\n"
+"    background-color: rgba(229,229,234,1);\n"
+"    color: #196dff;\n"
+"    border: none;\n"
+"    border-style: outset; \n"
+"    border-bottom-left-radius: 12;\n"
+"    border-bottom-right-radius: 12;\n"
+"}\n"
+"QTabBar::tab:selected { \n"
+"    color: rgba(25, 109, 255, 0.7); \n"
+"} \n"
+"QTabBar::tab:hover { \n"
+"    background-color: #dceaff;\n"
+"} \n"
+"QTabWidget::pane {\n"
+"    border: 0;\n"
+"    border-radius: 6;\n"
+"} \n"
+"")
+        self.tabWidget.setTabPosition(QtWidgets.QTabWidget.North)
+        self.tabWidget.setTabShape(QtWidgets.QTabWidget.Rounded)
+        self.tabWidget.setUsesScrollButtons(True)
+        self.tabWidget.setDocumentMode(False)
+        self.tabWidget.setTabsClosable(False)
+        self.tabWidget.setMovable(False)
+        self.tabWidget.setTabBarAutoHide(True)
+        self.tabWidget.setObjectName("tabWidget")
+        self.tab = QtWidgets.QWidget()
+        self.tab.setObjectName("tab")
+        self.listPV_file = QtWidgets.QComboBox(self.tab)
+        self.listPV_file.setGeometry(QtCore.QRect(162, 74, 327, 41))
+        font = QtGui.QFont()
+        font.setFamily("Arial")
+        font.setPointSize(8)
+        font.setBold(True)
+        font.setWeight(75)
+        self.listPV_file.setFont(font)
+        self.listPV_file.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
+        self.listPV_file.setStyleSheet("QComboBox{\n"
+"    background-color:rgba(229,229,234,1); \n"
+"    border: none;\n"
+"    border-radius: 6;\n"
+"    padding-left: 8px;\n"
+"}\n"
+"\n"
+"QComboBox:drop-down \n"
+"{\n"
+"    width: 0px;\n"
+"    height: 0px;\n"
+"    border: 0px;\n"
+"}\n"
+"QComboBox:hover{\n"
+"    background-color:rgba(242,242,247,1);\n"
+"}\n"
+"")
+        self.listPV_file.setInputMethodHints(QtCore.Qt.ImhNone)
+        self.listPV_file.setEditable(False)
+        self.listPV_file.setCurrentText("")
+        self.listPV_file.setProperty("placeholderText", "")
+        self.listPV_file.setObjectName("listPV_file")
+        self.btnAddKTP = QtWidgets.QPushButton(self.tab)
+        self.btnAddKTP.setGeometry(QtCore.QRect(21, 132, 31, 31))
+        font = QtGui.QFont()
+        font.setFamily("Arial")
+        font.setPointSize(14)
+        font.setBold(True)
+        font.setWeight(75)
+        self.btnAddKTP.setFont(font)
+        self.btnAddKTP.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
+        self.btnAddKTP.setStyleSheet("QPushButton{\n"
+"    background-color:rgba(112, 215, 255, 0);\n"
+"    color:rgba(0, 0, 0, 0.5);\n"
+"    border: none;\n"
+"    border-radius: 5;\n"
+"    border-style: outset;\n"
+"}\n"
+"QPushButton:hover{\n"
+"    color: black;\n"
+"}\n"
+"")
+        self.btnAddKTP.setObjectName("btnAddKTP")
+        self.listInvertor_file = QtWidgets.QComboBox(self.tab)
+        self.listInvertor_file.setGeometry(QtCore.QRect(162, 19, 327, 41))
+        font = QtGui.QFont()
+        font.setFamily("Arial")
+        font.setPointSize(8)
+        font.setBold(True)
+        font.setWeight(75)
+        self.listInvertor_file.setFont(font)
+        self.listInvertor_file.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
+        self.listInvertor_file.setStyleSheet("QComboBox{\n"
+"    background-color:rgba(229,229,234,1); \n"
+"    border: none;\n"
+"    border-radius: 6;\n"
+"    padding-left: 8px;\n"
+"}\n"
+"\n"
+"QComboBox:drop-down \n"
+"{\n"
+"    width: 0px;\n"
+"    height: 0px;\n"
+"    border: 0px;\n"
+"}\n"
+"QComboBox:hover{\n"
+"    background-color:rgba(242,242,247,1);\n"
+"}\n"
+"")
+        self.listInvertor_file.setInputMethodHints(QtCore.Qt.ImhNone)
+        self.listInvertor_file.setEditable(False)
+        self.listInvertor_file.setCurrentText("")
+        self.listInvertor_file.setProperty("placeholderText", "")
+        self.listInvertor_file.setObjectName("listInvertor_file")
+        self.listRoof = QtWidgets.QComboBox(self.tab)
+        self.listRoof.setGeometry(QtCore.QRect(60, 183, 429, 41))
+        font = QtGui.QFont()
+        font.setFamily("Arial")
+        font.setBold(True)
+        font.setWeight(75)
+        self.listRoof.setFont(font)
+        self.listRoof.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
+        self.listRoof.setAutoFillBackground(False)
+        self.listRoof.setStyleSheet("QComboBox{\n"
+"    background-color:rgba(229,229,234,1); \n"
+"    border: none;\n"
+"    border-radius: 6;\n"
+"    padding-left: 8px;\n"
+"}\n"
+"\n"
+"QComboBox:drop-down \n"
+"{\n"
+"    width: 0px;\n"
+"    height: 0px;\n"
+"    border: 0px;\n"
+"}\n"
+"QComboBox:hover{\n"
+"    background-color:rgba(242,242,247,1);\n"
+"}\n"
+"")
+        self.listRoof.setInputMethodHints(QtCore.Qt.ImhNone)
+        self.listRoof.setEditable(False)
+        self.listRoof.setCurrentText("")
+        self.listRoof.setModelColumn(0)
+        self.listRoof.setProperty("placeholderText", "")
+        self.listRoof.setObjectName("listRoof")
+        self.listKTP_file = QtWidgets.QComboBox(self.tab)
+        self.listKTP_file.setGeometry(QtCore.QRect(163, 129, 327, 41))
+        font = QtGui.QFont()
+        font.setFamily("Arial")
+        font.setPointSize(8)
+        font.setBold(True)
+        font.setWeight(75)
+        self.listKTP_file.setFont(font)
+        self.listKTP_file.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
+        self.listKTP_file.setStyleSheet("QComboBox{\n"
+"    background-color:rgba(229,229,234,1); \n"
+"    border: none;\n"
+"    border-radius: 6;\n"
+"    padding-left: 8px;\n"
+"}\n"
+"\n"
+"QComboBox:drop-down \n"
+"{\n"
+"    width: 0px;\n"
+"    height: 0px;\n"
+"    border: 0px;\n"
+"}\n"
+"QComboBox:hover{\n"
+"    background-color:rgba(242,242,247,1);\n"
+"}\n"
+"")
+        self.listKTP_file.setInputMethodHints(QtCore.Qt.ImhNone)
+        self.listKTP_file.setEditable(False)
+        self.listKTP_file.setCurrentText("")
+        self.listKTP_file.setProperty("placeholderText", "")
+        self.listKTP_file.setObjectName("listKTP_file")
+        self.btnDelPV = QtWidgets.QPushButton(self.tab)
+        self.btnDelPV.setGeometry(QtCore.QRect(574, 75, 31, 31))
         font = QtGui.QFont()
         font.setFamily("Arial")
         font.setPointSize(11)
@@ -1916,8 +849,195 @@ class Ui_MainWindow(object):
 "}\n"
 "")
         self.btnDelPV.setObjectName("btnDelPV")
-        self.btnDelOther = QtWidgets.QPushButton(self.centralwidget)
-        self.btnDelOther.setGeometry(QtCore.QRect(780, 132, 31, 31))
+        self.listKTP_folder = QtWidgets.QComboBox(self.tab)
+        self.listKTP_folder.setGeometry(QtCore.QRect(61, 129, 91, 41))
+        font = QtGui.QFont()
+        font.setFamily("Arial")
+        font.setBold(True)
+        font.setWeight(75)
+        self.listKTP_folder.setFont(font)
+        self.listKTP_folder.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
+        self.listKTP_folder.setStyleSheet("QComboBox{\n"
+"    background-color:rgba(229,229,234,1); \n"
+"    border: none;\n"
+"    border-radius: 6;\n"
+"    padding-left: 8px;\n"
+"}\n"
+"\n"
+"QComboBox:drop-down \n"
+"{\n"
+"    width: 0px;\n"
+"    height: 0px;\n"
+"    border: 0px;\n"
+"}\n"
+"QComboBox:hover{\n"
+"    background-color:rgba(242,242,247,1);\n"
+"}\n"
+"")
+        self.listKTP_folder.setInputMethodHints(QtCore.Qt.ImhNone)
+        self.listKTP_folder.setEditable(False)
+        self.listKTP_folder.setCurrentText("")
+        self.listKTP_folder.setProperty("placeholderText", "")
+        self.listKTP_folder.setObjectName("listKTP_folder")
+        self.btnAddPV = QtWidgets.QPushButton(self.tab)
+        self.btnAddPV.setGeometry(QtCore.QRect(21, 78, 31, 31))
+        font = QtGui.QFont()
+        font.setFamily("Arial")
+        font.setPointSize(14)
+        font.setBold(True)
+        font.setWeight(75)
+        self.btnAddPV.setFont(font)
+        self.btnAddPV.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
+        self.btnAddPV.setStyleSheet("QPushButton{\n"
+"    background-color:rgba(112, 215, 255, 0);\n"
+"    color:rgba(0, 0, 0, 0.5);\n"
+"    border: none;\n"
+"    border-radius: 5;\n"
+"    border-style: outset;\n"
+"}\n"
+"QPushButton:hover{\n"
+"    color: black;\n"
+"}\n"
+"")
+        self.btnAddPV.setObjectName("btnAddPV")
+        self.label_4 = QtWidgets.QLabel(self.tab)
+        self.label_4.setGeometry(QtCore.QRect(504, 143, 71, 16))
+        font = QtGui.QFont()
+        font.setFamily("Arial")
+        font.setPointSize(9)
+        font.setBold(True)
+        font.setWeight(75)
+        self.label_4.setFont(font)
+        self.label_4.setStyleSheet("background-color: rgba(255,255,255,0); ")
+        self.label_4.setObjectName("label_4")
+        self.spinBox_numPV = QtWidgets.QSpinBox(self.tab)
+        self.spinBox_numPV.setGeometry(QtCore.QRect(448, 74, 41, 41))
+        font = QtGui.QFont()
+        font.setFamily("Arial")
+        font.setBold(True)
+        font.setWeight(75)
+        self.spinBox_numPV.setFont(font)
+        self.spinBox_numPV.setStyleSheet("QSpinBox{\n"
+"    background-color:rgba(229,229,234,1); \n"
+"    border-radius: 6;\n"
+"    border: none;\n"
+"    padding-left: 8px\n"
+"}\n"
+"QSpinBox:hover{\n"
+"    background-color:rgba(242,242,247,1);\n"
+"}\n"
+"QSpinBox:up-button:hover{\n"
+"    background-color:rgba(25,109,255, 0.7);\n"
+"    border-top-right-radius: 6;\n"
+"}\n"
+"QSpinBox:up-button:pressed{\n"
+"    background-color:rgba(25,109,255, 0.5);\n"
+"    border-top-right-radius: 6;\n"
+"}\n"
+"QSpinBox:up-button{\n"
+"    background-color:rgba(229,229,234,1); \n"
+"    border-top-right-radius: 6;\n"
+"    border: none;\n"
+"    border-left: 1px solid rgba(0,0,0,0.3);\n"
+"}\n"
+"\n"
+"QSpinBox:down-button:hover{\n"
+"    background-color:rgba(25,109,255, 0.7);\n"
+"    border-bottom-right-radius: 6;\n"
+"}\n"
+"QSpinBox:down-button:pressed{\n"
+"    background-color:rgba(25,109,255, 0.5);\n"
+"    border-bottom-right-radius: 6;\n"
+"}\n"
+"QSpinBox:down-button{\n"
+"    background-color:rgba(229,229,234,1); \n"
+"    border-bottom-right-radius: 6;\n"
+"    border-left: 1px solid rgba(0,0,0,0.3);\n"
+"\n"
+"}")
+        self.spinBox_numPV.setReadOnly(False)
+        self.spinBox_numPV.setObjectName("spinBox_numPV")
+        self.btnAddInvertor = QtWidgets.QPushButton(self.tab)
+        self.btnAddInvertor.setGeometry(QtCore.QRect(21, 23, 31, 31))
+        font = QtGui.QFont()
+        font.setFamily("Arial")
+        font.setPointSize(14)
+        font.setBold(True)
+        font.setWeight(75)
+        self.btnAddInvertor.setFont(font)
+        self.btnAddInvertor.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
+        self.btnAddInvertor.setStyleSheet("QPushButton{\n"
+"    background-color:rgba(112, 215, 255, 0);\n"
+"    color:rgba(0, 0, 0, 0.5);\n"
+"    border: none;\n"
+"    border-radius: 5;\n"
+"    border-style: outset;\n"
+"}\n"
+"QPushButton:hover{\n"
+"    color: black;\n"
+"}\n"
+"")
+        self.btnAddInvertor.setObjectName("btnAddInvertor")
+        self.spinBox_numKTP = QtWidgets.QSpinBox(self.tab)
+        self.spinBox_numKTP.setGeometry(QtCore.QRect(450, 129, 41, 41))
+        font = QtGui.QFont()
+        font.setFamily("Arial")
+        font.setBold(True)
+        font.setWeight(75)
+        self.spinBox_numKTP.setFont(font)
+        self.spinBox_numKTP.setStyleSheet("QSpinBox{\n"
+"    background-color:rgba(229,229,234,1); \n"
+"    border-radius: 6;\n"
+"    border: none;\n"
+"    padding-left: 8px\n"
+"}\n"
+"QSpinBox:hover{\n"
+"    background-color:rgba(242,242,247,1);\n"
+"}\n"
+"QSpinBox:up-button:hover{\n"
+"    background-color:rgba(25,109,255, 0.7);\n"
+"    border-top-right-radius: 6;\n"
+"}\n"
+"QSpinBox:up-button:pressed{\n"
+"    background-color:rgba(25,109,255, 0.5);\n"
+"    border-top-right-radius: 6;\n"
+"}\n"
+"QSpinBox:up-button{\n"
+"    background-color:rgba(229,229,234,1); \n"
+"    border-top-right-radius: 6;\n"
+"    border: none;\n"
+"    border-left: 1px solid rgba(0,0,0,0.3);\n"
+"}\n"
+"\n"
+"QSpinBox:down-button:hover{\n"
+"    background-color:rgba(25,109,255, 0.7);\n"
+"    border-bottom-right-radius: 6;\n"
+"}\n"
+"QSpinBox:down-button:pressed{\n"
+"    background-color:rgba(25,109,255, 0.5);\n"
+"    border-bottom-right-radius: 6;\n"
+"}\n"
+"QSpinBox:down-button{\n"
+"    background-color:rgba(229,229,234,1); \n"
+"    border-bottom-right-radius: 6;\n"
+"    border-left: 1px solid rgba(0,0,0,0.3);\n"
+"\n"
+"}")
+        self.spinBox_numKTP.setReadOnly(False)
+        self.spinBox_numKTP.setObjectName("spinBox_numKTP")
+        self.label_2 = QtWidgets.QLabel(self.tab)
+        self.label_2.setGeometry(QtCore.QRect(504, 22, 81, 35))
+        font = QtGui.QFont()
+        font.setFamily("Arial")
+        font.setPointSize(9)
+        font.setBold(True)
+        font.setWeight(75)
+        self.label_2.setFont(font)
+        self.label_2.setStyleSheet("background-color: rgba(255,255,255,0); ")
+        self.label_2.setScaledContents(False)
+        self.label_2.setObjectName("label_2")
+        self.btnDelOther = QtWidgets.QPushButton(self.tab)
+        self.btnDelOther.setGeometry(QtCore.QRect(574, 135, 31, 31))
         font = QtGui.QFont()
         font.setFamily("Arial")
         font.setPointSize(11)
@@ -1937,261 +1057,1136 @@ class Ui_MainWindow(object):
 "}\n"
 "")
         self.btnDelOther.setObjectName("btnDelOther")
-        self.label_2.raise_()
-        self.btnKTPTemplate.raise_()
-        self.label_for_slide.raise_()
-        self.inputKTP.raise_()
+        self.label_5 = QtWidgets.QLabel(self.tab)
+        self.label_5.setGeometry(QtCore.QRect(504, 186, 101, 35))
+        font = QtGui.QFont()
+        font.setFamily("Arial")
+        font.setPointSize(9)
+        font.setBold(True)
+        font.setWeight(75)
+        self.label_5.setFont(font)
+        self.label_5.setStyleSheet("background-color: rgba(255,255,255,0); ")
+        self.label_5.setObjectName("label_5")
+        self.btnDelInvertor = QtWidgets.QPushButton(self.tab)
+        self.btnDelInvertor.setGeometry(QtCore.QRect(574, 24, 31, 31))
+        font = QtGui.QFont()
+        font.setFamily("Arial")
+        font.setPointSize(11)
+        font.setBold(True)
+        font.setWeight(75)
+        self.btnDelInvertor.setFont(font)
+        self.btnDelInvertor.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
+        self.btnDelInvertor.setStyleSheet("QPushButton{\n"
+"    background-color:rgba(112, 215, 255, 0);\n"
+"    color:  rgba(0, 0, 0, 0.5);\n"
+"    border: none;\n"
+"    border-radius: 5;\n"
+"    border-style: outset;\n"
+"}\n"
+"QPushButton:hover{\n"
+"    color:rgba(255, 20, 20, 1) ;\n"
+"}\n"
+"")
+        self.btnDelInvertor.setObjectName("btnDelInvertor")
+        self.label_3 = QtWidgets.QLabel(self.tab)
+        self.label_3.setGeometry(QtCore.QRect(504, 85, 61, 16))
+        font = QtGui.QFont()
+        font.setFamily("Arial")
+        font.setPointSize(9)
+        font.setBold(True)
+        font.setWeight(75)
+        self.label_3.setFont(font)
+        self.label_3.setStyleSheet("background-color: rgba(255,255,255,0); ")
+        self.label_3.setObjectName("label_3")
+        self.spinBox_numInvertor = QtWidgets.QSpinBox(self.tab)
+        self.spinBox_numInvertor.setGeometry(QtCore.QRect(449, 19, 41, 41))
+        font = QtGui.QFont()
+        font.setFamily("Arial")
+        font.setBold(True)
+        font.setWeight(75)
+        self.spinBox_numInvertor.setFont(font)
+        self.spinBox_numInvertor.setStyleSheet("QSpinBox{\n"
+"    background-color:rgba(229,229,234,1); \n"
+"    border-radius: 6;\n"
+"    border: none;\n"
+"    padding-left: 8px;\n"
+"}\n"
+"QSpinBox:hover{\n"
+"    background-color:rgba(242,242,247,1);\n"
+"}\n"
+"QSpinBox:up-button:hover{\n"
+"    background-color:rgba(25,109,255, 0.7);\n"
+"    border-top-right-radius: 6;\n"
+"}\n"
+"QSpinBox:up-button:pressed{\n"
+"    background-color:rgba(25,109,255, 0.5);\n"
+"    border-top-right-radius: 6;\n"
+"}\n"
+"QSpinBox:up-button{\n"
+"    background-color:rgba(229,229,234,1); \n"
+"    border-top-right-radius: 6;\n"
+"    border: none;\n"
+"    border-left: 1px solid rgba(0,0,0,0.3);\n"
+"}\n"
+"\n"
+"QSpinBox:down-button:hover{\n"
+"    background-color:rgba(25,109,255, 0.7);\n"
+"    border-bottom-right-radius: 6;\n"
+"}\n"
+"QSpinBox:down-button:pressed{\n"
+"    background-color:rgba(25,109,255, 0.5);\n"
+"    border-bottom-right-radius: 6;\n"
+"}\n"
+"QSpinBox:down-button{\n"
+"    background-color:rgba(229,229,234,1); \n"
+"    border-bottom-right-radius: 6;\n"
+"    border-left: 1px solid rgba(0,0,0,0.3);\n"
+"\n"
+"}")
+        self.spinBox_numInvertor.setReadOnly(False)
+        self.spinBox_numInvertor.setObjectName("spinBox_numInvertor")
+        self.listPV_folder = QtWidgets.QComboBox(self.tab)
+        self.listPV_folder.setGeometry(QtCore.QRect(60, 74, 91, 41))
+        font = QtGui.QFont()
+        font.setFamily("Arial")
+        font.setBold(True)
+        font.setWeight(75)
+        self.listPV_folder.setFont(font)
+        self.listPV_folder.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
+        self.listPV_folder.setStyleSheet("QComboBox{\n"
+"    background-color:rgba(229,229,234,1); \n"
+"    border: none;\n"
+"    border-radius: 6;\n"
+"    padding-left: 8px;\n"
+"}\n"
+"\n"
+"QComboBox:drop-down \n"
+"{\n"
+"    width: 0px;\n"
+"    height: 0px;\n"
+"    border: 0px;\n"
+"}\n"
+"QComboBox:hover{\n"
+"    background-color:rgba(242,242,247,1);\n"
+"}\n"
+"")
+        self.listPV_folder.setInputMethodHints(QtCore.Qt.ImhNone)
+        self.listPV_folder.setEditable(False)
+        self.listPV_folder.setCurrentText("")
+        self.listPV_folder.setProperty("placeholderText", "")
+        self.listPV_folder.setObjectName("listPV_folder")
+        self.listInvertor_folder = QtWidgets.QComboBox(self.tab)
+        self.listInvertor_folder.setGeometry(QtCore.QRect(60, 20, 91, 41))
+        font = QtGui.QFont()
+        font.setFamily("Arial")
+        font.setBold(True)
+        font.setWeight(75)
+        self.listInvertor_folder.setFont(font)
+        self.listInvertor_folder.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
+        self.listInvertor_folder.setStyleSheet("QComboBox{\n"
+"    background-color:rgba(229,229,234,1); \n"
+"    border: none;\n"
+"    border-radius: 6;\n"
+"    padding-left: 8px;\n"
+"}\n"
+"\n"
+"QComboBox:drop-down \n"
+"{\n"
+"    width: 0px;\n"
+"    height: 0px;\n"
+"    border: 0px;\n"
+"}\n"
+"QComboBox:hover{\n"
+"    background-color:rgba(242,242,247,1);\n"
+"}\n"
+"")
+        self.listInvertor_folder.setInputMethodHints(QtCore.Qt.ImhNone)
+        self.listInvertor_folder.setEditable(False)
+        self.listInvertor_folder.setCurrentText("")
+        self.listInvertor_folder.setProperty("placeholderText", "")
+        self.listInvertor_folder.setObjectName("listInvertor_folder")
+        self.tabWidget.addTab(self.tab, "")
+        self.tab_8 = QtWidgets.QWidget()
+        self.tab_8.setObjectName("tab_8")
+        self.inputCodeProject = QtWidgets.QLineEdit(self.tab_8)
+        self.inputCodeProject.setGeometry(QtCore.QRect(398, 19, 91, 41))
+        font = QtGui.QFont()
+        font.setFamily("Arial")
+        font.setBold(True)
+        font.setWeight(75)
+        self.inputCodeProject.setFont(font)
+        self.inputCodeProject.setStyleSheet("QLineEdit{\n"
+"    background-color:rgba(229,229,234,1); \n"
+"    border-radius: 6;\n"
+"    border: none;\n"
+"    padding-left: 8px\n"
+"}\n"
+"QLineEdit:hover{\n"
+"    background-color:rgba(242,242,247,1);\n"
+"}\n"
+"QLineEdit:pressed{\n"
+"    background-color:rgba(188,188,192,1);\n"
+"    border-radius: 12;\n"
+"}")
+        self.inputCodeProject.setInputMask("")
+        self.inputCodeProject.setText("")
+        self.inputCodeProject.setPlaceholderText("")
+        self.inputCodeProject.setObjectName("inputCodeProject")
+        self.inputAddress = QtWidgets.QLineEdit(self.tab_8)
+        self.inputAddress.setGeometry(QtCore.QRect(60, 237, 429, 41))
+        font = QtGui.QFont()
+        font.setFamily("Arial")
+        font.setBold(True)
+        font.setWeight(75)
+        self.inputAddress.setFont(font)
+        self.inputAddress.setStyleSheet("QLineEdit{\n"
+"    background-color:rgba(229,229,234,1); \n"
+"    border-radius: 6;\n"
+"    border: none;\n"
+"    padding-left: 8px\n"
+"}\n"
+"QLineEdit:hover{\n"
+"    background-color:rgba(242,242,247,1);\n"
+"}\n"
+"QLineEdit:pressed{\n"
+"    background-color:rgba(188,188,192,1);\n"
+"    border-radius: 12;\n"
+"}")
+        self.inputAddress.setInputMask("")
+        self.inputAddress.setText("")
+        self.inputAddress.setPlaceholderText("")
+        self.inputAddress.setObjectName("inputAddress")
+        self.inputClient = QtWidgets.QLineEdit(self.tab_8)
+        self.inputClient.setGeometry(QtCore.QRect(61, 129, 429, 41))
+        font = QtGui.QFont()
+        font.setFamily("Arial")
+        font.setBold(True)
+        font.setWeight(75)
+        self.inputClient.setFont(font)
+        self.inputClient.setStyleSheet("QLineEdit{\n"
+"    background-color:rgba(229,229,234,1); \n"
+"    border-radius: 6;\n"
+"    border: none;\n"
+"    padding-left: 8px\n"
+"}\n"
+"QLineEdit:hover{\n"
+"    background-color:rgba(242,242,247,1);\n"
+"}\n"
+"QLineEdit:pressed{\n"
+"    background-color:rgba(188,188,192,1);\n"
+"    border-radius: 12;\n"
+"}")
+        self.inputClient.setInputMask("")
+        self.inputClient.setText("")
+        self.inputClient.setPlaceholderText("")
+        self.inputClient.setObjectName("inputClient")
+        self.inputAddressLong = QtWidgets.QLineEdit(self.tab_8)
+        self.inputAddressLong.setGeometry(QtCore.QRect(353, 183, 137, 41))
+        font = QtGui.QFont()
+        font.setFamily("Arial")
+        font.setBold(True)
+        font.setWeight(75)
+        self.inputAddressLong.setFont(font)
+        self.inputAddressLong.setStyleSheet("QLineEdit{\n"
+"    background-color:rgba(229,229,234,1); \n"
+"    border-radius: 6;\n"
+"    border: none;\n"
+"    padding-left: 8px\n"
+"}\n"
+"QLineEdit:hover{\n"
+"    background-color:rgba(242,242,247,1);\n"
+"}\n"
+"QLineEdit:pressed{\n"
+"    background-color:rgba(188,188,192,1);\n"
+"    border-radius: 12;\n"
+"}")
+        self.inputAddressLong.setInputMask("")
+        self.inputAddressLong.setText("")
+        self.inputAddressLong.setPlaceholderText("")
+        self.inputAddressLong.setObjectName("inputAddressLong")
+        self.btnSearchCoordinates = QtWidgets.QPushButton(self.tab_8)
+        self.btnSearchCoordinates.setGeometry(QtCore.QRect(17, 240, 41, 31))
+        font = QtGui.QFont()
+        font.setFamily("Arial")
+        font.setPointSize(13)
+        font.setBold(False)
+        font.setWeight(50)
+        self.btnSearchCoordinates.setFont(font)
+        self.btnSearchCoordinates.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
+        self.btnSearchCoordinates.setStyleSheet("QPushButton{\n"
+"    background-color:rgba(112, 215, 255, 0);\n"
+"    color:  #3b83ff;\n"
+"    border: none;\n"
+"    border-radius: 5;\n"
+"    border-style: outset;\n"
+"}\n"
+"QPushButton:hover{\n"
+"    color:rgba(0, 20, 240, 0.93) ;\n"
+"}\n"
+"")
+        self.btnSearchCoordinates.setObjectName("btnSearchCoordinates")
+        self.inputTitleProject = QtWidgets.QLineEdit(self.tab_8)
+        self.inputTitleProject.setGeometry(QtCore.QRect(60, 20, 325, 41))
+        font = QtGui.QFont()
+        font.setFamily("Arial")
+        font.setBold(True)
+        font.setWeight(75)
+        self.inputTitleProject.setFont(font)
+        self.inputTitleProject.setStyleSheet("QLineEdit{\n"
+"    background-color:rgba(229,229,234,1); \n"
+"    border-radius: 6;\n"
+"    border: none;\n"
+"    padding-left: 8px\n"
+"}\n"
+"QLineEdit:hover{\n"
+"    background-color:rgba(242,242,247,1);\n"
+"}\n"
+"QLineEdit:pressed{\n"
+"    background-color:rgba(188,188,192,1);\n"
+"    border-radius: 12;\n"
+"}")
+        self.inputTitleProject.setInputMask("")
+        self.inputTitleProject.setText("")
+        self.inputTitleProject.setPlaceholderText("")
+        self.inputTitleProject.setObjectName("inputTitleProject")
+        self.inputUDotIn = QtWidgets.QLineEdit(self.tab_8)
+        self.inputUDotIn.setGeometry(QtCore.QRect(60, 183, 140, 41))
+        font = QtGui.QFont()
+        font.setFamily("Arial")
+        font.setBold(True)
+        font.setWeight(75)
+        self.inputUDotIn.setFont(font)
+        self.inputUDotIn.setStyleSheet("QLineEdit{\n"
+"    background-color:rgba(229,229,234,1); \n"
+"    border-radius: 6;\n"
+"    border: none;\n"
+"    padding-left: 8px\n"
+"}\n"
+"QLineEdit:hover{\n"
+"    background-color:rgba(242,242,247,1);\n"
+"}\n"
+"QLineEdit:pressed{\n"
+"    background-color:rgba(188,188,192,1);\n"
+"    border-radius: 12;\n"
+"}")
+        self.inputUDotIn.setInputMask("")
+        self.inputUDotIn.setText("")
+        self.inputUDotIn.setPlaceholderText("")
+        self.inputUDotIn.setObjectName("inputUDotIn")
+        self.inputAddressLat = QtWidgets.QLineEdit(self.tab_8)
+        self.inputAddressLat.setGeometry(QtCore.QRect(212, 183, 129, 41))
+        font = QtGui.QFont()
+        font.setFamily("Arial")
+        font.setBold(True)
+        font.setWeight(75)
+        self.inputAddressLat.setFont(font)
+        self.inputAddressLat.setStyleSheet("QLineEdit{\n"
+"    background-color:rgba(229,229,234,1); \n"
+"    border-radius: 6;\n"
+"    border: none;\n"
+"    padding-left: 8px\n"
+"}\n"
+"QLineEdit:hover{\n"
+"    background-color:rgba(242,242,247,1);\n"
+"}\n"
+"QLineEdit:pressed{\n"
+"    background-color:rgba(188,188,192,1);\n"
+"    border-radius: 12;\n"
+"}")
+        self.inputAddressLat.setInputMask("")
+        self.inputAddressLat.setText("")
+        self.inputAddressLat.setPlaceholderText("")
+        self.inputAddressLat.setObjectName("inputAddressLat")
+        self.inputObjectType = QtWidgets.QLineEdit(self.tab_8)
+        self.inputObjectType.setGeometry(QtCore.QRect(60, 74, 429, 41))
+        font = QtGui.QFont()
+        font.setFamily("Arial")
+        font.setBold(True)
+        font.setWeight(75)
+        self.inputObjectType.setFont(font)
+        self.inputObjectType.setStyleSheet("QLineEdit{\n"
+"    background-color:rgba(229,229,234,1); \n"
+"    border-radius: 6;\n"
+"    border: none;\n"
+"    padding-left: 8px\n"
+"}\n"
+"QLineEdit:hover{\n"
+"    background-color:rgba(242,242,247,1);\n"
+"}\n"
+"QLineEdit:pressed{\n"
+"    background-color:rgba(188,188,192,1);\n"
+"    border-radius: 12;\n"
+"}")
+        self.inputObjectType.setInputMask("")
+        self.inputObjectType.setText("")
+        self.inputObjectType.setPlaceholderText("")
+        self.inputObjectType.setObjectName("inputObjectType")
+        self.label_16 = QtWidgets.QLabel(self.tab_8)
+        self.label_16.setGeometry(QtCore.QRect(504, 86, 131, 16))
+        font = QtGui.QFont()
+        font.setFamily("Arial")
+        font.setPointSize(9)
+        font.setBold(True)
+        font.setWeight(75)
+        self.label_16.setFont(font)
+        self.label_16.setStyleSheet("background-color: rgba(255,255,255,0); ")
+        self.label_16.setObjectName("label_16")
+        self.label_17 = QtWidgets.QLabel(self.tab_8)
+        self.label_17.setGeometry(QtCore.QRect(504, 248, 91, 16))
+        font = QtGui.QFont()
+        font.setFamily("Arial")
+        font.setPointSize(9)
+        font.setBold(True)
+        font.setWeight(75)
+        self.label_17.setFont(font)
+        self.label_17.setObjectName("label_17")
+        self.label_18 = QtWidgets.QLabel(self.tab_8)
+        self.label_18.setGeometry(QtCore.QRect(504, 186, 191, 35))
+        font = QtGui.QFont()
+        font.setFamily("Arial")
+        font.setPointSize(9)
+        font.setBold(True)
+        font.setWeight(75)
+        self.label_18.setFont(font)
+        self.label_18.setStyleSheet("background-color: rgba(255,255,255,0); ")
+        self.label_18.setObjectName("label_18")
+        self.label_19 = QtWidgets.QLabel(self.tab_8)
+        self.label_19.setGeometry(QtCore.QRect(504, 22, 131, 35))
+        font = QtGui.QFont()
+        font.setFamily("Arial")
+        font.setPointSize(9)
+        font.setBold(True)
+        font.setWeight(75)
+        self.label_19.setFont(font)
+        self.label_19.setStyleSheet("background-color: rgba(255,255,255,0); ")
+        self.label_19.setScaledContents(False)
+        self.label_19.setObjectName("label_19")
+        self.label_20 = QtWidgets.QLabel(self.tab_8)
+        self.label_20.setGeometry(QtCore.QRect(504, 141, 71, 16))
+        font = QtGui.QFont()
+        font.setFamily("Arial")
+        font.setPointSize(9)
+        font.setBold(True)
+        font.setWeight(75)
+        self.label_20.setFont(font)
+        self.label_20.setStyleSheet("background-color: rgba(255,255,255,0); ")
+        self.label_20.setObjectName("label_20")
+        self.tabWidget.addTab(self.tab_8, "")
+        self.tab_7 = QtWidgets.QWidget()
+        self.tab_7.setObjectName("tab_7")
+        self.checkBox_8_6 = QtWidgets.QCheckBox(self.tab_7)
+        self.checkBox_8_6.setGeometry(QtCore.QRect(438, 165, 51, 19))
+        font = QtGui.QFont()
+        font.setFamily("Arial")
+        font.setBold(True)
+        font.setWeight(75)
+        self.checkBox_8_6.setFont(font)
+        self.checkBox_8_6.setAutoFillBackground(False)
+        self.checkBox_8_6.setStyleSheet("background-color: rgba(255,255,255,0); \n"
+"border-radius: 5;\n"
+"border: none;\n"
+"padding: 2;")
+        self.checkBox_8_6.setObjectName("checkBox_8_6")
+        self.checkBox_5_1_3 = QtWidgets.QCheckBox(self.tab_7)
+        self.checkBox_5_1_3.setGeometry(QtCore.QRect(330, 116, 61, 19))
+        font = QtGui.QFont()
+        font.setFamily("Arial")
+        font.setBold(True)
+        font.setWeight(75)
+        self.checkBox_5_1_3.setFont(font)
+        self.checkBox_5_1_3.setAutoFillBackground(False)
+        self.checkBox_5_1_3.setStyleSheet("background-color: rgba(255,255,255,0); \n"
+"border-radius: 5;\n"
+"border: none;\n"
+"padding: 2;")
+        self.checkBox_5_1_3.setObjectName("checkBox_5_1_3")
+        self.checkBox_1 = QtWidgets.QCheckBox(self.tab_7)
+        self.checkBox_1.setGeometry(QtCore.QRect(60, 31, 34, 20))
+        font = QtGui.QFont()
+        font.setFamily("Arial")
+        font.setBold(True)
+        font.setWeight(75)
+        self.checkBox_1.setFont(font)
+        self.checkBox_1.setObjectName("checkBox_1")
+        self.checkBox_7 = QtWidgets.QCheckBox(self.tab_7)
+        self.checkBox_7.setGeometry(QtCore.QRect(384, 31, 34, 20))
+        font = QtGui.QFont()
+        font.setFamily("Arial")
+        font.setBold(True)
+        font.setWeight(75)
+        self.checkBox_7.setFont(font)
+        self.checkBox_7.setObjectName("checkBox_7")
+        self.checkBox_2 = QtWidgets.QCheckBox(self.tab_7)
+        self.checkBox_2.setGeometry(QtCore.QRect(112, 31, 34, 20))
+        font = QtGui.QFont()
+        font.setFamily("Arial")
+        font.setBold(True)
+        font.setWeight(75)
+        self.checkBox_2.setFont(font)
+        self.checkBox_2.setObjectName("checkBox_2")
+        self.checkBox_8_5 = QtWidgets.QCheckBox(self.tab_7)
+        self.checkBox_8_5.setGeometry(QtCore.QRect(438, 146, 51, 19))
+        font = QtGui.QFont()
+        font.setFamily("Arial")
+        font.setBold(True)
+        font.setWeight(75)
+        self.checkBox_8_5.setFont(font)
+        self.checkBox_8_5.setAutoFillBackground(False)
+        self.checkBox_8_5.setStyleSheet("background-color: rgba(255,255,255,0); \n"
+"border-radius: 5;\n"
+"border: none;\n"
+"padding: 2;")
+        self.checkBox_8_5.setObjectName("checkBox_8_5")
+        self.checkBox_5_2 = QtWidgets.QCheckBox(self.tab_7)
+        self.checkBox_5_2.setGeometry(QtCore.QRect(274, 89, 51, 19))
+        font = QtGui.QFont()
+        font.setFamily("Arial")
+        font.setBold(True)
+        font.setWeight(75)
+        self.checkBox_5_2.setFont(font)
+        self.checkBox_5_2.setAutoFillBackground(False)
+        self.checkBox_5_2.setStyleSheet("background-color: rgba(255,255,255,0); \n"
+"border-radius: 5;\n"
+"border: none;\n"
+"padding: 2;")
+        self.checkBox_5_2.setObjectName("checkBox_5_2")
+        self.checkBox_5_1_2 = QtWidgets.QCheckBox(self.tab_7)
+        self.checkBox_5_1_2.setGeometry(QtCore.QRect(330, 97, 61, 19))
+        font = QtGui.QFont()
+        font.setFamily("Arial")
+        font.setBold(True)
+        font.setWeight(75)
+        self.checkBox_5_1_2.setFont(font)
+        self.checkBox_5_1_2.setAutoFillBackground(False)
+        self.checkBox_5_1_2.setStyleSheet("background-color: rgba(255,255,255,0); \n"
+"border-radius: 5;\n"
+"border: none;\n"
+"padding: 2;")
+        self.checkBox_5_1_2.setObjectName("checkBox_5_1_2")
+        self.checkBox_3 = QtWidgets.QCheckBox(self.tab_7)
+        self.checkBox_3.setGeometry(QtCore.QRect(166, 31, 34, 20))
+        font = QtGui.QFont()
+        font.setFamily("Arial")
+        font.setBold(True)
+        font.setWeight(75)
+        self.checkBox_3.setFont(font)
+        self.checkBox_3.setObjectName("checkBox_3")
+        self.checkBox_5 = QtWidgets.QCheckBox(self.tab_7)
+        self.checkBox_5.setGeometry(QtCore.QRect(275, 31, 38, 20))
+        font = QtGui.QFont()
+        font.setFamily("Arial")
+        font.setBold(True)
+        font.setWeight(75)
+        self.checkBox_5.setFont(font)
+        self.checkBox_5.setObjectName("checkBox_5")
+        self.checkBox_4 = QtWidgets.QCheckBox(self.tab_7)
+        self.checkBox_4.setGeometry(QtCore.QRect(221, 31, 34, 20))
+        font = QtGui.QFont()
+        font.setFamily("Arial")
+        font.setBold(True)
+        font.setWeight(75)
+        self.checkBox_4.setFont(font)
+        self.checkBox_4.setObjectName("checkBox_4")
+        self.checkBox_8_1 = QtWidgets.QCheckBox(self.tab_7)
+        self.checkBox_8_1.setGeometry(QtCore.QRect(438, 70, 51, 19))
+        font = QtGui.QFont()
+        font.setFamily("Arial")
+        font.setBold(True)
+        font.setWeight(75)
+        self.checkBox_8_1.setFont(font)
+        self.checkBox_8_1.setAutoFillBackground(False)
+        self.checkBox_8_1.setStyleSheet("background-color: rgba(255,255,255,0); \n"
+"border-radius: 5;\n"
+"border: none;\n"
+"padding: 2;")
+        self.checkBox_8_1.setObjectName("checkBox_8_1")
+        self.checkBox_5_1_1 = QtWidgets.QCheckBox(self.tab_7)
+        self.checkBox_5_1_1.setGeometry(QtCore.QRect(330, 78, 61, 19))
+        font = QtGui.QFont()
+        font.setFamily("Arial")
+        font.setBold(True)
+        font.setWeight(75)
+        self.checkBox_5_1_1.setFont(font)
+        self.checkBox_5_1_1.setAutoFillBackground(False)
+        self.checkBox_5_1_1.setStyleSheet("background-color: rgba(255,255,255,0); \n"
+"border-radius: 5;\n"
+"border: none;\n"
+"padding: 2;")
+        self.checkBox_5_1_1.setObjectName("checkBox_5_1_1")
+        self.checkBox_3_3 = QtWidgets.QCheckBox(self.tab_7)
+        self.checkBox_3_3.setGeometry(QtCore.QRect(164, 109, 51, 19))
+        font = QtGui.QFont()
+        font.setFamily("Arial")
+        font.setBold(True)
+        font.setWeight(75)
+        self.checkBox_3_3.setFont(font)
+        self.checkBox_3_3.setAutoFillBackground(False)
+        self.checkBox_3_3.setStyleSheet("background-color: rgba(255,255,255,0); \n"
+"border-radius: 5;\n"
+"border: none;\n"
+"padding: 2;")
+        self.checkBox_3_3.setObjectName("checkBox_3_3")
+        self.checkBox_8_2 = QtWidgets.QCheckBox(self.tab_7)
+        self.checkBox_8_2.setGeometry(QtCore.QRect(438, 89, 51, 19))
+        font = QtGui.QFont()
+        font.setFamily("Arial")
+        font.setBold(True)
+        font.setWeight(75)
+        self.checkBox_8_2.setFont(font)
+        self.checkBox_8_2.setAutoFillBackground(False)
+        self.checkBox_8_2.setStyleSheet("background-color: rgba(255,255,255,0); \n"
+"border-radius: 5;\n"
+"border: none;\n"
+"padding: 2;")
+        self.checkBox_8_2.setObjectName("checkBox_8_2")
+        self.checkBox_6 = QtWidgets.QCheckBox(self.tab_7)
+        self.checkBox_6.setGeometry(QtCore.QRect(330, 31, 34, 20))
+        font = QtGui.QFont()
+        font.setFamily("Arial")
+        font.setBold(True)
+        font.setWeight(75)
+        self.checkBox_6.setFont(font)
+        self.checkBox_6.setObjectName("checkBox_6")
+        self.btnShow3 = QtWidgets.QPushButton(self.tab_7)
+        self.btnShow3.setGeometry(QtCore.QRect(158, 50, 31, 16))
+        font = QtGui.QFont()
+        font.setFamily("Arial")
+        font.setPointSize(8)
+        font.setBold(True)
+        font.setItalic(False)
+        font.setUnderline(False)
+        font.setWeight(75)
+        font.setStrikeOut(False)
+        font.setKerning(True)
+        font.setStyleStrategy(QtGui.QFont.PreferAntialias)
+        self.btnShow3.setFont(font)
+        self.btnShow3.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
+        self.btnShow3.setStyleSheet("background-color: rgba(255,255,255,0); \n"
+"border-radius: 5;\n"
+"border: none;\n"
+"padding: 2;")
+        self.btnShow3.setObjectName("btnShow3")
+        self.checkBox_5_1_4 = QtWidgets.QCheckBox(self.tab_7)
+        self.checkBox_5_1_4.setGeometry(QtCore.QRect(330, 135, 61, 19))
+        font = QtGui.QFont()
+        font.setFamily("Arial")
+        font.setBold(True)
+        font.setWeight(75)
+        self.checkBox_5_1_4.setFont(font)
+        self.checkBox_5_1_4.setAutoFillBackground(False)
+        self.checkBox_5_1_4.setStyleSheet("background-color: rgba(255,255,255,0); \n"
+"border-radius: 5;\n"
+"border: none;\n"
+"padding: 2;")
+        self.checkBox_5_1_4.setObjectName("checkBox_5_1_4")
+        self.checkBox_5_5 = QtWidgets.QCheckBox(self.tab_7)
+        self.checkBox_5_5.setGeometry(QtCore.QRect(274, 149, 51, 19))
+        font = QtGui.QFont()
+        font.setFamily("Arial")
+        font.setBold(True)
+        font.setWeight(75)
+        self.checkBox_5_5.setFont(font)
+        self.checkBox_5_5.setAutoFillBackground(False)
+        self.checkBox_5_5.setStyleSheet("background-color: rgba(255,255,255,0); \n"
+"border-radius: 5;\n"
+"border: none;\n"
+"padding: 2;")
+        self.checkBox_5_5.setObjectName("checkBox_5_5")
+        self.checkBox_5_6 = QtWidgets.QCheckBox(self.tab_7)
+        self.checkBox_5_6.setGeometry(QtCore.QRect(274, 169, 51, 19))
+        font = QtGui.QFont()
+        font.setFamily("Arial")
+        font.setBold(True)
+        font.setWeight(75)
+        self.checkBox_5_6.setFont(font)
+        self.checkBox_5_6.setAutoFillBackground(False)
+        self.checkBox_5_6.setStyleSheet("background-color: rgba(255,255,255,0); \n"
+"border-radius: 5;\n"
+"border: none;\n"
+"padding: 2;")
+        self.checkBox_5_6.setObjectName("checkBox_5_6")
+        self.checkBox_5_4 = QtWidgets.QCheckBox(self.tab_7)
+        self.checkBox_5_4.setGeometry(QtCore.QRect(274, 129, 51, 19))
+        font = QtGui.QFont()
+        font.setFamily("Arial")
+        font.setBold(True)
+        font.setWeight(75)
+        self.checkBox_5_4.setFont(font)
+        self.checkBox_5_4.setAutoFillBackground(False)
+        self.checkBox_5_4.setStyleSheet("background-color: rgba(255,255,255,0); \n"
+"border-radius: 5;\n"
+"border: none;\n"
+"padding: 2;")
+        self.checkBox_5_4.setObjectName("checkBox_5_4")
+        self.checkBox_5_1 = QtWidgets.QCheckBox(self.tab_7)
+        self.checkBox_5_1.setGeometry(QtCore.QRect(274, 69, 51, 19))
+        font = QtGui.QFont()
+        font.setFamily("Arial")
+        font.setBold(True)
+        font.setWeight(75)
+        self.checkBox_5_1.setFont(font)
+        self.checkBox_5_1.setAutoFillBackground(False)
+        self.checkBox_5_1.setStyleSheet("background-color: rgba(255,255,255,0); \n"
+"border-radius: 5;\n"
+"border: none;\n"
+"padding: 2;")
+        self.checkBox_5_1.setObjectName("checkBox_5_1")
+        self.btnShow5 = QtWidgets.QPushButton(self.tab_7)
+        self.btnShow5.setGeometry(QtCore.QRect(258, 50, 51, 16))
+        font = QtGui.QFont()
+        font.setFamily("Arial")
+        font.setPointSize(8)
+        font.setBold(True)
+        font.setWeight(75)
+        self.btnShow5.setFont(font)
+        self.btnShow5.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
+        self.btnShow5.setStyleSheet("background-color: rgba(255,255,255,0); \n"
+"border-radius: 5;\n"
+"border: none;\n"
+"padding: 2;")
+        self.btnShow5.setObjectName("btnShow5")
+        self.btnShow8 = QtWidgets.QPushButton(self.tab_7)
+        self.btnShow8.setGeometry(QtCore.QRect(418, 50, 57, 16))
+        font = QtGui.QFont()
+        font.setFamily("Arial")
+        font.setPointSize(8)
+        font.setBold(True)
+        font.setWeight(75)
+        self.btnShow8.setFont(font)
+        self.btnShow8.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
+        self.btnShow8.setStyleSheet("background-color: rgba(255,255,255,0); \n"
+"border-radius: 5;\n"
+"border: none;\n"
+"padding: 2;")
+        self.btnShow8.setObjectName("btnShow8")
+        self.checkBox_8 = QtWidgets.QCheckBox(self.tab_7)
+        self.checkBox_8.setGeometry(QtCore.QRect(439, 31, 34, 20))
+        font = QtGui.QFont()
+        font.setFamily("Arial")
+        font.setBold(True)
+        font.setWeight(75)
+        self.checkBox_8.setFont(font)
+        self.checkBox_8.setObjectName("checkBox_8")
+        self.checkBox_8_4 = QtWidgets.QCheckBox(self.tab_7)
+        self.checkBox_8_4.setGeometry(QtCore.QRect(438, 127, 51, 19))
+        font = QtGui.QFont()
+        font.setFamily("Arial")
+        font.setBold(True)
+        font.setWeight(75)
+        self.checkBox_8_4.setFont(font)
+        self.checkBox_8_4.setAutoFillBackground(False)
+        self.checkBox_8_4.setStyleSheet("background-color: rgba(255,255,255,0); \n"
+"border-radius: 5;\n"
+"border: none;\n"
+"padding: 2;")
+        self.checkBox_8_4.setObjectName("checkBox_8_4")
+        self.checkBox_3_4 = QtWidgets.QCheckBox(self.tab_7)
+        self.checkBox_3_4.setGeometry(QtCore.QRect(164, 130, 51, 19))
+        font = QtGui.QFont()
+        font.setFamily("Arial")
+        font.setBold(True)
+        font.setWeight(75)
+        self.checkBox_3_4.setFont(font)
+        self.checkBox_3_4.setAutoFillBackground(False)
+        self.checkBox_3_4.setStyleSheet("background-color: rgba(255,255,255,0); \n"
+"border-radius: 5;\n"
+"border: none;\n"
+"padding: 2;")
+        self.checkBox_3_4.setObjectName("checkBox_3_4")
+        self.checkBox_3_2 = QtWidgets.QCheckBox(self.tab_7)
+        self.checkBox_3_2.setGeometry(QtCore.QRect(164, 89, 51, 19))
+        font = QtGui.QFont()
+        font.setFamily("Arial")
+        font.setBold(True)
+        font.setWeight(75)
+        self.checkBox_3_2.setFont(font)
+        self.checkBox_3_2.setAutoFillBackground(False)
+        self.checkBox_3_2.setStyleSheet("background-color: rgba(255,255,255,0); \n"
+"border-radius: 5;\n"
+"border: none;\n"
+"padding: 2;")
+        self.checkBox_3_2.setObjectName("checkBox_3_2")
+        self.checkBox_3_1 = QtWidgets.QCheckBox(self.tab_7)
+        self.checkBox_3_1.setGeometry(QtCore.QRect(164, 69, 51, 19))
+        font = QtGui.QFont()
+        font.setFamily("Arial")
+        font.setBold(True)
+        font.setWeight(75)
+        self.checkBox_3_1.setFont(font)
+        self.checkBox_3_1.setAutoFillBackground(False)
+        self.checkBox_3_1.setStyleSheet("background-color: rgba(255,255,255,0); \n"
+"border-radius: 5;\n"
+"border: none;\n"
+"padding: 2;")
+        self.checkBox_3_1.setObjectName("checkBox_3_1")
+        self.checkBox_8_3 = QtWidgets.QCheckBox(self.tab_7)
+        self.checkBox_8_3.setGeometry(QtCore.QRect(438, 108, 51, 19))
+        font = QtGui.QFont()
+        font.setFamily("Arial")
+        font.setBold(True)
+        font.setWeight(75)
+        self.checkBox_8_3.setFont(font)
+        self.checkBox_8_3.setAutoFillBackground(False)
+        self.checkBox_8_3.setStyleSheet("background-color: rgba(255,255,255,0); \n"
+"border-radius: 5;\n"
+"border: none;\n"
+"padding: 2;")
+        self.checkBox_8_3.setObjectName("checkBox_8_3")
+        self.checkBox_5_3 = QtWidgets.QCheckBox(self.tab_7)
+        self.checkBox_5_3.setGeometry(QtCore.QRect(274, 109, 51, 19))
+        font = QtGui.QFont()
+        font.setFamily("Arial")
+        font.setBold(True)
+        font.setWeight(75)
+        self.checkBox_5_3.setFont(font)
+        self.checkBox_5_3.setAutoFillBackground(False)
+        self.checkBox_5_3.setStyleSheet("background-color: rgba(255,255,255,0); \n"
+"border-radius: 5;\n"
+"border: none;\n"
+"padding: 2;")
+        self.checkBox_5_3.setObjectName("checkBox_5_3")
+        self.label_29 = QtWidgets.QLabel(self.tab_7)
+        self.label_29.setGeometry(QtCore.QRect(504, 22, 131, 35))
+        font = QtGui.QFont()
+        font.setFamily("Arial")
+        font.setPointSize(9)
+        font.setBold(True)
+        font.setWeight(75)
+        self.label_29.setFont(font)
+        self.label_29.setStyleSheet("background-color: rgba(255,255,255,0); ")
+        self.label_29.setScaledContents(False)
+        self.label_29.setObjectName("label_29")
+        self.tabWidget.addTab(self.tab_7, "")
+        self.tab_2 = QtWidgets.QWidget()
+        self.tab_2.setObjectName("tab_2")
+        self.btnOtherTemplate = QtWidgets.QPushButton(self.tab_2)
+        self.btnOtherTemplate.setGeometry(QtCore.QRect(504, 80, 51, 20))
+        font = QtGui.QFont()
+        font.setFamily("Arial")
+        font.setPointSize(9)
+        font.setBold(True)
+        font.setItalic(False)
+        font.setUnderline(False)
+        font.setWeight(75)
+        font.setStrikeOut(False)
+        font.setKerning(True)
+        font.setStyleStrategy(QtGui.QFont.PreferAntialias)
+        self.btnOtherTemplate.setFont(font)
+        self.btnOtherTemplate.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
+        self.btnOtherTemplate.setStyleSheet("QPushButton{\n"
+"    background-color:rgba(112, 215, 255, 0);\n"
+"    color:rgba(0, 0, 0, 0.5);\n"
+"    border: none;\n"
+"    border-radius: 5;\n"
+"    border-style: outset;\n"
+"}\n"
+"QPushButton:hover{\n"
+"    color: black;\n"
+"}\n"
+"")
+        self.btnOtherTemplate.setObjectName("btnOtherTemplate")
+        self.inputKTP = QtWidgets.QTextBrowser(self.tab_2)
+        self.inputKTP.setEnabled(True)
+        self.inputKTP.setGeometry(QtCore.QRect(60, 20, 430, 259))
+        font = QtGui.QFont()
+        font.setFamily("Arial")
+        font.setBold(False)
+        font.setUnderline(False)
+        font.setWeight(50)
+        font.setStrikeOut(False)
+        self.inputKTP.setFont(font)
+        self.inputKTP.setStyleSheet("QTextBrowser{\n"
+"    background-color:rgba(229,229,234,1); \n"
+"    border-radius: 6;\n"
+"    border: none;\n"
+"    padding: 8 4 8 8;\n"
+"}\n"
+"")
+        self.inputKTP.setReadOnly(False)
+        self.inputKTP.setObjectName("inputKTP")
+        self.inputNameFileKTP = QtWidgets.QLineEdit(self.tab_2)
+        self.inputNameFileKTP.setGeometry(QtCore.QRect(60, 290, 301, 41))
+        font = QtGui.QFont()
+        font.setFamily("Arial")
+        font.setBold(True)
+        font.setWeight(75)
+        self.inputNameFileKTP.setFont(font)
+        self.inputNameFileKTP.setStyleSheet("QLineEdit{\n"
+"    background-color:rgba(229,229,234,1); \n"
+"    border-radius: 6;\n"
+"    border: none;\n"
+"    padding-left: 8px\n"
+"}\n"
+"QLineEdit:hover{\n"
+"    background-color:rgba(242,242,247,1);\n"
+"}\n"
+"QLineEdit:pressed{\n"
+"    background-color:rgba(188,188,192,1);\n"
+"    border-radius: 12;\n"
+"}")
+        self.inputNameFileKTP.setInputMask("")
+        self.inputNameFileKTP.setText("")
+        self.inputNameFileKTP.setObjectName("inputNameFileKTP")
+        self.btnAddKTPParams = QtWidgets.QPushButton(self.tab_2)
+        self.btnAddKTPParams.setGeometry(QtCore.QRect(377, 290, 111, 41))
+        font = QtGui.QFont()
+        font.setFamily("Arial")
+        font.setPointSize(9)
+        font.setBold(True)
+        font.setWeight(75)
+        self.btnAddKTPParams.setFont(font)
+        self.btnAddKTPParams.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
+        self.btnAddKTPParams.setStyleSheet("QPushButton{\n"
+"    background-color: #196dff;\n"
+"    color: white;\n"
+"    border: none;\n"
+"    border-radius: 12;\n"
+"    border-style: outset;\n"
+"}\n"
+"QPushButton:hover{\n"
+"    background-color: #3b83ff; \n"
+"}\n"
+"QPushButton:pressed{\n"
+"    color: rgba(255, 255, 255, 0.7);\n"
+"    border-radius: 12;\n"
+"}")
+        self.btnAddKTPParams.setObjectName("btnAddKTPParams")
+        self.btnKTPTemplate = QtWidgets.QPushButton(self.tab_2)
+        self.btnKTPTemplate.setGeometry(QtCore.QRect(504, 131, 31, 20))
+        font = QtGui.QFont()
+        font.setFamily("Arial")
+        font.setPointSize(9)
+        font.setBold(True)
+        font.setItalic(False)
+        font.setUnderline(False)
+        font.setWeight(75)
+        font.setStrikeOut(False)
+        font.setKerning(True)
+        font.setStyleStrategy(QtGui.QFont.PreferAntialias)
+        self.btnKTPTemplate.setFont(font)
+        self.btnKTPTemplate.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
+        self.btnKTPTemplate.setStyleSheet("QPushButton{\n"
+"    background-color:rgba(112, 215, 255, 0);\n"
+"    color:rgba(0, 0, 0, 0.5);\n"
+"    border: none;\n"
+"    border-radius: 5;\n"
+"    border-style: outset;\n"
+"}\n"
+"QPushButton:hover{\n"
+"    color: black;\n"
+"}\n"
+"")
+        self.btnKTPTemplate.setObjectName("btnKTPTemplate")
+        self.label_30 = QtWidgets.QLabel(self.tab_2)
+        self.label_30.setGeometry(QtCore.QRect(504, 22, 131, 35))
+        font = QtGui.QFont()
+        font.setFamily("Arial")
+        font.setPointSize(9)
+        font.setBold(True)
+        font.setWeight(75)
+        self.label_30.setFont(font)
+        self.label_30.setStyleSheet("background-color: rgba(255,255,255,0); ")
+        self.label_30.setScaledContents(False)
+        self.label_30.setObjectName("label_30")
+        self.tabWidget.addTab(self.tab_2, "")
         self.label_10.raise_()
         self.btnOpenPDF.raise_()
-        self.label_5.raise_()
         self.textConsole.raise_()
         self.labelLoading.raise_()
-        self.inputClient.raise_()
-        self.inputTitleProject.raise_()
-        self.inputObjectType.raise_()
         self.label_9.raise_()
         self.btnDrawSchemeTwo.raise_()
         self.label_8.raise_()
         self.label_7.raise_()
         self.btnDrawScheme.raise_()
         self.btnOne.raise_()
-        self.listRoof.raise_()
-        self.btnSearchCoordinates.raise_()
-        self.listInvertor_folder.raise_()
-        self.listInvertor_file.raise_()
-        self.checkBox_7.raise_()
-        self.checkBox_5_1_1.raise_()
-        self.btnShow3.raise_()
-        self.checkBox_3_2.raise_()
-        self.checkBox_4.raise_()
-        self.btnShow8.raise_()
-        self.checkBox_8_5.raise_()
-        self.checkBox_5_1.raise_()
-        self.checkBox_5_6.raise_()
-        self.checkBox_6.raise_()
-        self.checkBox_5.raise_()
-        self.checkBox_5_1_2.raise_()
-        self.btnShow5.raise_()
-        self.checkBox_3_1.raise_()
-        self.checkBox_3_3.raise_()
-        self.checkBox_2.raise_()
-        self.checkBox_5_3.raise_()
-        self.checkBox_5_2.raise_()
-        self.checkBox_5_1_4.raise_()
-        self.checkBox_5_5.raise_()
-        self.checkBox_1.raise_()
-        self.checkBox_3_4.raise_()
-        self.checkBox_8_3.raise_()
-        self.checkBox_3.raise_()
-        self.checkBox_5_4.raise_()
-        self.checkBox_8.raise_()
-        self.checkBox_8_4.raise_()
-        self.checkBox_8_1.raise_()
-        self.checkBox_8_2.raise_()
-        self.checkBox_5_1_3.raise_()
-        self.checkBox_8_6.raise_()
-        self.label_3.raise_()
-        self.inputCodeProject.raise_()
-        self.label_6.raise_()
         self.btnForm.raise_()
-        self.label_4.raise_()
         self.btnDevice.raise_()
         self.btnRP5.raise_()
         self.btnSchemes.raise_()
         self.btnLoadScheme2.raise_()
         self.btnLoadScheme1.raise_()
-        self.listPV_file.raise_()
-        self.listPV_folder.raise_()
-        self.listKTP_folder.raise_()
-        self.listKTP_file.raise_()
-        self.inputUDotIn.raise_()
-        self.inputAddress.raise_()
-        self.inputAddressLat.raise_()
-        self.inputAddressLong.raise_()
-        self.btnAddInvertor.raise_()
-        self.spinBox_numInvertor.raise_()
-        self.btnAddPV.raise_()
-        self.spinBox_numPV.raise_()
-        self.btnAddKTP.raise_()
-        self.spinBox_numKTP.raise_()
         self.btnDelPvsystData.raise_()
         self.btnDelSchemeTwoData.raise_()
         self.btnDelSchemeOneData.raise_()
-        self.btnDelInvertor.raise_()
-        self.btnSlideMenuDevices.raise_()
-        self.btnSlideMenuPassport.raise_()
-        self.btnSlideMenuDelete.raise_()
         self.label_11.raise_()
         self.label_12.raise_()
         self.label_13.raise_()
-        self.btnSlideMenuKTP.raise_()
-        self.btnAddKTPParams.raise_()
-        self.inputNameFileKTP.raise_()
-        self.btnOtherTemplate.raise_()
         self.btnCalcPV.raise_()
         self.label_14.raise_()
         self.btnAbout.raise_()
         self.btnInfo.raise_()
         self.btnWifi.raise_()
-        self.btnDelPV.raise_()
-        self.btnDelOther.raise_()
+        self.btnDrawStructuralScheme.raise_()
+        self.label_15.raise_()
+        self.tabWidget.raise_()
         MainWindow.setCentralWidget(self.centralwidget)
         self.statusBar = QtWidgets.QStatusBar(MainWindow)
         self.statusBar.setObjectName("statusBar")
         MainWindow.setStatusBar(self.statusBar)
 
         self.retranslateUi(MainWindow)
+        self.tabWidget.setCurrentIndex(0)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
 
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
         MainWindow.setWindowTitle(_translate("MainWindow", "AutoOTR"))
         self.textConsole.setPlaceholderText(_translate("MainWindow", "Ход формирования файла "))
-        self.label_for_slide.setText(_translate("MainWindow", "Оборудование"))
-        self.inputTitleProject.setToolTip(_translate("MainWindow", "Количество MPPT в инверторе"))
-        self.label_2.setText(_translate("MainWindow", "Инвертор"))
-        self.label_4.setText(_translate("MainWindow", "Другое"))
-        self.inputClient.setToolTip(_translate("MainWindow", "Количество MPPT в инверторе"))
-        self.label_5.setText(_translate("MainWindow", "Тип крыши"))
-        self.checkBox_8_1.setToolTip(_translate("MainWindow", "Отчет по выработке"))
-        self.checkBox_8_1.setText(_translate("MainWindow", "8.1"))
-        self.checkBox_8_2.setToolTip(_translate("MainWindow", "Структурная схема"))
-        self.checkBox_8_2.setText(_translate("MainWindow", "8.2"))
-        self.checkBox_8_4.setToolTip(_translate("MainWindow", "Схема постоянного тока"))
-        self.checkBox_8_4.setText(_translate("MainWindow", "8.4"))
-        self.checkBox_8_3.setToolTip(_translate("MainWindow", "Схема электрическая принципиальная"))
-        self.checkBox_8_3.setText(_translate("MainWindow", "8.3"))
-        self.checkBox_5_1_3.setToolTip(_translate("MainWindow", "Инверторное оборудование"))
-        self.checkBox_5_1_3.setText(_translate("MainWindow", "5.1.3"))
-        self.checkBox_3_1.setToolTip(_translate("MainWindow", "Описание границ участка"))
-        self.checkBox_3_1.setText(_translate("MainWindow", "3.1"))
-        self.checkBox_8_5.setToolTip(_translate("MainWindow", "План размещения"))
-        self.checkBox_8_5.setText(_translate("MainWindow", "8.5"))
-        self.checkBox_8_6.setToolTip(_translate("MainWindow", "Проект ТЗ на СЭС"))
-        self.checkBox_8_6.setText(_translate("MainWindow", "8.6"))
-        self.checkBox_5_3.setToolTip(_translate("MainWindow", "Электротехнические решения"))
-        self.checkBox_5_3.setText(_translate("MainWindow", "5.3"))
-        self.checkBox_5_4.setToolTip(_translate("MainWindow", "Система заземления и молниезащиты"))
-        self.checkBox_5_4.setText(_translate("MainWindow", "5.4"))
-        self.checkBox_5_5.setToolTip(_translate("MainWindow", "Выбор оптимальных показателей сравнение вариантов"))
-        self.checkBox_5_5.setText(_translate("MainWindow", "5.5"))
-        self.checkBox_3_3.setToolTip(_translate("MainWindow", "Топография площадки"))
-        self.checkBox_3_3.setText(_translate("MainWindow", "3.3"))
-        self.checkBox_5_6.setToolTip(_translate("MainWindow", "Индикативный анализ стоимости"))
-        self.checkBox_5_6.setText(_translate("MainWindow", "5.6"))
-        self.checkBox_5_1_2.setToolTip(_translate("MainWindow", "Опорные конструкции"))
-        self.checkBox_5_1_2.setText(_translate("MainWindow", "5.1.2"))
-        self.checkBox_5_1_4.setToolTip(_translate("MainWindow", "Другое силовое оборудование"))
-        self.checkBox_5_1_4.setText(_translate("MainWindow", "5.1.4"))
-        self.checkBox_5_2.setToolTip(_translate("MainWindow", "Планировочное решение"))
-        self.checkBox_5_2.setText(_translate("MainWindow", "5.2"))
-        self.checkBox_3_4.setToolTip(_translate("MainWindow", "Точка подключения объекта"))
-        self.checkBox_3_4.setText(_translate("MainWindow", "3.4"))
-        self.checkBox_3_2.setToolTip(_translate("MainWindow", "Климатические условия"))
-        self.checkBox_3_2.setText(_translate("MainWindow", "3.2"))
-        self.checkBox_5_1_1.setToolTip(_translate("MainWindow", "ФЭМ"))
-        self.checkBox_5_1_1.setText(_translate("MainWindow", "5.1.1"))
-        self.checkBox_5_1.setToolTip(_translate("MainWindow", "Назначение и состав СЭС"))
-        self.checkBox_5_1.setText(_translate("MainWindow", "5.1"))
         self.btnLoadScheme2.setText(_translate("MainWindow", "▼"))
         self.btnLoadScheme1.setText(_translate("MainWindow", "▼"))
-        self.inputCodeProject.setToolTip(_translate("MainWindow", "Код проекта"))
-        self.label_3.setText(_translate("MainWindow", "ФЭМ"))
-        self.btnShow3.setText(_translate("MainWindow", "▼"))
-        self.btnShow5.setText(_translate("MainWindow", "▼"))
-        self.btnShow8.setText(_translate("MainWindow", "▼"))
-        self.checkBox_7.setToolTip(_translate("MainWindow", "Перечень НТД"))
-        self.checkBox_7.setStyleSheet(_translate("MainWindow", "background-color: rgba(255,255,255,0); \n"
-"border-radius: 5;\n"
-"border: none;\n"
-"padding: 2;"))
-        self.checkBox_7.setText(_translate("MainWindow", "7"))
-        self.checkBox_8.setToolTip(_translate("MainWindow", "Приложения:"))
-        self.checkBox_8.setStyleSheet(_translate("MainWindow", "background-color: rgba(255,255,255,0); \n"
-"border-radius: 5;\n"
-"border: none;\n"
-"padding: 2;"))
-        self.checkBox_8.setText(_translate("MainWindow", "8"))
-        self.checkBox_2.setToolTip(_translate("MainWindow", "Исходные данные"))
-        self.checkBox_2.setStyleSheet(_translate("MainWindow", "background-color: rgba(255,255,255,0); \n"
-"border-radius: 5;\n"
-"border: none;\n"
-"padding: 2;"))
-        self.checkBox_2.setText(_translate("MainWindow", "2"))
-        self.checkBox_4.setToolTip(_translate("MainWindow", "Анализ ресурсов (инсоляция)"))
-        self.checkBox_4.setStyleSheet(_translate("MainWindow", "background-color: rgba(255,255,255,0); \n"
-"border-radius: 5;\n"
-"border: none;\n"
-"padding: 2;"))
-        self.checkBox_4.setText(_translate("MainWindow", "4"))
-        self.checkBox_5.setToolTip(_translate("MainWindow", "Основные параметры СЭС"))
-        self.checkBox_5.setStyleSheet(_translate("MainWindow", "background-color: rgba(255,255,255,0); \n"
-"border-radius: 5;\n"
-"border: none;\n"
-"padding: 2;"))
-        self.checkBox_5.setText(_translate("MainWindow", "5 "))
-        self.checkBox_6.setToolTip(_translate("MainWindow", "Выводы и результаты"))
-        self.checkBox_6.setStyleSheet(_translate("MainWindow", "background-color: rgba(255,255,255,0); \n"
-"border-radius: 5;\n"
-"border: none;\n"
-"padding: 2;"))
-        self.checkBox_6.setText(_translate("MainWindow", "6"))
-        self.checkBox_3.setToolTip(_translate("MainWindow", "Место размещения объекта"))
-        self.checkBox_3.setStyleSheet(_translate("MainWindow", "background-color: rgba(255,255,255,0); \n"
-"border-radius: 5;\n"
-"border: none;\n"
-"padding: 2;"))
-        self.checkBox_3.setText(_translate("MainWindow", "3"))
-        self.checkBox_1.setToolTip(_translate("MainWindow", "Термины и сокращения"))
-        self.checkBox_1.setStyleSheet(_translate("MainWindow", "background-color: rgba(255,255,255,0); \n"
-"border-radius: 5;\n"
-"border: none;\n"
-"padding: 2;"))
-        self.checkBox_1.setText(_translate("MainWindow", "1"))
         self.btnOpenPDF.setText(_translate("MainWindow", "Открыть"))
-        self.inputUDotIn.setToolTip(_translate("MainWindow", "Количество MPPT в инверторе"))
-        self.inputAddress.setToolTip(_translate("MainWindow", "Количество MPPT в инверторе"))
-        self.inputObjectType.setToolTip(_translate("MainWindow", "Количество MPPT в инверторе"))
-        self.inputAddressLat.setToolTip(_translate("MainWindow", "Широта"))
-        self.inputAddressLong.setToolTip(_translate("MainWindow", "Долгота"))
-        self.btnAddInvertor.setToolTip(_translate("MainWindow", "Добавить MPPT"))
-        self.btnAddInvertor.setText(_translate("MainWindow", "+"))
-        self.btnAddPV.setToolTip(_translate("MainWindow", "Добавить MPPT"))
-        self.btnAddPV.setText(_translate("MainWindow", "+"))
-        self.btnAddKTP.setToolTip(_translate("MainWindow", "Добавить MPPT"))
-        self.btnAddKTP.setText(_translate("MainWindow", "+"))
-        self.btnSearchCoordinates.setToolTip(_translate("MainWindow", "Нажмите для перехода к другому меню"))
-        self.btnSearchCoordinates.setText(_translate("MainWindow", "🌍"))
         self.btnDelPvsystData.setToolTip(_translate("MainWindow", "Удалить"))
         self.btnDelPvsystData.setText(_translate("MainWindow", "🞫"))
         self.btnDelSchemeTwoData.setToolTip(_translate("MainWindow", "Удалить"))
         self.btnDelSchemeTwoData.setText(_translate("MainWindow", "🞫"))
         self.btnDelSchemeOneData.setToolTip(_translate("MainWindow", "Удалить"))
         self.btnDelSchemeOneData.setText(_translate("MainWindow", "🞫"))
-        self.btnDelInvertor.setToolTip(_translate("MainWindow", "Удалить"))
-        self.btnDelInvertor.setText(_translate("MainWindow", "🞫"))
         self.label_7.setText(_translate("MainWindow", "Файлы"))
         self.label_8.setText(_translate("MainWindow", "Схемы"))
         self.label_9.setText(_translate("MainWindow", "Погода"))
         self.label_10.setText(_translate("MainWindow", "Создать"))
-        self.btnSlideMenuDevices.setText(_translate("MainWindow", "●"))
-        self.btnSlideMenuPassport.setText(_translate("MainWindow", "●"))
-        self.btnSlideMenuDelete.setText(_translate("MainWindow", "●"))
         self.labelLoading.setText(_translate("MainWindow", "TextLabel"))
         self.label_11.setText(_translate("MainWindow", "PVsyst"))
         self.label_12.setText(_translate("MainWindow", "Инвертор"))
         self.label_13.setText(_translate("MainWindow", "Станция"))
-        self.inputKTP.setPlaceholderText(_translate("MainWindow", "Параметры КТП"))
-        self.btnSlideMenuKTP.setText(_translate("MainWindow", "●"))
-        self.btnAddKTPParams.setToolTip(_translate("MainWindow", "Добавить MPPT"))
-        self.btnAddKTPParams.setText(_translate("MainWindow", "+"))
-        self.inputNameFileKTP.setToolTip(_translate("MainWindow", "Количество MPPT в инверторе"))
-        self.inputNameFileKTP.setPlaceholderText(_translate("MainWindow", "Название файла"))
-        self.btnKTPTemplate.setText(_translate("MainWindow", "КТП"))
-        self.btnOtherTemplate.setText(_translate("MainWindow", "Другое"))
         self.label_14.setText(_translate("MainWindow", "CalcPV"))
         self.btnWifi.setToolTip(_translate("MainWindow", "Нет подключения к сети, некоторые функции не будут работать."))
+        self.btnDrawStructuralScheme.setText(_translate("MainWindow", "СС"))
+        self.label_15.setText(_translate("MainWindow", "Структурная"))
+        self.btnAddKTP.setToolTip(_translate("MainWindow", "Добавить MPPT"))
+        self.btnAddKTP.setText(_translate("MainWindow", "+"))
         self.btnDelPV.setToolTip(_translate("MainWindow", "Удалить"))
         self.btnDelPV.setText(_translate("MainWindow", "🞫"))
+        self.btnAddPV.setToolTip(_translate("MainWindow", "Добавить MPPT"))
+        self.btnAddPV.setText(_translate("MainWindow", "+"))
+        self.label_4.setText(_translate("MainWindow", "Другое"))
+        self.btnAddInvertor.setToolTip(_translate("MainWindow", "Добавить MPPT"))
+        self.btnAddInvertor.setText(_translate("MainWindow", "+"))
+        self.label_2.setText(_translate("MainWindow", "Инвертор"))
         self.btnDelOther.setToolTip(_translate("MainWindow", "Удалить"))
         self.btnDelOther.setText(_translate("MainWindow", "🞫"))
+        self.label_5.setText(_translate("MainWindow", "Тип крыши"))
+        self.btnDelInvertor.setToolTip(_translate("MainWindow", "Удалить"))
+        self.btnDelInvertor.setText(_translate("MainWindow", "🞫"))
+        self.label_3.setText(_translate("MainWindow", "ФЭМ"))
+        self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab), _translate("MainWindow", "Оборудование"))
+        self.inputCodeProject.setToolTip(_translate("MainWindow", "Код проекта"))
+        self.inputAddress.setToolTip(_translate("MainWindow", "Количество MPPT в инверторе"))
+        self.inputClient.setToolTip(_translate("MainWindow", "Количество MPPT в инверторе"))
+        self.inputAddressLong.setToolTip(_translate("MainWindow", "Долгота"))
+        self.btnSearchCoordinates.setToolTip(_translate("MainWindow", "Нажмите для перехода к другому меню"))
+        self.btnSearchCoordinates.setText(_translate("MainWindow", "🌍"))
+        self.inputTitleProject.setToolTip(_translate("MainWindow", "Количество MPPT в инверторе"))
+        self.inputUDotIn.setToolTip(_translate("MainWindow", "Количество MPPT в инверторе"))
+        self.inputAddressLat.setToolTip(_translate("MainWindow", "Широта"))
+        self.inputObjectType.setToolTip(_translate("MainWindow", "Количество MPPT в инверторе"))
+        self.label_16.setText(_translate("MainWindow", "Тип проекта"))
+        self.label_17.setText(_translate("MainWindow", "Адрес"))
+        self.label_18.setText(_translate("MainWindow", "U подключения /\n"
+"Координаты"))
+        self.label_19.setText(_translate("MainWindow", "Название / код \n"
+"проекта"))
+        self.label_20.setText(_translate("MainWindow", "Заказчик"))
+        self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab_8), _translate("MainWindow", "Паспорт объекта"))
+        self.checkBox_8_6.setToolTip(_translate("MainWindow", "Проект ТЗ на СЭС"))
+        self.checkBox_8_6.setText(_translate("MainWindow", "8.6"))
+        self.checkBox_5_1_3.setToolTip(_translate("MainWindow", "Инверторное оборудование"))
+        self.checkBox_5_1_3.setText(_translate("MainWindow", "5.1.3"))
+        self.checkBox_1.setToolTip(_translate("MainWindow", "Термины и сокращения"))
+        self.checkBox_1.setStyleSheet(_translate("MainWindow", "background-color: rgba(255,255,255,0); \n"
+"border-radius: 5;\n"
+"border: none;\n"
+"padding: 2;"))
+        self.checkBox_1.setText(_translate("MainWindow", "1"))
+        self.checkBox_7.setToolTip(_translate("MainWindow", "Перечень НТД"))
+        self.checkBox_7.setStyleSheet(_translate("MainWindow", "background-color: rgba(255,255,255,0); \n"
+"border-radius: 5;\n"
+"border: none;\n"
+"padding: 2;"))
+        self.checkBox_7.setText(_translate("MainWindow", "7"))
+        self.checkBox_2.setToolTip(_translate("MainWindow", "Исходные данные"))
+        self.checkBox_2.setStyleSheet(_translate("MainWindow", "background-color: rgba(255,255,255,0); \n"
+"border-radius: 5;\n"
+"border: none;\n"
+"padding: 2;"))
+        self.checkBox_2.setText(_translate("MainWindow", "2"))
+        self.checkBox_8_5.setToolTip(_translate("MainWindow", "План размещения"))
+        self.checkBox_8_5.setText(_translate("MainWindow", "8.5"))
+        self.checkBox_5_2.setToolTip(_translate("MainWindow", "Планировочное решение"))
+        self.checkBox_5_2.setText(_translate("MainWindow", "5.2"))
+        self.checkBox_5_1_2.setToolTip(_translate("MainWindow", "Опорные конструкции"))
+        self.checkBox_5_1_2.setText(_translate("MainWindow", "5.1.2"))
+        self.checkBox_3.setToolTip(_translate("MainWindow", "Место размещения объекта"))
+        self.checkBox_3.setStyleSheet(_translate("MainWindow", "background-color: rgba(255,255,255,0); \n"
+"border-radius: 5;\n"
+"border: none;\n"
+"padding: 2;"))
+        self.checkBox_3.setText(_translate("MainWindow", "3"))
+        self.checkBox_5.setToolTip(_translate("MainWindow", "Основные параметры СЭС"))
+        self.checkBox_5.setStyleSheet(_translate("MainWindow", "background-color: rgba(255,255,255,0); \n"
+"border-radius: 5;\n"
+"border: none;\n"
+"padding: 2;"))
+        self.checkBox_5.setText(_translate("MainWindow", "5 "))
+        self.checkBox_4.setToolTip(_translate("MainWindow", "Анализ ресурсов (инсоляция)"))
+        self.checkBox_4.setStyleSheet(_translate("MainWindow", "background-color: rgba(255,255,255,0); \n"
+"border-radius: 5;\n"
+"border: none;\n"
+"padding: 2;"))
+        self.checkBox_4.setText(_translate("MainWindow", "4"))
+        self.checkBox_8_1.setToolTip(_translate("MainWindow", "Отчет по выработке"))
+        self.checkBox_8_1.setText(_translate("MainWindow", "8.1"))
+        self.checkBox_5_1_1.setToolTip(_translate("MainWindow", "ФЭМ"))
+        self.checkBox_5_1_1.setText(_translate("MainWindow", "5.1.1"))
+        self.checkBox_3_3.setToolTip(_translate("MainWindow", "Топография площадки"))
+        self.checkBox_3_3.setText(_translate("MainWindow", "3.3"))
+        self.checkBox_8_2.setToolTip(_translate("MainWindow", "Структурная схема"))
+        self.checkBox_8_2.setText(_translate("MainWindow", "8.2"))
+        self.checkBox_6.setToolTip(_translate("MainWindow", "Выводы и результаты"))
+        self.checkBox_6.setStyleSheet(_translate("MainWindow", "background-color: rgba(255,255,255,0); \n"
+"border-radius: 5;\n"
+"border: none;\n"
+"padding: 2;"))
+        self.checkBox_6.setText(_translate("MainWindow", "6"))
+        self.btnShow3.setText(_translate("MainWindow", "▼"))
+        self.checkBox_5_1_4.setToolTip(_translate("MainWindow", "Другое силовое оборудование"))
+        self.checkBox_5_1_4.setText(_translate("MainWindow", "5.1.4"))
+        self.checkBox_5_5.setToolTip(_translate("MainWindow", "Выбор оптимальных показателей сравнение вариантов"))
+        self.checkBox_5_5.setText(_translate("MainWindow", "5.5"))
+        self.checkBox_5_6.setToolTip(_translate("MainWindow", "Индикативный анализ стоимости"))
+        self.checkBox_5_6.setText(_translate("MainWindow", "5.6"))
+        self.checkBox_5_4.setToolTip(_translate("MainWindow", "Система заземления и молниезащиты"))
+        self.checkBox_5_4.setText(_translate("MainWindow", "5.4"))
+        self.checkBox_5_1.setToolTip(_translate("MainWindow", "Назначение и состав СЭС"))
+        self.checkBox_5_1.setText(_translate("MainWindow", "5.1"))
+        self.btnShow5.setText(_translate("MainWindow", "▼"))
+        self.btnShow8.setText(_translate("MainWindow", "▼"))
+        self.checkBox_8.setToolTip(_translate("MainWindow", "Приложения:"))
+        self.checkBox_8.setStyleSheet(_translate("MainWindow", "background-color: rgba(255,255,255,0); \n"
+"border-radius: 5;\n"
+"border: none;\n"
+"padding: 2;"))
+        self.checkBox_8.setText(_translate("MainWindow", "8"))
+        self.checkBox_8_4.setToolTip(_translate("MainWindow", "Схема постоянного тока"))
+        self.checkBox_8_4.setText(_translate("MainWindow", "8.4"))
+        self.checkBox_3_4.setToolTip(_translate("MainWindow", "Точка подключения объекта"))
+        self.checkBox_3_4.setText(_translate("MainWindow", "3.4"))
+        self.checkBox_3_2.setToolTip(_translate("MainWindow", "Климатические условия"))
+        self.checkBox_3_2.setText(_translate("MainWindow", "3.2"))
+        self.checkBox_3_1.setToolTip(_translate("MainWindow", "Описание границ участка"))
+        self.checkBox_3_1.setText(_translate("MainWindow", "3.1"))
+        self.checkBox_8_3.setToolTip(_translate("MainWindow", "Схема электрическая принципиальная"))
+        self.checkBox_8_3.setText(_translate("MainWindow", "8.3"))
+        self.checkBox_5_3.setToolTip(_translate("MainWindow", "Электротехнические решения"))
+        self.checkBox_5_3.setText(_translate("MainWindow", "5.3"))
+        self.label_29.setText(_translate("MainWindow", "Номер раздела"))
+        self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab_7), _translate("MainWindow", "Cтруктура отчета"))
+        self.btnOtherTemplate.setText(_translate("MainWindow", "Другое"))
+        self.inputKTP.setPlaceholderText(_translate("MainWindow", "Параметры КТП"))
+        self.inputNameFileKTP.setToolTip(_translate("MainWindow", "Количество MPPT в инверторе"))
+        self.inputNameFileKTP.setPlaceholderText(_translate("MainWindow", "Название файла"))
+        self.btnAddKTPParams.setToolTip(_translate("MainWindow", "Добавить MPPT"))
+        self.btnAddKTPParams.setText(_translate("MainWindow", "Создать"))
+        self.btnKTPTemplate.setText(_translate("MainWindow", "КТП"))
+        self.label_30.setText(_translate("MainWindow", "Шаблон"))
+        self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab_2), _translate("MainWindow", "Другое оборудование"))

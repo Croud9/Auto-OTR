@@ -73,6 +73,7 @@ class docPDF():
         self.styleNormalTable = ParagraphStyle(name='NormalTable', fontName='Arial', fontSize = 12)
         self.styleH1 = ParagraphStyle(name='Heading1', fontName='Arial', fontSize = 16, firstLineIndent = 20)
         self.styleH2 = ParagraphStyle(name='Heading2', fontName='Arial', alignment=TA_JUSTIFY, fontSize = 14, firstLineIndent = 24, wordWrap=True, bulletIndent = 24, leading = 22)
+        self.styleH2_CENTER = ParagraphStyle(name='Heading2', fontName='Arial', alignment=TA_CENTER, fontSize = 14, firstLineIndent = 24, wordWrap=True, bulletIndent = 24, leading = 22)
         self.styleH3 = ParagraphStyle(name='Heading3', fontName='Arial', fontSize = 14, firstLineIndent = 20)
 
         self.doc = MyDocTemplate('Data/Report/Report.pdf', pagesize=A4,
@@ -332,13 +333,19 @@ class docPDF():
     def section_5(self, data):
         phases = []
         modules = []
+        mppt_pv_string = {}
         num_table = 0
+        num_config = 0 
         all_strings = 0 
 
         for invertor, params in data['invertors'].items():
             for key in params.keys():
                 if 'config' in key:
                     all_strings += int(params[key]['count_string'])
+                    mppt_pv_string[num_config] = [Paragraph(f"{params[key]['count_mppt']}", self.styleNormalTable),
+                                            Paragraph(f"{params[key]['count_pv']}", self.styleNormalTable),
+                                            Paragraph(f"{params[key]['count_string']}" , self.styleNormalTable)]
+                    num_config += 1
             phases.append(params["phase"])
             modules.append(params["module"])
         phases = ', '.join(str(v) for v in phases)
@@ -370,8 +377,9 @@ class docPDF():
                                     Цепочки подключаются к инвертору солнечным кабелем постоянного тока, \
                                     изоляция которого обладает повышенной стойкостью к воздействию ультрафиолета.", self.styleNormal))
             self.story.append(Paragraph("Информацию о работе системы и её состоянии обслуживающий персонал получает с помощью облачного сервиса.", self.styleNormal))
-            self.story.append(Paragraph("Основные технико-экономические параметры работы СЭС представлены в таблице 5.1.", self.styleNormal))
             num_table += 1
+            self.story.append(Paragraph(f"Основные технико-экономические параметры работы СЭС представлены в таблице 5.{num_table}", self.styleNormal))
+            self.story.append(PageBreak())
             self.story.append(Paragraph(f"Таблица 5.{num_table} - Основные технологические характеристики СЭС", self.styleNormal))
 
             ses_params = [
@@ -698,10 +706,69 @@ class docPDF():
             else:
                 titles_invertors = "инверторов Н/Д"
 
-            self.story.append(Paragraph(f"Для преобразования постоянного тока от массива ФЭМ в переменный, предусматривается установка {titles_invertors}.\
-                                    Распределение панелей ФЭМ по инверторам представлена в таблице (номер таблицы). Выдача мощности с инверторов выполняется \
+            num_table += 1
+            self.story.append(Paragraph(f"Для преобразования постоянного тока от массива ФЭМ в переменный, \
+                                    предусматривается установка {titles_invertors}.\
+                                    Выдача мощности с инверторов выполняется \
                                     на напряжение {data['u_dot_in']} кВ на секции шин (указать), шкаф/щит (указать),\
                                     сущ./новый автоматический выключатель/ячейку (указать).", self.styleNormal))
+            if len(mppt_pv_string) != 0:
+                self.story.append(Paragraph(f"Распределение панелей ФЭМ по инверторам представлена в таблице 5.{num_table}.", self.styleNormal))
+                self.story.append(Paragraph(f"Таблица 5.{num_table} — Распределение панелей ФЭМ по инверторам", self.styleNormal))
+                num_pv = 0
+                count_invertors = 0
+                all_pv = []
+
+
+
+                for pv, params in data['pvs'].items():
+                    all_pv.append(params['module_pv'])
+                config_pv_invertor_string_params = [
+                    [Paragraph('<b>Инвертор </b>', self.styleNormalTable), 
+                    Paragraph('<b>ФЭМ</b>', self.styleNormalTable), 
+                    Paragraph('<b>MPPT</b>', self.styleNormalTable), 
+                    Paragraph('<b>Число ФЭМ</b>', self.styleNormalTable), 
+                    Paragraph('<b>Число Цепочек</b>', self.styleNormalTable)]
+                ]
+
+
+                for invertor, params in data['invertors'].items():
+                    mppt_pv_string = {}
+                    num_config = 0 
+                    count_invertors += 1
+                    first_row = [
+                        Paragraph(f"{params['module']} x {params['count_invertor']} шт.", self.styleNormalTable),
+                        Paragraph(f'{all_pv[num_pv]}', self.styleNormalTable)
+                    ]
+                    num_pv += 1
+                    for key in params.keys():
+                        if 'config' in key:
+                            mppt_pv_string[num_config] = [Paragraph(f"{params[key]['count_mppt']}", self.styleNormalTable),
+                                                    Paragraph(f"{params[key]['count_pv']}", self.styleNormalTable),
+                                                    Paragraph(f"{params[key]['count_string']}" , self.styleNormalTable)]
+                            num_config += 1
+                    if len(mppt_pv_string) == 1:
+                        first_row.extend(mppt_pv_string[0])
+                        config_pv_invertor_string_params.append(first_row)
+                    else:
+                        first_row.extend(mppt_pv_string[0])
+                        config_pv_invertor_string_params.append(first_row)
+                        for i in range(1, len(mppt_pv_string)):
+                            other_row =[
+                                Paragraph('', self.styleNormalTable),
+                                Paragraph('', self.styleNormalTable),
+                                *mppt_pv_string[i]
+                            ]
+                            config_pv_invertor_string_params.append(other_row)
+
+                config_pv_invertor_string = Table(config_pv_invertor_string_params,
+                colWidths = [None, None, 0.7*inch, 0.8*inch, 0.9*inch], 
+                style = [('ALIGN',(0,0),(-1,-1),'CENTRE'),
+                ('VALIGN',(0,0),(-1,-1),'TOP'),
+                ('INNERGRID', (0,0), (-1,-1), 0.25, colors.black),
+                ('BOX', (0,0), (-1,-1), 0.25, colors.black),
+                ])
+                self.story.append(config_pv_invertor_string)
 
         if data["block_5_4"] == False:
             self.story.append(PageBreak())
@@ -929,6 +996,191 @@ class docPDF():
                     else:
                         break
                 
+        if data["block_8_6"] == False:
+            self.story.append(NextPageTemplate('template_blank_frame'))
+            self.story.append(PageBreak())
+            self.story.append(Spacer(1, 25))
+            self.story.append(Paragraph("<b>СОГЛАСОВАНО:</b> __________________", self.styleNormalTable))
+            self.story.append(Spacer(1, 10))
+            self.story.append(Paragraph("«____»  __________________2022 г.", self.styleNormalTable))
+            self.story.append(Spacer(1, 25))
+            self.story.append(Paragraph(f"<b>УТВЕРЖДАЮ:</b> __________________", self.styleNormalTable))
+            self.story.append(Spacer(1, 10))
+            self.story.append(Paragraph("«____»  __________________2022 г.", self.styleNormalTable))
+            self.story.append(Spacer(1, 225))
+            self.story.append(Paragraph(f"<font size=16><b>Техническое задание по проекту </b></font>", self.styleH2_CENTER))
+            self.story.append(Spacer(1, 305))
+            self.story.append(Paragraph(f"<b>Москва</b> <br/> <b>2022</b>", self.styleCenter))
+            
+            self.story.append(NextPageTemplate('template_small_frame'))
+            self.story.append(PageBreak())
+            tech_task_params = [
+            [Paragraph('<b>1</b>', self.styleNormalTable), Paragraph('<b>Общие положения</b>', self.styleNormalTable), 
+                Paragraph('', self.styleNormalTable)],
+            [Paragraph('1.1', self.styleNormalTable), Paragraph('Наименование объекта', self.styleNormalTable), 
+                Paragraph('Модернизация схемы электроснабжения ___________с установкой \
+                            Фотоэлектрической системы (далее – ФЭС) мощностью 44,8 кВт.', self.styleNormalTable)],
+            [Paragraph('1.2', self.styleNormalTable), Paragraph('Местоположение объекта', self.styleNormalTable), 
+                Paragraph('', self.styleNormalTable)],
+            [Paragraph('1.3', self.styleNormalTable), Paragraph('Назначение объекта', self.styleNormalTable), 
+                Paragraph('ФЭС предназначена для выработки электрической энергии на основе \
+                            энергии солнца в целях частичного покрытия потребности в электрической \
+                            энергии предприятия.', self.styleNormalTable)],
+            [Paragraph('1.4', self.styleNormalTable), Paragraph('Основание', self.styleNormalTable), 
+                Paragraph('Договор подряда', self.styleNormalTable)],
+            [Paragraph('1.5', self.styleNormalTable), Paragraph('Вид строительства', self.styleNormalTable), 
+                Paragraph('Модернизация системы электроснабжения', self.styleNormalTable)],
+            [Paragraph('1.6', self.styleNormalTable), Paragraph('Очередность строительства', self.styleNormalTable), 
+                Paragraph('Строительство выполняется одним этапом одной очередью', self.styleNormalTable)],
+            [Paragraph('1.7', self.styleNormalTable), Paragraph('Стадийность проектирования', self.styleNormalTable), 
+                Paragraph('Проектирование выполняется в одну стадию:<br/>•	Рабочая документация (далее – РД).', self.styleNormalTable)],
+            [Paragraph('<b>2</b>', self.styleNormalTable), Paragraph('<b>Объём и детализация работ Подрядчика в части проектирования</b>', self.styleNormalTable), 
+                Paragraph('', self.styleNormalTable)],
+            [Paragraph('2.1', self.styleNormalTable), Paragraph('Границы проектирования', self.styleNormalTable), 
+                Paragraph('В объём проектирования Подрядчика входят разработка ФЭС, АСУ,\
+                            разработка решений по прокладке кабельной продукции в пределах \
+                            границ территории ', self.styleNormalTable)],
+            [Paragraph('2.2', self.styleNormalTable), Paragraph('Этапы проектирования', self.styleNormalTable), 
+                Paragraph('Подрядчик должен выполнить проектирование в соответствии с этапами:<br/>\
+                            • разработка (корректировка по замечаниям согласующих организаций) заданий на проектирование;<br/>\
+                            • предпроектное обследование;<br/>\
+                            • инженерные изыскания и инструментальное обследование зданий и сооружений;<br/>\
+                            • разработка и согласование с Заказчиком основных технических решений (далее – ОТР);<br/>\
+                            • разработка РД.', self.styleNormalTable)],
+            [Paragraph('2.2.1', self.styleNormalTable), Paragraph('Инженерные изыскания и обследования', self.styleNormalTable), 
+                Paragraph('• Подрядчик выполняет инженерные изыскания в объёме, необходимом для разработки РД,\
+                                для ведения строительства и модернизации;<br/>\
+                                • Подрядчик выполняет инструментальное обследование зданий и сооружений, \
+                                предполагаемых под размещение оборудования;', self.styleNormalTable)],
+            [Paragraph('2.2.2', self.styleNormalTable), Paragraph('Основные технические решения', self.styleNormalTable), 
+                Paragraph('Подрядчик должен разработать основные технические решения (далее – ОТР), \
+                            оформить в виде отдельного тома, включающего текстовый и графический разделы. \
+                            Подрядчик должен согласовать ОТР с заказчиком. Для дальнейшего проектирования \
+                            определить совместно с Заказчиком  вариант размещения ФЭМ.\
+                            В ОТР для каждого варианта ФЭС должны быть включены:<br/>\
+                            •	краткая описательную часть;<br/>\
+                            •	принципиальная схема электрических соединений;<br/>\
+                            •	план размещения основного оборудования и трассы кабельно-проводниковой продукции;<br/>\
+                            •	модель ФЭС в PV Syst, почасовой расчет выработки электроэнергии на первый год эксплуатации (по данным PVsyst);<br/>\
+                            •	предварительная спецификация оборудования и материалов;', self.styleNormalTable)],
+            [Paragraph('2.2.3', self.styleNormalTable), Paragraph('Рабочая документация', self.styleNormalTable), 
+                Paragraph('Подрядчик должен разработать РД на основании:<br/>\
+                            • Согласованного тома ОТР;<br/>\
+                            • Исходных данных, полученных от Застройщика и от согласованных Заказчиком поставщиков оборудования и материалов;<br/>\
+                            • Результатов инженерных изысканий и обследований.<br/>\
+                            Подрядчик должен согласовать состав РД с Заказчиком. \
+                            РД должна включать полный объём технических решений, \
+                            необходимых для выполнения строительно-монтажных и пусконаладочных работ, \
+                            подключения ФЭС к существующей системе электроснабжения, т.е. для выполнения модернизации в полном объёме.\
+                            Подрядчик должен согласовать РД с Заказчиком. Подрядчик должен совершать все необходимые действия \
+                            по устранению замечаний к РД и участвовать в защите технических решений, при необходимости выезжать на объект.\
+                            В объёме разработки РД выполнить моделирование годовой выработки электроэнергии в программе PVSyst, \
+                            включая моделирование зданий с учётом геометрии и индивидуальных особенностей размещения оборудования на кровле.\
+                            Расстановку опорных конструкций выполнить с применением трёхмерного моделирования.', self.styleNormalTable)],
+            [Paragraph('2.3', self.styleNormalTable), Paragraph('Исключения', self.styleNormalTable), 
+                Paragraph('В объём Подрядчика не входят работы по модернизации несущих элементов \
+                            существующих зданий и сооружений', self.styleNormalTable)],
+            [Paragraph('2.4', self.styleNormalTable), Paragraph('Сроки выполнения проектных работ', self.styleNormalTable), 
+                Paragraph('-', self.styleNormalTable)],
+            [Paragraph('<b>3</b>', self.styleNormalTable), Paragraph('<b>Технические характеристики и требования к ФЭС</b>', self.styleNormalTable), 
+                Paragraph('', self.styleNormalTable)],
+            [Paragraph('3.1', self.styleNormalTable), Paragraph('Технические параметры проектируемого объекта', self.styleNormalTable), 
+                Paragraph('Технические параметры оборудования и мощность ФЭС определить в процессе проектирования \
+                            по результатам обследования объекта и разработки ОТР с учётом ограничений размещения \
+                            оборудования на существующих кровлях объекта и с учетом графика потребления электроэнергии ', self.styleNormalTable)],
+            [Paragraph('3.2', self.styleNormalTable), Paragraph('Перечень оборудования', self.styleNormalTable), 
+                Paragraph('В составе ФЭС применить:<br/>\
+                            • Гетероструктурные фотоэлектрические модули (далее – ФЭМ);<br/>\
+                            • Опорные конструкции ФЭМ для крышной установки (далее - ОК);<br/>\
+                            • Инверторы;<br/>\
+                            • Кабельно-проводниковую продукцию;<br/>\
+                            • Другое оборудование, определённое по результатам проектирования.', self.styleNormalTable)],
+            [Paragraph('3.3', self.styleNormalTable), Paragraph('Описание ФЭС', self.styleNormalTable), 
+                Paragraph('ФЭМ разместить на существующих кровлях и свободных площадях.\
+                            Электротехническое оборудование разместить в помещениях существующих зданий \
+                            и сооружений по согласованию с Заказчиком.\
+                            Организовать местное управление работой ФЭС.', self.styleNormalTable)],
+            [Paragraph('3.4', self.styleNormalTable), Paragraph('Режим работы в энергосистеме предприятия', self.styleNormalTable), 
+                Paragraph('Режим работы СЭС – автоматический, круглосуточный, круглогодичный \
+                            с учетом солнечного энергетического потенциала.', self.styleNormalTable)],
+            # [Paragraph('4', self.styleNormalTable), Paragraph('Основные НТД, определяющие требования к проекту', self.styleNormalTable), 
+            #     Paragraph('• Технические регламент о безопасности зданий и сооружений 384-ФЗ от 30.12.2009 в редакции, \
+            #                 действующей на момент проектирования;<br/>\
+            #                 • ПУЭ (действующее издание);<br/>• ПТЭ (действующее издание);<br/>\
+            #                 • Общие технические требования к микропроцессорным устройствам защиты и автоматики энергосистем \
+            #                 (РД 34.35.310-97 с изм.1.1998);<br/>\
+            #                 • Правила технической эксплуатации электрических станций и сетей РФ, утверждённые приказом \
+            #                 Минэнерго России №229 от 19.06.2003;<br/>\
+            #                 • Приказ Министерства энергетики РФ от 23.06.2015 №380 «О Порядке расчета значений соотношения \
+            #                 потребления активной и реактивной мощности для отдельных энергопринимающих устройств \
+            #                 (групп энергопринимающих устройств) потребителей электрической энергии»;<br/>\
+            #                 • Стандарт ОАО «СО ЕЭС» СТО 59012820.29.020.002-2012 «Релейная защита и автоматика. \
+            #                 Взаимодействие субъектов электроэнергетики, потребителей электрической энергии при создании \
+            #                 (модернизации) и организации эксплуатации», введенный в действие с 28 апреля 2012 года;<br/>\
+            #                 • Положение о составе разделов проектной документации и требования к их содержанию, утвержденное \
+            #                 Постановлением Правительства РФ №87 от 16.02.2008;<br/>\
+            #                 • Постановление Правительства РФ «О порядке организации и проведения государственной экспертизы \
+            #                 проектной документации и результатов инженерных изысканий» от 05.03.2007 № 145;<br/>', 
+            #                 self.styleNormalTable)],
+            # [Paragraph('', self.styleNormalTable), Paragraph('', self.styleNormalTable), 
+            #     Paragraph('• Письмо Министерства регионального развития РФ от 22.06.2009 №19088-СК/08 «О применении \
+            #                 положения о составе разделов проектной документации и требованиям к их содержанию»;<br/>\
+            #                 • МДС 81-35.2004 «Методика определения сметной стоимости строительства на территории Российской Федерации»;<br/>\
+            #                 • ГОСТ Р 21.1101-2013 «Основные требования к проектной и рабочей документации»;<br/>\
+            #                 • Градостроительный кодекс РФ;<br/>• Земельный кодекс РФ;<br/>\
+            #                 • Типовая инструкция по учету электрической энергии при ее производстве, передаче и \
+            #                 распределении (РД 34.09.101 94);<br/>\
+            #                 • Инструкция по проектированию противопожарной защиты энергетических предприятий \
+            #                 (СО 34.49.101-2003);<br/>\
+            #                 • ФЗ РФ №123-ФЗ «Технический регламент о требованиях пожарной безопасности» от 22 июля 2008 г.;<br/>\
+            #                 • Руководящие указания по проектированию электропитания технических средств диспетчерского \
+            #                 и технологического управления» от 27.08.1987 № 11619ТМ-Т1;<br/>\
+            #                 • ГОСТ Р 57114-2016 «Единая энергетическая система и изолированно работающие энергосистемы. \
+            #                 Электроэнергетические системы. Оперативно-диспетчерское управление в электроэнергетике и \
+            #                 оперативно-технологическое управление. Термины и определения»;<br/>\
+            #                 • ГОСТ Р 55105-2012 «Единая энергетическая система и изолированно работающие энергосистемы. \
+            #                 Оперативно-диспетчерское управление. Автоматическое противоаварийное управление режимами энергосистем. \
+            #                 Противоаварийная автоматика энергосистем. Нормы и требования»;<br/>\
+            #                 • ГОСТ 32144-2013 «Электрическая энергия. Совместимость технических средств электромагнитная. \
+            #                 • Нормы качества электрической энергии в системах электроснабжения общего назначения»;<br/>\
+            #                 • Методические указания по устойчивости энергосистем, утверждённые Приказом Министерства \
+            #                 энергетики РФ от 30.06.2003 №277;<br/>\
+            #                 • Методические указания по устойчивости энергосистем утвержденные приказом Министерства \
+            #                 энергетики РФ от 03.08.2018 № 630 «Об утверждении требований к обеспечению надежности \
+            #                 электроэнергетических систем, надежности и безопасности объектов электроэнергетики и энергопринимающих установок;<br/>\
+            #                 • Методические указания по определению электромагнитной обстановки и совместимости на \
+            #                 электрических станциях и подстанциях» (СО 34.35.311-2004);<br/>',
+            #                 self.styleNormalTable)],
+            # [Paragraph('', self.styleNormalTable), Paragraph('', self.styleNormalTable), 
+            #     Paragraph('• Стандарт организации ОАО «СО ЕЭС» «Автоматическое противоаварийное управление режимами \
+            #                 энергосистем. Противоаварийная автоматика энергосистем. Условия организации процесса. \
+            #                 Условия создания объекта. Нормы и требования», СТО 59012820.29.240.001-2011;<br/>\
+            #                 • Руководящие указания по расчету токов короткого замыкания и выбору электрооборудования, \
+            #                 • РД 153-34.0-20.527-98, РАО «ЕЭС России», 1998 г.<br/>\
+            #                 • Постановление Правительства РФ «О механизме стимулирования использования возобновляемых \
+            #                 источников энергии на оптовом рынке электрической энергии и мощности» от 28.05.2013 № 449;<br/>\
+            #                 • ГОСТ Р 57382-2017 Национальный стандарт Российской Федерации «Единая энергетическая система \
+            #                 и изолированно работающие энергосистемы. Электроэнергетические системы. Стандартный ряд номинальных и наибольших рабочих напряжений»;<br/>\
+            #                 • ГОСТ Р 51594-2000 Нетрадиционная энергетика. Солнечная энергетика. Термины и определения.<br/>\
+            #                 • Методические рекомендации по проектированию развития энергосистем, утвержденные приказом \
+            #                 Минэнерго России от 30.06.2003 № 281.<br/>\
+            #                 • Договор о присоединении к торговой системе оптового рынка электроэнергии, стандартная форма \
+            #                 договора утверждена Наблюдательным советом НП «АТС» (протокол от 14.07.2006 № 96).<br/>\
+            #                 • Стандарт СТО 59012820.29.020.006-2015 «Релейная защита и автоматика. Автономные регистраторы \
+            #                 аварийных событий. Нормы и требования».<br/>\
+            #                 Данный список НТД не является полным и окончательным. При проектировании необходимо \
+            #                 руководствоваться последними редакциями документов, действующих в РФ на момент разработки документации, \
+            #                 необходимых для проектирования СЭС.', self.styleNormalTable)],
+            ]
+
+            table_tech_task = Table(tech_task_params, colWidths=[0.55*inch, 1.8*inch, None], 
+            style = [('ALIGN',(0,0),(-1,-1),'CENTRE'),
+            ('VALIGN',(0,0),(-1,-1),'TOP'),
+            ('INNERGRID', (0,0), (-1,-1), 0.25, colors.black),
+            ('BOX', (0,0), (-1,-1), 0.25, colors.black),
+            ])
+
+            self.story.append(table_tech_task)
         # if data["block_8_2"] == False:
         #     self.story.append(PageBreak())
         #     self.story.append(Paragraph("<b>8.2 Структурная схема</b>", self.styleNormal))
@@ -963,14 +1215,6 @@ class docPDF():
         #     img = Image("Data/Images/where_layout.jpg", 3*inch, 3*inch)
         #     self.story.append(img)
 
-        if data["block_8_6"] == False:
-            self.story.append(PageBreak())
-            self.story.append(Paragraph("<b>8.6 Проект ТЗ на СЭС</b>", self.styleNormal))
-            self.story.append(Spacer(1, 170))
-            self.story.append(Paragraph("<b>Нет шаблона</b>", self.styleCenter))
-            self.story.append(Spacer(1, 12))
-            img = Image("Data/Images/where_layout.jpg", 3*inch, 3*inch)
-            self.story.append(img)
     
     def build(self, **data):
         self.data = data

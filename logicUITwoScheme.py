@@ -221,10 +221,19 @@ class WindowDrawTwo(QtWidgets.QMainWindow, designDrawSchemesTwo.Ui_WindowDrawSch
         if self.check_imput_params() != 0:
             return
         invertor = self.invertor_and_config_keys()
+        local_keys = []    
+        for key in invertor.keys():
+            if 'local' in key:
+                local_keys.append(key)
+
         invertor['module'] = str(self.inputName_invertor.text())
         invertor['p_max'] = str(self.inputPower_invertor.text())
         invertor['i_out_max'] = str(self.inputAmperage_invertor.text())
         invertor['count_invertor'] = self.spinBox_countInvertor.value()
+        for num in range(int(invertor['count_invertor'])):
+            current_local = f'local_{num}'
+            if not current_local in local_keys:
+                invertor[current_local] = {'controller': False, 'commutator': False, 'left_yzip': False, 'right_yzip': False}
 
         invertor['type_inv'] = str(self.inputParam1_invertor.text())
         invertor['i_nom_inv'] = str(self.inputParam2_invertor.text())
@@ -266,6 +275,7 @@ class WindowDrawTwo(QtWidgets.QMainWindow, designDrawSchemesTwo.Ui_WindowDrawSch
         other['green_switch_other'] = True if self.checkGreenSwitchOther.isChecked() else False
         if invertor.get('title_grid_line', False) != False:
             self.main_window.w3.up_down_invertor_selection()
+            self.main_window.w6.up_down_invertor_selection()
         self.statusBar.showMessage('Параметры сохранены', 2000)
         self.statusBar.setStyleSheet(styles_responce.status_green)
         QTimer.singleShot(2000, lambda: self.statusBar.setStyleSheet(styles_responce.status_white))
@@ -282,6 +292,7 @@ class WindowDrawTwo(QtWidgets.QMainWindow, designDrawSchemesTwo.Ui_WindowDrawSch
         self.inputName_invertor.setText(f'{invertor["module"]}')
         self.inputPower_invertor.setText(f'{invertor["p_max"]}')
         self.inputAmperage_invertor.setText(f'{invertor["i_out_max"]}')
+        self.spinBox_countInvertor.setMinimum(1)
         self.spinBox_countInvertor.setValue(int(invertor['count_invertor']))
         if invertor['phase'] == 3:
             self.checkUse_threePhase.setCheckState(2)
@@ -317,6 +328,7 @@ class WindowDrawTwo(QtWidgets.QMainWindow, designDrawSchemesTwo.Ui_WindowDrawSch
         self.inputType_other.setText(f'{other["type_other"]}')
         self.inputPower_other.setText(f'{other["power_other"]}')
         self.inputAmperage_other.setText(f'{other["i_other"]}')
+        self.spinBox_countOther.setMinimum(1)
         self.spinBox_countOther.setValue(int(other['count_other']))
 
         self.inputParam1_other.setText(f"{other['type_param_other']}")

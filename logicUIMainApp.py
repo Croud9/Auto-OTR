@@ -5,6 +5,7 @@
 # pyuic5 designParsing.ui -o designParsing.py
 # pyuic5 designDrawSchemes.ui -o designDrawSchemes.py
 # pyuic5 designDrawSchemesTwo.ui -o designDrawSchemesTwo.py
+# pyuic5 designDrawStructuralScheme.ui -o designDrawStructuralScheme.py
 
 from numpy import true_divide
 import pdf_builder
@@ -13,6 +14,7 @@ import logicUICalcPV
 import logicUIParse
 import logicUIOneScheme
 import logicUITwoScheme
+import logicUIStructuralScheme
 import search_data
 import validate
 import geocoding
@@ -90,14 +92,15 @@ class MainApp(QtWidgets.QMainWindow, designRepPDF.Ui_MainWindow):
         self.btnWifi.clicked.connect(self.internet_on)
         self.btnKTPTemplate.clicked.connect(self.ktp_pattern)
         self.btnOtherTemplate.clicked.connect(self.other_pattern)
-        self.btnDevice.clicked.connect(self.show_and_hide_device_button)
-        self.btnSchemes.clicked.connect(self.show_and_hide_schemes_button)
+        # self.btnDevice.clicked.connect(self.show_and_hide_device_button)
+        # self.btnSchemes.clicked.connect(self.show_and_hide_schemes_button)
         self.btnOpenPDF.clicked.connect(self.open_result_doc)
         self.btnOne.clicked.connect(self.pvsyst)
         self.btnForm.clicked.connect(self.create_document)
         self.btnRP5.clicked.connect(self.show_window_parse)
         self.btnDrawScheme.clicked.connect(self.show_window_draw)
         self.btnDrawSchemeTwo.clicked.connect(self.show_window_draw_two)
+        self.btnDrawStructuralScheme.clicked.connect(self.show_window_draw_structural)
         self.btnCalcPV.clicked.connect(self.show_window_calc)
         self.checkBox_3.clicked.connect(self.show_and_hide_cbox3)
         self.checkBox_5.clicked.connect(self.show_and_hide_cbox5)
@@ -105,10 +108,6 @@ class MainApp(QtWidgets.QMainWindow, designRepPDF.Ui_MainWindow):
         self.btnShow3.clicked.connect(self.show_btn_cbox3)
         self.btnShow5.clicked.connect(self.show_btn_cbox5)
         self.btnShow8.clicked.connect(self.show_btn_cbox8)
-        self.btnSlideMenuDevices.clicked.connect(self.slide_menu_device)
-        self.btnSlideMenuPassport.clicked.connect(self.slide_menu_passport)
-        self.btnSlideMenuDelete.clicked.connect(self.slide_menu_delete)
-        self.btnSlideMenuKTP.clicked.connect(self.slide_menu_ktp)
         self.btnLoadScheme1.clicked.connect(self.load_scheme_one)
         self.btnLoadScheme2.clicked.connect(self.load_scheme_two)
         self.btnAddKTPParams.clicked.connect(self.ktp_generate_file)
@@ -167,6 +166,42 @@ class MainApp(QtWidgets.QMainWindow, designRepPDF.Ui_MainWindow):
         self.w3 = logicUIOneScheme.WindowDraw(instance_of_main_window)
         self.w4 = logicUITwoScheme.WindowDrawTwo(instance_of_main_window) 
         self.w5 = logicUICalcPV.CalcPV(instance_of_main_window) 
+        self.w6 = logicUIStructuralScheme.WindowDrawStructural(instance_of_main_window) 
+
+    def hide(self):
+        self.btnOpenPDF.hide()
+        self.spinBox_numInvertor.hide()
+        self.spinBox_numPV.hide()
+        self.spinBox_numKTP.hide()
+        self.btnDelInvertor.hide()
+        self.btnDelPV.hide()
+        self.btnDelOther.hide()
+        self.btnDelPvsystData.hide()
+        self.btnDelSchemeOneData.hide()
+        self.btnDelSchemeTwoData.hide()
+        self.btnLoadScheme1.hide()
+        self.btnLoadScheme2.hide()
+
+        self.checkBox_3_1.hide()
+        self.checkBox_3_2.hide()
+        self.checkBox_3_3.hide()
+        self.checkBox_3_4.hide()
+        self.checkBox_5_1.hide()
+        self.checkBox_5_1_1.hide()
+        self.checkBox_5_1_2.hide()
+        self.checkBox_5_1_3.hide()
+        self.checkBox_5_1_4.hide()
+        self.checkBox_5_2.hide()
+        self.checkBox_5_3.hide()
+        self.checkBox_5_4.hide()
+        self.checkBox_5_5.hide()
+        self.checkBox_5_6.hide()
+        self.checkBox_8_1.hide()
+        self.checkBox_8_2.hide()
+        self.checkBox_8_3.hide()
+        self.checkBox_8_4.hide()
+        self.checkBox_8_5.hide()
+        self.checkBox_8_6.hide()
 
     def ktp_pattern(self):
         self.inputKTP.clear()
@@ -392,275 +427,6 @@ class MainApp(QtWidgets.QMainWindow, designRepPDF.Ui_MainWindow):
         self.statusBar.setStyleSheet(styles_responce.status_green)
         QTimer.singleShot(4000, lambda: self.statusBar.setStyleSheet(styles_responce.status_white))
         self.other_select()
-
-    def hide(self):
-        self.inputKTP.hide()
-        self.btnAddKTPParams.hide()
-        self.inputNameFileKTP.hide()
-        self.btnKTPTemplate.hide()
-        self.btnOtherTemplate.hide()
-        self.label_11.hide()
-        self.label_12.hide()
-        self.label_13.hide()
-        self.btnOne.hide()
-        self.btnDelInvertor.hide() 
-        self.btnDelPV.hide() 
-        self.btnDelOther.hide() 
-        self.btnOpenPDF.hide() 
-        self.btnSearchCoordinates.hide()
-        self.btnDelPvsystData.hide()
-        self.btnDelSchemeOneData.hide()
-        self.btnDelSchemeTwoData.hide()
-        self.btnDrawScheme.hide()
-        self.btnDrawSchemeTwo.hide()
-        self.checkBox_1.hide()
-        self.checkBox_2.hide()
-        self.checkBox_3.hide()
-        self.checkBox_4.hide()
-        self.checkBox_5.hide()
-        self.checkBox_6.hide()
-        self.checkBox_7.hide()
-        self.checkBox_8.hide()
-        self.btnShow3.hide()
-        self.btnShow5.hide()
-        self.btnShow8.hide()
-        self.checkBox_3_1.hide()
-        self.checkBox_3_2.hide()
-        self.checkBox_3_3.hide()
-        self.checkBox_3_4.hide()
-        self.checkBox_5_1.hide()
-        self.checkBox_5_1_1.hide()
-        self.checkBox_5_1_2.hide()
-        self.checkBox_5_1_3.hide()
-        self.checkBox_5_1_4.hide()
-        self.checkBox_5_2.hide()
-        self.checkBox_5_3.hide()
-        self.checkBox_5_4.hide()
-        self.checkBox_5_5.hide()
-        self.checkBox_5_6.hide()
-        self.checkBox_8_1.hide()
-        self.checkBox_8_2.hide()
-        self.checkBox_8_3.hide()
-        self.checkBox_8_4.hide()
-        self.checkBox_8_5.hide()
-        self.checkBox_8_6.hide()
-        self.btnLoadScheme1.hide()
-        self.btnLoadScheme2.hide()
-        # Паспорт объекта
-        self.inputUDotIn.hide()
-        self.inputAddress.hide()
-        self.inputAddressLat.hide()
-        self.inputAddressLong.hide()
-        self.inputObjectType.hide()
-        self.inputTitleProject.hide()
-        self.inputCodeProject.hide()
-        self.inputClient.hide()
-        self.label_6.hide()
-        # Оборудование
-        self.spinBox_numInvertor.hide()
-        self.spinBox_numPV.hide()
-        self.spinBox_numKTP.hide()
-
-    def view_menu_delete(self, view = False):
-        # Удаление разделов
-        if view == False:
-            self.checkBox_1.hide()
-            self.checkBox_2.hide()
-            self.checkBox_3.hide()
-            self.checkBox_4.hide()
-            self.checkBox_5.hide()
-            self.checkBox_6.hide()
-            self.checkBox_7.hide()
-            self.checkBox_8.hide()
-            self.btnShow3.hide()
-            self.btnShow5.hide()
-            self.btnShow8.hide()
-            self.checkBox_3_1.hide()
-            self.checkBox_3_2.hide()
-            self.checkBox_3_3.hide()
-            self.checkBox_3_4.hide()
-            self.checkBox_5_1.hide()
-            self.checkBox_5_1_1.hide()
-            self.checkBox_5_1_2.hide()
-            self.checkBox_5_1_3.hide()
-            self.checkBox_5_1_4.hide()
-            self.checkBox_5_2.hide()
-            self.checkBox_5_3.hide()
-            self.checkBox_5_4.hide()
-            self.checkBox_5_5.hide()
-            self.checkBox_5_6.hide()
-            self.checkBox_8_1.hide()
-            self.checkBox_8_2.hide()
-            self.checkBox_8_3.hide()
-            self.checkBox_8_4.hide()
-            self.checkBox_8_5.hide()
-            self.checkBox_8_6.hide()
-        else:
-            self.label_for_slide.setText("Удаление раздела")
-            self.label_2.setText("Номер раздела")
-            self.checkBox_1.show()
-            self.checkBox_2.show()
-            self.checkBox_3.show()
-            self.checkBox_4.show()
-            self.checkBox_5.show()
-            self.checkBox_6.show()
-            self.checkBox_7.show()
-            self.checkBox_8.show()
-            self.btnShow3.show()
-            self.btnShow5.show()
-            self.btnShow8.show()
-            if self.btnShow3.text() == "▲":
-                self.checkBox_3_1.show()
-                self.checkBox_3_2.show()
-                self.checkBox_3_3.show()
-                self.checkBox_3_4.show()
-            if self.btnShow5.text() == "▲":
-                self.checkBox_5_1.show()
-                self.checkBox_5_1_1.show()
-                self.checkBox_5_1_2.show()
-                self.checkBox_5_1_3.show()
-                self.checkBox_5_1_4.show()
-                self.checkBox_5_2.show()
-                self.checkBox_5_3.show()
-                self.checkBox_5_4.show()
-                self.checkBox_5_5.show()
-                self.checkBox_5_6.show()
-            if self.btnShow8.text() == "▲":
-                self.checkBox_8_1.show()
-                self.checkBox_8_2.show()
-                self.checkBox_8_3.show()
-                self.checkBox_8_4.show()
-                self.checkBox_8_5.show()
-                self.checkBox_8_6.show()  
-
-    def view_menu_device(self, view = False):
-        # Оборудование
-        if view == False:
-            self.btnDelInvertor.hide() 
-            self.btnDelPV.hide() 
-            self.btnDelOther.hide() 
-            self.listInvertor_folder.hide()
-            self.listInvertor_file.hide()
-            self.listPV_folder.hide()
-            self.listPV_file.hide()
-            self.listKTP_folder.hide()
-            self.listKTP_file.hide()
-            self.listRoof.hide()
-            self.spinBox_numInvertor.hide()
-            self.spinBox_numPV.hide()
-            self.spinBox_numKTP.hide()
-            self.btnAddInvertor.hide()
-            self.btnAddPV.hide()
-            self.btnAddKTP.hide()          
-            self.label_3.hide()
-            self.label_4.hide()
-            self.label_5.hide()
-        else:
-            self.label_for_slide.setText("Оборудование")
-            if len(self.invertors) > 1:
-                self.spinBox_numInvertor.show()
-                self.btnDelInvertor.show() 
-            if len(self.pvs) > 1:
-                self.spinBox_numPV.show()
-                self.btnDelPV.show() 
-            if len(self.others) > 1:
-                self.spinBox_numKTP.show()
-                self.btnDelOther.show() 
-            self.btnAddInvertor.show()
-            self.btnAddPV.show()
-            self.btnAddKTP.show()
-            self.label_2.setText("Инвертор")
-            self.label_2.show()
-            self.label_3.setText("ФЭМ")
-            self.label_3.show()
-            self.label_4.setText("Другое")
-            self.label_4.show()
-            self.label_5.setText("Тип крыши")
-            self.label_5.show()
-            self.listRoof.show()
-            self.listInvertor_folder.show()
-            self.listInvertor_file.show()
-            self.listPV_folder.show()
-            self.listPV_file.show()
-            self.listKTP_folder.show()
-            self.listKTP_file.show()
-            self.listRoof.show()
-
-    def view_menu_passport(self, view = False):
-        # Паспорт объекта
-        if view == False:
-            self.btnSearchCoordinates.hide()
-            self.inputUDotIn.hide()
-            self.inputAddress.hide()
-            self.inputAddressLat.hide()
-            self.inputAddressLong.hide()
-            self.inputObjectType.hide()
-            self.inputTitleProject.hide()
-            self.inputCodeProject.hide()
-            self.inputClient.hide()
-            self.label_6.hide()
-        else:
-            self.label_for_slide.setText("Паспорт объекта")
-            self.btnSearchCoordinates.hide()
-            self.label_2.setText("Название \nпроекта")
-            self.label_2.show()
-            self.label_3.setText("Тип объекта")
-            self.label_3.show()
-            self.label_4.setText("Заказчик")
-            self.label_4.show()
-            self.label_5.setText("U подключения \nКоординаты")
-            self.label_5.show()
-            self.label_6.setText("Адрес")
-            self.label_6.show()
-            self.inputUDotIn.show()
-            self.inputAddress.show()
-            self.inputAddressLat.show()
-            self.inputAddressLong.show()
-            self.inputObjectType.show()
-            self.inputTitleProject.show()
-            self.inputCodeProject.show()
-            self.inputClient.show()
-
-    def view_menu_ktp(self, view = False):
-        # КТП
-        if view == False:
-            self.inputKTP.hide()
-            self.btnAddKTPParams.hide()
-            self.inputNameFileKTP.hide()
-            self.btnKTPTemplate.hide()
-            self.btnOtherTemplate.hide()
-        else:
-            self.label_for_slide.setText("Добавление файла параметров")
-            self.label_2.setText("Шаблоны:")
-            self.inputKTP.show()
-            self.btnAddKTPParams.show()
-            self.inputNameFileKTP.show()
-            self.btnKTPTemplate.show()
-            self.btnOtherTemplate.show()
-
-    def slide_menu_device(self):
-        self.view_menu_delete()
-        self.view_menu_passport()
-        self.view_menu_ktp()
-        self.view_menu_device(True)
-        
-    def slide_menu_passport(self):
-        self.view_menu_delete()
-        self.view_menu_device()
-        self.view_menu_ktp()
-        self.view_menu_passport(True)
-            
-    def slide_menu_delete(self):
-        self.view_menu_passport()
-        self.view_menu_device()
-        self.view_menu_ktp()
-        self.view_menu_delete(True)
-
-    def slide_menu_ktp(self):
-        self.view_menu_delete()
-        self.view_menu_passport()
-        self.view_menu_device()
-        self.view_menu_ktp(True)
            
     def show_btn_cbox3(self):
         if self.checkBox_3_1.isHidden():
@@ -834,6 +600,11 @@ class MainApp(QtWidgets.QMainWindow, designRepPDF.Ui_MainWindow):
         self.w4.setWindowIcon(QtGui.QIcon('Data/icons/graficon.png'))
         self.w4.show()
         self.w4.setFixedSize(950, 335)
+
+    def show_window_draw_structural(self):  # открытие   окна рисования первой схемы
+        self.w6.setWindowIcon(QtGui.QIcon('Data/icons/graficon.png'))
+        self.w6.show()
+        self.w6.setFixedSize(380, 420)
 
     def show_window_calc(self):  # открытие   окна рисования первой схемы
         self.w5.setWindowIcon(QtGui.QIcon('Data/icons/graficon.png'))
@@ -1041,6 +812,8 @@ class MainApp(QtWidgets.QMainWindow, designRepPDF.Ui_MainWindow):
                 current['use_5or4_line'] = False
                 current['count_invertor'] = 1 #количество инверторов
                 current['diff_mppt'] = False #количество инверторов
+                for num in range(int(current['count_invertor'])):
+                    current[f'local_{num}'] = {'controller': False, 'commutator': False, 'left_yzip': False, 'right_yzip': False}
 
                 current['type_inv'] = 'QF'
                 current['i_nom_inv'] = 'C160'
@@ -1069,6 +842,7 @@ class MainApp(QtWidgets.QMainWindow, designRepPDF.Ui_MainWindow):
 
                 self.w3.up_down_invertor_selection()
                 self.w4.up_down_invertor_selection()
+                self.w6.up_down_invertor_selection()
                 return current
 
     def pv_load(self):
@@ -1172,6 +946,7 @@ class MainApp(QtWidgets.QMainWindow, designRepPDF.Ui_MainWindow):
             self.up_down_invertor_selection()
             self.w3.up_down_invertor_selection()
             self.w4.up_down_invertor_selection()
+            self.w6.up_down_invertor_selection()
         if len(self.invertors) == 1:
             self.btnDelInvertor.hide()
             self.spinBox_numInvertor.hide()
@@ -1516,14 +1291,6 @@ class MainApp(QtWidgets.QMainWindow, designRepPDF.Ui_MainWindow):
                         diff_mppt = False
                         for config in config_keys:
                             current_invertor[config] = pvsyst_pvs_invrtrs[config]
-                            max_chain = int(current_invertor[config]['count_mppt']) * int(current_invertor['inputs'])
-                            max_chain_y = max_chain * 2
-                            count_strings = int(current_invertor[config]['count_string'])
-                            if count_strings > max_chain and count_strings <= max_chain_y:
-                                current_invertor[config]['use_y_connector'] = True
-                            else:
-                                current_invertor[config]['use_y_connector'] = False
-                            current_invertor[config]['use_all_mppt'] = False
 
                             count_invertor = current_invertor[config]['count_invertor']
                             if '.' in count_invertor:
@@ -1533,12 +1300,27 @@ class MainApp(QtWidgets.QMainWindow, designRepPDF.Ui_MainWindow):
                             else:
                                 diff_mppt = False
                                 count_invertors = int(count_invertor)
+                                current_invertor[config]['count_mppt'] = int(current_invertor[config]['count_mppt']) // count_invertors
+                                current_invertor[config]['count_string'] = int(current_invertor[config]['count_string']) // count_invertors
                                 del current_invertor[config]['count_invertor']
+
+                            max_chain = int(current_invertor[config]['count_mppt']) * int(current_invertor['inputs'])
+                            max_chain_y = max_chain * 2
+                            count_strings = int(current_invertor[config]['count_string'])
+                            if count_strings > max_chain and count_strings <= max_chain_y:
+                                current_invertor[config]['use_y_connector'] = True
+                            else:
+                                current_invertor[config]['use_y_connector'] = False
+                            current_invertor[config]['use_all_mppt'] = False
+
                         current_invertor['count_invertor'] = int(count_invertors)
+                        for num in range(current_invertor['count_invertor']):
+                            current_invertor[f'local_{num}'] = {'controller': False, 'commutator': False, 'left_yzip': False, 'right_yzip': False}
                         current_invertor['diff_mppt'] = diff_mppt
                         print('После добавки', current_invertor)
                         self.w3.up_down_invertor_selection()
                         self.w4.up_down_invertor_selection()
+                        self.w6.up_down_invertor_selection()
                     else:
                         self.del_invertor()
                         self.textConsole.append(f"Инвертор {pvsyst_pvs_invrtrs['model_invertor']} не найден")
@@ -1617,7 +1399,7 @@ def main():
     window = MainApp()  # Создаём объект класса ExampleApp
     window.setWindowIcon(QtGui.QIcon('Data/icons/graficon.png'))
     window.show()  # Показываем окно
-    window.setFixedSize(950, 390)
+    window.setFixedSize(1050, 450)
     window.instance_ofter_class(window)
     app.exec_()  # и запускаем приложение
 
