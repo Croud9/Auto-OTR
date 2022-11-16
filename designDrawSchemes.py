@@ -772,6 +772,32 @@ class Ui_WindowDrawSchemes(object):
         self.label_21.setFont(font)
         self.label_21.setStyleSheet("background-color: rgba(255,255,255,0); ")
         self.label_21.setObjectName("label_21")
+        self.btnOpenScheme = QtWidgets.QPushButton(self.centralwidget)
+        self.btnOpenScheme.setGeometry(QtCore.QRect(206, 395, 71, 31))
+        font = QtGui.QFont()
+        font.setFamily("Arial")
+        font.setPointSize(9)
+        font.setBold(True)
+        font.setItalic(False)
+        font.setUnderline(False)
+        font.setWeight(75)
+        font.setStrikeOut(False)
+        font.setKerning(True)
+        font.setStyleStrategy(QtGui.QFont.PreferAntialias)
+        self.btnOpenScheme.setFont(font)
+        self.btnOpenScheme.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
+        self.btnOpenScheme.setStyleSheet("QPushButton{\n"
+"    background-color:rgba(112, 215, 255, 0);\n"
+"    color:rgba(0, 0, 0, 0.5);\n"
+"    border: none;\n"
+"    border-radius: 5;\n"
+"    border-style: outset;\n"
+"}\n"
+"QPushButton:hover{\n"
+"    color: black;\n"
+"}\n"
+"")
+        self.btnOpenScheme.setObjectName("btnOpenScheme")
         self.label_20.raise_()
         self.label_8.raise_()
         self.inputCount_mppt.raise_()
@@ -811,6 +837,7 @@ class Ui_WindowDrawSchemes(object):
         self.btnSaveConfig.raise_()
         self.btnDelConfig.raise_()
         self.label_21.raise_()
+        self.btnOpenScheme.raise_()
         WindowDrawSchemes.setCentralWidget(self.centralwidget)
         self.statusBar = QtWidgets.QStatusBar(WindowDrawSchemes)
         self.statusBar.setObjectName("statusBar")
@@ -864,3 +891,4 @@ class Ui_WindowDrawSchemes(object):
         self.btnDelConfig.setToolTip(_translate("WindowDrawSchemes", "Удалить"))
         self.btnDelConfig.setText(_translate("WindowDrawSchemes", "🞫"))
         self.label_21.setText(_translate("WindowDrawSchemes", "Разные MPPT"))
+        self.btnOpenScheme.setText(_translate("WindowDrawSchemes", "Открыть"))

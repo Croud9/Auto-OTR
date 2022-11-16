@@ -1441,6 +1441,48 @@ QPushButton:hover{
      <string>Разные MPPT</string>
     </property>
    </widget>
+   <widget class="QPushButton" name="btnOpenScheme">
+    <property name="geometry">
+     <rect>
+      <x>206</x>
+      <y>395</y>
+      <width>71</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Arial</family>
+      <pointsize>9</pointsize>
+      <weight>75</weight>
+      <italic>false</italic>
+      <bold>true</bold>
+      <underline>false</underline>
+      <strikeout>false</strikeout>
+      <stylestrategy>PreferAntialias</stylestrategy>
+      <kerning>true</kerning>
+     </font>
+    </property>
+    <property name="cursor">
+     <cursorShape>PointingHandCursor</cursorShape>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QPushButton{
+	background-color:rgba(112, 215, 255, 0);
+	color:rgba(0, 0, 0, 0.5);
+	border: none;
+	border-radius: 5;
+	border-style: outset;
+}
+QPushButton:hover{
+	color: black;
+}
+</string>
+    </property>
+    <property name="text">
+     <string>Открыть</string>
+    </property>
+   </widget>
    <zorder>label_20</zorder>
    <zorder>label_8</zorder>
    <zorder>inputCount_mppt</zorder>
@@ -1480,6 +1522,7 @@ QPushButton:hover{
    <zorder>btnSaveConfig</zorder>
    <zorder>btnDelConfig</zorder>
    <zorder>label_21</zorder>
+   <zorder>btnOpenScheme</zorder>
   </widget>
   <widget class="QStatusBar" name="statusBar"/>
  </widget>

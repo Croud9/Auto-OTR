@@ -6,11 +6,13 @@
 # pyuic5 designDrawSchemes.ui -o designDrawSchemes.py
 # pyuic5 designDrawSchemesTwo.ui -o designDrawSchemesTwo.py
 # pyuic5 designDrawStructuralScheme.ui -o designDrawStructuralScheme.py
+# pyuic5 designAbout.ui -o designAbout.py
 
 from numpy import true_divide
 import pdf_builder
 import designRepPDF # загрузка файлов
 import logicUICalcPV
+import logicUIAbout
 import logicUIParse
 import logicUIOneScheme
 import logicUITwoScheme
@@ -19,19 +21,16 @@ import search_data
 import validate
 import geocoding
 import styles_responce
-import glob, fitz, requests, sys, os # загрузка модулей
+import glob, fitz, sys, os # загрузка модулей
 os.environ['path'] += r';Data/file_sys/dlls' # для работы cairosvg
 import cairosvg
 from os.path import isfile, join
 from PyPDF2 import PdfFileMerger
-from PyQt5 import QtWidgets, QtGui
-from PyQt5.QtGui import *
-from PyQt5.QtCore import QTimer, QThread
 from datetime import date
-from PyQt5.QtGui import *
-from PyQt5.QtCore import *
-from PyQt5.QtWidgets import QGraphicsOpacityEffect
-from PyQt5.QtCore import QPropertyAnimation, QParallelAnimationGroup, QPoint, QEasingCurve
+from PyQt5 import QtWidgets, QtGui, QtSvg
+from PyQt5.QtGui import QIcon, QMovie, QTextCursor
+from PyQt5.QtCore import QSize, QTimer, QThread
+from PyQt5.QtWidgets import QLabel
 import wikipedia
 wikipedia.set_lang("ru")
 
@@ -61,14 +60,19 @@ class СonvertFiles(QThread):
     def run(self):
         if self.flag == 'general':
             cairosvg.svg2pdf(url = self.paths[0], write_to = path_to_pdf_schemes +"/General/generalScheme.pdf")  
+        if self.flag == 'structural':
+            cairosvg.svg2pdf(url = self.paths[0], write_to = path_to_pdf_schemes +"/Structural/structural.pdf")  
         elif self.flag == 'detailed':
             for i in range(len(self.paths)):
                 cairosvg.svg2pdf(url = self.paths[i], write_to = path_to_pdf_schemes + f"/Detailed/detailed{i}.pdf")  
         elif self.flag == 'pvsyst':
             # To get better resolution
             self.found_pdf = search_data.search_in_pdf(self.paths)
-            if validate.internet() == True:
-                self.full_address = geocoding.get_full_address_by_coordinates(self.found_pdf['lati_pdf'], self.found_pdf['longi_pdf'])
+            try:
+                if validate.internet() == True:
+                    self.full_address = geocoding.get_full_address_by_coordinates(self.found_pdf['lati_pdf'], self.found_pdf['longi_pdf'])
+            except Exception:
+                pass
             zoom_x = 2.0  # horizontal zoom
             zoom_y = 2.0  # vertical zoom
             mat = fitz.Matrix(zoom_x, zoom_y)  # zoom factor 2 in each dimension         
@@ -90,12 +94,12 @@ class MainApp(QtWidgets.QMainWindow, designRepPDF.Ui_MainWindow):
         validate.validate_number(self.fields_text)
         self.internet_on()
         self.btnWifi.clicked.connect(self.internet_on)
-        self.btnKTPTemplate.clicked.connect(self.ktp_pattern)
-        self.btnOtherTemplate.clicked.connect(self.other_pattern)
-        # self.btnDevice.clicked.connect(self.show_and_hide_device_button)
-        # self.btnSchemes.clicked.connect(self.show_and_hide_schemes_button)
+        self.btnKTPTemplate.clicked.connect(self.pattern_ktp)
+        self.btnOtherTemplate.clicked.connect(self.pattern_other)
         self.btnOpenPDF.clicked.connect(self.open_result_doc)
-        self.btnOne.clicked.connect(self.pvsyst)
+        self.btnInfo.clicked.connect(self.open_manual_doc)
+        self.btnAbout.clicked.connect(self.show_window_about)
+        self.btnOne.clicked.connect(self.load_pvsyst)
         self.btnForm.clicked.connect(self.create_document)
         self.btnRP5.clicked.connect(self.show_window_parse)
         self.btnDrawScheme.clicked.connect(self.show_window_draw)
@@ -110,20 +114,24 @@ class MainApp(QtWidgets.QMainWindow, designRepPDF.Ui_MainWindow):
         self.btnShow8.clicked.connect(self.show_btn_cbox8)
         self.btnLoadScheme1.clicked.connect(self.load_scheme_one)
         self.btnLoadScheme2.clicked.connect(self.load_scheme_two)
-        self.btnAddKTPParams.clicked.connect(self.ktp_generate_file)
-        self.listRoof.activated.connect(self.roof_select)
-        self.listInvertor_folder.activated.connect(self.invertor_select)
-        self.listInvertor_file.activated.connect(self.invertor_load)
-        self.listPV_folder.activated.connect(self.pv_select)
-        self.listPV_file.activated.connect(self.pv_load)
-        self.listKTP_folder.activated.connect(self.other_select)
-        self.listKTP_file.activated.connect(self.other_load)
+        self.btnLoadStructScheme.clicked.connect(self.load_structural_scheme)
+        self.btnLoadPlaneSet.clicked.connect(self.load_plane_set_scheme)
+        self.btnAddKTPParams.clicked.connect(self.generate_ktp_file)
+        self.listRoof.activated.connect(self.select_roof)
+        self.listInvertor_folder.activated.connect(self.select_invertor)
+        self.listInvertor_file.activated.connect(self.load_invertor)
+        self.listPV_folder.activated.connect(self.select_pv)
+        self.listPV_file.activated.connect(self.load_pv)
+        self.listKTP_folder.activated.connect(self.select_other)
+        self.listKTP_file.activated.connect(self.load_other)
         self.inputAddress.selectionChanged.connect(self.show_button_coordinates)
         self.btnSearchCoordinates.clicked.connect(self.coordinate_by_address)
         self.inputTitleProject.textChanged.connect(self.generate_code_project)
         self.btnDelPvsystData.clicked.connect(self.del_pvsyst)
         self.btnDelSchemeOneData.clicked.connect(self.del_scheme_one)
         self.btnDelSchemeTwoData.clicked.connect(self.del_scheme_two)
+        self.btnDelStructScheme.clicked.connect(self.del_structural_scheme)
+        self.btnDelPlaneSet.clicked.connect(self.del_plane_set)
         self.btnAddInvertor.clicked.connect(self.add_invertor)
         self.btnDelInvertor.clicked.connect(self.del_invertor)
         self.btnAddPV.clicked.connect(self.add_pv)
@@ -142,31 +150,13 @@ class MainApp(QtWidgets.QMainWindow, designRepPDF.Ui_MainWindow):
         self.movie.stop()
         self.labelLoading.hide()
 
-    def animate_button(self, button, x_start, y_start, x_end, y_end):
-        child = button
-        effect = QGraphicsOpacityEffect(child)
-        child.setGraphicsEffect(effect)
-        # self.child.resize(61, 51)
-        anim = QPropertyAnimation(child, b"pos")
-        anim.setStartValue(QPoint(x_start, y_start))
-        anim.setEndValue(QPoint(x_end, y_end))
-        anim.setDuration(1500)
-        # self.anim_2 = QPropertyAnimation(effect, b"opacity")
-        # self.anim_2.setStartValue(0)
-        # self.anim_2.setEndValue(1)
-        # self.anim_2.setDuration(1000)
-        
-        # anim_group = QParallelAnimationGroup()
-        # anim_group.addAnimation(anim)
-        # self.anim_group.addAnimation(self.anim_2)
-        anim.start()  
-
     def instance_ofter_class(self, instance_of_main_window): 
         self.w2 = logicUIParse.WindowParse(instance_of_main_window)
         self.w3 = logicUIOneScheme.WindowDraw(instance_of_main_window)
         self.w4 = logicUITwoScheme.WindowDrawTwo(instance_of_main_window) 
         self.w5 = logicUICalcPV.CalcPV(instance_of_main_window) 
         self.w6 = logicUIStructuralScheme.WindowDrawStructural(instance_of_main_window) 
+        self.w7 = logicUIAbout.WindowAbout(instance_of_main_window) 
 
     def hide(self):
         self.btnOpenPDF.hide()
@@ -179,8 +169,8 @@ class MainApp(QtWidgets.QMainWindow, designRepPDF.Ui_MainWindow):
         self.btnDelPvsystData.hide()
         self.btnDelSchemeOneData.hide()
         self.btnDelSchemeTwoData.hide()
-        self.btnLoadScheme1.hide()
-        self.btnLoadScheme2.hide()
+        self.btnDelStructScheme.hide()
+        self.btnDelPlaneSet.hide()
 
         self.checkBox_3_1.hide()
         self.checkBox_3_2.hide()
@@ -203,7 +193,7 @@ class MainApp(QtWidgets.QMainWindow, designRepPDF.Ui_MainWindow):
         self.checkBox_8_5.hide()
         self.checkBox_8_6.hide()
 
-    def ktp_pattern(self):
+    def pattern_ktp(self):
         self.inputKTP.clear()
         self.inputKTP.append('Тип оборудования=КТП') # Название КТП
         self.inputKTP.append('Название оборудования=КТПНУ-250/10/0,4-T-KK-УХЛ1') # Название КТП
@@ -229,7 +219,7 @@ class MainApp(QtWidgets.QMainWindow, designRepPDF.Ui_MainWindow):
         self.inputKTP.append('Схема и группа соединения обмоток=Д/Ун-11') 
         self.inputKTP.moveCursor(QTextCursor.Start)
 
-    def other_pattern(self):
+    def pattern_other(self):
         self.inputKTP.clear()
         self.inputKTP.append('Тип оборудования=Введите значение') # Название КТП
         self.inputKTP.append('Название оборудования=Введите значение') # Название КТП
@@ -241,10 +231,12 @@ class MainApp(QtWidgets.QMainWindow, designRepPDF.Ui_MainWindow):
         self.inputKTP.append('Пример: (Номинальное напряжение ВН, кВ=10)') 
 
     def input_data(self):
-        self.btnDevice.setIcon(QIcon('data/cons/paper-clip.png'))
-        self.btnDevice.setIconSize(QSize(40, 40))
-        self.btnSchemes.setIcon(QIcon('data/cons/dop/wiring-diagram.png'))
-        self.btnSchemes.setIconSize(QSize(50, 50))
+        # self.btnDevice.setIcon(QIcon('data/cons/paper-clip.png'))
+        # self.btnDevice.setIconSize(QSize(40, 40))
+        self.btnLoadPlaneSet.setIcon(QIcon('data/cons/dop/terrain.png'))
+        self.btnLoadPlaneSet.setIconSize(QSize(50, 50))
+        self.btnDrawStructuralScheme.setIcon(QIcon('data/cons/dop/electrical-panel.png'))
+        self.btnDrawStructuralScheme.setIconSize(QSize(45, 45))
         self.btnRP5.setIcon(QIcon('data/cons/cloud3.png'))
         self.btnRP5.setIconSize(QSize(50, 50))
         self.btnForm.setIcon(QIcon('data/cons/dop/analytic.png'))
@@ -261,20 +253,22 @@ class MainApp(QtWidgets.QMainWindow, designRepPDF.Ui_MainWindow):
         self.btnInfo.setIconSize(QSize(20, 20))
         self.btnAbout.setIcon(QIcon('data/cons/dop/information2.png'))
         self.btnAbout.setIconSize(QSize(20, 20))
-        self.btnAbout.move(10, 325)
-        self.btnInfo.move(40, 325)
+        self.btnAbout.move(5, 2)
+        self.btnInfo.move(40, 2)
 
         self.btnWifi.resize(30, 30)
-        self.btnWifi.move(190, 332)
+        self.btnWifi.move(190, 7)
         self.btnWifi.setIcon(QIcon('data/cons/dop/no-wifi.png'))
         self.btnWifi.setIconSize(QSize(25, 25))
         self.btnWifi.hide()
          
-        self.other_pattern()
+        self.pattern_other()
         # self.spinBox_numInvertor.lineEdit().setDisabled(True) 
         self.path_pvsyst = ''
+        self.path_plane_set_schemes = ''
         self.pathes_detail_schemes = []
-        self.path_general_schemes = ['']
+        self.path_structural_schemes = []
+        self.path_general_schemes = []
         self.invertors = {}
         self.pvs = {}
         self.others = {}
@@ -322,21 +316,36 @@ class MainApp(QtWidgets.QMainWindow, designRepPDF.Ui_MainWindow):
     def open_result_doc(self):
         os.startfile("Data\Report\Auto-OTR.pdf")
 
+    def open_manual_doc(self):
+        os.startfile("Data\Manual.pdf")
+
     def hide_del_button_schemes(self):
         fp_general = path_to_pdf_schemes + "/General"
         fp_detailed = path_to_pdf_schemes + "/Detailed"
+        fp_structural = path_to_pdf_schemes + "/Structural"
         files_in_detailed = [f for f in os.listdir(fp_detailed) if isfile(join(fp_detailed, f))]
         files_in_general = [f for f in os.listdir(fp_general) if isfile(join(fp_general, f))]
+        files_in_structural = [f for f in os.listdir(fp_structural) if isfile(join(fp_structural, f))]
 
         if len(files_in_detailed) == 0:
             self.btnDelSchemeOneData.hide()
         else: 
-            QTimer.singleShot(1100, lambda: self.btnDelSchemeOneData.show())
+            self.btnDelSchemeOneData.show()
 
         if len(files_in_general) == 0:
             self.btnDelSchemeTwoData.hide()
         else: 
-            QTimer.singleShot(1100, lambda: self.btnDelSchemeTwoData.show())
+            self.btnDelSchemeTwoData.show()
+
+        if len(files_in_structural) == 0:
+            self.btnDelStructScheme.hide()
+        else: 
+            self.btnDelStructScheme.show()
+
+        if self.path_plane_set_schemes == '':
+            self.btnDelPlaneSet.hide()
+        else: 
+            self.btnDelPlaneSet.show()
 
     def hide_del_button_device(self):
         patch_imgs_pvsyst = "Data/Images/PVsyst"
@@ -345,7 +354,7 @@ class MainApp(QtWidgets.QMainWindow, designRepPDF.Ui_MainWindow):
         if len(img_files_pvsyst) == 0:
             self.btnDelPvsystData.hide()
         else: 
-            QTimer.singleShot(1100, lambda: self.btnDelPvsystData.show())
+            self.btnDelPvsystData.show()
 
     def validation(self):
         if self.listRoof.currentText() == "Выберите":
@@ -388,21 +397,28 @@ class MainApp(QtWidgets.QMainWindow, designRepPDF.Ui_MainWindow):
         del self.w3
         del self.w4
         del self.w5 
+        del self.w6 
+        del self.w7 
         self.parser_close = logicUIParse.Parsing(0, 0, "close")
         self.parser_close.finished.connect(self.closeFinished)
         self.parser_close.start()     
 
     def coordinate_by_address(self):
-        coord = geocoding.get_coordinates_by_full_address(self.inputAddress.text())
-        if not 'error' in coord:
-            self.inputAddressLat.setText(coord['latitude'])
-            self.inputAddressLong.setText(coord['longitude'])
-            self.inputAddress.setText(coord['full_address'])
-            self.w2.inputCity.setText(coord['city'])
-        else:
-            self.statusBar.showMessage(coord['error'], 4000)
-            self.statusBar.setStyleSheet(styles_responce.status_orange)
-            QTimer.singleShot(4000, lambda: self.statusBar.setStyleSheet(styles_responce.status_white))
+        try:
+            coord = geocoding.get_coordinates_by_full_address(self.inputAddress.text())
+            if not 'error' in coord:
+                self.inputAddressLat.setText(coord['latitude'])
+                self.inputAddressLong.setText(coord['longitude'])
+                self.inputAddress.setText(coord['full_address'])
+                self.w2.inputCity.setText(coord['city'])
+            else:
+                self.statusBar.showMessage(coord['error'], 4000)
+                self.statusBar.setStyleSheet(styles_responce.status_orange)
+                QTimer.singleShot(4000, lambda: self.statusBar.setStyleSheet(styles_responce.status_white))
+        except Exception:
+                self.statusBar.showMessage('Не подгруженны геоданные, повторите попытку', 4000)
+                self.statusBar.setStyleSheet(styles_responce.status_orange)
+                QTimer.singleShot(4000, lambda: self.statusBar.setStyleSheet(styles_responce.status_white))
 
     def show_button_coordinates(self):
         if self.btnSearchCoordinates.isHidden():
@@ -414,7 +430,7 @@ class MainApp(QtWidgets.QMainWindow, designRepPDF.Ui_MainWindow):
         current_year = str(date.today().year)
         self.inputCodeProject.setText(not_vowels_and_num[:3] + current_year)
 
-    def ktp_generate_file(self):
+    def generate_ktp_file(self):
         params = self.inputKTP.toPlainText()
         file_name = self.inputNameFileKTP.text()
 
@@ -426,7 +442,7 @@ class MainApp(QtWidgets.QMainWindow, designRepPDF.Ui_MainWindow):
         self.statusBar.showMessage('Файл создан!', 4000)
         self.statusBar.setStyleSheet(styles_responce.status_green)
         QTimer.singleShot(4000, lambda: self.statusBar.setStyleSheet(styles_responce.status_white))
-        self.other_select()
+        self.select_other()
            
     def show_btn_cbox3(self):
         if self.checkBox_3_1.isHidden():
@@ -591,6 +607,11 @@ class MainApp(QtWidgets.QMainWindow, designRepPDF.Ui_MainWindow):
             self.w2.setFixedSize(970, 430)
             self.w2.show()
 
+    def show_window_about(self):  # открытие   окна рисования первой схемы
+        self.w7.setWindowIcon(QtGui.QIcon('Data/icons/graficon.png'))
+        self.w7.show()
+        self.w7.setFixedSize(595, 325)
+
     def show_window_draw(self):  # открытие   окна рисования первой схемы
         self.w3.setWindowIcon(QtGui.QIcon('Data/icons/graficon.png'))
         self.w3.show()
@@ -604,154 +625,17 @@ class MainApp(QtWidgets.QMainWindow, designRepPDF.Ui_MainWindow):
     def show_window_draw_structural(self):  # открытие   окна рисования первой схемы
         self.w6.setWindowIcon(QtGui.QIcon('Data/icons/graficon.png'))
         self.w6.show()
-        self.w6.setFixedSize(380, 420)
+        self.w6.setFixedSize(380, 475)
 
     def show_window_calc(self):  # открытие   окна рисования первой схемы
         self.w5.setWindowIcon(QtGui.QIcon('Data/icons/graficon.png'))
         self.w5.show()
         self.w5.setFixedSize(1220,620)
 
-    def hide_btn(self, btn_device):
-        if btn_device == True:
-            QTimer.singleShot(250, lambda: self.label_11.hide())
-            QTimer.singleShot(250, lambda: self.btnDelPvsystData.hide())
-            QTimer.singleShot(800, lambda: self.btnOne.hide()) 
-        else:
-            QTimer.singleShot(800, lambda: self.btnDrawScheme.hide())
-            QTimer.singleShot(800, lambda: self.btnDrawSchemeTwo.hide())
-            QTimer.singleShot(250, lambda: self.btnLoadScheme1.hide())
-            QTimer.singleShot(250, lambda: self.btnLoadScheme2.hide())
-            QTimer.singleShot(250, lambda: self.btnDelSchemeOneData.hide())
-            QTimer.singleShot(250, lambda: self.btnDelSchemeTwoData.hide())
-            QTimer.singleShot(250, lambda: self.label_12.hide())
-            QTimer.singleShot(250, lambda: self.label_13.hide())
-
-    def animate_btn(self, y, btn, instance, begin = False):
-        instance.setEasingCurve(QEasingCurve.InOutCubic)
-        if begin == True:
-            btn.show()
-            instance.setStartValue(QPoint(950, y))
-            instance.setEndValue(QPoint(843, y))
-        else:
-            instance.setEndValue(QPoint(950, y))
-        instance.setDuration(800)
-        instance.finished.connect(lambda: self.animate_btn_finished(instance))
-        instance.start()
-
-    def animate_btn_finished(self, instance):
-        del instance
-
-    def show_device_btn(self):
-        x = 843
-        x_other = 897
-        if self.btnDrawScheme.isHidden() or self.btnDrawScheme.y() == 100:
-            y_title = 71
-            y_del = 25
-        else:
-            y_title = 239
-            y_del = 190
-        if self.btnOne.x() == 843:
-            self.label_11.show()
-            self.hide_del_button_device()
-            self.label_11.move(x, y_title)
-            self.btnDelPvsystData.move(x_other, y_del)
-
-    def show_schemes_btn(self):
-        x = 843
-        x_other = 897
-        if self.btnOne.isHidden() or self.btnOne.y() == 183:
-            y_one_title = 71
-            y_two_title = 155
-            y_one_del = 20
-            y_two_del = 103
-            y_one_load = 35
-            y_two_load = 118
-        else:
-            y_one_title = 155
-            y_two_title = 239
-            y_one_del = 103
-            y_two_del = 185
-            y_one_load = 118
-            y_two_load = 200
-        if self.btnDrawScheme.x() == 843:
-            self.label_12.show()
-            self.label_13.show()
-            self.btnLoadScheme1.show()
-            self.btnLoadScheme2.show()
-            self.hide_del_button_schemes()
-            self.label_12.move(x, y_one_title)
-            self.label_13.move(x, y_two_title)
-            self.btnLoadScheme1.move(x_other, y_one_load)
-            self.btnLoadScheme2.move(x_other, y_two_load)
-            self.btnDelSchemeOneData.move(x_other, y_one_del)
-            self.btnDelSchemeTwoData.move(x_other, y_two_del)
-
-    def show_and_hide_device_button(self):
-        x = 843
-        x_other = 897
-        inst_btn = QPropertyAnimation(self.btnOne, b"pos")
-        if self.btnDrawScheme.isHidden() or self.btnDrawScheme.y() == 100:
-            y_one_btn = 16 
-        else:
-            y_one_btn = 183
-
-        if self.btnOne.isHidden(): # Появление
-            self.animate_btn(y_one_btn, self.btnOne, inst_btn, True)
-            QTimer.singleShot(900, lambda: self.show_device_btn())
-        else: # исчезание
-            if not self.btnDrawScheme.isHidden(): 
-                self.animate_btn(y_one_btn, self.btnOne, inst_btn)
-                self.hide_btn(True)
-                QTimer.singleShot(600, lambda: self.btnDrawScheme.move(x, 16))
-                QTimer.singleShot(600, lambda: self.btnDrawSchemeTwo.move(x, 100))
-                QTimer.singleShot(600, lambda: self.label_12.move(x, 71))
-                QTimer.singleShot(600, lambda: self.label_13.move(x, 155))
-                QTimer.singleShot(600, lambda: self.btnLoadScheme1.move(x_other, 35))
-                QTimer.singleShot(600, lambda: self.btnLoadScheme2.move(x_other, 118))
-                QTimer.singleShot(600, lambda: self.btnDelSchemeOneData.move(x_other, 20))
-                QTimer.singleShot(600, lambda: self.btnDelSchemeTwoData.move(x_other, 103))
-            else:
-                self.animate_btn(y_one_btn, self.btnOne, inst_btn)
-                self.hide_btn(True)
-                      
-    def show_and_hide_schemes_button(self):
-        inst_btn_one = QPropertyAnimation(self.btnDrawScheme, b"pos")
-        inst_btn_two = QPropertyAnimation(self.btnDrawSchemeTwo, b"pos")
-        inst_btn_one_del = QPropertyAnimation(self.btnDrawScheme, b"pos")
-        inst_btn_two_del = QPropertyAnimation(self.btnDrawSchemeTwo, b"pos")
-        x = 843
-        x_other = 897
-        if self.btnOne.isHidden() or self.btnOne.y() == 183:
-            y_one_btn = 16
-            y_two_btn = 100
-        else:
-            y_one_btn = 100
-            y_two_btn = 183
-
-        if self.btnDrawScheme.isHidden():
-            self.animate_btn(y_one_btn, self.btnDrawScheme, inst_btn_one, True)
-            self.animate_btn(y_two_btn, self.btnDrawSchemeTwo, inst_btn_two, True)
-            QTimer.singleShot(900, lambda: self.show_schemes_btn())
-        else:
-            if not self.btnOne.isHidden(): 
-                self.animate_btn(y_one_btn, self.btnDrawScheme, inst_btn_one_del)
-                self.animate_btn(y_two_btn, self.btnDrawSchemeTwo, inst_btn_two_del)
-                self.hide_btn(False)
-                self.y_btn = 16 
-                y_title = 71
-                y_del = 25
-                QTimer.singleShot(800, lambda: self.btnOne.move(x, self.y_btn))
-                QTimer.singleShot(800, lambda: self.label_11.move(x, y_title))
-                QTimer.singleShot(800, lambda: self.btnDelPvsystData.move(x_other, y_del))
-            else: 
-                self.animate_btn(y_one_btn, self.btnDrawScheme, inst_btn_one_del)
-                self.animate_btn(y_two_btn, self.btnDrawSchemeTwo, inst_btn_two_del)
-                self.hide_btn(False)
-
-    def roof_select(self):
+    def select_roof(self):
         self.current_roof = self.listRoof.currentIndex()
 
-    def invertor_select(self):
+    def select_invertor(self):
         self.listInvertor_file.clear()
         if self.listInvertor_folder.currentText() != "Выберите":
             self.select_title_invertor = self.listInvertor_folder.currentText() 
@@ -763,7 +647,7 @@ class MainApp(QtWidgets.QMainWindow, designRepPDF.Ui_MainWindow):
             self.listInvertor_file.addItems(names_modules)
         return names_modules
             
-    def pv_select(self):
+    def select_pv(self):
         self.listPV_file.clear()
         if self.listPV_folder.currentText() != "Выберите":
             self.select_title_pv = self.listPV_folder.currentText() 
@@ -775,7 +659,7 @@ class MainApp(QtWidgets.QMainWindow, designRepPDF.Ui_MainWindow):
             self.listPV_file.addItems(names_modules)
         return names_modules
             
-    def other_select(self):
+    def select_other(self):
         self.listKTP_file.clear()
         if self.listKTP_folder.currentText() != "Выберите":
             self.select_title_ktp = self.listKTP_folder.currentText() 
@@ -786,7 +670,7 @@ class MainApp(QtWidgets.QMainWindow, designRepPDF.Ui_MainWindow):
                 names_modules.append(name[:-4])
             self.listKTP_file.addItems(names_modules)
 
-    def invertor_load(self):
+    def load_invertor(self):
         current_invertor = self.listInvertor_file.currentText()
         for select_invertor in self.type_modules:
             if current_invertor in select_invertor: 
@@ -813,9 +697,10 @@ class MainApp(QtWidgets.QMainWindow, designRepPDF.Ui_MainWindow):
                 current['count_invertor'] = 1 #количество инверторов
                 current['diff_mppt'] = False #количество инверторов
                 for num in range(int(current['count_invertor'])):
-                    current[f'local_{num}'] = {'controller': False, 'commutator': False, 'left_yzip': False, 'right_yzip': False}
+                    current[f'local_{num}'] = {'controller': False, 'commutator': False, 'left_yzip': False, 
+                                                'right_yzip': False, 'title_other_device': 'УЗИП'}
 
-                current['type_inv'] = 'QF'
+                current['type_inv'] = 'Инвертор'
                 current['i_nom_inv'] = 'C160'
                 current['brand_cable_inv'] = 'ВБШвнг(А)-LS 4x95'
                 current['length_cable_inv'] = '180 м*'
@@ -845,7 +730,7 @@ class MainApp(QtWidgets.QMainWindow, designRepPDF.Ui_MainWindow):
                 self.w6.up_down_invertor_selection()
                 return current
 
-    def pv_load(self):
+    def load_pv(self):
         current_pv = self.listPV_file.currentText()
         for select_pv in self.type_pv_modules:
             if current_pv in select_pv:
@@ -856,7 +741,7 @@ class MainApp(QtWidgets.QMainWindow, designRepPDF.Ui_MainWindow):
                 current['folder'] = self.listPV_folder.currentIndex()
                 self.statusBar.showMessage(styles_responce.status_ok, 2000)
 
-    def other_load(self):
+    def load_other(self):
         current_other = self.listKTP_file.currentText()
         for select_other in self.type_other_modules:
             if current_other in select_other:
@@ -897,6 +782,69 @@ class MainApp(QtWidgets.QMainWindow, designRepPDF.Ui_MainWindow):
                 self.w4.up_down_other_device_selection()
                 self.statusBar.showMessage(styles_responce.status_ok, 2000)
                 print(current)
+
+    def load_pvsyst(self):
+        path = QtWidgets.QFileDialog.getOpenFileName(self, 'Выберите файл', path_to_pdf_pvsyst, "*.pdf")[0] #открытие диалога для выбора файла
+        print(path)
+        self.hide_del_button_device()
+        if len(path) != 0:
+            self.path_pvsyst = path
+            print(self.path_pvsyst)
+            if self.del_pdf('pvsyst') == 1: return
+            self.textConsole.append("- Загружен отчет PVsyst")
+            self.btnOne.setEnabled(False)
+            self.startAnimation()
+            self.converter_pvsyst = СonvertFiles(self.path_pvsyst, 'pvsyst')
+            self.converter_pvsyst.finished.connect(self.convertPvsystFinished)
+            self.converter_pvsyst.start()
+
+    def load_scheme_one(self):
+        self.pathes_detail_schemes = QtWidgets.QFileDialog.getOpenFileNames(self, 'Выберите файлы схем инверторa', 
+                                                                            path_to_schemes + '/Invertor', "*.svg")[0]
+        print(self.pathes_detail_schemes)
+        self.hide_del_button_schemes()
+        if len(self.pathes_detail_schemes) != 0:
+            if self.del_pdf('detailed') == 1: return
+            self.textConsole.append("- Загружена принципиальная эл.схема")
+            self.btnLoadScheme1.setEnabled(False)
+            self.converter1 = СonvertFiles(self.pathes_detail_schemes, 'detailed')
+            self.converter1.finished.connect(self.convertOneFinished)
+            self.converter1.start()
+        
+    def load_scheme_two(self):
+        self.path_general_schemes = [QtWidgets.QFileDialog.getOpenFileName(self, 'Выберите файл схемы станции', 
+                                                                            path_to_schemes + '/General', "*.svg")[0]]
+        print( self.path_general_schemes)
+        self.hide_del_button_schemes()
+        if len(self.path_general_schemes[0]) != 0:
+            if self.del_pdf('general') == 1: return
+            self.textConsole.append("- Загружена принципиальная эл.схема ")
+            self.btnLoadScheme2.setEnabled(False)
+            self.converter2 = СonvertFiles(self.path_general_schemes, 'general')
+            self.converter2.finished.connect(self.convertTwoFinished)
+            self.converter2.start()
+
+    def load_structural_scheme(self):
+        self.path_structural_schemes = [QtWidgets.QFileDialog.getOpenFileName(self, 'Выберите файл структурной схемы', 
+                                                                            path_to_schemes + '/Structural', "*.svg")[0]]
+        print(self.path_structural_schemes)
+        self.hide_del_button_schemes()
+
+        if len(self.path_structural_schemes[0]) != 0:
+            if self.del_pdf('structural') == 1: return
+            self.textConsole.append("- Загружена структурная эл.схема ")
+            self.btnLoadStructScheme.setEnabled(False)
+            self.converter3 = СonvertFiles(self.path_structural_schemes, 'structural')
+            self.converter3.finished.connect(self.convertStructFinished)
+            self.converter3.start()
+
+    def load_plane_set_scheme(self):
+        self.path_plane_set_schemes = QtWidgets.QFileDialog.getOpenFileName(self, 'Выберите файл плана размещения', 
+                                                                            'Data/PDF in/', "*.pdf")[0]
+        print(self.path_plane_set_schemes)
+        self.hide_del_button_schemes()
+        if self.path_plane_set_schemes != '':
+            self.textConsole.append("- Загружен план размещения ")
 
     def add_invertor(self):
         current_load = f'found_invertor_{self.spinBox_numInvertor.value() - 1}'
@@ -980,11 +928,76 @@ class MainApp(QtWidgets.QMainWindow, designRepPDF.Ui_MainWindow):
             self.btnDelOther.hide()
             self.spinBox_numKTP.hide()
 
+    def del_pdf(self, method):
+        fp_structural = path_to_pdf_schemes + "/Structural"
+        fp_general = path_to_pdf_schemes + "/General"
+        fp_detailed = path_to_pdf_schemes + "/Detailed"
+        patch_imgs_pvsyst = "Data/Images/PVsyst"
+        img_files_pvsyst = [f for f in os.listdir(patch_imgs_pvsyst) if os.path.isfile(os.path.join(patch_imgs_pvsyst, f))]
+        files_in_structural = [f for f in os.listdir(fp_structural) if isfile(join(fp_structural, f))]
+        files_in_general = [f for f in os.listdir(fp_general) if isfile(join(fp_general, f))]
+        files_in_detailed = [f for f in os.listdir(fp_detailed) if isfile(join(fp_detailed, f))]
+        
+        try:
+            if len(files_in_general) != 0 and method == 'general':
+                os.remove(fp_general + f"/{files_in_general[0]}")
+            if len(files_in_structural) != 0 and method == 'structural':
+                os.remove(fp_structural + f"/{files_in_structural[0]}")
+            if len(files_in_detailed ) != 0 and method == 'detailed':
+                for file in files_in_detailed:
+                    os.remove(fp_detailed + f"/{file}")   
+            if len(img_files_pvsyst) != 0 and method == 'pvsyst':
+                for file in img_files_pvsyst:
+                    os.remove(patch_imgs_pvsyst + f"/{file}")  
+        except PermissionError:
+            self.statusBar.showMessage('Открыт pdf файл, закройте его и повторите попытку', 4000)
+            self.statusBar.setStyleSheet(styles_responce.status_red)
+            QTimer.singleShot(4000, lambda: self.statusBar.setStyleSheet(styles_responce.status_white))
+            return 1
+
+    def del_pvsyst(self):
+        if self.del_pdf('pvsyst') == 1:
+            return
+        self.found_pdf = search_data.null_search_params('pvsyst')
+        self.path_pvsyst = ''
+        self.hide_del_button_device()
+        self.statusBar.showMessage('Файл PVsyst исключен из отчета', 2500)
+        self.statusBar.setStyleSheet(styles_responce.status_info)
+        QTimer.singleShot(2500, lambda: self.statusBar.setStyleSheet(styles_responce.status_white))
+
+    def del_scheme_one(self):
+        if self.del_pdf('detailed') == 1: return
+        self.hide_del_button_schemes()
+        self.statusBar.showMessage('Файл первого чертежа исключен из отчета', 2500)
+        self.statusBar.setStyleSheet(styles_responce.status_info)
+        QTimer.singleShot(2500, lambda: self.statusBar.setStyleSheet(styles_responce.status_white))
+
+    def del_scheme_two(self):
+        if self.del_pdf('general') == 1: return
+        self.hide_del_button_schemes()
+        self.statusBar.showMessage('Файл второго чертежа исключен из отчета', 2500)
+        self.statusBar.setStyleSheet(styles_responce.status_info)
+        QTimer.singleShot(2500, lambda: self.statusBar.setStyleSheet(styles_responce.status_white))
+
+    def del_structural_scheme(self):
+        if self.del_pdf('structural') == 1: return
+        self.hide_del_button_schemes()
+        self.statusBar.showMessage('Файл структурной схемы исключен из отчета', 2500)
+        self.statusBar.setStyleSheet(styles_responce.status_info)
+        QTimer.singleShot(2500, lambda: self.statusBar.setStyleSheet(styles_responce.status_white))
+
+    def del_plane_set(self):
+        self.path_plane_set_schemes = ''
+        self.hide_del_button_schemes()
+        self.statusBar.showMessage('Файл плана размещения исключен из отчета', 2500)
+        self.statusBar.setStyleSheet(styles_responce.status_info)
+        QTimer.singleShot(2500, lambda: self.statusBar.setStyleSheet(styles_responce.status_white))
+  
     def up_down_invertor_selection(self):
         current = self.invertors[f'found_invertor_{self.spinBox_numInvertor.value() - 1}']
         if 'folder' in current:
             self.listInvertor_folder.setCurrentIndex(current['folder'])
-            self.invertor_select()
+            self.select_invertor()
             if 'file' in current:
                 self.listInvertor_file.setCurrentIndex(current['file'])
             else:
@@ -997,7 +1010,7 @@ class MainApp(QtWidgets.QMainWindow, designRepPDF.Ui_MainWindow):
         current = self.pvs[f'found_pv_{self.spinBox_numPV.value() - 1}']
         if 'folder' in current:
             self.listPV_folder.setCurrentIndex(current['folder'])
-            self.pv_select()
+            self.select_pv()
             if 'file' in current:
                 self.listPV_file.setCurrentIndex(current['file'])
             else:
@@ -1010,7 +1023,7 @@ class MainApp(QtWidgets.QMainWindow, designRepPDF.Ui_MainWindow):
         current = self.others[f'found_other_{self.spinBox_numKTP.value() - 1}']
         if 'folder' in current:
             self.listKTP_folder.setCurrentIndex(current['folder'])
-            self.other_select()
+            self.select_other()
             if 'file' in current:
                 self.listKTP_file.setCurrentIndex(current['file'])
             else:
@@ -1018,98 +1031,21 @@ class MainApp(QtWidgets.QMainWindow, designRepPDF.Ui_MainWindow):
         else:
             self.listKTP_folder.setCurrentIndex(0)
             self.listKTP_file.clear()
-
-    def delete_pdf(self, method):
-        fp_general = path_to_pdf_schemes + "/General"
-        fp_detailed = path_to_pdf_schemes + "/Detailed"
-        patch_imgs_pvsyst = "Data/Images/PVsyst"
-        img_files_pvsyst = [f for f in os.listdir(patch_imgs_pvsyst) if os.path.isfile(os.path.join(patch_imgs_pvsyst, f))]
-        files_in_general = [f for f in os.listdir(fp_general) if isfile(join(fp_general, f))]
-        files_in_detailed = [f for f in os.listdir(fp_detailed) if isfile(join(fp_detailed, f))]
-
-        if len(files_in_general) != 0 and method == 'general':
-            os.remove(fp_general + f"/{files_in_general[0]}")
-        if len(files_in_detailed ) != 0 and method == 'detailed':
-            for file in files_in_detailed:
-                os.remove(fp_detailed + f"/{file}")   
-        if len(img_files_pvsyst) != 0 and method == 'pvsyst':
-            for file in img_files_pvsyst:
-                os.remove(patch_imgs_pvsyst + f"/{file}")  
-
-    def del_pvsyst(self):
-        self.delete_pdf('pvsyst')
-        self.found_pdf = search_data.null_search_params('pvsyst')
-        self.path_pvsyst = ''
-        self.hide_del_button_device()
-        self.statusBar.showMessage('Файл PVsyst исключен из отчета', 2500)
-        self.statusBar.setStyleSheet(styles_responce.status_info)
-        QTimer.singleShot(2500, lambda: self.statusBar.setStyleSheet(styles_responce.status_white))
-
-    def del_scheme_one(self):
-        self.delete_pdf('detailed')
-        self.hide_del_button_schemes()
-        self.statusBar.showMessage('Файл первого чертежа исключен из отчета', 2500)
-        self.statusBar.setStyleSheet(styles_responce.status_info)
-        QTimer.singleShot(2500, lambda: self.statusBar.setStyleSheet(styles_responce.status_white))
-
-    def del_scheme_two(self):
-        self.delete_pdf('general')
-        self.hide_del_button_schemes()
-        self.statusBar.showMessage('Файл второго чертежа исключен из отчета', 2500)
-        self.statusBar.setStyleSheet(styles_responce.status_info)
-        QTimer.singleShot(2500, lambda: self.statusBar.setStyleSheet(styles_responce.status_white))
-        
-    def pvsyst(self):
-        path = QtWidgets.QFileDialog.getOpenFileName(self, 'Выберите файл', path_to_pdf_pvsyst, "*.pdf")[0] #открытие диалога для выбора файла
-        print(path)
-        self.hide_del_button_device()
-        if len(path) != 0:
-            self.path_pvsyst = path
-            print(self.path_pvsyst)
-            self.delete_pdf('pvsyst')
-            self.textConsole.append("- Загружен отчет PVsyst")
-            self.btnOne.setEnabled(False)
-            self.startAnimation()
-            self.converter_pvsyst = СonvertFiles(self.path_pvsyst, 'pvsyst')
-            self.converter_pvsyst.finished.connect(self.convertPvsystFinished)
-            self.converter_pvsyst.start()
-
-    def load_scheme_one(self):
-        self.pathes_detail_schemes = QtWidgets.QFileDialog.getOpenFileNames(self, 'Выберите файлы схем инверторa', 
-                                                                            path_to_schemes + '/Invertor', "*.svg")[0]
-        print(self.pathes_detail_schemes)
-        self.hide_del_button_schemes()
-        if len(self.pathes_detail_schemes) != 0:
-            self.delete_pdf('detailed')
-            self.textConsole.append("- Загружена принципиальная эл.схема")
-            self.btnLoadScheme1.setEnabled(False)
-            self.converter1 = СonvertFiles(self.pathes_detail_schemes, 'detailed')
-            self.converter1.finished.connect(self.convertOneFinished)
-            self.converter1.start()
-        
-    def load_scheme_two(self):
-        self.path_general_schemes = [QtWidgets.QFileDialog.getOpenFileName(self, 'Выберите файл схемы станции', 
-                                                                            path_to_schemes + '/General', "*.svg")[0]]
-        print( self.path_general_schemes)
-        self.hide_del_button_schemes()
-        if len(self.path_general_schemes[0]) != 0:
-            self.delete_pdf('general')
-            self.textConsole.append("- Загружена структурная эл.схема ")
-            self.btnLoadScheme2.setEnabled(False)
-            self.converter2 = СonvertFiles(self.path_general_schemes, 'general')
-            self.converter2.finished.connect(self.convertTwoFinished)
-            self.converter2.start()
-
+      
     def merge_pdf(self):
         pdf_merger = PdfFileMerger()
+        fp_structural = path_to_pdf_schemes + "/Structural"
         fp_general = path_to_pdf_schemes + "/General"
         fp_detailed = path_to_pdf_schemes + "/Detailed"
+        files_in_structural = [f for f in os.listdir(fp_structural) if isfile(join(fp_structural, f))]
         files_in_general = [f for f in os.listdir(fp_general) if isfile(join(fp_general, f))]
         files_in_detailed = [f for f in os.listdir(fp_detailed) if isfile(join(fp_detailed, f))]
+
         with open("Data/Report/Report.pdf", 'rb') as report: 
             pdf_merger.append(report)
-        with open("Data/PDF in/Struct_scheme_example.pdf", 'rb') as report: 
-            pdf_merger.append(report)
+        if len(files_in_structural) != 0 and self.path_structural_schemes != " ":
+            with open(fp_structural + f"/{files_in_structural[0]}", 'rb') as image_fd: 
+                pdf_merger.append(image_fd)
         if len(files_in_general) != 0 and self.path_general_schemes != " ":
             with open(fp_general + f"/{files_in_general[0]}", 'rb') as image_fd: 
                 pdf_merger.append(image_fd)
@@ -1117,8 +1053,9 @@ class MainApp(QtWidgets.QMainWindow, designRepPDF.Ui_MainWindow):
             for i in range(len(files_in_detailed)):
                 with open(fp_detailed + f"/{files_in_detailed[i]}", 'rb') as image_fd: 
                     pdf_merger.append(image_fd)
-        with open("Data/PDF in/Plane_set_example.pdf", 'rb') as report: 
-            pdf_merger.append(report)
+        if self.path_plane_set_schemes != '':
+            with open(self.path_plane_set_schemes, 'rb') as image_fd: 
+                pdf_merger.append(image_fd)
         with open("Data/Report/Auto-OTR.pdf", 'wb') as output_file:
             pdf_merger.write(output_file)
         del pdf_merger  
@@ -1250,6 +1187,36 @@ class MainApp(QtWidgets.QMainWindow, designRepPDF.Ui_MainWindow):
         self.hide_del_button_schemes()
         del self.converter2
 
+    def convertStructFinished(self):
+        self.btnLoadStructScheme.setEnabled(True)
+        self.hide_del_button_schemes()
+        del self.converter3
+
+    def convertPvsystFinished(self):
+        self.found_pdf = self.converter_pvsyst.found_pdf 
+        self.inputAddressLat.setText(self.found_pdf['lati_pdf'])
+        self.inputAddressLong.setText(self.found_pdf['longi_pdf'])
+
+        if self.internet_on() == True and hasattr(self.converter_pvsyst, 'full_address'):
+            full_address = self.converter_pvsyst.full_address
+            self.inputAddress.setText(full_address['full_address'])
+            self.w2.inputCity.setText(full_address['city_point'])
+        
+        array_pv = self.found_pdf['found_pv_invertor']['pv_array_config_0']
+        if isinstance(array_pv, str):
+            self.statusBar.showMessage(array_pv, 4000)
+            self.statusBar.setStyleSheet(styles_responce.status_yellow)
+            QTimer.singleShot(4000, lambda: self.statusBar.setStyleSheet(styles_responce.status_white))
+        else:
+            self.set_draw_params()
+            self.statusBar.showMessage('Параметры схем сконфигурированы, проверьте данные и постройте', 4000)
+            self.statusBar.setStyleSheet(styles_responce.status_green)
+            QTimer.singleShot(4000, lambda: self.statusBar.setStyleSheet(styles_responce.status_white))
+        self.btnOne.setEnabled(True)
+        self.hide_del_button_device()
+        self.stopAnimation()
+        del self.converter_pvsyst
+
     def set_draw_params(self):
         print('конфигурация фэм массивов: ', self.found_pdf['found_pv_invertor'])
         
@@ -1272,7 +1239,7 @@ class MainApp(QtWidgets.QMainWindow, designRepPDF.Ui_MainWindow):
             for company in self.company_invertor:
                 if pvsyst_pvs_invrtrs['title_invertor'].lower() in company.lower() or company.lower() in pvsyst_pvs_invrtrs['title_invertor'].lower():
                     self.listInvertor_folder.setCurrentText(company)
-                    names_invrtrs = self.invertor_select()
+                    names_invrtrs = self.select_invertor()
                     found_inv_company = True
 
                     for model in names_invrtrs:
@@ -1286,7 +1253,7 @@ class MainApp(QtWidgets.QMainWindow, designRepPDF.Ui_MainWindow):
                             config_keys.append(key)
 
                     if found_inv == True:
-                        current_invertor = self.invertor_load()
+                        current_invertor = self.load_invertor()
                         count_invertors = 0
                         diff_mppt = False
                         for config in config_keys:
@@ -1315,7 +1282,8 @@ class MainApp(QtWidgets.QMainWindow, designRepPDF.Ui_MainWindow):
 
                         current_invertor['count_invertor'] = int(count_invertors)
                         for num in range(current_invertor['count_invertor']):
-                            current_invertor[f'local_{num}'] = {'controller': False, 'commutator': False, 'left_yzip': False, 'right_yzip': False}
+                            current_invertor[f'local_{num}'] = {'controller': False, 'commutator': False, 'left_yzip': False,
+                                                                'right_yzip': False, 'title_other_device': 'УЗИП'}
                         current_invertor['diff_mppt'] = diff_mppt
                         print('После добавки', current_invertor)
                         self.w3.up_down_invertor_selection()
@@ -1334,7 +1302,7 @@ class MainApp(QtWidgets.QMainWindow, designRepPDF.Ui_MainWindow):
             for company in self.company_pv:
                 if pvsyst_pvs_invrtrs['title_pv'].lower() in company.lower() or company.lower() in pvsyst_pvs_invrtrs['title_pv'].lower():
                     self.listPV_folder.setCurrentText(company)
-                    names_pv = self.pv_select()
+                    names_pv = self.select_pv()
                     found_pv_company = True
             
                     for model in names_pv:
@@ -1343,7 +1311,7 @@ class MainApp(QtWidgets.QMainWindow, designRepPDF.Ui_MainWindow):
                             found_pv = True
 
                     if found_pv == True:
-                        self.pv_load()
+                        self.load_pv()
                     else:
                         self.textConsole.append(f"ФЭМ {pvsyst_pvs_invrtrs['model_pv']} не найден")
 
@@ -1355,32 +1323,6 @@ class MainApp(QtWidgets.QMainWindow, designRepPDF.Ui_MainWindow):
                 self.add_pv()
         print(self.invertors)
         print(self.pvs)
-
-    def convertPvsystFinished(self):
-
-        self.found_pdf = self.converter_pvsyst.found_pdf 
-        self.inputAddressLat.setText(self.found_pdf['lati_pdf'])
-        self.inputAddressLong.setText(self.found_pdf['longi_pdf'])
-
-        if self.internet_on() == True and hasattr(self.converter_pvsyst, 'full_address'):
-            full_address = self.converter_pvsyst.full_address
-            self.inputAddress.setText(full_address['full_address'])
-            self.w2.inputCity.setText(full_address['city_point'])
-        
-        array_pv = self.found_pdf['found_pv_invertor']['pv_array_config_0']
-        if isinstance(array_pv, str):
-            self.statusBar.showMessage(array_pv, 4000)
-            self.statusBar.setStyleSheet(styles_responce.status_yellow)
-            QTimer.singleShot(4000, lambda: self.statusBar.setStyleSheet(styles_responce.status_white))
-        else:
-            self.set_draw_params()
-            self.statusBar.showMessage('Параметры схем сконфигурированы, проверьте данные и постройте', 4000)
-            self.statusBar.setStyleSheet(styles_responce.status_green)
-            QTimer.singleShot(4000, lambda: self.statusBar.setStyleSheet(styles_responce.status_white))
-        self.btnOne.setEnabled(True)
-        self.hide_del_button_device()
-        self.stopAnimation()
-        del self.converter_pvsyst
 
     def buildFinished(self):
         self.textConsole.append("Отчет сформирован!")
@@ -1399,7 +1341,7 @@ def main():
     window = MainApp()  # Создаём объект класса ExampleApp
     window.setWindowIcon(QtGui.QIcon('Data/icons/graficon.png'))
     window.show()  # Показываем окно
-    window.setFixedSize(1050, 450)
+    window.setFixedSize(1075, 525)
     window.instance_ofter_class(window)
     app.exec_()  # и запускаем приложение
 

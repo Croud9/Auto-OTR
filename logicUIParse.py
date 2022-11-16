@@ -2,12 +2,11 @@ import designParsing
 import parsingSelenium
 import validate
 import styles_responce
-import requests, os, re
+import os, re
 from datetime import date
 from os.path import isfile, join
 from PyQt5 import QtWidgets
-from PyQt5.QtGui import *
-from PyQt5.QtCore import *
+from PyQt5.QtGui import QMovie
 from PyQt5.QtCore import QTimer, QThread
 import wikipedia
 wikipedia.set_lang("ru")
@@ -30,14 +29,19 @@ class Parsing(QThread):
             self.return_download['climat'] = 'Н/Д Нет описания климата данного населенного пункта'  
 
     def delete_files(self):
+        fp_structural = path_to_pdf_schemes + "/Structural"
         fp_general = path_to_pdf_schemes + "/General"
         fp_detailed = path_to_pdf_schemes + "/Detailed"
         patch_imgs_pvsyst = "Data/Images/PVsyst"
         img_files_pvsyst = [f for f in os.listdir(patch_imgs_pvsyst) if os.path.isfile(os.path.join(patch_imgs_pvsyst, f))]
+        files_in_structural = [f for f in os.listdir(fp_structural) if isfile(join(fp_structural, f))]
         files_in_general = [f for f in os.listdir(fp_general) if isfile(join(fp_general, f))]
         files_in_detailed = [f for f in os.listdir(fp_detailed) if isfile(join(fp_detailed, f))]
+        
         if len(files_in_general) != 0:
             os.remove(fp_general + f"/{files_in_general[0]}")
+        if len(files_in_structural) != 0:
+            os.remove(fp_structural + f"/{files_in_structural[0]}")
         if len(files_in_detailed ) != 0:
             for file in files_in_detailed:
                 os.remove(fp_detailed + f"/{file}")   

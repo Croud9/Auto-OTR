@@ -2,11 +2,11 @@ import draw_schemes
 import designDrawSchemes
 import styles_responce
 import validate
+import os
+from os.path import isfile, join
 from PyQt5 import QtWidgets
-from PyQt5.QtGui import QRegExpValidator
-from PyQt5.QtCore import QThread, QRegExp, QTimer
-from PyQt5.QtGui import *
-from PyQt5.QtCore import *
+from PyQt5.QtGui import QIcon
+from PyQt5.QtCore import QSize, QTimer, QThread
 
 class DrawOne(QThread):
     def __init__(self, draw_params, gost_frame_params):
@@ -18,8 +18,15 @@ class DrawOne(QThread):
         self.chains = 0
 
     def run(self):
+        fp_invertor = 'Data/Schemes/Invertor/'
+        files_in_invertor = [f for f in os.listdir(fp_invertor) if isfile(join(fp_invertor, f))]
+        if len(files_in_invertor) != 0:
+            for file in files_in_invertor:
+                os.remove(fp_invertor + f"/{file}") 
+                 
         for num in range(self.count_invertor):
             num += 1
+            print('ПРоходддд', num)
             self.num_error = draw_schemes.draw(self.draw_params, num, self.gost_frame_params)
             if self.num_error['error'] != 0: return 
             self.modules += self.num_error['modules']
@@ -33,6 +40,7 @@ class WindowDraw(QtWidgets.QMainWindow, designDrawSchemes.Ui_WindowDrawSchemes):
         validate.validate_number(self.fields_text)
         self.main_window = instance_of_main_window
         self.btnDraw.clicked.connect(self.draw)
+        self.btnOpenScheme.clicked.connect(self.open_scheme)
         self.btnAdd_new_mppt.clicked.connect(self.add_mppt)
         self.btnDelConfig.clicked.connect(self.del_mppt)
         self.btnUpdateConsole.clicked.connect(self.update_console)
@@ -53,12 +61,19 @@ class WindowDraw(QtWidgets.QMainWindow, designDrawSchemes.Ui_WindowDrawSchemes):
         self.spinBox_numInvertor.setEnabled(False)
         self.spinBox_numDifferentMPPT.setMinimum(1)
         self.spinBox_numDifferentMPPT.hide()
+        self.btnOpenScheme.hide()
         self.btnDelConfig.hide()
         self.spinBox_CloneInvertor.setMinimum(1)
         self.btnSaveConfig.setIcon(QIcon('data/cons/dop/save.png'))
         self.btnSaveConfig.setIconSize(QSize(30, 30))
         self.draw_params = {}
         self.fields_text = [self.inputCount_mppt, self.inputCount_input_mppt, self.inputSolar_count_on_the_chain, self.inputAll_chain]
+
+    def open_scheme(self):
+        self.path_structural_schemes = [QtWidgets.QFileDialog.getOpenFileName(self, 'Выберите файл структурной схемы', 
+                                                                            'Data/Schemes/Invertor', "*.svg")[0]]
+        if len(self.path_structural_schemes[0]) != 0:
+            os.startfile(self.path_structural_schemes[0])
 
     def reset(self):
         self.inputCount_mppt.clear()
@@ -364,41 +379,33 @@ class WindowDraw(QtWidgets.QMainWindow, designDrawSchemes.Ui_WindowDrawSchemes):
             self.statusBar.showMessage('Чертеж успешно построен', 4000)
             self.statusBar.setStyleSheet(styles_responce.status_green)
             QTimer.singleShot(4000, lambda: self.statusBar.setStyleSheet(styles_responce.status_white))
-            self.btnDraw.setEnabled(True)
-            self.btnDraw.setText('Построить')
+            self.btnOpenScheme.show()
         elif self.painter_draw_one.num_error['error'] == 1:
             self.textConsoleDraw.append("!!!")
             self.textConsoleDraw.append("Кол-во цепочек меньше числа MPPT, невозможно заполгнить все MPPT")
             self.textConsoleDraw.append("---")
             self.statusBar.showMessage("Внимание!")
             self.statusBar.setStyleSheet(styles_responce.status_red)
-            self.btnDraw.setEnabled(True)
-            self.btnDraw.setText('Построить')
         elif self.painter_draw_one.num_error['error'] == 3:
             self.textConsoleDraw.append("!!!")
             self.textConsoleDraw.append("Данное количесво цепочек не вмещается, примените Y коннекторы, либо измените конфигурацию MPPT")
             self.textConsoleDraw.append("---")
             self.statusBar.showMessage("Внимание!")
             self.statusBar.setStyleSheet(styles_responce.status_red)
-            self.btnDraw.setEnabled(True)
-            self.btnDraw.setText('Построить')
         elif self.painter_draw_one.num_error['error'] == 4:
             self.textConsoleDraw.append("!!!")
             self.textConsoleDraw.append("Данное количесво цепочек слишком мало чтобы заполнить все MPPT применяя Y коннекторы, уберите Y коннекторы или полное заполнение")
             self.textConsoleDraw.append("---")
             self.statusBar.showMessage("Внимание!")
             self.statusBar.setStyleSheet(styles_responce.status_red)
-            self.btnDraw.setEnabled(True)
-            self.btnDraw.setText('Построить')
         elif self.painter_draw_one.num_error['error'] == 5:
             self.textConsoleDraw.append("!!!")
             self.textConsoleDraw.append("Слишком большое количество цепочек")
             self.textConsoleDraw.append("---")
             self.statusBar.showMessage("Внимание!")
             self.statusBar.setStyleSheet(styles_responce.status_red)
-            self.btnDraw.setEnabled(True)
-            self.btnDraw.setText('Построить')
-        # Удаление потока после его использования.
+        self.btnDraw.setEnabled(True)
+        self.btnDraw.setText('Построить')
         del self.painter_draw_one
  
  

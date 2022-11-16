@@ -3,10 +3,10 @@ import draw_schemes2
 import styles_responce
 import validate
 import designDrawSchemesTwo
+import os
 from PyQt5 import QtWidgets
-from PyQt5.QtCore import QTimer, QThread
-from PyQt5.QtGui import *
-from PyQt5.QtCore import *
+from PyQt5.QtGui import QIcon
+from PyQt5.QtCore import QSize, QTimer, QThread
 
 class DrawTwo(QThread):
     def __init__(self, params, gost_frame_params):
@@ -24,6 +24,7 @@ class WindowDrawTwo(QtWidgets.QMainWindow, designDrawSchemesTwo.Ui_WindowDrawSch
         self.input_data() 
         validate.validate_number(self.fields_text)
         self.main_window = instance_of_main_window
+        self.btnOpenScheme.clicked.connect(self.open_scheme)
         self.btnOpen_otherParams.clicked.connect(self.show_other_params)
         self.checkYellowLineInvertor.clicked.connect(self.show_and_hide_switch)
         self.checkRedLineInvertor.clicked.connect(self.show_and_hide_switch)
@@ -47,6 +48,7 @@ class WindowDrawTwo(QtWidgets.QMainWindow, designDrawSchemesTwo.Ui_WindowDrawSch
         self.textConsoleDraw.clear()
 
     def input_data(self):
+        self.btnOpenScheme.hide()
         self.spinBox_numInvertor.setMinimum(1)
         self.spinBox_numInvertor.setEnabled(False)
         self.spinBox_numOther.setMinimum(1)
@@ -97,6 +99,9 @@ class WindowDrawTwo(QtWidgets.QMainWindow, designDrawSchemesTwo.Ui_WindowDrawSch
         self.checkBlueSwitchOther.setCheckState(2)
         self.checkBlackLineOther.setCheckState(2)
         self.fields_text = [self.inputPower_invertor, self.inputAmperage_invertor, self.inputPower_other, self.inputAmperage_other]
+
+    def open_scheme(self):
+        os.startfile("Data\Schemes\General\connect_system.svg")
 
     def show_other_params(self):
         if self.width() == 950 and self.height() == 335:
@@ -393,6 +398,7 @@ class WindowDrawTwo(QtWidgets.QMainWindow, designDrawSchemesTwo.Ui_WindowDrawSch
         self.textConsoleDraw.append(f"------------------------------------")
         self.btnDraw.setEnabled(True)
         self.btnDraw.setText('Построить')
+        self.btnOpenScheme.show()
         del self.painter
 
  

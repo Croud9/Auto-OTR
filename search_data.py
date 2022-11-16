@@ -251,6 +251,6 @@ def search_in_pdf(path):
         
 # search_in_invertor("Data/Modules/Invertors/Sungrow/Sungrow_SG110CX_Pvsyst668.OND")
 # search_in_pv("Data/Modules/PV's/Hevel/HJT 390 m2+ (08.2020).PAN")
-print(search_in_pdf("Data/PDF in/PVsyst/PVsyst_отчет.pdf"))
+# print(search_in_pdf("Data/PDF in/PVsyst/PVsyst_отчет.pdf"))
 # search_in_pdf("Data/PDF in/PVsyst/PVsyst_отчет2.pdf")
 # print(search_in_others_device("Data/Modules/KTP's/New/КТП1.txt"))

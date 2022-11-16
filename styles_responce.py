@@ -1,6 +1,6 @@
 from PyQt5.QtCore import QTimer
 
-'👌✅👍🤟🤘🔥'
+'👌✅👍🤟🤘🔥📍🌐'
 status_ok = ' ' * 117 +'🔥'
 status_info = "background-color: rgba(229,229,234,1); color:  #3b83ff; font-weight: bold;"
 status_orange = "background-color:rgba(255, 169, 31, 0.89)"

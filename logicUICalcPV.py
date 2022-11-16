@@ -1,20 +1,15 @@
 from email.policy import default
-import sys, os   # sys нужен для передачи argv в QApplication
+import os   # sys нужен для передачи argv в QApplication
 import math
 from attr import fields_dict
 import xlwt
-import requests
 import designCalcPV  # Это наш конвертированный файл дизайна
 import pandas as pd
-import gzip
 import search_data
 import validate
 import styles_responce
-from PyQt5.QtCore import QRegExp
-from PyQt5.QtWidgets import *
-from PyQt5.QtGui import QRegExpValidator
+from PyQt5.QtWidgets import QHeaderView
 from PyQt5 import QtWidgets, QtGui, QtCore
-from PyQt5.QtCore import QTimer
 filepath_to_pan_directory = "Data/PAN_files/"
 path_to_pv = "Data/Modules/PV's"
 

@@ -9,8 +9,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1179</width>
-    <height>800</height>
+    <width>1194</width>
+    <height>666</height>
    </rect>
   </property>
   <property name="font">
@@ -82,10 +82,10 @@ QComboBox QAbstractItemView {
     </property>
     <property name="geometry">
      <rect>
-      <x>20</x>
-      <y>180</y>
-      <width>197</width>
-      <height>151</height>
+      <x>0</x>
+      <y>60</y>
+      <width>231</width>
+      <height>261</height>
      </rect>
     </property>
     <property name="font">
@@ -95,22 +95,29 @@ QComboBox QAbstractItemView {
     </property>
     <property name="styleSheet">
      <string notr="true">QTextBrowser{
-	background-color:rgba(229,229,234,0.5); 
+	background-color:rgba(229,229,234,0); 
 	border-radius: 6;
 	border: none;
-	padding: 8 4 52 8;
+	padding: 8 4 8 8;
 }
 </string>
     </property>
+    <property name="html">
+     <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
+&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
+p, li { white-space: pre-wrap; }
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'Arial'; font-size:7.8pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;br /&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+    </property>
     <property name="placeholderText">
-     <string>Ход формирования файла </string>
+     <string/>
     </property>
    </widget>
    <widget class="QPushButton" name="btnOne">
     <property name="geometry">
      <rect>
-      <x>917</x>
-      <y>16</y>
+      <x>465</x>
+      <y>396</y>
       <width>61</width>
       <height>51</height>
      </rect>
@@ -151,8 +158,8 @@ QPushButton:pressed{
    <widget class="QPushButton" name="btnForm">
     <property name="geometry">
      <rect>
-      <x>110</x>
-      <y>100</y>
+      <x>197</x>
+      <y>396</y>
       <width>61</width>
       <height>51</height>
      </rect>
@@ -193,8 +200,8 @@ QPushButton:pressed{
    <widget class="QPushButton" name="btnRP5">
     <property name="geometry">
      <rect>
-      <x>20</x>
-      <y>100</y>
+      <x>375</x>
+      <y>396</y>
       <width>61</width>
       <height>51</height>
      </rect>
@@ -235,8 +242,8 @@ QPushButton:pressed{
    <widget class="QPushButton" name="btnDrawScheme">
     <property name="geometry">
      <rect>
-      <x>917</x>
-      <y>100</y>
+      <x>555</x>
+      <y>396</y>
       <width>61</width>
       <height>51</height>
      </rect>
@@ -277,8 +284,8 @@ QPushButton:pressed{
    <widget class="QPushButton" name="btnDrawSchemeTwo">
     <property name="geometry">
      <rect>
-      <x>917</x>
-      <y>183</y>
+      <x>645</x>
+      <y>396</y>
       <width>61</width>
       <height>51</height>
      </rect>
@@ -289,91 +296,6 @@ QPushButton:pressed{
       <pointsize>9</pointsize>
       <weight>75</weight>
       <bold>true</bold>
-     </font>
-    </property>
-    <property name="cursor">
-     <cursorShape>PointingHandCursor</cursorShape>
-    </property>
-    <property name="styleSheet">
-     <string notr="true">QPushButton{
-	/*background-color: #196dff;*/
-	background-color:rgba(112, 215, 255, 0);
-	color: white;
-	border: none;
-	border-radius: 12;
-	border-style: outset;
-}
-QPushButton:hover{
-	border-bottom: 3px solid white;
-	border-radius: 3; 
-}
-QPushButton:pressed{
-	border-bottom: 0px solid white;
-	border-radius: 3;
-}</string>
-    </property>
-    <property name="text">
-     <string/>
-    </property>
-   </widget>
-   <widget class="QPushButton" name="btnSchemes">
-    <property name="geometry">
-     <rect>
-      <x>110</x>
-      <y>16</y>
-      <width>61</width>
-      <height>51</height>
-     </rect>
-    </property>
-    <property name="font">
-     <font>
-      <family>Arial</family>
-      <pointsize>9</pointsize>
-      <weight>75</weight>
-      <bold>true</bold>
-     </font>
-    </property>
-    <property name="cursor">
-     <cursorShape>PointingHandCursor</cursorShape>
-    </property>
-    <property name="styleSheet">
-     <string notr="true">QPushButton{
-	/*background-color: #196dff;*/
-	background-color:rgba(112, 215, 255, 0);
-	color: white;
-	border: none;
-	border-radius: 12;
-	border-style: outset;
-}
-QPushButton:hover{
-	border-bottom: 3px solid white;
-	border-radius: 3; 
-}
-QPushButton:pressed{
-	border-bottom: 0px solid white;
-	border-radius: 3;
-}</string>
-    </property>
-    <property name="text">
-     <string/>
-    </property>
-   </widget>
-   <widget class="QPushButton" name="btnDevice">
-    <property name="geometry">
-     <rect>
-      <x>22</x>
-      <y>16</y>
-      <width>61</width>
-      <height>51</height>
-     </rect>
-    </property>
-    <property name="font">
-     <font>
-      <family>Arial</family>
-      <pointsize>9</pointsize>
-      <weight>75</weight>
-      <bold>true</bold>
-      <kerning>true</kerning>
      </font>
     </property>
     <property name="cursor">
@@ -404,8 +326,8 @@ QPushButton:pressed{
    <widget class="QPushButton" name="btnLoadScheme2">
     <property name="geometry">
      <rect>
-      <x>971</x>
-      <y>200</y>
+      <x>699</x>
+      <y>413</y>
       <width>31</width>
       <height>20</height>
      </rect>
@@ -441,8 +363,8 @@ QPushButton:hover{
    <widget class="QPushButton" name="btnLoadScheme1">
     <property name="geometry">
      <rect>
-      <x>971</x>
-      <y>118</y>
+      <x>609</x>
+      <y>414</y>
       <width>31</width>
       <height>20</height>
      </rect>
@@ -478,8 +400,8 @@ QPushButton:hover{
    <widget class="QPushButton" name="btnOpenPDF">
     <property name="geometry">
      <rect>
-      <x>97</x>
-      <y>329</y>
+      <x>942</x>
+      <y>408</y>
       <width>71</width>
       <height>31</height>
      </rect>
@@ -520,8 +442,8 @@ QPushButton:hover{
    <widget class="QPushButton" name="btnDelPvsystData">
     <property name="geometry">
      <rect>
-      <x>971</x>
-      <y>25</y>
+      <x>519</x>
+      <y>405</y>
       <width>31</width>
       <height>31</height>
      </rect>
@@ -549,9 +471,8 @@ QPushButton:hover{
 	border-style: outset;
 }
 QPushButton:hover{
-	color:rgba(0, 20, 240, 0.93) ;
-}
-</string>
+	color:rgba(255, 20, 20, 1) ;
+}</string>
     </property>
     <property name="text">
      <string>🞫</string>
@@ -560,8 +481,8 @@ QPushButton:hover{
    <widget class="QPushButton" name="btnDelSchemeTwoData">
     <property name="geometry">
      <rect>
-      <x>971</x>
-      <y>185</y>
+      <x>699</x>
+      <y>398</y>
       <width>31</width>
       <height>21</height>
      </rect>
@@ -589,7 +510,7 @@ QPushButton:hover{
 	border-style: outset;
 }
 QPushButton:hover{
-	color:rgba(0, 20, 240, 0.93) ;
+	color:rgba(255, 20, 20, 1) ;
 }
 </string>
     </property>
@@ -600,8 +521,8 @@ QPushButton:hover{
    <widget class="QPushButton" name="btnDelSchemeOneData">
     <property name="geometry">
      <rect>
-      <x>971</x>
-      <y>103</y>
+      <x>609</x>
+      <y>399</y>
       <width>31</width>
       <height>20</height>
      </rect>
@@ -629,70 +550,19 @@ QPushButton:hover{
 	border-style: outset;
 }
 QPushButton:hover{
-	color:rgba(0, 20, 240, 0.93) ;
-}
-</string>
+	color:rgba(255, 20, 20, 1) ;
+}</string>
     </property>
     <property name="text">
      <string>🞫</string>
     </property>
    </widget>
-   <widget class="QLabel" name="label_7">
-    <property name="geometry">
-     <rect>
-      <x>29</x>
-      <y>70</y>
-      <width>101</width>
-      <height>16</height>
-     </rect>
-    </property>
-    <property name="font">
-     <font>
-      <family>Arial</family>
-      <pointsize>8</pointsize>
-      <weight>75</weight>
-      <bold>true</bold>
-     </font>
-    </property>
-    <property name="styleSheet">
-     <string notr="true">background-color: rgba(255,255,255,0);
-color:rgba(0, 0, 0, 0.5); </string>
-    </property>
-    <property name="text">
-     <string>Файлы</string>
-    </property>
-   </widget>
-   <widget class="QLabel" name="label_8">
-    <property name="geometry">
-     <rect>
-      <x>120</x>
-      <y>70</y>
-      <width>101</width>
-      <height>16</height>
-     </rect>
-    </property>
-    <property name="font">
-     <font>
-      <family>Arial</family>
-      <pointsize>8</pointsize>
-      <weight>75</weight>
-      <bold>true</bold>
-     </font>
-    </property>
-    <property name="styleSheet">
-     <string notr="true">background-color: rgba(255,255,255,0);
-color:rgba(0, 0, 0, 0.5); </string>
-    </property>
-    <property name="text">
-     <string>Схемы</string>
-    </property>
-   </widget>
    <widget class="QLabel" name="label_9">
     <property name="geometry">
      <rect>
-      <x>27</x>
-      <y>153</y>
-      <width>101</width>
+      <x>382</x>
+      <y>450</y>
+      <width>61</width>
       <height>16</height>
      </rect>
     </property>
@@ -715,9 +585,9 @@ color:rgba(0, 0, 0, 0.5); </string>
    <widget class="QLabel" name="label_10">
     <property name="geometry">
      <rect>
-      <x>115</x>
-      <y>154</y>
-      <width>101</width>
+      <x>201</x>
+      <y>450</y>
+      <width>70</width>
       <height>16</height>
      </rect>
     </property>
@@ -740,8 +610,8 @@ color:rgba(0, 0, 0, 0.5); </string>
    <widget class="QLabel" name="labelLoading">
     <property name="geometry">
      <rect>
-      <x>70</x>
-      <y>270</y>
+      <x>57</x>
+      <y>390</y>
       <width>91</width>
       <height>71</height>
      </rect>
@@ -759,8 +629,8 @@ color:rgba(0, 0, 0, 0.5); </string>
    <widget class="QLabel" name="label_11">
     <property name="geometry">
      <rect>
-      <x>917</x>
-      <y>71</y>
+      <x>465</x>
+      <y>450</y>
       <width>61</width>
       <height>16</height>
      </rect>
@@ -787,8 +657,8 @@ color:rgba(0, 0, 0, 0.5); </string>
    <widget class="QLabel" name="label_12">
     <property name="geometry">
      <rect>
-      <x>917</x>
-      <y>155</y>
+      <x>555</x>
+      <y>450</y>
       <width>61</width>
       <height>16</height>
      </rect>
@@ -815,8 +685,8 @@ color:rgba(0, 0, 0, 0.5);</string>
    <widget class="QLabel" name="label_13">
     <property name="geometry">
      <rect>
-      <x>917</x>
-      <y>239</y>
+      <x>645</x>
+      <y>450</y>
       <width>61</width>
       <height>16</height>
      </rect>
@@ -843,8 +713,8 @@ color:rgba(0, 0, 0, 0.5);</string>
    <widget class="QPushButton" name="btnCalcPV">
     <property name="geometry">
      <rect>
-      <x>917</x>
-      <y>264</y>
+      <x>285</x>
+      <y>396</y>
       <width>61</width>
       <height>51</height>
      </rect>
@@ -885,8 +755,8 @@ QPushButton:pressed{
    <widget class="QLabel" name="label_14">
     <property name="geometry">
      <rect>
-      <x>917</x>
-      <y>320</y>
+      <x>285</x>
+      <y>450</y>
       <width>61</width>
       <height>16</height>
      </rect>
@@ -913,8 +783,8 @@ color:rgba(0, 0, 0, 0.5);</string>
    <widget class="QPushButton" name="btnAbout">
     <property name="geometry">
      <rect>
-      <x>84</x>
-      <y>320</y>
+      <x>80</x>
+      <y>0</y>
       <width>51</width>
       <height>41</height>
      </rect>
@@ -955,8 +825,8 @@ QPushButton:pressed{
    <widget class="QPushButton" name="btnInfo">
     <property name="geometry">
      <rect>
-      <x>20</x>
-      <y>320</y>
+      <x>16</x>
+      <y>0</y>
       <width>51</width>
       <height>41</height>
      </rect>
@@ -997,8 +867,8 @@ QPushButton:pressed{
    <widget class="QPushButton" name="btnWifi">
     <property name="geometry">
      <rect>
-      <x>170</x>
-      <y>320</y>
+      <x>166</x>
+      <y>0</y>
       <width>61</width>
       <height>51</height>
      </rect>
@@ -1042,8 +912,8 @@ QPushButton:pressed{
    <widget class="QPushButton" name="btnDrawStructuralScheme">
     <property name="geometry">
      <rect>
-      <x>922</x>
-      <y>348</y>
+      <x>733</x>
+      <y>396</y>
       <width>61</width>
       <height>51</height>
      </rect>
@@ -1061,29 +931,31 @@ QPushButton:pressed{
     </property>
     <property name="styleSheet">
      <string notr="true">QPushButton{
-	background-color: rgba(229,229,234,1);
-	color: #196dff;
+	/*background-color: #196dff;*/
+	background-color:rgba(112, 215, 255, 0);
+	color: white;
 	border: none;
 	border-radius: 12;
 	border-style: outset;
 }
 QPushButton:hover{
-	background-color: #dceaff; 
+	border-bottom: 3px solid white;
+	border-radius: 3; 
 }
 QPushButton:pressed{
-	color: rgba(25, 109, 255, 0.7); 
-	border-radius: 12;
+	border-bottom: 0px solid white;
+	border-radius: 3;
 }</string>
     </property>
     <property name="text">
-     <string>СС</string>
+     <string/>
     </property>
    </widget>
    <widget class="QLabel" name="label_15">
     <property name="geometry">
      <rect>
-      <x>910</x>
-      <y>402</y>
+      <x>721</x>
+      <y>450</y>
       <width>91</width>
       <height>20</height>
      </rect>
@@ -2247,15 +2119,15 @@ QLineEdit:pressed{
       <property name="geometry">
        <rect>
         <x>17</x>
-        <y>240</y>
+        <y>237</y>
         <width>41</width>
-        <height>31</height>
+        <height>41</height>
        </rect>
       </property>
       <property name="font">
        <font>
         <family>Arial</family>
-        <pointsize>13</pointsize>
+        <pointsize>15</pointsize>
         <weight>50</weight>
         <bold>false</bold>
        </font>
@@ -2268,19 +2140,24 @@ QLineEdit:pressed{
       </property>
       <property name="styleSheet">
        <string notr="true">QPushButton{
+	/*background-color: #196dff;*/
 	background-color:rgba(112, 215, 255, 0);
-	color:  #3b83ff;
+	color: black;
 	border: none;
-	border-radius: 5;
+	border-radius: 12;
 	border-style: outset;
 }
 QPushButton:hover{
-	color:rgba(0, 20, 240, 0.93) ;
+	border-bottom: 3px solid white;
+	border-radius: 3; 
 }
-</string>
+QPushButton:pressed{
+	border-bottom: 0px solid white;
+	border-radius: 3;
+}</string>
       </property>
       <property name="text">
-       <string>🌍</string>
+       <string>📍</string>
       </property>
      </widget>
      <widget class="QLineEdit" name="inputTitleProject">
@@ -3822,20 +3699,202 @@ QPushButton:hover{
      </widget>
     </widget>
    </widget>
+   <widget class="QPushButton" name="btnLoadStructScheme">
+    <property name="geometry">
+     <rect>
+      <x>787</x>
+      <y>413</y>
+      <width>31</width>
+      <height>20</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Arial</family>
+      <pointsize>9</pointsize>
+      <weight>75</weight>
+      <bold>true</bold>
+     </font>
+    </property>
+    <property name="cursor">
+     <cursorShape>PointingHandCursor</cursorShape>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QPushButton{
+	background-color:rgba(112, 215, 255, 0);
+	color:  #3b83ff;
+	border: none;
+	border-radius: 5;
+	border-style: outset;
+}
+QPushButton:hover{
+	color:rgba(0, 20, 240, 0.93) ;
+}
+</string>
+    </property>
+    <property name="text">
+     <string>▼</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="btnDelStructScheme">
+    <property name="geometry">
+     <rect>
+      <x>787</x>
+      <y>398</y>
+      <width>31</width>
+      <height>21</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Arial</family>
+      <pointsize>11</pointsize>
+      <weight>75</weight>
+      <bold>true</bold>
+     </font>
+    </property>
+    <property name="cursor">
+     <cursorShape>PointingHandCursor</cursorShape>
+    </property>
+    <property name="toolTip">
+     <string>Удалить</string>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QPushButton{
+	background-color:rgba(112, 215, 255, 0);
+	color:  #3b83ff;
+	border: none;
+	border-radius: 5;
+	border-style: outset;
+}
+QPushButton:hover{
+	color:rgba(255, 20, 20, 1) ;
+}</string>
+    </property>
+    <property name="text">
+     <string>🞫</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="btnDelPlaneSet">
+    <property name="geometry">
+     <rect>
+      <x>877</x>
+      <y>405</y>
+      <width>31</width>
+      <height>21</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Arial</family>
+      <pointsize>11</pointsize>
+      <weight>75</weight>
+      <bold>true</bold>
+     </font>
+    </property>
+    <property name="cursor">
+     <cursorShape>PointingHandCursor</cursorShape>
+    </property>
+    <property name="toolTip">
+     <string>Удалить</string>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QPushButton{
+	background-color:rgba(112, 215, 255, 0);
+	color:  #3b83ff;
+	border: none;
+	border-radius: 5;
+	border-style: outset;
+}
+QPushButton:hover{
+	color:rgba(255, 20, 20, 1) ;
+}</string>
+    </property>
+    <property name="text">
+     <string>🞫</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="btnLoadPlaneSet">
+    <property name="geometry">
+     <rect>
+      <x>823</x>
+      <y>396</y>
+      <width>61</width>
+      <height>51</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Arial</family>
+      <pointsize>9</pointsize>
+      <weight>75</weight>
+      <bold>true</bold>
+     </font>
+    </property>
+    <property name="cursor">
+     <cursorShape>PointingHandCursor</cursorShape>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QPushButton{
+	/*background-color: #196dff;*/
+	background-color:rgba(112, 215, 255, 0);
+	color: white;
+	border: none;
+	border-radius: 12;
+	border-style: outset;
+}
+QPushButton:hover{
+	border-bottom: 3px solid white;
+	border-radius: 3; 
+}
+QPushButton:pressed{
+	border-bottom: 0px solid white;
+	border-radius: 3;
+}</string>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_21">
+    <property name="geometry">
+     <rect>
+      <x>807</x>
+      <y>450</y>
+      <width>91</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Arial</family>
+      <pointsize>8</pointsize>
+      <weight>75</weight>
+      <bold>true</bold>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color: rgba(255,255,255,0); 
+color:rgba(0, 0, 0, 0.5);</string>
+    </property>
+    <property name="text">
+     <string>План
+ размещения</string>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignCenter</set>
+    </property>
+   </widget>
    <zorder>label_10</zorder>
    <zorder>btnOpenPDF</zorder>
    <zorder>textConsole</zorder>
    <zorder>labelLoading</zorder>
    <zorder>label_9</zorder>
    <zorder>btnDrawSchemeTwo</zorder>
-   <zorder>label_8</zorder>
-   <zorder>label_7</zorder>
    <zorder>btnDrawScheme</zorder>
    <zorder>btnOne</zorder>
    <zorder>btnForm</zorder>
-   <zorder>btnDevice</zorder>
    <zorder>btnRP5</zorder>
-   <zorder>btnSchemes</zorder>
    <zorder>btnLoadScheme2</zorder>
    <zorder>btnLoadScheme1</zorder>
    <zorder>btnDelPvsystData</zorder>
@@ -3852,6 +3911,11 @@ QPushButton:hover{
    <zorder>btnDrawStructuralScheme</zorder>
    <zorder>label_15</zorder>
    <zorder>tabWidget</zorder>
+   <zorder>btnLoadStructScheme</zorder>
+   <zorder>btnDelStructScheme</zorder>
+   <zorder>btnDelPlaneSet</zorder>
+   <zorder>btnLoadPlaneSet</zorder>
+   <zorder>label_21</zorder>
   </widget>
   <widget class="QStatusBar" name="statusBar"/>
  </widget>

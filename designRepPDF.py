@@ -15,7 +15,7 @@ class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
         MainWindow.setEnabled(True)
-        MainWindow.resize(1179, 800)
+        MainWindow.resize(1194, 666)
         font = QtGui.QFont()
         font.setFamily("Arial")
         font.setBold(False)
@@ -69,20 +69,21 @@ class Ui_MainWindow(object):
         self.centralwidget.setObjectName("centralwidget")
         self.textConsole = QtWidgets.QTextBrowser(self.centralwidget)
         self.textConsole.setEnabled(True)
-        self.textConsole.setGeometry(QtCore.QRect(20, 180, 197, 151))
+        self.textConsole.setGeometry(QtCore.QRect(0, 60, 231, 261))
         font = QtGui.QFont()
         font.setFamily("Arial")
         self.textConsole.setFont(font)
         self.textConsole.setStyleSheet("QTextBrowser{\n"
-"    background-color:rgba(229,229,234,0.5); \n"
+"    background-color:rgba(229,229,234,0); \n"
 "    border-radius: 6;\n"
 "    border: none;\n"
-"    padding: 8 4 52 8;\n"
+"    padding: 8 4 8 8;\n"
 "}\n"
 "")
+        self.textConsole.setPlaceholderText("")
         self.textConsole.setObjectName("textConsole")
         self.btnOne = QtWidgets.QPushButton(self.centralwidget)
-        self.btnOne.setGeometry(QtCore.QRect(917, 16, 61, 51))
+        self.btnOne.setGeometry(QtCore.QRect(465, 396, 61, 51))
         font = QtGui.QFont()
         font.setFamily("Arial")
         font.setPointSize(9)
@@ -109,7 +110,7 @@ class Ui_MainWindow(object):
         self.btnOne.setText("")
         self.btnOne.setObjectName("btnOne")
         self.btnForm = QtWidgets.QPushButton(self.centralwidget)
-        self.btnForm.setGeometry(QtCore.QRect(110, 100, 61, 51))
+        self.btnForm.setGeometry(QtCore.QRect(197, 396, 61, 51))
         font = QtGui.QFont()
         font.setFamily("Arial")
         font.setPointSize(9)
@@ -136,7 +137,7 @@ class Ui_MainWindow(object):
         self.btnForm.setText("")
         self.btnForm.setObjectName("btnForm")
         self.btnRP5 = QtWidgets.QPushButton(self.centralwidget)
-        self.btnRP5.setGeometry(QtCore.QRect(20, 100, 61, 51))
+        self.btnRP5.setGeometry(QtCore.QRect(375, 396, 61, 51))
         font = QtGui.QFont()
         font.setFamily("Arial")
         font.setPointSize(9)
@@ -163,7 +164,7 @@ class Ui_MainWindow(object):
         self.btnRP5.setText("")
         self.btnRP5.setObjectName("btnRP5")
         self.btnDrawScheme = QtWidgets.QPushButton(self.centralwidget)
-        self.btnDrawScheme.setGeometry(QtCore.QRect(917, 100, 61, 51))
+        self.btnDrawScheme.setGeometry(QtCore.QRect(555, 396, 61, 51))
         font = QtGui.QFont()
         font.setFamily("Arial")
         font.setPointSize(9)
@@ -190,7 +191,7 @@ class Ui_MainWindow(object):
         self.btnDrawScheme.setText("")
         self.btnDrawScheme.setObjectName("btnDrawScheme")
         self.btnDrawSchemeTwo = QtWidgets.QPushButton(self.centralwidget)
-        self.btnDrawSchemeTwo.setGeometry(QtCore.QRect(917, 183, 61, 51))
+        self.btnDrawSchemeTwo.setGeometry(QtCore.QRect(645, 396, 61, 51))
         font = QtGui.QFont()
         font.setFamily("Arial")
         font.setPointSize(9)
@@ -216,63 +217,8 @@ class Ui_MainWindow(object):
 "}")
         self.btnDrawSchemeTwo.setText("")
         self.btnDrawSchemeTwo.setObjectName("btnDrawSchemeTwo")
-        self.btnSchemes = QtWidgets.QPushButton(self.centralwidget)
-        self.btnSchemes.setGeometry(QtCore.QRect(110, 16, 61, 51))
-        font = QtGui.QFont()
-        font.setFamily("Arial")
-        font.setPointSize(9)
-        font.setBold(True)
-        font.setWeight(75)
-        self.btnSchemes.setFont(font)
-        self.btnSchemes.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
-        self.btnSchemes.setStyleSheet("QPushButton{\n"
-"    /*background-color: #196dff;*/\n"
-"    background-color:rgba(112, 215, 255, 0);\n"
-"    color: white;\n"
-"    border: none;\n"
-"    border-radius: 12;\n"
-"    border-style: outset;\n"
-"}\n"
-"QPushButton:hover{\n"
-"    border-bottom: 3px solid white;\n"
-"    border-radius: 3; \n"
-"}\n"
-"QPushButton:pressed{\n"
-"    border-bottom: 0px solid white;\n"
-"    border-radius: 3;\n"
-"}")
-        self.btnSchemes.setText("")
-        self.btnSchemes.setObjectName("btnSchemes")
-        self.btnDevice = QtWidgets.QPushButton(self.centralwidget)
-        self.btnDevice.setGeometry(QtCore.QRect(22, 16, 61, 51))
-        font = QtGui.QFont()
-        font.setFamily("Arial")
-        font.setPointSize(9)
-        font.setBold(True)
-        font.setWeight(75)
-        font.setKerning(True)
-        self.btnDevice.setFont(font)
-        self.btnDevice.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
-        self.btnDevice.setStyleSheet("QPushButton{\n"
-"    /*background-color: #196dff;*/\n"
-"    background-color:rgba(112, 215, 255, 0);\n"
-"    color: white;\n"
-"    border: none;\n"
-"    border-radius: 12;\n"
-"    border-style: outset;\n"
-"}\n"
-"QPushButton:hover{\n"
-"    border-bottom: 3px solid white;\n"
-"    border-radius: 3; \n"
-"}\n"
-"QPushButton:pressed{\n"
-"    border-bottom: 0px solid white;\n"
-"    border-radius: 3;\n"
-"}")
-        self.btnDevice.setText("")
-        self.btnDevice.setObjectName("btnDevice")
         self.btnLoadScheme2 = QtWidgets.QPushButton(self.centralwidget)
-        self.btnLoadScheme2.setGeometry(QtCore.QRect(971, 200, 31, 20))
+        self.btnLoadScheme2.setGeometry(QtCore.QRect(699, 413, 31, 20))
         font = QtGui.QFont()
         font.setFamily("Arial")
         font.setPointSize(9)
@@ -293,7 +239,7 @@ class Ui_MainWindow(object):
 "")
         self.btnLoadScheme2.setObjectName("btnLoadScheme2")
         self.btnLoadScheme1 = QtWidgets.QPushButton(self.centralwidget)
-        self.btnLoadScheme1.setGeometry(QtCore.QRect(971, 118, 31, 20))
+        self.btnLoadScheme1.setGeometry(QtCore.QRect(609, 414, 31, 20))
         font = QtGui.QFont()
         font.setFamily("Arial")
         font.setPointSize(9)
@@ -314,7 +260,7 @@ class Ui_MainWindow(object):
 "")
         self.btnLoadScheme1.setObjectName("btnLoadScheme1")
         self.btnOpenPDF = QtWidgets.QPushButton(self.centralwidget)
-        self.btnOpenPDF.setGeometry(QtCore.QRect(97, 329, 71, 31))
+        self.btnOpenPDF.setGeometry(QtCore.QRect(942, 408, 71, 31))
         font = QtGui.QFont()
         font.setFamily("Arial")
         font.setPointSize(9)
@@ -340,7 +286,7 @@ class Ui_MainWindow(object):
 "")
         self.btnOpenPDF.setObjectName("btnOpenPDF")
         self.btnDelPvsystData = QtWidgets.QPushButton(self.centralwidget)
-        self.btnDelPvsystData.setGeometry(QtCore.QRect(971, 25, 31, 31))
+        self.btnDelPvsystData.setGeometry(QtCore.QRect(519, 405, 31, 31))
         font = QtGui.QFont()
         font.setFamily("Arial")
         font.setPointSize(11)
@@ -356,12 +302,11 @@ class Ui_MainWindow(object):
 "    border-style: outset;\n"
 "}\n"
 "QPushButton:hover{\n"
-"    color:rgba(0, 20, 240, 0.93) ;\n"
-"}\n"
-"")
+"    color:rgba(255, 20, 20, 1) ;\n"
+"}")
         self.btnDelPvsystData.setObjectName("btnDelPvsystData")
         self.btnDelSchemeTwoData = QtWidgets.QPushButton(self.centralwidget)
-        self.btnDelSchemeTwoData.setGeometry(QtCore.QRect(971, 185, 31, 21))
+        self.btnDelSchemeTwoData.setGeometry(QtCore.QRect(699, 398, 31, 21))
         font = QtGui.QFont()
         font.setFamily("Arial")
         font.setPointSize(11)
@@ -377,12 +322,12 @@ class Ui_MainWindow(object):
 "    border-style: outset;\n"
 "}\n"
 "QPushButton:hover{\n"
-"    color:rgba(0, 20, 240, 0.93) ;\n"
+"    color:rgba(255, 20, 20, 1) ;\n"
 "}\n"
 "")
         self.btnDelSchemeTwoData.setObjectName("btnDelSchemeTwoData")
         self.btnDelSchemeOneData = QtWidgets.QPushButton(self.centralwidget)
-        self.btnDelSchemeOneData.setGeometry(QtCore.QRect(971, 103, 31, 20))
+        self.btnDelSchemeOneData.setGeometry(QtCore.QRect(609, 399, 31, 20))
         font = QtGui.QFont()
         font.setFamily("Arial")
         font.setPointSize(11)
@@ -398,34 +343,11 @@ class Ui_MainWindow(object):
 "    border-style: outset;\n"
 "}\n"
 "QPushButton:hover{\n"
-"    color:rgba(0, 20, 240, 0.93) ;\n"
-"}\n"
-"")
+"    color:rgba(255, 20, 20, 1) ;\n"
+"}")
         self.btnDelSchemeOneData.setObjectName("btnDelSchemeOneData")
-        self.label_7 = QtWidgets.QLabel(self.centralwidget)
-        self.label_7.setGeometry(QtCore.QRect(29, 70, 101, 16))
-        font = QtGui.QFont()
-        font.setFamily("Arial")
-        font.setPointSize(8)
-        font.setBold(True)
-        font.setWeight(75)
-        self.label_7.setFont(font)
-        self.label_7.setStyleSheet("background-color: rgba(255,255,255,0);\n"
-"color:rgba(0, 0, 0, 0.5); ")
-        self.label_7.setObjectName("label_7")
-        self.label_8 = QtWidgets.QLabel(self.centralwidget)
-        self.label_8.setGeometry(QtCore.QRect(120, 70, 101, 16))
-        font = QtGui.QFont()
-        font.setFamily("Arial")
-        font.setPointSize(8)
-        font.setBold(True)
-        font.setWeight(75)
-        self.label_8.setFont(font)
-        self.label_8.setStyleSheet("background-color: rgba(255,255,255,0);\n"
-"color:rgba(0, 0, 0, 0.5); ")
-        self.label_8.setObjectName("label_8")
         self.label_9 = QtWidgets.QLabel(self.centralwidget)
-        self.label_9.setGeometry(QtCore.QRect(27, 153, 101, 16))
+        self.label_9.setGeometry(QtCore.QRect(382, 450, 61, 16))
         font = QtGui.QFont()
         font.setFamily("Arial")
         font.setPointSize(8)
@@ -436,7 +358,7 @@ class Ui_MainWindow(object):
 "color:rgba(0, 0, 0, 0.5); ")
         self.label_9.setObjectName("label_9")
         self.label_10 = QtWidgets.QLabel(self.centralwidget)
-        self.label_10.setGeometry(QtCore.QRect(115, 154, 101, 16))
+        self.label_10.setGeometry(QtCore.QRect(201, 450, 70, 16))
         font = QtGui.QFont()
         font.setFamily("Arial")
         font.setPointSize(8)
@@ -447,12 +369,12 @@ class Ui_MainWindow(object):
 "color:rgba(0, 0, 0, 0.5); ")
         self.label_10.setObjectName("label_10")
         self.labelLoading = QtWidgets.QLabel(self.centralwidget)
-        self.labelLoading.setGeometry(QtCore.QRect(70, 270, 91, 71))
+        self.labelLoading.setGeometry(QtCore.QRect(57, 390, 91, 71))
         self.labelLoading.setStyleSheet("background-color:rgba(112, 215, 255, 0);")
         self.labelLoading.setAlignment(QtCore.Qt.AlignCenter)
         self.labelLoading.setObjectName("labelLoading")
         self.label_11 = QtWidgets.QLabel(self.centralwidget)
-        self.label_11.setGeometry(QtCore.QRect(917, 71, 61, 16))
+        self.label_11.setGeometry(QtCore.QRect(465, 450, 61, 16))
         font = QtGui.QFont()
         font.setFamily("Arial")
         font.setPointSize(8)
@@ -464,7 +386,7 @@ class Ui_MainWindow(object):
         self.label_11.setAlignment(QtCore.Qt.AlignCenter)
         self.label_11.setObjectName("label_11")
         self.label_12 = QtWidgets.QLabel(self.centralwidget)
-        self.label_12.setGeometry(QtCore.QRect(917, 155, 61, 16))
+        self.label_12.setGeometry(QtCore.QRect(555, 450, 61, 16))
         font = QtGui.QFont()
         font.setFamily("Arial")
         font.setPointSize(8)
@@ -476,7 +398,7 @@ class Ui_MainWindow(object):
         self.label_12.setAlignment(QtCore.Qt.AlignCenter)
         self.label_12.setObjectName("label_12")
         self.label_13 = QtWidgets.QLabel(self.centralwidget)
-        self.label_13.setGeometry(QtCore.QRect(917, 239, 61, 16))
+        self.label_13.setGeometry(QtCore.QRect(645, 450, 61, 16))
         font = QtGui.QFont()
         font.setFamily("Arial")
         font.setPointSize(8)
@@ -488,7 +410,7 @@ class Ui_MainWindow(object):
         self.label_13.setAlignment(QtCore.Qt.AlignCenter)
         self.label_13.setObjectName("label_13")
         self.btnCalcPV = QtWidgets.QPushButton(self.centralwidget)
-        self.btnCalcPV.setGeometry(QtCore.QRect(917, 264, 61, 51))
+        self.btnCalcPV.setGeometry(QtCore.QRect(285, 396, 61, 51))
         font = QtGui.QFont()
         font.setFamily("Arial")
         font.setPointSize(9)
@@ -515,7 +437,7 @@ class Ui_MainWindow(object):
         self.btnCalcPV.setText("")
         self.btnCalcPV.setObjectName("btnCalcPV")
         self.label_14 = QtWidgets.QLabel(self.centralwidget)
-        self.label_14.setGeometry(QtCore.QRect(917, 320, 61, 16))
+        self.label_14.setGeometry(QtCore.QRect(285, 450, 61, 16))
         font = QtGui.QFont()
         font.setFamily("Arial")
         font.setPointSize(8)
@@ -527,7 +449,7 @@ class Ui_MainWindow(object):
         self.label_14.setAlignment(QtCore.Qt.AlignCenter)
         self.label_14.setObjectName("label_14")
         self.btnAbout = QtWidgets.QPushButton(self.centralwidget)
-        self.btnAbout.setGeometry(QtCore.QRect(84, 320, 51, 41))
+        self.btnAbout.setGeometry(QtCore.QRect(80, 0, 51, 41))
         font = QtGui.QFont()
         font.setFamily("Arial")
         font.setPointSize(9)
@@ -554,7 +476,7 @@ class Ui_MainWindow(object):
         self.btnAbout.setText("")
         self.btnAbout.setObjectName("btnAbout")
         self.btnInfo = QtWidgets.QPushButton(self.centralwidget)
-        self.btnInfo.setGeometry(QtCore.QRect(20, 320, 51, 41))
+        self.btnInfo.setGeometry(QtCore.QRect(16, 0, 51, 41))
         font = QtGui.QFont()
         font.setFamily("Arial")
         font.setPointSize(9)
@@ -581,7 +503,7 @@ class Ui_MainWindow(object):
         self.btnInfo.setText("")
         self.btnInfo.setObjectName("btnInfo")
         self.btnWifi = QtWidgets.QPushButton(self.centralwidget)
-        self.btnWifi.setGeometry(QtCore.QRect(170, 320, 61, 51))
+        self.btnWifi.setGeometry(QtCore.QRect(166, 0, 61, 51))
         font = QtGui.QFont()
         font.setFamily("Arial")
         font.setPointSize(9)
@@ -608,7 +530,7 @@ class Ui_MainWindow(object):
         self.btnWifi.setText("")
         self.btnWifi.setObjectName("btnWifi")
         self.btnDrawStructuralScheme = QtWidgets.QPushButton(self.centralwidget)
-        self.btnDrawStructuralScheme.setGeometry(QtCore.QRect(922, 348, 61, 51))
+        self.btnDrawStructuralScheme.setGeometry(QtCore.QRect(733, 396, 61, 51))
         font = QtGui.QFont()
         font.setFamily("Arial")
         font.setPointSize(9)
@@ -617,22 +539,25 @@ class Ui_MainWindow(object):
         self.btnDrawStructuralScheme.setFont(font)
         self.btnDrawStructuralScheme.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
         self.btnDrawStructuralScheme.setStyleSheet("QPushButton{\n"
-"    background-color: rgba(229,229,234,1);\n"
-"    color: #196dff;\n"
+"    /*background-color: #196dff;*/\n"
+"    background-color:rgba(112, 215, 255, 0);\n"
+"    color: white;\n"
 "    border: none;\n"
 "    border-radius: 12;\n"
 "    border-style: outset;\n"
 "}\n"
 "QPushButton:hover{\n"
-"    background-color: #dceaff; \n"
+"    border-bottom: 3px solid white;\n"
+"    border-radius: 3; \n"
 "}\n"
 "QPushButton:pressed{\n"
-"    color: rgba(25, 109, 255, 0.7); \n"
-"    border-radius: 12;\n"
+"    border-bottom: 0px solid white;\n"
+"    border-radius: 3;\n"
 "}")
+        self.btnDrawStructuralScheme.setText("")
         self.btnDrawStructuralScheme.setObjectName("btnDrawStructuralScheme")
         self.label_15 = QtWidgets.QLabel(self.centralwidget)
-        self.label_15.setGeometry(QtCore.QRect(910, 402, 91, 20))
+        self.label_15.setGeometry(QtCore.QRect(721, 450, 91, 20))
         font = QtGui.QFont()
         font.setFamily("Arial")
         font.setPointSize(8)
@@ -1305,25 +1230,30 @@ class Ui_MainWindow(object):
         self.inputAddressLong.setPlaceholderText("")
         self.inputAddressLong.setObjectName("inputAddressLong")
         self.btnSearchCoordinates = QtWidgets.QPushButton(self.tab_8)
-        self.btnSearchCoordinates.setGeometry(QtCore.QRect(17, 240, 41, 31))
+        self.btnSearchCoordinates.setGeometry(QtCore.QRect(17, 237, 41, 41))
         font = QtGui.QFont()
         font.setFamily("Arial")
-        font.setPointSize(13)
+        font.setPointSize(15)
         font.setBold(False)
         font.setWeight(50)
         self.btnSearchCoordinates.setFont(font)
         self.btnSearchCoordinates.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
         self.btnSearchCoordinates.setStyleSheet("QPushButton{\n"
+"    /*background-color: #196dff;*/\n"
 "    background-color:rgba(112, 215, 255, 0);\n"
-"    color:  #3b83ff;\n"
+"    color: black;\n"
 "    border: none;\n"
-"    border-radius: 5;\n"
+"    border-radius: 12;\n"
 "    border-style: outset;\n"
 "}\n"
 "QPushButton:hover{\n"
-"    color:rgba(0, 20, 240, 0.93) ;\n"
+"    border-bottom: 3px solid white;\n"
+"    border-radius: 3; \n"
 "}\n"
-"")
+"QPushButton:pressed{\n"
+"    border-bottom: 0px solid white;\n"
+"    border-radius: 3;\n"
+"}")
         self.btnSearchCoordinates.setObjectName("btnSearchCoordinates")
         self.inputTitleProject = QtWidgets.QLineEdit(self.tab_8)
         self.inputTitleProject.setGeometry(QtCore.QRect(60, 20, 325, 41))
@@ -1989,20 +1919,116 @@ class Ui_MainWindow(object):
         self.label_30.setScaledContents(False)
         self.label_30.setObjectName("label_30")
         self.tabWidget.addTab(self.tab_2, "")
+        self.btnLoadStructScheme = QtWidgets.QPushButton(self.centralwidget)
+        self.btnLoadStructScheme.setGeometry(QtCore.QRect(787, 413, 31, 20))
+        font = QtGui.QFont()
+        font.setFamily("Arial")
+        font.setPointSize(9)
+        font.setBold(True)
+        font.setWeight(75)
+        self.btnLoadStructScheme.setFont(font)
+        self.btnLoadStructScheme.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
+        self.btnLoadStructScheme.setStyleSheet("QPushButton{\n"
+"    background-color:rgba(112, 215, 255, 0);\n"
+"    color:  #3b83ff;\n"
+"    border: none;\n"
+"    border-radius: 5;\n"
+"    border-style: outset;\n"
+"}\n"
+"QPushButton:hover{\n"
+"    color:rgba(0, 20, 240, 0.93) ;\n"
+"}\n"
+"")
+        self.btnLoadStructScheme.setObjectName("btnLoadStructScheme")
+        self.btnDelStructScheme = QtWidgets.QPushButton(self.centralwidget)
+        self.btnDelStructScheme.setGeometry(QtCore.QRect(787, 398, 31, 21))
+        font = QtGui.QFont()
+        font.setFamily("Arial")
+        font.setPointSize(11)
+        font.setBold(True)
+        font.setWeight(75)
+        self.btnDelStructScheme.setFont(font)
+        self.btnDelStructScheme.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
+        self.btnDelStructScheme.setStyleSheet("QPushButton{\n"
+"    background-color:rgba(112, 215, 255, 0);\n"
+"    color:  #3b83ff;\n"
+"    border: none;\n"
+"    border-radius: 5;\n"
+"    border-style: outset;\n"
+"}\n"
+"QPushButton:hover{\n"
+"    color:rgba(255, 20, 20, 1) ;\n"
+"}")
+        self.btnDelStructScheme.setObjectName("btnDelStructScheme")
+        self.btnDelPlaneSet = QtWidgets.QPushButton(self.centralwidget)
+        self.btnDelPlaneSet.setGeometry(QtCore.QRect(877, 405, 31, 21))
+        font = QtGui.QFont()
+        font.setFamily("Arial")
+        font.setPointSize(11)
+        font.setBold(True)
+        font.setWeight(75)
+        self.btnDelPlaneSet.setFont(font)
+        self.btnDelPlaneSet.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
+        self.btnDelPlaneSet.setStyleSheet("QPushButton{\n"
+"    background-color:rgba(112, 215, 255, 0);\n"
+"    color:  #3b83ff;\n"
+"    border: none;\n"
+"    border-radius: 5;\n"
+"    border-style: outset;\n"
+"}\n"
+"QPushButton:hover{\n"
+"    color:rgba(255, 20, 20, 1) ;\n"
+"}")
+        self.btnDelPlaneSet.setObjectName("btnDelPlaneSet")
+        self.btnLoadPlaneSet = QtWidgets.QPushButton(self.centralwidget)
+        self.btnLoadPlaneSet.setGeometry(QtCore.QRect(823, 396, 61, 51))
+        font = QtGui.QFont()
+        font.setFamily("Arial")
+        font.setPointSize(9)
+        font.setBold(True)
+        font.setWeight(75)
+        self.btnLoadPlaneSet.setFont(font)
+        self.btnLoadPlaneSet.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
+        self.btnLoadPlaneSet.setStyleSheet("QPushButton{\n"
+"    /*background-color: #196dff;*/\n"
+"    background-color:rgba(112, 215, 255, 0);\n"
+"    color: white;\n"
+"    border: none;\n"
+"    border-radius: 12;\n"
+"    border-style: outset;\n"
+"}\n"
+"QPushButton:hover{\n"
+"    border-bottom: 3px solid white;\n"
+"    border-radius: 3; \n"
+"}\n"
+"QPushButton:pressed{\n"
+"    border-bottom: 0px solid white;\n"
+"    border-radius: 3;\n"
+"}")
+        self.btnLoadPlaneSet.setText("")
+        self.btnLoadPlaneSet.setObjectName("btnLoadPlaneSet")
+        self.label_21 = QtWidgets.QLabel(self.centralwidget)
+        self.label_21.setGeometry(QtCore.QRect(807, 450, 91, 31))
+        font = QtGui.QFont()
+        font.setFamily("Arial")
+        font.setPointSize(8)
+        font.setBold(True)
+        font.setWeight(75)
+        self.label_21.setFont(font)
+        self.label_21.setStyleSheet("background-color: rgba(255,255,255,0); \n"
+"color:rgba(0, 0, 0, 0.5);")
+        self.label_21.setAlignment(QtCore.Qt.AlignCenter)
+        self.label_21.setObjectName("label_21")
         self.label_10.raise_()
         self.btnOpenPDF.raise_()
         self.textConsole.raise_()
         self.labelLoading.raise_()
         self.label_9.raise_()
         self.btnDrawSchemeTwo.raise_()
-        self.label_8.raise_()
-        self.label_7.raise_()
         self.btnDrawScheme.raise_()
         self.btnOne.raise_()
         self.btnForm.raise_()
-        self.btnDevice.raise_()
         self.btnRP5.raise_()
-        self.btnSchemes.raise_()
         self.btnLoadScheme2.raise_()
         self.btnLoadScheme1.raise_()
         self.btnDelPvsystData.raise_()
@@ -2019,6 +2045,11 @@ class Ui_MainWindow(object):
         self.btnDrawStructuralScheme.raise_()
         self.label_15.raise_()
         self.tabWidget.raise_()
+        self.btnLoadStructScheme.raise_()
+        self.btnDelStructScheme.raise_()
+        self.btnDelPlaneSet.raise_()
+        self.btnLoadPlaneSet.raise_()
+        self.label_21.raise_()
         MainWindow.setCentralWidget(self.centralwidget)
         self.statusBar = QtWidgets.QStatusBar(MainWindow)
         self.statusBar.setObjectName("statusBar")
@@ -2031,7 +2062,11 @@ class Ui_MainWindow(object):
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
         MainWindow.setWindowTitle(_translate("MainWindow", "AutoOTR"))
-        self.textConsole.setPlaceholderText(_translate("MainWindow", "Ход формирования файла "))
+        self.textConsole.setHtml(_translate("MainWindow", "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
+"<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css\">\n"
+"p, li { white-space: pre-wrap; }\n"
+"</style></head><body style=\" font-family:\'Arial\'; font-size:7.8pt; font-weight:400; font-style:normal;\">\n"
+"<p style=\"-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><br /></p></body></html>"))
         self.btnLoadScheme2.setText(_translate("MainWindow", "▼"))
         self.btnLoadScheme1.setText(_translate("MainWindow", "▼"))
         self.btnOpenPDF.setText(_translate("MainWindow", "Открыть"))
@@ -2041,8 +2076,6 @@ class Ui_MainWindow(object):
         self.btnDelSchemeTwoData.setText(_translate("MainWindow", "🞫"))
         self.btnDelSchemeOneData.setToolTip(_translate("MainWindow", "Удалить"))
         self.btnDelSchemeOneData.setText(_translate("MainWindow", "🞫"))
-        self.label_7.setText(_translate("MainWindow", "Файлы"))
-        self.label_8.setText(_translate("MainWindow", "Схемы"))
         self.label_9.setText(_translate("MainWindow", "Погода"))
         self.label_10.setText(_translate("MainWindow", "Создать"))
         self.labelLoading.setText(_translate("MainWindow", "TextLabel"))
@@ -2051,7 +2084,6 @@ class Ui_MainWindow(object):
         self.label_13.setText(_translate("MainWindow", "Станция"))
         self.label_14.setText(_translate("MainWindow", "CalcPV"))
         self.btnWifi.setToolTip(_translate("MainWindow", "Нет подключения к сети, некоторые функции не будут работать."))
-        self.btnDrawStructuralScheme.setText(_translate("MainWindow", "СС"))
         self.label_15.setText(_translate("MainWindow", "Структурная"))
         self.btnAddKTP.setToolTip(_translate("MainWindow", "Добавить MPPT"))
         self.btnAddKTP.setText(_translate("MainWindow", "+"))
@@ -2075,7 +2107,7 @@ class Ui_MainWindow(object):
         self.inputClient.setToolTip(_translate("MainWindow", "Количество MPPT в инверторе"))
         self.inputAddressLong.setToolTip(_translate("MainWindow", "Долгота"))
         self.btnSearchCoordinates.setToolTip(_translate("MainWindow", "Нажмите для перехода к другому меню"))
-        self.btnSearchCoordinates.setText(_translate("MainWindow", "🌍"))
+        self.btnSearchCoordinates.setText(_translate("MainWindow", "📍"))
         self.inputTitleProject.setToolTip(_translate("MainWindow", "Количество MPPT в инверторе"))
         self.inputUDotIn.setToolTip(_translate("MainWindow", "Количество MPPT в инверторе"))
         self.inputAddressLat.setToolTip(_translate("MainWindow", "Широта"))
@@ -2190,3 +2222,10 @@ class Ui_MainWindow(object):
         self.btnKTPTemplate.setText(_translate("MainWindow", "КТП"))
         self.label_30.setText(_translate("MainWindow", "Шаблон"))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab_2), _translate("MainWindow", "Другое оборудование"))
+        self.btnLoadStructScheme.setText(_translate("MainWindow", "▼"))
+        self.btnDelStructScheme.setToolTip(_translate("MainWindow", "Удалить"))
+        self.btnDelStructScheme.setText(_translate("MainWindow", "🞫"))
+        self.btnDelPlaneSet.setToolTip(_translate("MainWindow", "Удалить"))
+        self.btnDelPlaneSet.setText(_translate("MainWindow", "🞫"))
+        self.label_21.setText(_translate("MainWindow", "План\n"
+" размещения"))

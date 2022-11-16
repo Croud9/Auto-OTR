@@ -128,7 +128,7 @@ QLineEdit:pressed{
       <x>561</x>
       <y>50</y>
       <width>371</width>
-      <height>241</height>
+      <height>191</height>
      </rect>
     </property>
     <property name="font">
@@ -2213,33 +2213,6 @@ QPushButton:hover{
      <string>⭯</string>
     </property>
    </widget>
-   <widget class="QLabel" name="label_3">
-    <property name="geometry">
-     <rect>
-      <x>864</x>
-      <y>560</y>
-      <width>140</width>
-      <height>16</height>
-     </rect>
-    </property>
-    <property name="font">
-     <font>
-      <family>Arial</family>
-      <pointsize>9</pointsize>
-      <weight>50</weight>
-      <italic>true</italic>
-      <bold>false</bold>
-      <underline>false</underline>
-      <strikeout>false</strikeout>
-     </font>
-    </property>
-    <property name="styleSheet">
-     <string notr="true">color:rgba(0,0,0,0.5)</string>
-    </property>
-    <property name="text">
-     <string>Version 1.0</string>
-    </property>
-   </widget>
    <widget class="QSpinBox" name="spinBox_numInvertor">
     <property name="geometry">
      <rect>
@@ -2620,6 +2593,48 @@ QPushButton:pressed{
      <string/>
     </property>
    </widget>
+   <widget class="QPushButton" name="btnOpenScheme">
+    <property name="geometry">
+     <rect>
+      <x>562</x>
+      <y>250</y>
+      <width>71</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Arial</family>
+      <pointsize>9</pointsize>
+      <weight>75</weight>
+      <italic>false</italic>
+      <bold>true</bold>
+      <underline>false</underline>
+      <strikeout>false</strikeout>
+      <stylestrategy>PreferAntialias</stylestrategy>
+      <kerning>true</kerning>
+     </font>
+    </property>
+    <property name="cursor">
+     <cursorShape>PointingHandCursor</cursorShape>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QPushButton{
+	background-color:rgba(112, 215, 255, 0);
+	color:rgba(0, 0, 0, 0.5);
+	border: none;
+	border-radius: 5;
+	border-style: outset;
+}
+QPushButton:hover{
+	color: black;
+}
+</string>
+    </property>
+    <property name="text">
+     <string>Открыть</string>
+    </property>
+   </widget>
    <zorder>label_28</zorder>
    <zorder>label_20</zorder>
    <zorder>label_19</zorder>
@@ -2697,10 +2712,10 @@ QPushButton:pressed{
    <zorder>line</zorder>
    <zorder>label_29</zorder>
    <zorder>btnReset</zorder>
-   <zorder>label_3</zorder>
    <zorder>spinBox_numInvertor</zorder>
    <zorder>spinBox_numOther</zorder>
    <zorder>btnSaveConfig</zorder>
+   <zorder>btnOpenScheme</zorder>
   </widget>
   <widget class="QStatusBar" name="statusBar"/>
  </widget>

@@ -10,7 +10,7 @@
     <x>0</x>
     <y>0</y>
     <width>382</width>
-    <height>417</height>
+    <height>510</height>
    </rect>
   </property>
   <property name="font">
@@ -150,7 +150,7 @@ QComboBox QAbstractItemView {
     <property name="geometry">
      <rect>
       <x>20</x>
-      <y>345</y>
+      <y>384</y>
       <width>271</width>
       <height>41</height>
      </rect>
@@ -190,7 +190,7 @@ QPushButton:pressed{
     <property name="geometry">
      <rect>
       <x>20</x>
-      <y>301</y>
+      <y>296</y>
       <width>111</width>
       <height>22</height>
      </rect>
@@ -281,9 +281,9 @@ QSpinBox:down-button{
     <property name="geometry">
      <rect>
       <x>85</x>
-      <y>114</y>
+      <y>102</y>
       <width>111</width>
-      <height>16</height>
+      <height>38</height>
      </rect>
     </property>
     <property name="font">
@@ -298,14 +298,15 @@ QSpinBox:down-button{
      <string notr="true">background-color: rgba(255,255,255,0); </string>
     </property>
     <property name="text">
-     <string>Кол-во ФЭМ</string>
+     <string>Кол-во
+цепочек</string>
     </property>
    </widget>
    <widget class="QPushButton" name="btnSaveConfig">
     <property name="geometry">
      <rect>
       <x>310</x>
-      <y>343</y>
+      <y>382</y>
       <width>41</width>
       <height>41</height>
      </rect>
@@ -374,7 +375,7 @@ QPushButton:pressed{
     <property name="geometry">
      <rect>
       <x>200</x>
-      <y>281</y>
+      <y>311</y>
       <width>141</width>
       <height>61</height>
      </rect>
@@ -402,9 +403,9 @@ QPushButton:pressed{
    <widget class="QCheckBox" name="checkUnitedOut">
     <property name="geometry">
      <rect>
-      <x>20</x>
-      <y>261</y>
-      <width>226</width>
+      <x>200</x>
+      <y>287</y>
+      <width>191</width>
       <height>41</height>
      </rect>
     </property>
@@ -426,41 +427,11 @@ QPushButton:pressed{
      <string>Объединенный выход</string>
     </property>
    </widget>
-   <widget class="QLabel" name="label_12">
-    <property name="enabled">
-     <bool>true</bool>
-    </property>
-    <property name="geometry">
-     <rect>
-      <x>20</x>
-      <y>184</y>
-      <width>331</width>
-      <height>20</height>
-     </rect>
-    </property>
-    <property name="font">
-     <font>
-      <family>Arial</family>
-      <pointsize>9</pointsize>
-      <weight>75</weight>
-      <bold>true</bold>
-     </font>
-    </property>
-    <property name="styleSheet">
-     <string notr="true">background-color: rgba(255,255,255,0); </string>
-    </property>
-    <property name="text">
-     <string>УЗИП</string>
-    </property>
-    <property name="alignment">
-     <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
-    </property>
-   </widget>
    <widget class="QCheckBox" name="checkYzipLeft">
     <property name="geometry">
      <rect>
       <x>20</x>
-      <y>209</y>
+      <y>236</y>
       <width>121</width>
       <height>22</height>
      </rect>
@@ -598,7 +569,7 @@ QPushButton:pressed{
     <property name="geometry">
      <rect>
       <x>200</x>
-      <y>209</y>
+      <y>236</y>
       <width>101</width>
       <height>22</height>
      </rect>
@@ -719,8 +690,8 @@ QSpinBox:down-button{
     <property name="geometry">
      <rect>
       <x>20</x>
-      <y>241</y>
-      <width>331</width>
+      <y>267</y>
+      <width>171</width>
       <height>20</height>
      </rect>
     </property>
@@ -742,6 +713,147 @@ QSpinBox:down-button{
      <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
     </property>
    </widget>
+   <widget class="QPushButton" name="btnOpenScheme">
+    <property name="geometry">
+     <rect>
+      <x>116</x>
+      <y>423</y>
+      <width>71</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Arial</family>
+      <pointsize>9</pointsize>
+      <weight>75</weight>
+      <italic>false</italic>
+      <bold>true</bold>
+      <underline>false</underline>
+      <strikeout>false</strikeout>
+      <stylestrategy>PreferAntialias</stylestrategy>
+      <kerning>true</kerning>
+     </font>
+    </property>
+    <property name="cursor">
+     <cursorShape>PointingHandCursor</cursorShape>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QPushButton{
+	background-color:rgba(112, 215, 255, 0);
+	color:rgba(0, 0, 0, 0.5);
+	border: none;
+	border-radius: 5;
+	border-style: outset;
+}
+QPushButton:hover{
+	color: black;
+}
+</string>
+    </property>
+    <property name="text">
+     <string>Открыть</string>
+    </property>
+   </widget>
+   <widget class="QLineEdit" name="inputTitleOtherDevice">
+    <property name="enabled">
+     <bool>true</bool>
+    </property>
+    <property name="geometry">
+     <rect>
+      <x>20</x>
+      <y>186</y>
+      <width>161</width>
+      <height>41</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Arial</family>
+      <pointsize>8</pointsize>
+      <weight>75</weight>
+      <bold>true</bold>
+     </font>
+    </property>
+    <property name="toolTip">
+     <string>Количество MPPT в инверторе</string>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QLineEdit{
+	background-color:rgba(229,229,234,1); 
+	border-radius: 6;
+	border: none;
+	padding-left: 8px
+}
+</string>
+    </property>
+    <property name="inputMask">
+     <string/>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+    <property name="readOnly">
+     <bool>false</bool>
+    </property>
+    <property name="placeholderText">
+     <string/>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_22">
+    <property name="enabled">
+     <bool>true</bool>
+    </property>
+    <property name="geometry">
+     <rect>
+      <x>201</x>
+      <y>187</y>
+      <width>151</width>
+      <height>41</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Arial</family>
+      <pointsize>9</pointsize>
+      <weight>75</weight>
+      <bold>true</bold>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color: rgba(255,255,255,0); </string>
+    </property>
+    <property name="text">
+     <string>Название модуля</string>
+    </property>
+   </widget>
+   <widget class="QCheckBox" name="checkWebServer">
+    <property name="geometry">
+     <rect>
+      <x>20</x>
+      <y>330</y>
+      <width>121</width>
+      <height>22</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Arial</family>
+      <pointsize>9</pointsize>
+      <weight>50</weight>
+      <bold>false</bold>
+     </font>
+    </property>
+    <property name="toolTip">
+     <string>Применяет Y конекторы, если это допустимо </string>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color: rgba(255,255,255,0); </string>
+    </property>
+    <property name="text">
+     <string>Web сервер</string>
+    </property>
+   </widget>
    <zorder>checkYzipRight</zorder>
    <zorder>label_20</zorder>
    <zorder>label_8</zorder>
@@ -753,7 +865,6 @@ QSpinBox:down-button{
    <zorder>btnSaveConfig</zorder>
    <zorder>checkUnitedInternet</zorder>
    <zorder>checkUnitedOut</zorder>
-   <zorder>label_12</zorder>
    <zorder>checkYzipLeft</zorder>
    <zorder>checkController</zorder>
    <zorder>checkCommutator</zorder>
@@ -761,6 +872,10 @@ QSpinBox:down-button{
    <zorder>spinBox_CountInvertors</zorder>
    <zorder>label_21</zorder>
    <zorder>label_14</zorder>
+   <zorder>btnOpenScheme</zorder>
+   <zorder>inputTitleOtherDevice</zorder>
+   <zorder>label_22</zorder>
+   <zorder>checkWebServer</zorder>
   </widget>
   <widget class="QStatusBar" name="statusBar"/>
  </widget>

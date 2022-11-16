@@ -8,7 +8,7 @@ height_box = 1.5
 end_points = width_box / 2
 length_line_between_device = 2.5
 
-def box(slr, title):
+def box(slr, title, e_icon = False):
     y_ofst = 1.25 if title == 'Анализатор' else -0.5
         
     slr += elm.Line().up().length(height_box)
@@ -16,7 +16,7 @@ def box(slr, title):
     slr += (right_side_box := elm.Line().down().length(height_box))
     slr += (bottom_side_box := elm.Line().left().length(width_box))
     slr += elm.Label().at(top_side_box.center).label(title, ofst=(-0.1, y_ofst))
-    if title == 'УЗИП' or title == 'РП':
+    if e_icon == True:
         energy_icon(slr, right_side_box)
     return {'top': top_side_box, 'bottom': bottom_side_box, 'right': right_side_box}
 
@@ -26,7 +26,7 @@ def controller_and_r_yzip(slr, box_sides_inv, invertor_orange_connect, local_dat
         slr += elm.Line(arrow='->').up().length(0.5).color('orange')
         slr += elm.Line().left().length(end_points / 2)
 
-        box_sides = box(slr, 'УЗИП')
+        box_sides = box(slr, f"{local_data['title_other_device']}", True)
         slr += (invertor_orange_connect := elm.Line().down().at(box_sides['bottom'].center, dx = end_points / 2).length(0.5).color('orange'))
         len_to_analizer = 1.5 * length_line_between_device + end_points
         len_to_commutator = 4 * length_line_between_device - 1.15
@@ -39,7 +39,7 @@ def controller_and_r_yzip(slr, box_sides_inv, invertor_orange_connect, local_dat
     slr += elm.Line().right().at(invertor_orange_connect.end).length(length_line_between_device).color('orange')
     slr += elm.Line(arrow='->').up().length(0.5).color('orange')
     slr += elm.Line().left().length(end_points / 2)
-    box_sides_rp = box(slr, 'РП')
+    box_sides_rp = box(slr, 'РЩ', True)
     slr += (end_line_rp := elm.Line(arrow='->').right().at(box_sides_rp['right'].center).length(len_to_rp).color('orange'))
     slr += elm.Label().at(end_line_rp.end).label('К потребителю', ofst=(2.5, 0))
 
@@ -74,7 +74,9 @@ def net(slr, num, box_sides_inv, local_data, general_scheme_data, count_all_inve
         len_to_server = 2 * length_line_between_device - 0.5
         len_to_lvs_united = 5.75
         len_to_lvs_not_united = 10.85
+        len_router_end = 8.5
     else:
+        len_router_end = 6.5
         len_to_server = 4
         len_to_lvs_united = 4.2 #2.85
         len_to_lvs_not_united = 8.8
@@ -97,7 +99,21 @@ def net(slr, num, box_sides_inv, local_data, general_scheme_data, count_all_inve
             slr += (end_line_net := elm.Line(arrow='->').right().length(len_to_lvs_not_united).color('green'))
             slr += elm.Label().at(end_line_net.end).label('К ЛВС', ofst=(1, 0))
     else:
-        wifi_icon(slr, box_sides_inv['right'])    
+        if num == 0:
+            wifi_icon(slr, box_sides_inv['right'])    
+            slr += (internet_line := elm.Line().right().at(box_sides_inv['right'].center).length(0.5).color('white').zorder(-1))
+            slr += elm.Line().up().at(internet_line.end).length(3).color('white').zorder(-1)
+            slr += elm.Line().right().length(1.1).color('white').zorder(-1)
+            sides = router_icon(slr)
+            if general_scheme_data['web_server'] == True:
+                slr += (internet_line_to_server := elm.Line(arrow='->').right().at(sides['right'].center).length(2.8).color('green'))
+                right_side = server_icon(slr, internet_line_to_server, 'Web сервер')
+            else:
+                slr += (end_line_net := elm.Line(arrow='->').right().at(sides['right'].center).length(len_router_end).color('green'))
+                slr += elm.Label().at(end_line_net.end).label('К ЛВС', ofst=(1, 0))
+            
+        else:
+            wifi_icon(slr, box_sides_inv['right'])    
 
 def second_pv(slr, box_sides, invertor):
     slr += (invertor_PV_connect_two := elm.Line().down().at(box_sides['bottom'].center, dx = -end_points / 3).length(0.75))
@@ -106,7 +122,7 @@ def second_pv(slr, box_sides, invertor):
     slr += elm.Line().down().length(0.5)
     slr += elm.Line().down().length(1.65).color('white')
     slr += elm.Line().right().length(0.25).color('white')
-    pv_icon(slr, f"{invertor['total_count_pv']}")
+    pv_icon(slr, f"{invertor['total_count_strings']}")
 
 def invertor_full_block(slr, num, local_data, general_scheme_data, invertor, count_all_invertors, all_r_yzip):
     box_sides_inv = invertor_icon(slr)
@@ -119,7 +135,7 @@ def invertor_full_block(slr, num, local_data, general_scheme_data, invertor, cou
         slr += elm.Line().left().at(invertor_PV_connect_one.end).length(length_line_between_device)
         slr += elm.Line().up().length(0.5)
         slr += elm.Line().left().length(end_points + end_points / 1.5)
-        box_sides_yzip = box(slr, 'УЗИП')
+        box_sides_yzip = box(slr, f"{local_data['title_other_device']}", True)
         slr += (invertor_PV_connect_one := elm.Line().down().at(box_sides_yzip['bottom'].center, dx = -end_points / 1.5).length(0.5))
     
     #PV 1
@@ -173,7 +189,7 @@ def server_section(slr, start_point, device='server'):
     slr += elm.Line().right().at(r_line_in_inv.center, dy = -0.0675).length(0.15).linewidth(width_line).scale(1)
     return {'top': top_in_inv, 'right': right_in_inv}
 
-def server_icon(slr, start_point):
+def server_icon(slr, start_point, title = 'Сервер'):
     width_elements = 2
     slr += (dot_start := elm.Dot().linewidth(width_elements).color('white').zorder(-1)).at(start_point.end, dx = 0.6, dy = -0.2)
     server_section(slr, dot_start)
@@ -181,7 +197,7 @@ def server_icon(slr, start_point):
     sides_center_section = server_section(slr, dot)
     slr += (dot := elm.Dot().at(dot_start.center, dy = 0.7).color('white').linewidth(width_elements).zorder(-1))
     sides_up_section = server_section(slr, dot)
-    slr += elm.Label().at(sides_up_section['top'].center, dy = 0.15).label('Сервер')
+    slr += elm.Label().at(sides_up_section['top'].center, dy = 0.15).label(title)
     return sides_center_section['right']
 
 def energy_icon(slr, start_point):
@@ -196,16 +212,25 @@ def energy_icon(slr, start_point):
     slr += elm.Line().at(center_lightning.start).length(0.15).theta(240).linewidth(width_line)
     slr += elm.Line().at(center_lightning.end).length(0.15).theta(60).linewidth(width_line)
 
-def wifi_icon(slr, start_point):
+def wifi_icon(slr, start_point, router = False):
     width_elements = 2
     xy_center = 0.2
     xy_down = 0.12
-    slr += (dot := elm.Dot().linewidth(width_elements)).at(start_point.center, dx = 0.5)
-    slr += (l := elm.Line().at(dot.center).length(0.4).theta(135).color('white').zorder(-1))
-    slr += (r := elm.Line().at(dot.center).length(0.4).theta(45).color('white').zorder(-1))
-    slr += flow.Arc2(arrow='-').at(l.start, dy = xy_down, dx = -xy_down).to(r.start, dy = xy_down, dx = xy_down).linewidth(width_elements).scale(1)
-    slr += flow.Arc2(arrow='-').at(l.start, dy = xy_center, dx = -xy_center).to(r.start, dy = xy_center, dx = xy_center).linewidth(width_elements).scale(1)
-    slr += flow.Arc2(arrow='-').at(l.end).to(r.end).linewidth(width_elements).scale(1)
+    if router == True:
+        slr += (dot := elm.Dot().linewidth(width_elements)).at(start_point.end, dy = 0.15)
+        slr += (l := elm.Line().at(dot.center).length(0.4).theta(135).color('white').zorder(-1))
+        slr += (r := elm.Line().at(dot.center).length(0.4).theta(45).color('white').zorder(-1))
+        slr += flow.Arc2(arrow='-').at(l.start, dy = xy_down, dx = -xy_down).to(r.start, dy = xy_down, dx = xy_down).linewidth(width_elements).scale(1)
+        slr += flow.Arc2(arrow='-').at(l.start, dy = xy_center, dx = -xy_center).to(r.start, dy = xy_center, dx = xy_center).linewidth(width_elements).scale(1)
+        # slr += flow.Arc2(arrow='-').at(l.end).to(r.end).linewidth(width_elements).scale(1)
+    else:
+        slr += (dot := elm.Dot().linewidth(width_elements)).at(start_point.center, dx = 0.5)
+        slr += (l := elm.Line().at(dot.center).length(0.4).theta(135).color('white').zorder(-1))
+        slr += (r := elm.Line().at(dot.center).length(0.4).theta(45).color('white').zorder(-1))
+        slr += flow.Arc2(arrow='-').at(l.start, dy = xy_down, dx = -xy_down).to(r.start, dy = xy_down, dx = xy_down).linewidth(width_elements).scale(1)
+        slr += flow.Arc2(arrow='-').at(l.start, dy = xy_center, dx = -xy_center).to(r.start, dy = xy_center, dx = xy_center).linewidth(width_elements).scale(1)
+        slr += flow.Arc2(arrow='-').at(l.end).to(r.end).linewidth(width_elements).scale(1)
+
 
 def invertor_icon(slr):
     width_line = 1.5
@@ -224,7 +249,7 @@ def invertor_icon(slr):
     return {'top': top_side_box, 'bottom': bottom_side_box, 'right': right_side_box}
 
 def controller_icon(slr):
-    width_line = 1.5
+    width_line = 1
     width_box = 1.8
     height_box = 2
     slr += elm.Line().up().length(height_box).linewidth(width_line)
@@ -236,6 +261,25 @@ def controller_icon(slr):
     #in_style
     slr += elm.Line().left().at(right_side_box.center, dy = -height_box / 3, dx = -0.75).length(0.3).linewidth(width_line)
     slr += elm.SourceControlled().left().at(right_side_box.center, dy = height_box / 5).fill(True).length(width_box).linewidth(width_line)
+    return {'top': top_side_box, 'bottom': bottom_side_box, 'right': right_side_box}
+
+def router_icon(slr):
+    width_line = 1.5
+    width_box = 1.2
+    height_box = 0.5
+    slr += (left_side_box := elm.Line().up().length(height_box).linewidth(width_line))
+    slr += (top_side_box := elm.Line().right().length(width_box).linewidth(width_line))
+    slr += (right_side_box := elm.Line().down().length(height_box).linewidth(width_line))
+    slr += (bottom_side_box := elm.Line().left().length(width_box).linewidth(width_line))
+    # slr += elm.Label().at(top_side_box.center, dy = -0.35, dx = 0.05).label('Роутер')
+    slr += elm.Dot().linewidth(2).at(top_side_box.center, dy = -0.25)
+    slr += elm.Dot().linewidth(2).at(top_side_box.center, dx = -0.2, dy = -0.25)
+    slr += elm.Dot().linewidth(2).at(top_side_box.center, dx = -0.4, dy = -0.25)
+    slr += elm.Dot().linewidth(2).at(top_side_box.center, dx = 0.4, dy = -0.25)
+    slr += (left_antenna := elm.Line().up().at(left_side_box.end).length(0.4).linewidth(width_line))
+    slr += (right_antenna := elm.Line().up().at(right_side_box.start).length(0.4).linewidth(width_line))
+    wifi_icon(slr, left_antenna, True)
+    wifi_icon(slr, right_antenna, True)
     return {'top': top_side_box, 'bottom': bottom_side_box, 'right': right_side_box}
 
 def pv_icon(slr, count):
@@ -270,10 +314,10 @@ def pv_icon(slr, count):
 def draw(invertors, gost_frame_params, general_scheme_data):
     schemdraw.config(fontsize = 10)  
 
-    with schemdraw.Drawing(file=f'Data/Schemes/structural.svg', show = False, scale = 0.5, lw = 0.7) as slr:
+    with schemdraw.Drawing(file=f'Data/Schemes/Structural/structural.svg', show = False, scale = 0.5, lw = 0.7) as slr:
         all_l_yzip = []
-        all_r_yzip = []  
-        block_offset = -8
+        all_r_yzip = []
+        block_offset = -8 
         num = 0
 
         for invertor in general_scheme_data['invertor_keys']:
@@ -307,11 +351,12 @@ def draw(invertors, gost_frame_params, general_scheme_data):
                 x_gost_ofst = -8 
 
         height = 14 + 8 * (general_scheme_data['count_all_invertors'] - 1)
-        slr.here = (x_gost_ofst, 2)
+        y_gost_ofst = 2 if general_scheme_data['wifi'] == False else 5
+        slr.here = (x_gost_ofst, y_gost_ofst)
 
         frame_data = {'width': width, 'height': height, 'title_prjct': gost_frame_params['title_project'],
                 'code_prjct': gost_frame_params['code_project'], 'type_scheme': 'Структурная схема подключения СЭС'}
         gost_frame.all_frame(slr, **frame_data)
-    srcfile = 'Data/Schemes/structural.svg'
-    trgfile = 'Data/Schemes/structural_codec.svg'
+    srcfile = 'Data/Schemes/Structural/structural.svg'
+    trgfile = 'Data/Schemes/Structural/structural_codec.svg'
     encode_file.to_utf8(srcfile, trgfile)

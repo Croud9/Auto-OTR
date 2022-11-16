@@ -1,10 +1,15 @@
 import draw_structural_scheme
+# import svg_scheme_viewer
 import designDrawStructuralScheme
 import styles_responce
-import validate
 from PyQt5 import QtWidgets
-from PyQt5.QtGui import QRegExpValidator
-from PyQt5.QtCore import QThread, QRegExp, QTimer
+from PyQt5.QtGui import QIcon
+from PyQt5.QtCore import QSize, QTimer, QThread
+from PyQt5 import QtSvg
+import sys, os
+from PyQt5 import QtSvg
+from PyQt5.QtWidgets import QApplication
+from PyQt5.QtWidgets import *
 from PyQt5.QtGui import *
 from PyQt5.QtCore import *
 
@@ -27,19 +32,28 @@ class WindowDrawStructural(QtWidgets.QMainWindow, designDrawStructuralScheme.Ui_
         self.checkWifi.stateChanged.connect(self.show_and_hide_internet)
         self.checkController.stateChanged.connect(self.show_and_hide_commutator)
         self.btnDraw.clicked.connect(self.draw)
+        self.btnOpenScheme.clicked.connect(self.open_scheme)
         self.btnSaveConfig.clicked.connect(self.save_config)
         self.spinBox_numInvertor.valueChanged.connect(self.up_down_invertor_selection)
         self.spinBox_CountInvertors.valueChanged.connect(self.spin_local)
 
     def input_data(self):
+        self.btnOpenScheme.hide()
         self.spinBox_numInvertor.setMinimum(1)
         self.spinBox_numInvertor.setEnabled(False)
         self.spinBox_CountInvertors.setEnabled(False)
         self.checkCommutator.setEnabled(False)
+        self.checkWebServer.setEnabled(False)
         self.checkCommutator.setCheckState(0)
         self.btnSaveConfig.setIcon(QIcon('data/cons/dop/save.png'))
         self.btnSaveConfig.setIconSize(QSize(30, 30))
         self.general_scheme_data = {}
+
+    def open_scheme(self):
+        os.startfile("Data\Schemes\Structural\structural.svg")
+
+    def viewFinished(self):
+        del self.painter_view
 
     def invertor_and_config_keys(self):
         invertors = self.main_window.invertors
@@ -47,28 +61,26 @@ class WindowDrawStructural(QtWidgets.QMainWindow, designDrawStructuralScheme.Ui_
         self.spinBox_numInvertor.setEnabled(True)
         spinbox_val = self.spinBox_numInvertor.value() - 1
         invertor = invertors[f'found_invertor_{spinbox_val}']
-
-        count_pvs = 0    
+  
         count_strings = 0    
         local_keys = []    
         for key in invertor.keys():
             if 'local' in key:
                 local_keys.append(key)
             elif 'config' in key:
-                count_pvs += int(invertor[key]['count_pv']) * int(invertor[key]['count_string'])
                 count_strings += int(invertor[key]['count_string'])
-        invertor['total_count_pv'] = count_pvs
+
         invertor['total_count_strings'] = count_strings
+
         return {'invertor': invertor,'local_keys': local_keys}  
 
     def up_down_invertor_selection(self):
         current_data = self.invertor_and_config_keys()
         invertor = current_data['invertor']
-        count_pvs = invertor['total_count_pv']
         local_keys = current_data['local_keys']
 
         self.inputName_invertor.setText(f'{invertor["module"]}')
-        self.inputCountPV.setText(f'{count_pvs}')
+        self.inputCountPV.setText(f"{invertor['total_count_strings']}")
 
         excess = len(local_keys) - int(invertor['count_invertor'])
         if excess > 0:
@@ -85,6 +97,7 @@ class WindowDrawStructural(QtWidgets.QMainWindow, designDrawStructuralScheme.Ui_
         self.spinBox_CountInvertors.setMinimum(1)       
         self.spinBox_CountInvertors.setMaximum(int(invertor['count_invertor']))
         current_local_index = self.spinBox_CountInvertors.value() - 1
+        self.inputTitleOtherDevice.setText(f"{invertor[f'local_{current_local_index}']['title_other_device']}")
         self.checkController.setCheckState(2 if invertor[f'local_{current_local_index}']['controller'] == True else 0)
         self.checkCommutator.setCheckState(2 if invertor[f'local_{current_local_index}']['commutator'] == True else 0)
         self.checkYzipLeft.setCheckState(2 if invertor[f'local_{current_local_index}']['left_yzip'] == True else 0)
@@ -94,8 +107,11 @@ class WindowDrawStructural(QtWidgets.QMainWindow, designDrawStructuralScheme.Ui_
         if self.checkWifi.isChecked():
             self.checkUnitedInternet.setEnabled(False)
             self.checkUnitedInternet.setCheckState(0)
+            self.checkWebServer.setEnabled(True)
         else:
             self.checkUnitedInternet.setEnabled(True)
+            self.checkWebServer.setCheckState(0)
+            self.checkWebServer.setEnabled(False)
             
     def show_and_hide_commutator(self):
         if self.checkController.isChecked():
@@ -113,8 +129,10 @@ class WindowDrawStructural(QtWidgets.QMainWindow, designDrawStructuralScheme.Ui_
             commutator = True if self.checkCommutator.isChecked() else False
             yzip_l = True if self.checkYzipLeft.isChecked() else False
             yzip_r = True if self.checkYzipRight.isChecked() else False
+            title_other_device = self.inputTitleOtherDevice.text()
 
-            invertor[f'local_{current_local_index}'] = {'controller': controller, 'commutator': commutator, 'left_yzip': yzip_l, 'right_yzip': yzip_r}
+            invertor[f'local_{current_local_index}'] = {'controller': controller, 'commutator': commutator, 'left_yzip': yzip_l,
+                                                        'right_yzip': yzip_r, 'title_other_device': title_other_device}
             print(invertor)
             self.statusBar.showMessage('Параметры сохранены', 2000)
             self.statusBar.setStyleSheet(styles_responce.status_green)
@@ -138,6 +156,7 @@ class WindowDrawStructural(QtWidgets.QMainWindow, designDrawStructuralScheme.Ui_
 
     def out_params(self):        
         self.general_scheme_data['wifi'] = True if self.checkWifi.isChecked() else False
+        self.general_scheme_data['web_server'] = True if self.checkWebServer.isChecked() else False
         self.general_scheme_data['united_internet'] = True if self.checkUnitedInternet.isChecked() else False
         self.general_scheme_data['united_energy_shield'] = True if self.checkUnitedOut.isChecked() else False
         title_project = self.main_window.inputTitleProject.text()
@@ -168,4 +187,5 @@ class WindowDrawStructural(QtWidgets.QMainWindow, designDrawStructuralScheme.Ui_
         QTimer.singleShot(4000, lambda: self.statusBar.setStyleSheet(styles_responce.status_white))
         self.btnDraw.setEnabled(True)
         self.btnDraw.setText('Построить')
+        self.btnOpenScheme.show()
         del self.painter_draw_struct

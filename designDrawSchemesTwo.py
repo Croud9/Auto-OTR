@@ -93,7 +93,7 @@ class Ui_WindowDrawSchemesTwo(object):
         self.inputName_other.setObjectName("inputName_other")
         self.textConsoleDraw = QtWidgets.QTextBrowser(self.centralwidget)
         self.textConsoleDraw.setEnabled(True)
-        self.textConsoleDraw.setGeometry(QtCore.QRect(561, 50, 371, 241))
+        self.textConsoleDraw.setGeometry(QtCore.QRect(561, 50, 371, 191))
         font = QtGui.QFont()
         font.setFamily("Arial")
         self.textConsoleDraw.setFont(font)
@@ -1183,19 +1183,6 @@ class Ui_WindowDrawSchemesTwo(object):
 "}\n"
 "")
         self.btnReset.setObjectName("btnReset")
-        self.label_3 = QtWidgets.QLabel(self.centralwidget)
-        self.label_3.setGeometry(QtCore.QRect(864, 560, 140, 16))
-        font = QtGui.QFont()
-        font.setFamily("Arial")
-        font.setPointSize(9)
-        font.setBold(False)
-        font.setItalic(True)
-        font.setUnderline(False)
-        font.setWeight(50)
-        font.setStrikeOut(False)
-        self.label_3.setFont(font)
-        self.label_3.setStyleSheet("color:rgba(0,0,0,0.5)")
-        self.label_3.setObjectName("label_3")
         self.spinBox_numInvertor = QtWidgets.QSpinBox(self.centralwidget)
         self.spinBox_numInvertor.setGeometry(QtCore.QRect(154, 50, 41, 31))
         font = QtGui.QFont()
@@ -1425,6 +1412,32 @@ class Ui_WindowDrawSchemesTwo(object):
 "")
         self.label_30.setText("")
         self.label_30.setObjectName("label_30")
+        self.btnOpenScheme = QtWidgets.QPushButton(self.centralwidget)
+        self.btnOpenScheme.setGeometry(QtCore.QRect(562, 250, 71, 31))
+        font = QtGui.QFont()
+        font.setFamily("Arial")
+        font.setPointSize(9)
+        font.setBold(True)
+        font.setItalic(False)
+        font.setUnderline(False)
+        font.setWeight(75)
+        font.setStrikeOut(False)
+        font.setKerning(True)
+        font.setStyleStrategy(QtGui.QFont.PreferAntialias)
+        self.btnOpenScheme.setFont(font)
+        self.btnOpenScheme.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
+        self.btnOpenScheme.setStyleSheet("QPushButton{\n"
+"    background-color:rgba(112, 215, 255, 0);\n"
+"    color:rgba(0, 0, 0, 0.5);\n"
+"    border: none;\n"
+"    border-radius: 5;\n"
+"    border-style: outset;\n"
+"}\n"
+"QPushButton:hover{\n"
+"    color: black;\n"
+"}\n"
+"")
+        self.btnOpenScheme.setObjectName("btnOpenScheme")
         self.label_28.raise_()
         self.label_20.raise_()
         self.label_19.raise_()
@@ -1502,10 +1515,10 @@ class Ui_WindowDrawSchemesTwo(object):
         self.line.raise_()
         self.label_29.raise_()
         self.btnReset.raise_()
-        self.label_3.raise_()
         self.spinBox_numInvertor.raise_()
         self.spinBox_numOther.raise_()
         self.btnSaveConfig.raise_()
+        self.btnOpenScheme.raise_()
         WindowDrawSchemesTwo.setCentralWidget(self.centralwidget)
         self.statusBar = QtWidgets.QStatusBar(WindowDrawSchemesTwo)
         self.statusBar.setObjectName("statusBar")
@@ -1552,4 +1565,4 @@ class Ui_WindowDrawSchemesTwo(object):
         self.label_29.setText(_translate("WindowDrawSchemesTwo", "Кабельная линия"))
         self.btnReset.setToolTip(_translate("WindowDrawSchemesTwo", "Добавить MPPT"))
         self.btnReset.setText(_translate("WindowDrawSchemesTwo", "⭯"))
-        self.label_3.setText(_translate("WindowDrawSchemesTwo", "Version 1.0"))
+        self.btnOpenScheme.setText(_translate("WindowDrawSchemesTwo", "Открыть"))
