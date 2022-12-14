@@ -131,8 +131,10 @@ dmypy.json
 # My
 Data/
 output/
+other/
+.vscode/
+__pycache__/
 ui_designDrawSchemes.py
 ui_designDrawSchemesTwo.py
 ui_designParsing.py
 ui_designRepPDF.py
-other/
