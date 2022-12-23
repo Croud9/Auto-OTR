@@ -1,6 +1,7 @@
 import os
 from views import designDrawStructuralScheme, styles_and_animation
 from creators import draw_structural_scheme
+from helpers import svg_to_png
 from PyQt5 import QtWidgets
 from PyQt5.QtGui import QIcon, QMovie
 from PyQt5.QtCore import QSize, QTimer, QThread
@@ -14,7 +15,20 @@ class DrawStructural(QThread):
 
     def run(self):
         struct = draw_structural_scheme.DrawStructScheme()
-        struct.draw(self.invertors, self.gost_frame_params, self.general_scheme_data)
+        self.struct = struct.draw(self.invertors, self.gost_frame_params, self.general_scheme_data)
+    
+class CropImages(QThread):
+    def __init__(self, params):
+        super().__init__()
+        self.params = params
+
+    def run(self):
+        path_svg = 'Data/Schemes/Structural/structural_for_pptx_ru.svg'
+        path_svg_en = 'Data/Schemes/Structural/structural_for_pptx_en.svg'
+        path_png = 'Data/System/Images/PPTX/RU/'
+        path_png_en = 'Data/System/Images/PPTX/EN/'
+        svg_to_png.convert(self.params['num'], self.params['isWifi'], self.params['widths_imgs'], path_svg, path_png)
+        svg_to_png.convert(self.params['num'], self.params['isWifi'], self.params['widths_imgs'], path_svg_en, path_png_en)
 
 class WindowDrawStructural(QtWidgets.QMainWindow, designDrawStructuralScheme.Ui_WindowDrawSchemes):
     def __init__(self, instance_of_main_window):
@@ -68,7 +82,7 @@ class WindowDrawStructural(QtWidgets.QMainWindow, designDrawStructuralScheme.Ui_
         self.checkUnitedOut.setCheckState(0)
 
     def open_scheme(self):
-        os.startfile("Data\Schemes\Structural\structural.svg")
+        os.startfile("Data\Schemes\Structural\structural_for_pdf.svg")
 
     def viewFinished(self):
         del self.painter_view
@@ -164,6 +178,7 @@ class WindowDrawStructural(QtWidgets.QMainWindow, designDrawStructuralScheme.Ui_
         if self.spinBox_CountInvertors.value() != 0:
             current_data = self.invertor_and_config_keys()
             invertor = current_data['invertor']
+            local_keys = current_data['local_keys']
             current_local_index = self.spinBox_CountInvertors.value() - 1
             controller = True if self.checkController.isChecked() else False
             commutator = True if self.checkCommutator.isChecked() else False
@@ -174,6 +189,10 @@ class WindowDrawStructural(QtWidgets.QMainWindow, designDrawStructuralScheme.Ui_
 
             invertor[f'local_{current_local_index}'] = {'controller': controller, 'commutator': commutator, 'left_yzip': yzip_l,
                                                         'right_yzip': yzip_r, 'title_other_device': title_other_device, 'strings': count_strings}
+            
+            if self.checkForAll.isChecked():
+                for key in local_keys:
+                    invertor[key]['title_other_device'] = title_other_device
             print(invertor)
             self.statusBar.showMessage('Параметры сохранены', 2000)
             self.statusBar.setStyleSheet(styles_and_animation.status_green)
@@ -204,6 +223,12 @@ class WindowDrawStructural(QtWidgets.QMainWindow, designDrawStructuralScheme.Ui_
         code_project = self.main_window.inputCodeProject.text()                   
         self.gost_frame_params = {'title_project': title_project, 'code_project': code_project}
 
+    def build_images(self, struct_params):
+        self.btnDraw.setText('Нарезка изображений...')
+        self.crop = CropImages(struct_params)
+        self.crop.finished.connect(self.buildImgsFinished)
+        self.crop.start()
+
     def draw(self):
         self.total_calculate()
 
@@ -218,18 +243,23 @@ class WindowDrawStructural(QtWidgets.QMainWindow, designDrawStructuralScheme.Ui_
 
         self.btnOpenScheme.hide()
         self.btnDraw.setEnabled(False)
-        self.btnDraw.setText('Построение...')
+        self.btnDraw.setText('Построение cхемы...')
         styles_and_animation.animation_start(self.movie, self.labelLoading)
         self.painter_draw_struct = DrawStructural(invertors, self.gost_frame_params, self.general_scheme_data)
         self.painter_draw_struct.finished.connect(self.drawFinished)
         self.painter_draw_struct.start()
 
     def drawFinished(self):
-        self.statusBar.showMessage('Чертеж успешно построен', 4000)
+        struct_params = self.painter_draw_struct.struct
+        self.statusBar.showMessage('Чертеж построен', 4000)
         self.statusBar.setStyleSheet(styles_and_animation.status_green)
         QTimer.singleShot(4000, lambda: self.statusBar.setStyleSheet(styles_and_animation.status_white))
+        self.btnOpenScheme.show()
+        self.build_images(struct_params)
+        del self.painter_draw_struct
+
+    def buildImgsFinished(self):
         self.btnDraw.setEnabled(True)
         self.btnDraw.setText('Построить')
-        self.btnOpenScheme.show()
         styles_and_animation.animation_stop(self.movie, self.labelLoading)
-        del self.painter_draw_struct
+        del self.crop

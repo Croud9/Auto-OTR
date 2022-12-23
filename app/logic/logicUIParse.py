@@ -25,6 +25,8 @@ class Parsing(QThread):
             self.return_download['climat'] = 'Слишком общий запрос. Найдено несколько страниц'
         except wikipedia.exceptions.PageError:
             self.return_download['climat'] = 'Н/Д Нет описания климата данного населенного пункта'  
+        except Exception:
+            self.return_download['climat'] = 'Ошибка при подгрузке погодных данных'  
 
     def delete_files(self):
         fp_structural = path_to_pdf_schemes + "/Structural"
@@ -61,6 +63,8 @@ class Parsing(QThread):
         elif self.method == "load":
             self.return_download = parsingSelenium.load()
             result = re.sub("\(.*\)", "", self.params).split(',')
+            print('result', result)
+            print('return_download', self.return_download)
             city_country_state = ','.join(result[:3])
             city = ','.join(result[:1])
             self.wiki(city_country_state)
@@ -323,11 +327,16 @@ class WindowParse(QtWidgets.QMainWindow, designParsing.Ui_WindowRP5):
         del self.parser_load
         
     def dataFinished(self):
-        self.textConsole.append(f"Выбран: {str(self.parser_data.current_city['view_city'])}, №: {str(self.parser_data.current_city['num_weather_station'])},{str(self.parser_data.current_city['strt_monit'])}")
-        self.statusBar.showMessage('Населенный пункт подгружен', 5000)
-        self.statusBar.setStyleSheet(styles_and_animation.status_green)
-        QTimer.singleShot(5000, lambda: self.statusBar.setStyleSheet("background-color: rgb(255, 255, 255)"))
-        self.parse_params_current_city = self.parser_data.current_city.copy()
+        if self.parser_data.current_city == 0:
+            self.statusBar.showMessage('Ошибка при парсинге нас. пункта, выберите другой и обратитесь к разработчику', 5000)
+            self.statusBar.setStyleSheet(styles_and_animation.status_red)
+            QTimer.singleShot(5000, lambda: self.statusBar.setStyleSheet("background-color: rgb(255, 255, 255)"))
+        else: 
+            self.textConsole.append(f"Выбран: {str(self.parser_data.current_city['view_city'])}, №: {str(self.parser_data.current_city['num_weather_station'])},{str(self.parser_data.current_city['strt_monit'])}")
+            self.statusBar.showMessage('Населенный пункт подгружен', 5000)
+            self.statusBar.setStyleSheet(styles_and_animation.status_green)
+            QTimer.singleShot(5000, lambda: self.statusBar.setStyleSheet("background-color: rgb(255, 255, 255)"))
+
         self.opacity(self.btnDwnld_T, True)
         self.opacity(self.btnParse, True)
         self.opacity(self.listCity, True)

@@ -204,18 +204,18 @@ class WindowDrawTwo(QtWidgets.QMainWindow, designDrawSchemesTwo.Ui_WindowDrawSch
         elif str(self.inputAmperage_invertor.text()) == '':
             styles_and_animation.no_fill_field(self, self.inputAmperage_invertor)
             return 1
-        elif str(self.inputName_other.text()) == '':
-            styles_and_animation.no_fill_field(self, self.inputName_other)
-            return 1
-        elif str(self.inputPower_other.text()) == '':
-            styles_and_animation.no_fill_field(self, self.inputPower_other)
-            return 1
-        elif str(self.inputAmperage_other.text()) == '':
-            styles_and_animation.no_fill_field(self, self.inputAmperage_other)
-            return 1
-        elif str(self.inputType_other.text()) == '':
-            styles_and_animation.no_fill_field(self, self.inputType_other)
-            return 1
+        # elif str(self.inputName_other.text()) == '':
+        #     styles_and_animation.no_fill_field(self, self.inputName_other)
+        #     return 1
+        # elif str(self.inputPower_other.text()) == '':
+        #     styles_and_animation.no_fill_field(self, self.inputPower_other)
+        #     return 1
+        # elif str(self.inputAmperage_other.text()) == '':
+        #     styles_and_animation.no_fill_field(self, self.inputAmperage_other)
+        #     return 1
+        # elif str(self.inputType_other.text()) == '':
+        #     styles_and_animation.no_fill_field(self, self.inputType_other)
+        #     return 1
         else:
             return 0
 

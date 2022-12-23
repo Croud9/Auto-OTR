@@ -10,12 +10,15 @@ from pptx.chart.data import ChartData
 from pptx.enum.chart import XL_CHART_TYPE, XL_LABEL_POSITION, XL_LEGEND_POSITION
 from pptx.dml.color import RGBColor
 from pptx.enum.text import PP_ALIGN
+from transliterate import translit
 
 class PPTXBulider():
     def __init__(self):
         self.input_data()
     
     def input_data(self):
+        self.measure_units = {'kV': 'кВ', 'W': 'Вт', 'kW': 'кВт', 'MW': 'МВт', 'GW': 'ГВт', 'kWp': 'кВтп',
+                    'year': 'год', 'GWh': 'ГВт*ч', 'MWh': 'МВт*ч', 'kWh': 'кВт*ч'}
         self.locale_ru = {'header_1': 'ТЕХНИЧЕСКИЕ ПАРАМЕТРЫ СОЛНЕЧНОЙ ЭЛЕКТРОСТАНЦИИ ПО ПРОЕКТУ ',
                         'header_2': 'ПОКАЗАТЕЛИ ВЫРАБОТКИ СЭС', 'header_3': 'ПРИМЕР ПРИНЦИПИАЛЬНОЙ СХЕМЫ', 
                         'months': {1: 'Январь', 2: 'Февраль', 3: 'Март', 4: 'Апрель', 5: 'Май',
@@ -29,21 +32,21 @@ class PPTXBulider():
                         'not_found': 'Н/Д', 'title_produced_energy': 'Годовая выработка электроэнергии', 'title_specific_production': 'Удельная годовая выработка',
                         'titles_table': ['ПАРАМЕТРЫ СЭС', 'Установленная мощность СЭС', 'Тип опорной конструкции', 'Ориентация и угол наклона',
                                         'Требуемая площадь', 'Уровень напряжения / Частота', 'Количество ФЭМ', 'Тип ФЭМ', 'Единичная мощность ФЭМ'],
-                        'measure_unit': ['кВ', 'Вт', 'кВт', 'МВт', 'ГВт', 'кВтп', 'ГВт/год', 'кВт*ч/кВтп/год', 'Гц', 'шт.', 'м2']}
-        self.locale_en = {'header_1': 'TECHNICAL PARAMETERS OF THE SOLAR POWER PLANT ACCORDING TO THE PROJECT',
-                        'header_2': 'SES PRODUCTION INDICATORS', 'header_3': 'EXAMPLE OF A SCHEMATIC SCHEME', 
+                        'pcs': 'шт.', 'm2': 'м2', 'hz_and_kw': 'кВ / 50 Гц', 'w': 'Вт'}
+        self.locale_en = {'header_1': 'SOLAR POWER PLANT (SPP) TECHNICAL PARAMETERS',
+                        'header_2': 'ENERGY YIELD', 'header_3': 'EXAMPLE OF SINGLE LINE DIAGRAMM', 
                         'months': {1: 'January', 2: 'February', 3: 'March', 4: 'April', 5: 'May',
                                     6: 'June', 7: 'July', 8: 'August', 9: 'September', 10: 'October',
                                     11: 'November', 12: 'December'},
                         'sides_world': {0: 'North', 360: 'North', 180: 'South', 270: 'West', 90: 'East',
                                         '0-90': 'Northeast', '90-180': 'Southeast', '180-270': 'Southwest',
                                         '270-360': 'Northwest'},
-                        'title_column_chart': 'Monthly production of SES', 'title_line_chart': 'Daily production of SES',
+                        'title_column_chart': 'Energy eield per month', 'title_line_chart': 'Energy eield per day',
                         'title_summer_series': 'Summer day', 'title_winter_series': 'Winter day', 'title_spring_series': 'Spring day',
-                        'not_found': 'N/A', 'title_produced_energy': 'Annual power generation', 'title_specific_production': 'Specific power generation',
-                        'titles_table': ['SES PARAMETERS', 'Installed DC capacity', 'Mounting structure type', 'Orientation and tilt angle',
-                                        'Required area', 'Voltage Level / Frequency', 'PV modules number', 'PV modules type', 'Unit power of PV'],
-                        'measure_unit': ['kV', 'W', 'kW', 'MW', 'GW', 'kWp', 'GW/year', 'kW*h/kWp/year', 'Hz', 'pcs', 'm2']}
+                        'not_found': 'N/A', 'title_produced_energy': 'Annual energy yield', 'title_specific_production': 'Specific yield',
+                        'titles_table': ['SES PARAMETERS', 'Installed capacity of SPP', 'Type of mounting structure', 'Oientation and tilt',
+                                        'Required area', 'Voltage level / Frequency', 'Number of PV panel', 'PV type', 'Peak power of PV panel'],
+                        'pcs': 'pcs', 'm2': 'm2', 'hz_and_kw': 'kW / 50 Hz', 'w': 'W'}
 
     def side_by_azimuth(self, azimuth):
         if azimuth < 0: azimuth += 360
@@ -61,6 +64,9 @@ class PPTXBulider():
                     if '[' in line: 
                         daily_measure_unit = line.split('[')[1].split(']')[0]
 
+            if self.language == 'RU' and daily_measure_unit in self.measure_units.keys():
+                daily_measure_unit = self.measure_units[daily_measure_unit]
+            
             data_daily = pd.read_csv(path, skiprows = 3, header = None)
             df = pd.DataFrame(data_daily)
 
@@ -137,7 +143,7 @@ class PPTXBulider():
         chart.chart_title.text_frame.paragraphs[0].font.bold = False  
         self.chart_config(chart, measure_unit, type_chart)
 
-    def footer(self, slide, title_project):
+    def footer(self, slide):
         shapes = slide.shapes
         text_box_list = []
         for shape_idx in range(len(shapes)):
@@ -147,7 +153,7 @@ class PPTXBulider():
 
         date = datetime.date.today()
         footer = shapes[text_box_list[0]].text_frame.paragraphs[0]
-        footer.runs[0].text = f"{title_project} / {self.locale['months'][date.month]} {date.year}"
+        footer.runs[0].text = f"{self.title_project} / {self.locale['months'][date.month]} {date.year}"
 
     def header(self, slide, text):
         shapes = slide.shapes
@@ -166,10 +172,10 @@ class PPTXBulider():
             produced_energy = []
             specific_production = []
             row = 13
-            produced_energy.append(f"{data['pvsyst']['produced_energy']['(P50)']} {data['pvsyst']['produced_and_specific_measure_units'][0]} (P50)")
-            produced_energy.append(f"{data['pvsyst']['produced_energy'][data['current_p']]} {data['pvsyst']['produced_and_specific_measure_units'][0]} {data['current_p']}")
-            specific_production.append(f"{data['pvsyst']['specific_production']['(P50)']} {data['pvsyst']['produced_and_specific_measure_units'][1]} (P50)")
-            specific_production.append(f"{data['pvsyst']['specific_production'][data['current_p']]} {data['pvsyst']['produced_and_specific_measure_units'][1]} {data['current_p']}")
+            produced_energy.append(f"{data['pvsyst']['produced_energy']['(P50)']} {self.prod_e_ru} (P50)")
+            produced_energy.append(f"{data['pvsyst']['produced_energy'][data['current_p']]} {self.prod_e_ru} {data['current_p']}")
+            specific_production.append(f"{data['pvsyst']['specific_production']['(P50)']} {self.spec_p_ru} (P50)")
+            specific_production.append(f"{data['pvsyst']['specific_production'][data['current_p']]} {self.spec_p_ru} {data['current_p']}")
             last_rows = [self.locale['title_produced_energy'], '', self.locale['title_specific_production'], ''] 
         else:
             row = 11
@@ -188,8 +194,8 @@ class PPTXBulider():
             tilt_and_azimuth += f"{self.side_by_azimuth(value['azimuth'])}, {value['tilt']}°"
 
         self.locale['titles_table'].extend(last_rows)
-        params = [f"{data['pvsyst']['pnom_PV']} {data['pvsyst']['pnom_PV_measure_unit']}", data['roof'], tilt_and_azimuth, f"{data['pvsyst']['module_area']} м2",
-                    f"{data['pvsyst']['voltage_level']} кВ / 50 Гц", f"{data['pvsyst']['nb_PV']} шт."]
+        params = [f"{data['pvsyst']['pnom_PV']} {self.pnom_PV_measure_unit}", data['roof'], tilt_and_azimuth, f"{data['pvsyst']['module_area']} {self.locale['m2']}",
+                    f"{data['pvsyst']['voltage_level']} {self.locale['hz_and_kw']}", f"{data['pvsyst']['nb_PV']} {self.locale['pcs']}"]
 
         for i in range(row): # row
             cell = ses_table.cell(i, 0)
@@ -213,7 +219,7 @@ class PPTXBulider():
                     if row_pv == 0:
                         para.text = data['pvs'][pv]['type_pv']
                     else:
-                        para.text = f"{data['pvs'][pv]['p_nom_pv']} Вт"
+                        para.text = f"{data['pvs'][pv]['p_nom_pv']} {self.locale['w']}"
                     para.font.size = Pt(18)
                     para.alignment = PP_ALIGN.CENTER
                     col += 1
@@ -239,7 +245,7 @@ class PPTXBulider():
                 if i == 0:
                     para.text = data['pvs']['found_pv_0']['type_pv']
                 else:
-                    para.text = f"{data['pvs']['found_pv_0']['p_nom_pv']} Вт"
+                    para.text = f"{data['pvs']['found_pv_0']['p_nom_pv']} {self.locale['w']}"
                 para.font.size = Pt(18)
                 para.alignment = PP_ALIGN.CENTER
 
@@ -286,13 +292,13 @@ class PPTXBulider():
         else:
             cell_prod = ses_table.cell(9, 1)
             para = cell_prod.text_frame.paragraphs[0]
-            para.text = f"{data['pvsyst']['produced_energy']} {data['pvsyst']['produced_and_specific_measure_units'][0]}"
+            para.text = f"{data['pvsyst']['produced_energy']} {self.prod_e_ru}"
             para.font.size = Pt(18)
             para.alignment = PP_ALIGN.CENTER
 
             cell_spec = ses_table.cell(10, 1)
             para = cell_spec.text_frame.paragraphs[0]
-            para.text = f"{data['pvsyst']['specific_production']} {data['pvsyst']['produced_and_specific_measure_units'][1]}"
+            para.text = f"{data['pvsyst']['specific_production']} {self.spec_p_ru}"
             para.font.size = Pt(18)
             para.alignment = PP_ALIGN.CENTER
 
@@ -318,9 +324,8 @@ class PPTXBulider():
         if count_pv <= 1:
             img_path = 'Data\System\PPTX\img_pvs.jpg'
             slide.shapes.add_picture(img_path, Inches (11.1), Inches (2.2), width = Inches(6.9), height = Inches(height_table))
-        text = f"{self.locale['header_1']} {data['title_project']}"
-        self.header(slide, text)
-        self.footer(slide, data['title_project'])
+        self.header(slide, f"{self.locale['header_1']} {self.title_project}")
+        self.footer(slide)
 
     def slide_2(self, data, currencies_ppt):
         slide = currencies_ppt.slides[1]
@@ -344,14 +349,14 @@ class PPTXBulider():
         data_labels.font.bold = True
         data_labels.font.color.rgb = RGBColor(89, 89, 89)
         data_labels.position = XL_LABEL_POSITION.OUTSIDE_END
-        self.chart_config(chart, data['pvsyst']['e_grid_measure_unit'])
+        self.chart_config(chart, self.e_grid_measure_unit)
         self.header(slide, self.locale['header_2'])
-        self.footer(slide, data['title_project'])
+        self.footer(slide)
 
     def slide_2_four_schemes(self, data, currencies_ppt, data_day):
         slide = currencies_ppt.slides[1]
         count_schemes_on_slide = 4
-        self.small_chart(1.25, 1.75, 'column', data['pvsyst']['months_e_grid'], slide, '(P50)', data['pvsyst']['e_grid_measure_unit'], count_schemes_on_slide)
+        self.small_chart(1.25, 1.75, 'column', data['pvsyst']['months_e_grid'], slide, '(P50)', self.e_grid_measure_unit, count_schemes_on_slide)
         self.small_chart(9.75, 1.75, 'line', data_day, slide, '(P50)', data_day['measure_unit'], count_schemes_on_slide)
         p_50 = float(data['pvsyst']['specific_production']['(P50)'])
         p_select = float(data['pvsyst']['specific_production'][data['current_p']])
@@ -359,20 +364,20 @@ class PPTXBulider():
         data_day_p = {'july': list(map(lambda x: x * (p_select / p_50), data_day['july'])),
                         'december': list(map(lambda x: x * (p_select / p_50), data_day['december'])),
                         'april': list(map(lambda x: x * (p_select / p_50), data_day['april']))}
-        self.small_chart(1.25, 5.75, 'column', data_months_p, slide, data['current_p'], data['pvsyst']['e_grid_measure_unit'], count_schemes_on_slide)
+        self.small_chart(1.25, 5.75, 'column', data_months_p, slide, data['current_p'], self.e_grid_measure_unit, count_schemes_on_slide)
         self.small_chart(9.75, 5.75, 'line', data_day_p, slide, data['current_p'], data_day['measure_unit'], count_schemes_on_slide)
         self.header(slide, self.locale['header_2'])
-        self.footer(slide, data['title_project'])
+        self.footer(slide)
 
     def slide_2_two_schemes(self, data, currencies_ppt, data_day):
         slide = currencies_ppt.slides[1]
         count_schemes_on_slide = 2
-        self.small_chart(1, 2, 'column', data['pvsyst']['months_e_grid'], slide, '(P50)', data['pvsyst']['e_grid_measure_unit'], count_schemes_on_slide)
+        self.small_chart(1, 2, 'column', data['pvsyst']['months_e_grid'], slide, '(P50)', self.e_grid_measure_unit, count_schemes_on_slide)
         self.small_chart(9.5, 2, 'line', data_day, slide, '(P50)', data_day['measure_unit'], count_schemes_on_slide)
         self.header(slide, self.locale['header_2'])
-        self.footer(slide, data['title_project'])
+        self.footer(slide)
 
-    def slide_3(self, currencies_ppt, title_project, index_slide, img_path):
+    def slide_3(self, currencies_ppt, index_slide, img_path):
         slide = currencies_ppt.slides[index_slide]
 
         img = Image.open(img_path)
@@ -387,7 +392,7 @@ class PPTXBulider():
         top_pic = slide.shapes.add_picture(img_path, Inches(1), Inches(1.75), height = height_in_slide)
         top_pic.left = (currencies_ppt.slide_width - top_pic.width) // 2
         self.header(slide, self.locale['header_3'])
-        self.footer(slide, title_project)
+        self.footer(slide)
 
     def copy_slide(self, count_slide):
         with slides.Presentation("Data\System\PPTX\layout.pptx") as pres1:
@@ -404,14 +409,57 @@ class PPTXBulider():
                     shapes.element.remove(shape.element)
         ppt.save("Data\System\PPTX\layout_merge.pptx")
 
+    def translation(self, data):
+        self.prod_e_ru = ''
+        self.spec_p_ru = ''
+        prod_e = data['pvsyst']['produced_and_specific_measure_units'][0].split('/')
+        spec_p = data['pvsyst']['produced_and_specific_measure_units'][1].split('/')
+        for i in prod_e:
+            if i in self.measure_units.keys():
+                self.prod_e_ru += self.measure_units[i]
+            else:
+                self.prod_e_ru += i
+            if i != prod_e[-1]:
+                self.prod_e_ru += '/'
+
+        for i in spec_p:
+            if i in self.measure_units.keys():
+                self.spec_p_ru += self.measure_units[i]
+            else:
+                self.spec_p_ru += i
+            if i != prod_e[-1]:
+                self.spec_p_ru += '/'
+
+        if data['pvsyst']['pnom_PV_measure_unit'] in self.measure_units.keys():
+            self.pnom_PV_measure_unit = self.measure_units[data['pvsyst']['pnom_PV_measure_unit']]
+        else:
+            self.pnom_PV_measure_unit= data['pvsyst']['pnom_PV_measure_unit']
+
+        if data['pvsyst']['e_grid_measure_unit'] in self.measure_units.keys():
+            self.e_grid_measure_unit = self.measure_units[data['pvsyst']['e_grid_measure_unit']]
+        else:
+            self.e_grid_measure_unit = data['pvsyst']['e_grid_measure_unit'] 
+
+    def localization(self, data):
+        if self.language == 'RU':
+            fp_folder = 'Data/System/Images/PPTX/RU'
+            self.locale = self.locale_ru
+            self.title_project = data['title_project']
+            self.translation(data)
+        else:
+            fp_folder = 'Data/System/Images/PPTX/EN'
+            self.locale = self.locale_en
+            self.title_project = translit(data['title_project'], "ru", reversed=True).upper()
+            self.prod_e_ru = data['pvsyst']['produced_and_specific_measure_units'][0]
+            self.spec_p_ru = data['pvsyst']['produced_and_specific_measure_units'][1]
+            self.pnom_PV_measure_unit= data['pvsyst']['pnom_PV_measure_unit']
+            self.e_grid_measure_unit = data['pvsyst']['e_grid_measure_unit'] 
+        return fp_folder
+
     def create_pptx(self, data):
         status = 'ok'
-        fp_folder = 'Data/System/Images/PPTX'
-        if data['locale'] == 'RU':
-            self.locale = self.locale_ru
-        else:
-            self.locale = self.locale_en
-
+        self.language = data['locale']
+        fp_folder = self.localization(data)
         files = [f for f in os.listdir(fp_folder) if isfile(join(fp_folder, f))]
         if len(files) != 0:
             if len(files) > 1:
@@ -423,7 +471,7 @@ class PPTXBulider():
             index_scheme_slide = 2
             for file in files:
                 img_path = fp_folder + f"/{file}"
-                self.slide_3(currencies_ppt, data['title_project'], index_scheme_slide, img_path)
+                self.slide_3(currencies_ppt, index_scheme_slide, img_path)
                 index_scheme_slide += 1
 
             self.slide_1(data, currencies_ppt)

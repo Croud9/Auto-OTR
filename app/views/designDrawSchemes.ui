@@ -22,7 +22,7 @@
    <enum>Qt::NoFocus</enum>
   </property>
   <property name="windowTitle">
-   <string>Схема инвертора</string>
+   <string>Схема постоянного тока</string>
   </property>
   <property name="styleSheet">
    <string notr="true">QMainWindow {
@@ -653,7 +653,7 @@ QLineEdit:pressed{
      </font>
     </property>
     <property name="toolTip">
-     <string>Количество схем одинаковых инверторов</string>
+     <string/>
     </property>
     <property name="styleSheet">
      <string notr="true">QSpinBox{
@@ -1125,6 +1125,9 @@ QLineEdit:pressed{
       <bold>true</bold>
      </font>
     </property>
+    <property name="toolTip">
+     <string>Переключение между оборудованием</string>
+    </property>
     <property name="styleSheet">
      <string notr="true">QSpinBox{
 	background-color:rgba(229,229,234,1); 
@@ -1189,6 +1192,9 @@ QSpinBox:down-button{
     <property name="cursor">
      <cursorShape>PointingHandCursor</cursorShape>
     </property>
+    <property name="toolTip">
+     <string>Добавление конфигурации</string>
+    </property>
     <property name="styleSheet">
      <string notr="true">QPushButton{
 	background-color:rgba(112, 215, 255, 0);
@@ -1221,6 +1227,9 @@ QPushButton:hover{
       <weight>75</weight>
       <bold>true</bold>
      </font>
+    </property>
+    <property name="toolTip">
+     <string>Переключение между конфигурациями</string>
     </property>
     <property name="styleSheet">
      <string notr="true">QSpinBox{
@@ -1269,8 +1278,8 @@ QSpinBox:down-button{
    <widget class="QPushButton" name="btnSaveConfig">
     <property name="geometry">
      <rect>
-      <x>350</x>
-      <y>14</y>
+      <x>209</x>
+      <y>405</y>
       <width>41</width>
       <height>41</height>
      </rect>
@@ -1285,6 +1294,9 @@ QSpinBox:down-button{
     </property>
     <property name="cursor">
      <cursorShape>PointingHandCursor</cursorShape>
+    </property>
+    <property name="toolTip">
+     <string>Сохранить параметры</string>
     </property>
     <property name="styleSheet">
      <string notr="true">QPushButton{
@@ -1365,8 +1377,8 @@ QPushButton:pressed{
    <widget class="QPushButton" name="btnOpenScheme">
     <property name="geometry">
      <rect>
-      <x>208</x>
-      <y>407</y>
+      <x>260</x>
+      <y>409</y>
       <width>71</width>
       <height>31</height>
      </rect>
@@ -1386,6 +1398,9 @@ QPushButton:pressed{
     </property>
     <property name="cursor">
      <cursorShape>PointingHandCursor</cursorShape>
+    </property>
+    <property name="toolTip">
+     <string>Открыть построенную схему</string>
     </property>
     <property name="styleSheet">
      <string notr="true">QPushButton{
@@ -1425,7 +1440,7 @@ QPushButton:hover{
      </font>
     </property>
     <property name="toolTip">
-     <string>Количество MPPT в инверторе</string>
+     <string>Количество всего инверторов этой модели</string>
     </property>
     <property name="styleSheet">
      <string notr="true">QLineEdit{
@@ -1494,7 +1509,7 @@ QPushButton:hover{
      </font>
     </property>
     <property name="toolTip">
-     <string>Позволяет добавлять разные MPPT в инвертор. Нажимая на кнопку &quot;+&quot; добавляются параметры для каждого MPPT</string>
+     <string/>
     </property>
     <property name="styleSheet">
      <string notr="true">background-color: rgba(255,255,255,0); </string>
@@ -1525,7 +1540,7 @@ QPushButton:hover{
      <cursorShape>PointingHandCursor</cursorShape>
     </property>
     <property name="toolTip">
-     <string>Удалить</string>
+     <string>Удаление конфигурации</string>
     </property>
     <property name="styleSheet">
      <string notr="true">QPushButton{
@@ -1559,7 +1574,7 @@ QPushButton:hover{
      </font>
     </property>
     <property name="toolTip">
-     <string>Позволяет добавлять разные MPPT в инвертор. Нажимая на кнопку &quot;+&quot; добавляются параметры для каждого MPPT</string>
+     <string>Разные MPPT в одном инверторе</string>
     </property>
     <property name="styleSheet">
      <string notr="true">background-color: rgba(255,255,255,0); </string>

@@ -90,6 +90,9 @@ QComboBox QAbstractItemView {
       <bold>true</bold>
      </font>
     </property>
+    <property name="toolTip">
+     <string>Название города</string>
+    </property>
     <property name="styleSheet">
      <string notr="true">QLineEdit{
 	background-color:rgba(229,229,234,1); 
@@ -207,6 +210,9 @@ QPushButton:pressed{
     <property name="cursor">
      <cursorShape>PointingHandCursor</cursorShape>
     </property>
+    <property name="toolTip">
+     <string>Поиск города</string>
+    </property>
     <property name="styleSheet">
      <string notr="true">QPushButton{
 	background-color: #196dff;
@@ -285,6 +291,9 @@ QPushButton:pressed{
     </property>
     <property name="cursor">
      <cursorShape>PointingHandCursor</cursorShape>
+    </property>
+    <property name="toolTip">
+     <string>Список найденных городов</string>
     </property>
     <property name="styleSheet">
      <string notr="true">QComboBox{

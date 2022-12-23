@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file 'designDrawSchemes.ui'
+# Form implementation generated from reading ui file 'app/views/designDrawSchemes.ui'
 #
 # Created by: PyQt5 UI code generator 5.15.7
 #
@@ -361,6 +361,7 @@ class Ui_WindowDrawSchemes(object):
         font.setBold(True)
         font.setWeight(75)
         self.spinBox_CloneInvertor.setFont(font)
+        self.spinBox_CloneInvertor.setToolTip("")
         self.spinBox_CloneInvertor.setStyleSheet("QSpinBox{\n"
 "    background-color:rgba(229,229,234,1); \n"
 "    border-radius: 6;\n"
@@ -424,7 +425,7 @@ class Ui_WindowDrawSchemes(object):
 "    border-radius: 6;\n"
 "}")
         icon = QtGui.QIcon()
-        icon.addPixmap(QtGui.QPixmap("Data/icon_update.jpg"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        icon.addPixmap(QtGui.QPixmap("app/views\\Data/icon_update.jpg"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         self.btnUpdateConsole.setIcon(icon)
         self.btnUpdateConsole.setObjectName("btnUpdateConsole")
         self.label_10 = QtWidgets.QLabel(self.centralwidget)
@@ -684,7 +685,7 @@ class Ui_WindowDrawSchemes(object):
         self.spinBox_numDifferentMPPT.setReadOnly(False)
         self.spinBox_numDifferentMPPT.setObjectName("spinBox_numDifferentMPPT")
         self.btnSaveConfig = QtWidgets.QPushButton(self.centralwidget)
-        self.btnSaveConfig.setGeometry(QtCore.QRect(350, 14, 41, 41))
+        self.btnSaveConfig.setGeometry(QtCore.QRect(209, 405, 41, 41))
         font = QtGui.QFont()
         font.setFamily("Arial")
         font.setPointSize(9)
@@ -731,7 +732,7 @@ class Ui_WindowDrawSchemes(object):
         self.label_21.setStyleSheet("background-color: rgba(255,255,255,0); ")
         self.label_21.setObjectName("label_21")
         self.btnOpenScheme = QtWidgets.QPushButton(self.centralwidget)
-        self.btnOpenScheme.setGeometry(QtCore.QRect(208, 407, 71, 31))
+        self.btnOpenScheme.setGeometry(QtCore.QRect(260, 409, 71, 31))
         font = QtGui.QFont()
         font.setFamily("Arial")
         font.setPointSize(9)
@@ -794,6 +795,7 @@ class Ui_WindowDrawSchemes(object):
         font = QtGui.QFont()
         font.setFamily("Arial")
         self.checkManySchemes.setFont(font)
+        self.checkManySchemes.setToolTip("")
         self.checkManySchemes.setStyleSheet("background-color: rgba(255,255,255,0); ")
         self.checkManySchemes.setObjectName("checkManySchemes")
         self.btnDelConfig = QtWidgets.QPushButton(self.centralwidget)
@@ -883,7 +885,7 @@ class Ui_WindowDrawSchemes(object):
 
     def retranslateUi(self, WindowDrawSchemes):
         _translate = QtCore.QCoreApplication.translate
-        WindowDrawSchemes.setWindowTitle(_translate("WindowDrawSchemes", "Схема инвертора"))
+        WindowDrawSchemes.setWindowTitle(_translate("WindowDrawSchemes", "Схема постоянного тока"))
         self.label_8.setText(_translate("WindowDrawSchemes", "MPPT"))
         self.inputCount_mppt.setToolTip(_translate("WindowDrawSchemes", "Количество MPPT в инверторе"))
         self.textConsoleDraw.setPlaceholderText(_translate("WindowDrawSchemes", "Ход построения"))
@@ -900,7 +902,6 @@ class Ui_WindowDrawSchemes(object):
         self.inputTitle_grid_top.setToolTip(_translate("WindowDrawSchemes", "Наименование распологаемое сверху после свича"))
         self.inputNumber_invertor.setToolTip(_translate("WindowDrawSchemes", "Тип инвертора"))
         self.label_9.setText(_translate("WindowDrawSchemes", "Инвертор"))
-        self.spinBox_CloneInvertor.setToolTip(_translate("WindowDrawSchemes", "Количество схем одинаковых инверторов"))
         self.btnUpdateConsole.setToolTip(_translate("WindowDrawSchemes", "Очистить консоль"))
         self.btnUpdateConsole.setText(_translate("WindowDrawSchemes", "D"))
         self.label_10.setText(_translate("WindowDrawSchemes", "Название"))
@@ -918,19 +919,23 @@ class Ui_WindowDrawSchemes(object):
         self.checkUse_5or4_line.setText(_translate("WindowDrawSchemes", "Пятипроводная система"))
         self.label_19.setText(_translate("WindowDrawSchemes", "Длина к.п."))
         self.inputTitle_grid_line_length.setToolTip(_translate("WindowDrawSchemes", "Наименование распологаемое сверху после свича"))
+        self.spinBox_numInvertor.setToolTip(_translate("WindowDrawSchemes", "Переключение между оборудованием"))
+        self.btnAdd_new_mppt.setToolTip(_translate("WindowDrawSchemes", "Добавление конфигурации"))
         self.btnAdd_new_mppt.setText(_translate("WindowDrawSchemes", "+"))
+        self.spinBox_numDifferentMPPT.setToolTip(_translate("WindowDrawSchemes", "Переключение между конфигурациями"))
+        self.btnSaveConfig.setToolTip(_translate("WindowDrawSchemes", "Сохранить параметры"))
         self.label_20.setText(_translate("WindowDrawSchemes", "Кол-во\n"
 "инверторов"))
         self.label_21.setText(_translate("WindowDrawSchemes", "Конфигурация\n"
 "инвертора"))
+        self.btnOpenScheme.setToolTip(_translate("WindowDrawSchemes", "Открыть построенную схему"))
         self.btnOpenScheme.setText(_translate("WindowDrawSchemes", "Открыть"))
-        self.inputCountAllInvertors.setToolTip(_translate("WindowDrawSchemes", "Количество MPPT в инверторе"))
+        self.inputCountAllInvertors.setToolTip(_translate("WindowDrawSchemes", "Количество всего инверторов этой модели"))
         self.label_22.setText(_translate("WindowDrawSchemes", "из"))
-        self.checkManySchemes.setToolTip(_translate("WindowDrawSchemes", "Позволяет добавлять разные MPPT в инвертор. Нажимая на кнопку \"+\" добавляются параметры для каждого MPPT"))
         self.checkManySchemes.setText(_translate("WindowDrawSchemes", "Отдельная схема для\n"
 "каждого инвертора"))
-        self.btnDelConfig.setToolTip(_translate("WindowDrawSchemes", "Удалить"))
+        self.btnDelConfig.setToolTip(_translate("WindowDrawSchemes", "Удаление конфигурации"))
         self.btnDelConfig.setText(_translate("WindowDrawSchemes", "🞫"))
-        self.checkDifferentMPPT.setToolTip(_translate("WindowDrawSchemes", "Позволяет добавлять разные MPPT в инвертор. Нажимая на кнопку \"+\" добавляются параметры для каждого MPPT"))
+        self.checkDifferentMPPT.setToolTip(_translate("WindowDrawSchemes", "Разные MPPT в одном инверторе"))
         self.checkDifferentMPPT.setText(_translate("WindowDrawSchemes", "Разные MPPT"))
         self.labelLoading.setText(_translate("WindowDrawSchemes", "TextLabel"))

@@ -2,11 +2,8 @@ import os, subprocess
 from os.path import isfile, join
 
 ink_path = 'Data/System/Inkscape/inkscape.exe'
-path_svg = 'Data/Schemes/Structural/structural_for_pptx_ru.svg'
-path_svg_en = 'Data/Schemes/Structural/structural_for_pptx_en.svg'
-path_png = 'Data/System/Images/PPTX/'
 
-def convert(count_invertor, wifi, widths):
+def convert(count_invertor, wifi, widths, path_svg, path_png):
     triple = count_invertor // 3
     double = count_invertor % 3 // 2
     single = count_invertor % 3 // 1 if double == 0 else 0
@@ -53,5 +50,6 @@ def convert(count_invertor, wifi, widths):
             start_width = 0
             width = widths[i]
 
-        cmd = f'"{ink_path}" "{path_svg}" -w "{5000}" --export-area={start_width}:{height_on_slides[i]}:{width}:{height_on_slides[i + 1]} --export-background="#fff" --export-filename "{path_png}img{i}.png"' #--export-background="#fff"
+        cmd = f'"{ink_path}" "{path_svg}" -w "{5000}" --export-area={start_width}:{height_on_slides[i]}:{width}:{height_on_slides[i + 1]} \
+                --export-filename "{path_png}img{i}.png"' #--export-background="#fff"
         subprocess.call(cmd, shell = True)

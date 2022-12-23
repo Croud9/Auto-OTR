@@ -59,10 +59,11 @@ class СonvertFiles(QThread):
             # To get better resolution
             self.found_pdf = search_data.search_in_pdf(self.paths)
             try:
+                self.have_full_address = True
                 if validate.internet() == True:
                     self.full_address = geocoding.get_full_address_by_coordinates(self.found_pdf['lati_pdf'], self.found_pdf['longi_pdf'])
             except Exception:
-                pass
+                self.have_full_address = False
             zoom_x = 2.0  # horizontal zoom
             zoom_y = 2.0  # vertical zoom
             mat = fitz.Matrix(zoom_x, zoom_y)  # zoom factor 2 in each dimension         
@@ -306,7 +307,7 @@ class MainApp(QtWidgets.QMainWindow, designRepPDF.Ui_MainWindow):
         self.fields_text = [self.inputUDotIn, self.inputAddressLat, self.inputAddressLong]
 
     def open_result_doc(self):
-        os.startfile("Data\Report\Auto-OTR.pdf")
+        os.startfile("Data\Result\Auto-OTR.pdf")
 
     def open_pptx(self):
         os.startfile("Data\Result\Summary.pptx")
@@ -630,7 +631,7 @@ class MainApp(QtWidgets.QMainWindow, designRepPDF.Ui_MainWindow):
     def show_window_draw_structural(self):  # открытие окна рисования первой схемы
         self.w6.setWindowIcon(QtGui.QIcon('Data/System/Icons/graficon.png'))
         self.w6.show()
-        self.w6.setFixedSize(390, 480)
+        self.w6.setFixedSize(390, 500)
 
     def show_window_calc(self):  # открытие окна рисования первой схемы
         self.w5.setWindowIcon(QtGui.QIcon('Data/System/Icons/graficon.png'))
@@ -685,7 +686,6 @@ class MainApp(QtWidgets.QMainWindow, designRepPDF.Ui_MainWindow):
                     QTimer.singleShot(4000, lambda: self.statusBar.setStyleSheet(styles_and_animation.status_white))
                 else:
                     self.statusBar.showMessage('', 100)
-                    self.statusBar.showMessage(styles_and_animation.status_ok, 2000)
                     self.statusBar.setStyleSheet(styles_and_animation.status_white)
 
                     current['type_inv'] = 'QF'
@@ -745,7 +745,6 @@ class MainApp(QtWidgets.QMainWindow, designRepPDF.Ui_MainWindow):
                     QTimer.singleShot(4000, lambda: self.statusBar.setStyleSheet(styles_and_animation.status_white))
                 else:
                     self.statusBar.showMessage('', 100)
-                    self.statusBar.showMessage(styles_and_animation.status_ok, 2000)
                     self.statusBar.setStyleSheet(styles_and_animation.status_white)
 
                     current['file'] = self.listPV_file.currentIndex()
@@ -765,7 +764,6 @@ class MainApp(QtWidgets.QMainWindow, designRepPDF.Ui_MainWindow):
                     QTimer.singleShot(4000, lambda: self.statusBar.setStyleSheet(styles_and_animation.status_white))
                 else:
                     self.statusBar.showMessage('', 100)
-                    self.statusBar.showMessage(styles_and_animation.status_ok, 2000)
                     self.statusBar.setStyleSheet(styles_and_animation.status_white)
                     current['file'] = self.listKTP_file.currentIndex()
                     current['folder'] = self.listKTP_folder.currentIndex()
@@ -821,7 +819,7 @@ class MainApp(QtWidgets.QMainWindow, designRepPDF.Ui_MainWindow):
         self.hide_del_button_schemes()
         if len(self.pathes_detail_schemes) != 0:
             if self.del_pdf('detailed') == 1: return
-            self.textConsole.append("- Загружена принципиальная эл.схема")
+            self.textConsole.append("🔥 Загружена схема постоянного тока")
             self.btnLoadScheme1.setEnabled(False)
             self.converter1 = СonvertFiles(self.pathes_detail_schemes, 'detailed')
             self.converter1.finished.connect(self.convertOneFinished)
@@ -834,7 +832,7 @@ class MainApp(QtWidgets.QMainWindow, designRepPDF.Ui_MainWindow):
         self.hide_del_button_schemes()
         if len(self.path_general_schemes[0]) != 0:
             if self.del_pdf('general') == 1: return
-            self.textConsole.append("- Загружена принципиальная эл.схема ")
+            self.textConsole.append("🔥 Загружена принципиальная эл.схема ")
             self.btnLoadScheme2.setEnabled(False)
             self.converter2 = СonvertFiles(self.path_general_schemes, 'general')
             self.converter2.finished.connect(self.convertTwoFinished)
@@ -848,7 +846,7 @@ class MainApp(QtWidgets.QMainWindow, designRepPDF.Ui_MainWindow):
 
         if len(self.path_structural_schemes[0]) != 0:
             if self.del_pdf('structural') == 1: return
-            self.textConsole.append("- Загружена структурная эл.схема ")
+            self.textConsole.append("🔥 Загружена структурная эл.схема ")
             self.btnLoadStructScheme.setEnabled(False)
             self.converter3 = СonvertFiles(self.path_structural_schemes, 'structural')
             self.converter3.finished.connect(self.convertStructFinished)
@@ -860,14 +858,14 @@ class MainApp(QtWidgets.QMainWindow, designRepPDF.Ui_MainWindow):
         print(self.path_plane_set_schemes)
         self.hide_del_button_schemes()
         if self.path_plane_set_schemes != '':
-            self.textConsole.append("- Загружен план размещения ")
+            self.textConsole.append("🔥 Загружен план размещения ")
 
     def load_daily_csv(self):
         self.path_daily_csv = QtWidgets.QFileDialog.getOpenFileName(self, 'Выберите файл с почасовой выработкой', 
                                                                             'Data/Modules/', "*.csv *.xls")[0]
         print(self.path_daily_csv)
         if self.path_daily_csv != '':
-            self.textConsole.append("- Загружен файл почасовой выработки")
+            self.textConsole.append("🔥 Загружен файл почасовой выработки")
 
     def add_invertor(self):
         current_load = f'found_invertor_{self.spinBox_numInvertor.value() - 1}'
@@ -984,7 +982,7 @@ class MainApp(QtWidgets.QMainWindow, designRepPDF.Ui_MainWindow):
         self.found_pdf = search_data.null_search_params('pvsyst')
         self.path_pvsyst = ''
         self.hide_del_button_device()
-        self.textConsole.append("- Исключен отчет PVsyst")
+        self.textConsole.append("❌ Исключен отчет PVsyst")
 
     def del_scheme_one(self):
         if self.del_pdf('detailed') == 1: return
@@ -1062,7 +1060,7 @@ class MainApp(QtWidgets.QMainWindow, designRepPDF.Ui_MainWindow):
         files_in_general = [f for f in os.listdir(fp_general) if isfile(join(fp_general, f))]
         files_in_detailed = [f for f in os.listdir(fp_detailed) if isfile(join(fp_detailed, f))]
 
-        with open("Data/Report/Report.pdf", 'rb') as report: 
+        with open("Data/Result/Report.pdf", 'rb') as report: 
             pdf_merger.append(report)
         if len(files_in_structural) != 0 and self.path_structural_schemes != " ":
             with open(fp_structural + f"/{files_in_structural[0]}", 'rb') as image_fd: 
@@ -1077,10 +1075,10 @@ class MainApp(QtWidgets.QMainWindow, designRepPDF.Ui_MainWindow):
         if self.path_plane_set_schemes != '':
             with open(self.path_plane_set_schemes, 'rb') as image_fd: 
                 pdf_merger.append(image_fd)
-        with open("Data/Report/Auto-OTR.pdf", 'wb') as output_file:
+        with open("Data/Result/Auto-OTR.pdf", 'wb') as output_file:
             pdf_merger.write(output_file)
         del pdf_merger  
-        os.remove("Data/Report/Report.pdf")      
+        os.remove("Data/Result/Report.pdf")      
         
     def out_params(self):
         block_1 = True if self.checkBox_1.isChecked() else False
@@ -1149,8 +1147,11 @@ class MainApp(QtWidgets.QMainWindow, designRepPDF.Ui_MainWindow):
             QTimer.singleShot(4000, lambda: self.statusBar.setStyleSheet(styles_and_animation.status_white))
             return
 
-        fp_folder = 'Data/System/Images/PPTX'
-        files = [f for f in os.listdir(fp_folder) if isfile(join(fp_folder, f))]
+        locale = self.listLocale.currentText()
+        fp_folder_ru = 'Data/System/Images/PPTX/RU'
+        fp_folder_en = 'Data/System/Images/PPTX/EN'
+        files_ru = [f for f in os.listdir(fp_folder_ru) if isfile(join(fp_folder_ru, f))]
+        files_en = [f for f in os.listdir(fp_folder_en) if isfile(join(fp_folder_en, f))]
 
         type_schemes = self.listCountSchemes.currentIndex()
         if self.validation() == 0:
@@ -1165,7 +1166,12 @@ class MainApp(QtWidgets.QMainWindow, designRepPDF.Ui_MainWindow):
             self.statusBar.setStyleSheet(styles_and_animation.status_yellow)
             QTimer.singleShot(4000, lambda: self.statusBar.setStyleSheet(styles_and_animation.status_white))
             return
-        elif len(files) == 0:
+        elif len(files_ru) == 0 and locale == 'RU':
+            self.statusBar.showMessage('Не сформирована структурная схема', 4000)
+            self.statusBar.setStyleSheet(styles_and_animation.status_yellow)
+            QTimer.singleShot(4000, lambda: self.statusBar.setStyleSheet(styles_and_animation.status_white))
+            return
+        elif len(files_en) == 0 and locale == 'EN':
             self.statusBar.showMessage('Не сформирована структурная схема', 4000)
             self.statusBar.setStyleSheet(styles_and_animation.status_yellow)
             QTimer.singleShot(4000, lambda: self.statusBar.setStyleSheet(styles_and_animation.status_white))
@@ -1182,10 +1188,20 @@ class MainApp(QtWidgets.QMainWindow, designRepPDF.Ui_MainWindow):
             styles_and_animation.animation_start(self.movie, self.labelLoading)
             QtWidgets.QApplication.processEvents()
             title_project = self.inputTitleProject.text()
-            locale = self.listLocale.currentText()
             current_p = self.listPSelect.currentText()
             i_roof = self.listRoof.currentIndex()
-            roof = 'Крышная' if i_roof == 1 or i_roof == 2 else self.listRoof.currentText()
+            if locale == 'RU':
+                roof = 'Крышная' if i_roof == 1 or i_roof == 2 else self.listRoof.currentText()
+            elif locale == 'EN':
+                if i_roof == 1 or i_roof == 2:
+                    roof = 'Roof' 
+                elif i_roof == 3:
+                    roof = 'Ground' 
+                elif i_roof == 4:
+                    roof = 'Floating' 
+                elif i_roof == 5:
+                    roof = 'Tracker' 
+
             pptx_params = {'roof': roof, 'title_project': title_project, 'pvs': self.pvs, 
                             'pvsyst': self.found_pdf, 'locale': locale, 'type_schemes': type_schemes,
                             'current_p': current_p, 'path_to_daily_csv': self.path_daily_csv}
@@ -1200,9 +1216,9 @@ class MainApp(QtWidgets.QMainWindow, designRepPDF.Ui_MainWindow):
 
     def create_pdf(self):
         try:
-            with open("Data/Report/Report.pdf", 'w') as fp:
+            with open("Data/Result/Report.pdf", 'w') as fp:
                 pass
-            with open("Data/Report/Auto-OTR.pdf", 'w') as fp:
+            with open("Data/Result/Auto-OTR.pdf", 'w') as fp:
                 pass
         except PermissionError:
             self.statusBar.showMessage('Открыт pdf файл отчета, закройте его и повторите попытку', 4000)
@@ -1226,8 +1242,6 @@ class MainApp(QtWidgets.QMainWindow, designRepPDF.Ui_MainWindow):
             print(main_params)
             
             self.btnForm.setEnabled(False)
-            self.statusBar.showMessage('Пожалуйста, подождите...')
-            self.statusBar.setStyleSheet(styles_and_animation.status_yellow)
             self.builder = BuildDoc(main_params)
             self.builder.finished.connect(self.buildFinished)
             self.builder.start()
@@ -1274,7 +1288,6 @@ class MainApp(QtWidgets.QMainWindow, designRepPDF.Ui_MainWindow):
 
     def convertPvsystFinished(self):
         self.found_pdf = self.converter_pvsyst.found_pdf
-        print('PDF --- ', self.found_pdf)
         if self.found_pdf['broken_file'] == True:
             self.statusBar.showMessage('Проблема в файле, данные не загружены', 4000)
             self.statusBar.setStyleSheet(styles_and_animation.status_yellow)
@@ -1284,11 +1297,13 @@ class MainApp(QtWidgets.QMainWindow, designRepPDF.Ui_MainWindow):
             self.inputAddressLat.setText(self.found_pdf['lati_pdf'])
             self.inputAddressLong.setText(self.found_pdf['longi_pdf'])
 
-            if self.internet_on() == True and hasattr(self.converter_pvsyst, 'full_address'):
+            if self.internet_on() == True and hasattr(self.converter_pvsyst, 'full_address') and self.converter_pvsyst.have_full_address == True:
                 full_address = self.converter_pvsyst.full_address
                 self.inputAddress.setText(full_address['full_address'])
                 self.w2.inputCity.setText(full_address['city_point'])
-            
+            else:
+                self.textConsole.append('❌ Не удалось загрузить геоданные')
+
             array_pv = self.found_pdf['found_pv_invertor']['pv_array_config_0']
             if isinstance(array_pv, str):
                 self.statusBar.showMessage(array_pv, 6000)
@@ -1323,7 +1338,7 @@ class MainApp(QtWidgets.QMainWindow, designRepPDF.Ui_MainWindow):
                         self.listPSelect.addItem(key)
             else:
                 self.listPSelect.addItem('Только (P50)')
-            self.textConsole.append(f"- Загружен отчет PVsyst: {self.path_pvsyst.split('/')[-1]}")
+            self.textConsole.append(f"🔥 Загружен отчет PVsyst: {self.path_pvsyst.split('/')[-1]}")
             self.textConsole.append('- - - - - - - - -')
         self.btnOne.setEnabled(True)
         self.hide_del_button_device()
@@ -1454,7 +1469,7 @@ class MainApp(QtWidgets.QMainWindow, designRepPDF.Ui_MainWindow):
                     self.w6.up_down_invertor_selection()
                 else:
                     self.del_invertor()
-                    self.textConsole.append(f"Инвертор {pvsyst_pvs_invrtrs['model_invertor']} не найден")
+                    self.textConsole.append(f"❌ Инвертор {pvsyst_pvs_invrtrs['model_invertor']} не найден")
                     self.listInvertor_folder.setCurrentText('Выберите')
                     self.select_invertor()
                     self.invertors = {}
@@ -1464,7 +1479,7 @@ class MainApp(QtWidgets.QMainWindow, designRepPDF.Ui_MainWindow):
                     self.w6.reset()
 
         if found_inv_company == False:
-            self.textConsole.append(f"Инверторная компания {pvsyst_pvs_invrtrs['title_invertor']} не найдена")
+            self.textConsole.append(f"❌ Инверторная компания {pvsyst_pvs_invrtrs['title_invertor']} не найдена")
         return found_inv, found_inv_company
 
     def calc_pv_pvsyst(self, pvsyst_pvs_invrtrs, found_pv_company, found_pv):
@@ -1482,19 +1497,17 @@ class MainApp(QtWidgets.QMainWindow, designRepPDF.Ui_MainWindow):
                 if found_pv == True:
                     self.load_pv()
                 else:
-                    self.textConsole.append(f"ФЭМ {pvsyst_pvs_invrtrs['model_pv']} не найден")
+                    self.textConsole.append(f"❌ ФЭМ {pvsyst_pvs_invrtrs['model_pv']} не найден")
                     self.listPV_folder.setCurrentText('Выберите')
                     self.select_pv()
                     self.pvs = {}
                     self.pvs['found_pv_0'] = search_data.null_search_params('pv')
 
         if found_pv_company == False:
-            self.textConsole.append(f"Компания ФЭМ {pvsyst_pvs_invrtrs['title_pv']} не найдена")
+            self.textConsole.append(f"❌ Компания ФЭМ {pvsyst_pvs_invrtrs['title_pv']} не найдена")
         return found_pv, found_pv_company
 
     def calc_draw_params(self):
-        print('конфигурация фэм массивов: ', self.found_pdf['found_pv_invertor'])
-        
         while len(self.invertors) > 1:
             self.del_invertor()
 
@@ -1520,7 +1533,7 @@ class MainApp(QtWidgets.QMainWindow, designRepPDF.Ui_MainWindow):
         return result
 
     def buildFinished(self):
-        self.textConsole.append("Отчет сформирован!")
+        self.textConsole.append("🔥 Отчет сформирован!")
         self.statusBar.showMessage('Отчет сформирован!', 4000)
         self.statusBar.setStyleSheet(styles_and_animation.status_green)
         QTimer.singleShot(4000, lambda: self.statusBar.setStyleSheet(styles_and_animation.status_white))
@@ -1534,7 +1547,7 @@ class MainApp(QtWidgets.QMainWindow, designRepPDF.Ui_MainWindow):
     def buildPptxFinished(self):
         status = self.presenter.status
         if status == 'ok':
-            self.textConsole.append("Презентация сформирована!")
+            self.textConsole.append("🔥 Презентация сформирована!")
             self.statusBar.showMessage('Презентация сформирована!', 4000)
             self.statusBar.setStyleSheet(styles_and_animation.status_green)
             QTimer.singleShot(4000, lambda: self.statusBar.setStyleSheet(styles_and_animation.status_white))

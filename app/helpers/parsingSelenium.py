@@ -1,4 +1,4 @@
-import time, requests
+import time, requests, re
 import chromedriver_autoinstaller
 from selenium import webdriver
 from selenium.webdriver.common.by import By
@@ -51,100 +51,119 @@ def ones():
         print("ИНТЕРНЕТ ЛЁГ")
         return 2
 
+def func_chunks_generators(lst, n):
+    for i in range(0, len(lst), n):
+        yield lst[i : i + n]
+
 def search(city):
     global start
     global count_result
     global data_result_canc
     global link_and_result
-    start = time.time()
-
-    browser.switch_to.window(browser.window_handles[0])
     try:
-        browser.find_element(By.ID, "searchStr").clear()
-        browser.find_element(By.ID, "searchStr").send_keys(city)
-        num_error = 2
-    except NoSuchElementException:
-        browser.quit()
-        print("Нет элемента searchStr")
+        start = time.time()
+        
+        browser.switch_to.window(browser.window_handles[0])
+        try:
+            browser.find_element(By.ID, "searchStr").clear()
+            browser.find_element(By.ID, "searchStr").send_keys(city)
+            num_error = 2
+        except NoSuchElementException:
+            browser.quit()
+            print("Нет элемента searchStr")
+            num_error = 0
+            return num_error
+        
+        try:
+            browser.find_element(By.ID, "searchButton").click()
+            num_error = 2
+        except NoSuchElementException:
+            browser.quit()
+            print("Нет элемента searchButton")
+            num_error = 0
+            return num_error
+
+        all_result = browser.find_elements(By.CLASS_NAME, "innerTextResult")
+
+        try:
+            search_result = browser.find_element(By.CLASS_NAME, "searchResults")
+            num_error = 2
+        except NoSuchElementException:
+            # browser.quit()
+            print("По Вашему запросу ничего не найдено")
+            num_error = 0
+            return num_error
+
+        count_result = browser.find_element(By.CLASS_NAME, "stinfo").text
+        all_links = search_result.find_elements(By.TAG_NAME, "a")
+
+        data_result = [result.text for result in all_result]
+        data_result_canc = list(func_chunks_generators(data_result, 4))
+        data_link = [link for link in all_links]
+        link_and_result = dict(zip(data_link, data_result_canc))
+
+        return count_result, data_result_canc, num_error
+    except:
         num_error = 0
         return num_error
-    
-    try:
-        browser.find_element(By.ID, "searchButton").click()
-        num_error = 2
-    except NoSuchElementException:
-        browser.quit()
-        print("Нет элемента searchButton")
-        num_error = 0
-        return num_error
 
-    all_result = browser.find_elements(By.CLASS_NAME, "innerTextResult")
-
-    try:
-        search_result = browser.find_element(By.CLASS_NAME, "searchResults")
-        num_error = 2
-    except NoSuchElementException:
-        # browser.quit()
-        print("По Вашему запросу ничего не найдено")
-        num_error = 0
-        return num_error
-
-    count_result = browser.find_element(By.CLASS_NAME, "stinfo").text
-    all_links = search_result.find_elements(By.TAG_NAME, "a")
-
-    def func_chunks_generators(lst, n):
-        for i in range(0, len(lst), n):
-            yield lst[i : i + n]
-
-    data_result = [result.text for result in all_result]
-    data_result_canc = list(func_chunks_generators(data_result, 4))
-    data_link = [link for link in all_links]
-    link_and_result = dict(zip(data_link, data_result_canc))
-
-    return count_result, data_result_canc, num_error
+def get_key(data, value):
+    for k, v in data.items():
+        if v == value:
+            return k
 
 def result_list(select_city):
     global current_link_city
     global downld_page
-    def get_key(data, value):
-        for k, v in data.items():
-            if v == value:
-                return k
-
-    browser.switch_to.window(browser.window_handles[0])
-    key_selected_city = get_key(link_and_result, data_result_canc[select_city])
-    current_link_city = key_selected_city.get_attribute('href')
-    view_city = key_selected_city.text
-    print('ВЫБРАН ГОРОД', view_city )
-    browser.execute_script(f"window.open('{current_link_city}', 'new_window')")
-
-    browser.switch_to.window(browser.window_handles[1])
-    archive = browser.find_elements(By.PARTIAL_LINK_TEXT, "Архив")
-    archive[0].click()
-
     try:
-        WebDriverWait(browser, 3).until(EC.presence_of_element_located((By.ID, "fsynop")))
-    except TimeoutException:
-        WebDriverWait(browser, 3).until(EC.presence_of_element_located((By.ID, "fmetar")))
+        browser.switch_to.window(browser.window_handles[0])
+        key_selected_city = get_key(link_and_result, data_result_canc[select_city])
+        current_link_city = key_selected_city.get_attribute('href')
+        view_city = key_selected_city.text
+        print('ВЫБРАН ГОРОД', view_city )
+        browser.execute_script(f"window.open('{current_link_city}', 'new_window')")
 
-    try:
-        start_monitoring = browser.find_element(By.ID, "fsynop")                     # Дата начала наблюдений
-        id_station = "fsynop"
-    except NoSuchElementException:
-        start_monitoring = browser.find_element(By.ID, "fmetar")
-        id_station = "fmetar"
+        browser.switch_to.window(browser.window_handles[1])
+        archive = browser.find_elements(By.PARTIAL_LINK_TEXT, "Архив")
+        archive[0].click()
 
-    # номер станции
-    try:
-        num_weather_station = browser.find_element(By.XPATH, f'//*[@id="{id_station}"]/span/input').get_attribute('value')
-        print("номер станции", num_weather_station)
-    except Exception:
-        num_weather_station = "Н/Д" 
-         
-    strt_monit = start_monitoring.text.partition(',')[2]
-    print(strt_monit)
-    downld_page = browser.current_url
-    return {'view_city': view_city, 'strt_monit': strt_monit, 'num_weather_station': num_weather_station }
+        try:
+            WebDriverWait(browser, 3).until(EC.presence_of_element_located((By.ID, "fsynop")))
+        except TimeoutException:
+            try:
+                WebDriverWait(browser, 3).until(EC.presence_of_element_located((By.ID, "fmetar")))
+            except TimeoutException:
+                distances = []
+                links_archive = browser.find_elements(By.PARTIAL_LINK_TEXT, "Архив")
+                for link in links_archive:
+                    text_link = link.text
+                    distance_and_temperature = text_link.split('(')[1].split(')')[0].strip().split(' ')
+                    distance = float(list(filter(lambda x: re.search('^[+-]?[0-9]\d*(\.\d+)?$', x), distance_and_temperature))[0])
+                    distances.append(distance)
+                min_distance = min(distances)
+                links_archive[distances.index(min_distance)].click()
+
+        try:
+            start_monitoring = browser.find_element(By.ID, "fsynop")                     # Дата начала наблюдений
+            id_station = "fsynop"
+        except NoSuchElementException:
+            start_monitoring = browser.find_element(By.ID, "fmetar")
+            id_station = "fmetar"
+
+        # номер станции
+        try:
+            num_weather_station = browser.find_element(By.XPATH, f'//*[@id="{id_station}"]/span/input').get_attribute('value')
+            print("номер станции", num_weather_station)
+        except Exception:
+            num_weather_station = "Н/Д" 
+            
+        strt_monit = start_monitoring.text.partition(',')[2]
+        print(strt_monit)
+        downld_page = browser.current_url
+        return {'view_city': view_city, 'strt_monit': strt_monit, 'num_weather_station': num_weather_station }
+    except:
+        num_error = 0
+        return num_error
 
 def input_date(date_start, date_end):
     global js_code

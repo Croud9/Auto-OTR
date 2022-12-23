@@ -2,17 +2,18 @@ from PyQt5.QtCore import QTimer
 
 # перевод дизайна
 # cd "C:\PythonPRJCT\autoReportPdf"
-# pyuic5 designCalcPV.ui -o designCalcPV.py
-# pyuic5 designRepPDF.ui -o designRepPDF.py
-# pyuic5 designParsing.ui -o designParsing.py
-# pyuic5 designDrawSchemes.ui -o designDrawSchemes.py
-# pyuic5 designDrawSchemesTwo.ui -o designDrawSchemesTwo.py
-# pyuic5 designDrawStructuralScheme.ui -o designDrawStructuralScheme.py
-# pyuic5 designAbout.ui -o designAbout.py
-
-'👌✅👍🤟🤘🔥📍🌐'
+# pyuic5 app/views/designCalcPV.ui -o app/views/designCalcPV.py
+# pyuic5 app/views/designRepPDF.ui -o app/views/designRepPDF.py
+# pyuic5 app/views/designParsing.ui -o app/views/designParsing.py
+# pyuic5 app/views/designDrawSchemes.ui -o app/views/designDrawSchemes.py
+# pyuic5 app/views/designDrawSchemesTwo.ui -o app/views/designDrawSchemesTwo.py
+# pyuic5 app/views/designDrawStructuralScheme.ui -o app/views/designDrawStructuralScheme.py
+# pyuic5 app/views/designAbout.ui -o app/views/designAbout.py
+# pyinstaller --noconfirm --onefile --console --icon "C:/DEV/PythonPRJCT/larso_in_exe/Data/System/Icons/graficon.ico" --collect-all "aspose"  "C:/DEV/PythonPRJCT/larso_in_exe/app/main.py"
+# pyinstaller --noconfirm --onefile --console --icon "C:/DEV/PythonPRJCT/autoReportPdf/Data/System/Icons/graficon.ico" --collect-all "aspose" --collect-all "transliterate"  "C:/DEV/PythonPRJCT/autoReportPdf/app/main.py"
+'👌✅❎👍🤟🤘🔥📍🌐 ❌✔✓'
 status_ok = ' ' * 117 +'🔥'
-status_info = "background-color: rgba(229,229,234,1); color:  #025238; font-weight: bold;"
+status_info = "background-color: rgba(229,229,234,1); color:  #025238" #; font-weight: bold;
 status_orange = "background-color:rgba(255, 169, 31, 0.89)"
 status_yellow = "background-color:rgb(255, 212, 38)"
 status_white = "background-color:rgb(255, 255, 255)"

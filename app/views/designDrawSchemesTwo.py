@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file 'designDrawSchemesTwo.ui'
+# Form implementation generated from reading ui file 'app/views/designDrawSchemesTwo.ui'
 #
 # Created by: PyQt5 UI code generator 5.15.7
 #
@@ -190,6 +190,7 @@ class Ui_WindowDrawSchemesTwo(object):
         font = QtGui.QFont()
         font.setFamily("Arial")
         self.checkUse_yzip.setFont(font)
+        self.checkUse_yzip.setToolTip("")
         self.checkUse_yzip.setObjectName("checkUse_yzip")
         self.checkUse_counter = QtWidgets.QCheckBox(self.centralwidget)
         self.checkUse_counter.setGeometry(QtCore.QRect(100, 215, 71, 20))
@@ -1085,6 +1086,7 @@ class Ui_WindowDrawSchemesTwo(object):
         font = QtGui.QFont()
         font.setFamily("Arial")
         self.checkYellowSwitchInvertor.setFont(font)
+        self.checkYellowSwitchInvertor.setToolTip("")
         self.checkYellowSwitchInvertor.setStyleSheet("QCheckBox{\n"
 "    background-color:rgba(112, 215, 255, 0);\n"
 "    border-radius: 5;\n"
@@ -1257,7 +1259,7 @@ class Ui_WindowDrawSchemesTwo(object):
         self.spinBox_numOther.setReadOnly(False)
         self.spinBox_numOther.setObjectName("spinBox_numOther")
         self.btnSaveConfig = QtWidgets.QPushButton(self.centralwidget)
-        self.btnSaveConfig.setGeometry(QtCore.QRect(14, 10, 41, 41))
+        self.btnSaveConfig.setGeometry(QtCore.QRect(560, 250, 41, 41))
         font = QtGui.QFont()
         font.setFamily("Arial")
         font.setPointSize(9)
@@ -1392,7 +1394,7 @@ class Ui_WindowDrawSchemesTwo(object):
         self.label_30.setText("")
         self.label_30.setObjectName("label_30")
         self.btnOpenScheme = QtWidgets.QPushButton(self.centralwidget)
-        self.btnOpenScheme.setGeometry(QtCore.QRect(562, 250, 71, 31))
+        self.btnOpenScheme.setGeometry(QtCore.QRect(610, 254, 71, 31))
         font = QtGui.QFont()
         font.setFamily("Arial")
         font.setPointSize(9)
@@ -1513,7 +1515,7 @@ class Ui_WindowDrawSchemesTwo(object):
 
     def retranslateUi(self, WindowDrawSchemesTwo):
         _translate = QtCore.QCoreApplication.translate
-        WindowDrawSchemesTwo.setWindowTitle(_translate("WindowDrawSchemesTwo", "Схема подключения"))
+        WindowDrawSchemesTwo.setWindowTitle(_translate("WindowDrawSchemesTwo", "Схема электрическая принципиальная"))
         self.textConsoleDraw.setPlaceholderText(_translate("WindowDrawSchemesTwo", "Ход построения"))
         self.btnDraw.setText(_translate("WindowDrawSchemesTwo", "Построить"))
         self.checkUse_threePhase.setText(_translate("WindowDrawSchemesTwo", "Трёхфазная система"))
@@ -1522,7 +1524,7 @@ class Ui_WindowDrawSchemesTwo(object):
         self.label_9.setText(_translate("WindowDrawSchemesTwo", "Инвертор"))
         self.label_10.setText(_translate("WindowDrawSchemesTwo", "Доп"))
         self.label_11.setText(_translate("WindowDrawSchemesTwo", "Название:"))
-        self.label_12.setText(_translate("WindowDrawSchemesTwo", "Число:"))
+        self.label_12.setText(_translate("WindowDrawSchemesTwo", "Кол-во:"))
         self.label_13.setText(_translate("WindowDrawSchemesTwo", "Мощность, кВт:"))
         self.label_14.setText(_translate("WindowDrawSchemesTwo", "Сила тока, А:"))
         self.label_15.setText(_translate("WindowDrawSchemesTwo", "Тип:"))
@@ -1547,5 +1549,9 @@ class Ui_WindowDrawSchemesTwo(object):
         self.checkYellowLineInvertor.setToolTip(_translate("WindowDrawSchemesTwo", "Желтый провод"))
         self.checkYellowLineOther.setToolTip(_translate("WindowDrawSchemesTwo", "Желтый провод"))
         self.label_29.setText(_translate("WindowDrawSchemesTwo", "Кабельная линия"))
+        self.spinBox_numInvertor.setToolTip(_translate("WindowDrawSchemesTwo", "Переключение между оборудованием"))
+        self.spinBox_numOther.setToolTip(_translate("WindowDrawSchemesTwo", "Переключение между оборудованием"))
+        self.btnSaveConfig.setToolTip(_translate("WindowDrawSchemesTwo", "Сохранить параметры"))
+        self.btnOpenScheme.setToolTip(_translate("WindowDrawSchemesTwo", "Открыть построенную схему"))
         self.btnOpenScheme.setText(_translate("WindowDrawSchemesTwo", "Открыть"))
         self.labelLoading.setText(_translate("WindowDrawSchemesTwo", "TextLabel"))

@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file 'designParsing.ui'
+# Form implementation generated from reading ui file 'app/views/designParsing.ui'
 #
 # Created by: PyQt5 UI code generator 5.15.7
 #
@@ -325,11 +325,14 @@ class Ui_WindowRP5(object):
     def retranslateUi(self, WindowRP5):
         _translate = QtCore.QCoreApplication.translate
         WindowRP5.setWindowTitle(_translate("WindowRP5", "Загрузка погоды"))
+        self.inputCity.setToolTip(_translate("WindowRP5", "Название города"))
         self.inputCity.setPlaceholderText(_translate("WindowRP5", "Название города"))
         self.textConsole.setPlaceholderText(_translate("WindowRP5", "Ход парсинга"))
         self.btnParse.setText(_translate("WindowRP5", "Скачать архив"))
+        self.btnSearch.setToolTip(_translate("WindowRP5", "Поиск города"))
         self.btnSearch.setText(_translate("WindowRP5", "Найти"))
         self.btnDwnld_T.setText(_translate("WindowRP5", " Подгрузить температуру"))
+        self.listCity.setToolTip(_translate("WindowRP5", "Список найденных городов"))
         self.listCity.setProperty("placeholderText", _translate("WindowRP5", "Выберите город из списка"))
         self.label_11.setText(_translate("WindowRP5", "Список городов"))
         self.label_9.setText(_translate("WindowRP5", "Начало выборки"))

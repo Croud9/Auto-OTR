@@ -74,7 +74,7 @@ class docPDF():
         self.styleH2_CENTER = ParagraphStyle(name='Heading2', fontName='Arial', alignment=TA_CENTER, fontSize = 14, firstLineIndent = 24, wordWrap=True, bulletIndent = 24, leading = 22)
         self.styleH3 = ParagraphStyle(name='Heading3', fontName='Arial', fontSize = 14, firstLineIndent = 20)
 
-        self.doc = MyDocTemplate('Data/Report/Report.pdf', pagesize=A4,
+        self.doc = MyDocTemplate('Data/Result/Report.pdf', pagesize=A4,
                                 rightMargin=28,leftMargin=70,
                                 topMargin=45,bottomMargin=70)
 
@@ -90,7 +90,7 @@ class docPDF():
     def gost_small_frame(self, canvas, doc):
         canvas.saveState()
         width, height = A4
-        canvas.drawInlineImage("Data/System/System/Images/Frames/small_frame.png", x=0, y=0, width=width, height=height)
+        canvas.drawInlineImage("Data/System/Images/Frames/small_frame.png", x=0, y=0, width=width, height=height)
         canvas.setFont('Arial', 14)
         canvas.drawString(100*mm,13*mm,f"{self.data['code_project']}")
         canvas.setFont('Arial', 10)
@@ -110,7 +110,7 @@ class docPDF():
     def gost_large_frame(self, canvas, doc):
         canvas.saveState()
         width, height = A4
-        canvas.drawInlineImage("Data/System/System/Images/Frames/large_frame.png", x=0, y=0, width=width, height=height)
+        canvas.drawInlineImage("Data/System/Images/Frames/large_frame.png", x=0, y=0, width=width, height=height)
         canvas.setFont('Arial', 12, leading = None)
         canvas.drawString(100*mm,38*mm,f"{self.data['code_project']}")
         canvas.setFont('Arial', 8)
@@ -136,7 +136,7 @@ class docPDF():
     def gost_blank_frame(self, canvas, doc):
         canvas.saveState()
         width, height = A4
-        canvas.drawInlineImage("Data/System/System/Images/Frames/blank_frame.png", x=0, y=0, width=width, height=height)
+        canvas.drawInlineImage("Data/System/Images/Frames/blank_frame.png", x=0, y=0, width=width, height=height)
         canvas.restoreState()
     
     def search_table_in_pdf(self, path_to_pvsyst):

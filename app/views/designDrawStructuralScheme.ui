@@ -9,8 +9,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>392</width>
-    <height>477</height>
+    <width>399</width>
+    <height>591</height>
    </rect>
   </property>
   <property name="font">
@@ -95,7 +95,7 @@ QComboBox QAbstractItemView {
      </font>
     </property>
     <property name="toolTip">
-     <string>Количество MPPT в инверторе</string>
+     <string>Количество цепочек в инверторе</string>
     </property>
     <property name="styleSheet">
      <string notr="true">QLineEdit{
@@ -123,7 +123,7 @@ QComboBox QAbstractItemView {
     <property name="geometry">
      <rect>
       <x>20</x>
-      <y>404</y>
+      <y>425</y>
       <width>271</width>
       <height>41</height>
      </rect>
@@ -163,7 +163,7 @@ QPushButton:pressed{
     <property name="geometry">
      <rect>
       <x>20</x>
-      <y>296</y>
+      <y>317</y>
       <width>111</width>
       <height>22</height>
      </rect>
@@ -177,7 +177,7 @@ QPushButton:pressed{
      </font>
     </property>
     <property name="toolTip">
-     <string>Применяет Y конекторы, если это допустимо </string>
+     <string> </string>
     </property>
     <property name="styleSheet">
      <string notr="true">background-color: rgba(255,255,255,0); </string>
@@ -218,7 +218,7 @@ QPushButton:pressed{
     <property name="geometry">
      <rect>
       <x>310</x>
-      <y>402</y>
+      <y>423</y>
       <width>41</width>
       <height>41</height>
      </rect>
@@ -233,6 +233,9 @@ QPushButton:pressed{
     </property>
     <property name="cursor">
      <cursorShape>PointingHandCursor</cursorShape>
+    </property>
+    <property name="toolTip">
+     <string>Сохранить параметры</string>
     </property>
     <property name="styleSheet">
      <string notr="true">QPushButton{
@@ -260,7 +263,7 @@ QPushButton:pressed{
     <property name="geometry">
      <rect>
       <x>200</x>
-      <y>311</y>
+      <y>332</y>
       <width>141</width>
       <height>61</height>
      </rect>
@@ -274,7 +277,7 @@ QPushButton:pressed{
      </font>
     </property>
     <property name="toolTip">
-     <string>Применяет Y конекторы, если это допустимо </string>
+     <string> </string>
     </property>
     <property name="styleSheet">
      <string notr="true">background-color: rgba(255,255,255,0); </string>
@@ -289,7 +292,7 @@ QPushButton:pressed{
     <property name="geometry">
      <rect>
       <x>200</x>
-      <y>287</y>
+      <y>308</y>
       <width>191</width>
       <height>41</height>
      </rect>
@@ -303,7 +306,7 @@ QPushButton:pressed{
      </font>
     </property>
     <property name="toolTip">
-     <string>Применяет Y конекторы, если это допустимо </string>
+     <string> </string>
     </property>
     <property name="styleSheet">
      <string notr="true">background-color: rgba(255,255,255,0); </string>
@@ -316,7 +319,7 @@ QPushButton:pressed{
     <property name="geometry">
      <rect>
       <x>20</x>
-      <y>236</y>
+      <y>226</y>
       <width>121</width>
       <height>22</height>
      </rect>
@@ -330,7 +333,7 @@ QPushButton:pressed{
      </font>
     </property>
     <property name="toolTip">
-     <string>Применяет Y конекторы, если это допустимо </string>
+     <string>Левый узип</string>
     </property>
     <property name="styleSheet">
      <string notr="true">background-color: rgba(255,255,255,0); </string>
@@ -343,7 +346,7 @@ QPushButton:pressed{
     <property name="geometry">
      <rect>
       <x>20</x>
-      <y>155</y>
+      <y>256</y>
       <width>141</width>
       <height>22</height>
      </rect>
@@ -357,7 +360,7 @@ QPushButton:pressed{
      </font>
     </property>
     <property name="toolTip">
-     <string>Применяет Y конекторы, если это допустимо </string>
+     <string/>
     </property>
     <property name="styleSheet">
      <string notr="true">background-color: rgba(255,255,255,0); </string>
@@ -370,7 +373,7 @@ QPushButton:pressed{
     <property name="geometry">
      <rect>
       <x>200</x>
-      <y>155</y>
+      <y>256</y>
       <width>151</width>
       <height>22</height>
      </rect>
@@ -384,7 +387,7 @@ QPushButton:pressed{
      </font>
     </property>
     <property name="toolTip">
-     <string>Применяет Y конекторы, если это допустимо </string>
+     <string/>
     </property>
     <property name="styleSheet">
      <string notr="true">background-color: rgba(255,255,255,0); </string>
@@ -417,7 +420,7 @@ QPushButton:pressed{
      </font>
     </property>
     <property name="toolTip">
-     <string>Количество MPPT в инверторе</string>
+     <string>Название инвертора</string>
     </property>
     <property name="styleSheet">
      <string notr="true">QLineEdit{
@@ -454,7 +457,7 @@ QPushButton:pressed{
     <property name="geometry">
      <rect>
       <x>200</x>
-      <y>236</y>
+      <y>226</y>
       <width>101</width>
       <height>22</height>
      </rect>
@@ -468,7 +471,7 @@ QPushButton:pressed{
      </font>
     </property>
     <property name="toolTip">
-     <string>Применяет Y конекторы, если это допустимо </string>
+     <string>Правый узип </string>
     </property>
     <property name="styleSheet">
      <string notr="true">background-color: rgba(255,255,255,0); </string>
@@ -494,7 +497,7 @@ QPushButton:pressed{
      </font>
     </property>
     <property name="toolTip">
-     <string>Количество схем одинаковых инверторов</string>
+     <string>Переключение между инверторами одной модели</string>
     </property>
     <property name="styleSheet">
      <string notr="true">QSpinBox{
@@ -574,8 +577,8 @@ QSpinBox:down-button{
     <property name="geometry">
      <rect>
       <x>20</x>
-      <y>267</y>
-      <width>171</width>
+      <y>288</y>
+      <width>271</width>
       <height>20</height>
      </rect>
     </property>
@@ -591,7 +594,7 @@ QSpinBox:down-button{
      <string notr="true">background-color: rgba(255,255,255,0); </string>
     </property>
     <property name="text">
-     <string>Общие параметры</string>
+     <string>Глобальные параметры</string>
     </property>
     <property name="alignment">
      <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
@@ -601,7 +604,7 @@ QSpinBox:down-button{
     <property name="geometry">
      <rect>
       <x>14</x>
-      <y>370</y>
+      <y>391</y>
       <width>80</width>
       <height>31</height>
      </rect>
@@ -621,6 +624,9 @@ QSpinBox:down-button{
     </property>
     <property name="cursor">
      <cursorShape>PointingHandCursor</cursorShape>
+    </property>
+    <property name="toolTip">
+     <string>Открыть построенную схему</string>
     </property>
     <property name="styleSheet">
      <string notr="true">QPushButton{
@@ -646,7 +652,7 @@ QPushButton:hover{
     <property name="geometry">
      <rect>
       <x>20</x>
-      <y>186</y>
+      <y>173</y>
       <width>161</width>
       <height>41</height>
      </rect>
@@ -660,7 +666,7 @@ QPushButton:hover{
      </font>
     </property>
     <property name="toolTip">
-     <string>Количество MPPT в инверторе</string>
+     <string>Название конфигурируемого модуля</string>
     </property>
     <property name="styleSheet">
      <string notr="true">QLineEdit{
@@ -697,9 +703,9 @@ QLineEdit:pressed{
     <property name="geometry">
      <rect>
       <x>201</x>
-      <y>187</y>
+      <y>165</y>
       <width>151</width>
-      <height>41</height>
+      <height>30</height>
      </rect>
     </property>
     <property name="font">
@@ -721,7 +727,7 @@ QLineEdit:pressed{
     <property name="geometry">
      <rect>
       <x>20</x>
-      <y>330</y>
+      <y>351</y>
       <width>121</width>
       <height>22</height>
      </rect>
@@ -735,7 +741,7 @@ QLineEdit:pressed{
      </font>
     </property>
     <property name="toolTip">
-     <string>Применяет Y конекторы, если это допустимо </string>
+     <string> </string>
     </property>
     <property name="styleSheet">
      <string notr="true">background-color: rgba(255,255,255,0); </string>
@@ -765,7 +771,7 @@ QLineEdit:pressed{
      </font>
     </property>
     <property name="toolTip">
-     <string>Количество MPPT в инверторе</string>
+     <string>Всего инверторов одной модели</string>
     </property>
     <property name="styleSheet">
      <string notr="true">QLineEdit{
@@ -804,6 +810,9 @@ QLineEdit:pressed{
       <weight>75</weight>
       <bold>true</bold>
      </font>
+    </property>
+    <property name="toolTip">
+     <string>Переключение между оборудованием</string>
     </property>
     <property name="styleSheet">
      <string notr="true">QSpinBox{
@@ -895,6 +904,66 @@ QSpinBox:down-button{
      <set>Qt::AlignCenter</set>
     </property>
    </widget>
+   <widget class="QCheckBox" name="checkForAll">
+    <property name="geometry">
+     <rect>
+      <x>200</x>
+      <y>190</y>
+      <width>111</width>
+      <height>30</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Arial</family>
+      <pointsize>9</pointsize>
+      <weight>50</weight>
+      <italic>false</italic>
+      <bold>false</bold>
+      <underline>false</underline>
+      <strikeout>false</strikeout>
+     </font>
+    </property>
+    <property name="toolTip">
+     <string>Применить название модуля для всех инверторов данной модели</string>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color: rgba(255,255,255,0); </string>
+    </property>
+    <property name="text">
+     <string>Для всех</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_15">
+    <property name="enabled">
+     <bool>true</bool>
+    </property>
+    <property name="geometry">
+     <rect>
+      <x>20</x>
+      <y>150</y>
+      <width>281</width>
+      <height>20</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Arial</family>
+      <pointsize>9</pointsize>
+      <weight>75</weight>
+      <bold>true</bold>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color: rgba(255,255,255,0); </string>
+    </property>
+    <property name="text">
+     <string>Локальные параметры</string>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+    </property>
+   </widget>
    <zorder>labelLoading</zorder>
    <zorder>checkYzipRight</zorder>
    <zorder>inputCountPV</zorder>
@@ -918,6 +987,8 @@ QSpinBox:down-button{
    <zorder>inputCountAllInvertors</zorder>
    <zorder>spinBox_numInvertor</zorder>
    <zorder>label_2</zorder>
+   <zorder>checkForAll</zorder>
+   <zorder>label_15</zorder>
   </widget>
   <widget class="QStatusBar" name="statusBar"/>
  </widget>

@@ -106,6 +106,9 @@ QComboBox QAbstractItemView {
     <property name="cursor">
      <cursorShape>PointingHandCursor</cursorShape>
     </property>
+    <property name="toolTip">
+     <string>Условие расчета</string>
+    </property>
     <property name="whatsThis">
      <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Выьор режима&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
     </property>
@@ -2176,6 +2179,9 @@ QPushButton:pressed{
     <property name="cursor">
      <cursorShape>PointingHandCursor</cursorShape>
     </property>
+    <property name="toolTip">
+     <string>Сохранение таблицы с результатами в xls</string>
+    </property>
     <property name="styleSheet">
      <string notr="true">QPushButton{
 	background-color: rgba(229,229,234,1);
@@ -2214,6 +2220,9 @@ QPushButton:pressed{
     </property>
     <property name="cursor">
      <cursorShape>PointingHandCursor</cursorShape>
+    </property>
+    <property name="toolTip">
+     <string>Город</string>
     </property>
     <property name="styleSheet">
      <string notr="true">QComboBox{
@@ -2273,6 +2282,9 @@ QComboBox:hover{
     <property name="cursor">
      <cursorShape>PointingHandCursor</cursorShape>
     </property>
+    <property name="toolTip">
+     <string>Модель</string>
+    </property>
     <property name="styleSheet">
      <string notr="true">QComboBox{
 	background-color:rgba(229,229,234,1); 
@@ -2323,6 +2335,9 @@ QComboBox:hover{
     </property>
     <property name="cursor">
      <cursorShape>PointingHandCursor</cursorShape>
+    </property>
+    <property name="toolTip">
+     <string>Фирма</string>
     </property>
     <property name="styleSheet">
      <string notr="true">QComboBox{
@@ -3569,7 +3584,7 @@ QLineEdit:pressed{
      <string notr="true">background-color:rgba(209,209,214,0.01);</string>
     </property>
     <property name="text">
-     <string>Расчетная максимальня 
+     <string>Расчетная максимальная 
 температура</string>
     </property>
    </widget>

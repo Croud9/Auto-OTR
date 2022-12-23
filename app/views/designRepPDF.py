@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file 'designRepPDF.ui'
+# Form implementation generated from reading ui file 'app/views/designRepPDF.ui'
 #
 # Created by: PyQt5 UI code generator 5.15.7
 #
@@ -584,8 +584,9 @@ class Ui_MainWindow(object):
 "    color: #196dff;\n"
 "    border: none;\n"
 "    border-style: outset; \n"
-"    border-bottom-left-radius: 12;\n"
-"    border-bottom-right-radius: 12;\n"
+"    border-radius: 12;\n"
+"    margin: 0 2 0 0;\n"
+"\n"
 "}\n"
 "QTabBar::tab:selected { \n"
 "    color: rgba(25, 109, 255, 0.7); \n"
@@ -1381,6 +1382,7 @@ class Ui_MainWindow(object):
         font.setWeight(75)
         self.listRoof.setFont(font)
         self.listRoof.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
+        self.listRoof.setToolTip("")
         self.listRoof.setAutoFillBackground(False)
         self.listRoof.setStyleSheet("QComboBox{\n"
 "    background-color:rgba(229,229,234,1); \n"
@@ -1423,6 +1425,7 @@ class Ui_MainWindow(object):
         font.setWeight(75)
         self.listPSelect.setFont(font)
         self.listPSelect.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
+        self.listPSelect.setToolTip("")
         self.listPSelect.setAutoFillBackground(False)
         self.listPSelect.setStyleSheet("QComboBox{\n"
 "    background-color:rgba(229,229,234,1); \n"
@@ -2282,20 +2285,28 @@ class Ui_MainWindow(object):
 
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
-        MainWindow.setWindowTitle(_translate("MainWindow", "AutoOTR"))
+        MainWindow.setWindowTitle(_translate("MainWindow", "Larso"))
         self.textConsole.setHtml(_translate("MainWindow", "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
 "<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css\">\n"
 "p, li { white-space: pre-wrap; }\n"
 "</style></head><body style=\" font-family:\'Arial\'; font-size:7.8pt; font-weight:400; font-style:normal;\">\n"
 "<p style=\"-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><br /></p></body></html>"))
+        self.btnOne.setToolTip(_translate("MainWindow", "Загрузка отчета PVsyst"))
+        self.btnForm.setToolTip(_translate("MainWindow", "Формирование отчета в PDF"))
+        self.btnRP5.setToolTip(_translate("MainWindow", "Подгрузка погодных данных и описания нас. пункта"))
+        self.btnDrawScheme.setToolTip(_translate("MainWindow", "Формирование схемы постоянного тока"))
+        self.btnDrawSchemeTwo.setToolTip(_translate("MainWindow", "Формирование принципиальной электрической схемы"))
+        self.btnLoadScheme2.setToolTip(_translate("MainWindow", "Загрузить принципиальной электрическую схему"))
         self.btnLoadScheme2.setText(_translate("MainWindow", "▼"))
+        self.btnLoadScheme1.setToolTip(_translate("MainWindow", "Загрузить схему постоянного тока"))
         self.btnLoadScheme1.setText(_translate("MainWindow", "▼"))
+        self.btnOpenPDF.setToolTip(_translate("MainWindow", "Открыть созданный отчет PDF"))
         self.btnOpenPDF.setText(_translate("MainWindow", "Открыть"))
-        self.btnDelPvsystData.setToolTip(_translate("MainWindow", "Удалить"))
+        self.btnDelPvsystData.setToolTip(_translate("MainWindow", "Исключить отчет PVsyst"))
         self.btnDelPvsystData.setText(_translate("MainWindow", "🞫"))
-        self.btnDelSchemeTwoData.setToolTip(_translate("MainWindow", "Удалить"))
+        self.btnDelSchemeTwoData.setToolTip(_translate("MainWindow", "Исключить принципиальной электрическую схему"))
         self.btnDelSchemeTwoData.setText(_translate("MainWindow", "🞫"))
-        self.btnDelSchemeOneData.setToolTip(_translate("MainWindow", "Удалить"))
+        self.btnDelSchemeOneData.setToolTip(_translate("MainWindow", "Исключить схему постоянного тока"))
         self.btnDelSchemeOneData.setText(_translate("MainWindow", "🞫"))
         self.label_9.setText(_translate("MainWindow", "Погода"))
         self.label_10.setText(_translate("MainWindow", "PDF"))
@@ -2305,20 +2316,22 @@ class Ui_MainWindow(object):
 "инвертора"))
         self.label_13.setText(_translate("MainWindow", "Схема\n"
 "станции"))
+        self.btnCalcPV.setToolTip(_translate("MainWindow", "Проверка ФЭМ"))
         self.label_14.setText(_translate("MainWindow", "CalcPV"))
         self.btnWifi.setToolTip(_translate("MainWindow", "Нет подключения к сети, некоторые функции не будут работать."))
+        self.btnDrawStructuralScheme.setToolTip(_translate("MainWindow", "Формирование структурной схемы"))
         self.label_15.setText(_translate("MainWindow", "Схема\n"
 "структурная"))
         self.inputCodeProject.setToolTip(_translate("MainWindow", "Код проекта"))
-        self.inputAddress.setToolTip(_translate("MainWindow", "Количество MPPT в инверторе"))
-        self.inputClient.setToolTip(_translate("MainWindow", "Количество MPPT в инверторе"))
+        self.inputAddress.setToolTip(_translate("MainWindow", "Полный адрес проекта"))
+        self.inputClient.setToolTip(_translate("MainWindow", "Наименование заказчика"))
         self.inputAddressLong.setToolTip(_translate("MainWindow", "Долгота"))
-        self.btnSearchCoordinates.setToolTip(_translate("MainWindow", "Нажмите для перехода к другому меню"))
+        self.btnSearchCoordinates.setToolTip(_translate("MainWindow", "Автоопределение адреса и его координат"))
         self.btnSearchCoordinates.setText(_translate("MainWindow", "📍"))
-        self.inputTitleProject.setToolTip(_translate("MainWindow", "Количество MPPT в инверторе"))
-        self.inputUDotIn.setToolTip(_translate("MainWindow", "Количество MPPT в инверторе"))
+        self.inputTitleProject.setToolTip(_translate("MainWindow", "Полное название проекта"))
+        self.inputUDotIn.setToolTip(_translate("MainWindow", "Напряжение подключения"))
         self.inputAddressLat.setToolTip(_translate("MainWindow", "Широта"))
-        self.inputObjectType.setToolTip(_translate("MainWindow", "Количество MPPT в инверторе"))
+        self.inputObjectType.setToolTip(_translate("MainWindow", "Тип проекта"))
         self.label_16.setText(_translate("MainWindow", "Тип проекта"))
         self.label_17.setText(_translate("MainWindow", "Адрес"))
         self.label_18.setText(_translate("MainWindow", "U подключения /\n"
@@ -2327,31 +2340,42 @@ class Ui_MainWindow(object):
 "проекта"))
         self.label_20.setText(_translate("MainWindow", "Заказчик"))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab_8), _translate("MainWindow", "Паспорт объекта"))
-        self.btnAddKTP.setToolTip(_translate("MainWindow", "Добавить MPPT"))
+        self.listPV_file.setToolTip(_translate("MainWindow", "Модель"))
+        self.btnAddKTP.setToolTip(_translate("MainWindow", "Добавить оборудование"))
         self.btnAddKTP.setText(_translate("MainWindow", "+"))
-        self.btnDelPV.setToolTip(_translate("MainWindow", "Удалить"))
+        self.listInvertor_file.setToolTip(_translate("MainWindow", "Модель"))
+        self.listKTP_file.setToolTip(_translate("MainWindow", "Модель"))
+        self.btnDelPV.setToolTip(_translate("MainWindow", "Удалить оборудование"))
         self.btnDelPV.setText(_translate("MainWindow", "🞫"))
-        self.btnAddPV.setToolTip(_translate("MainWindow", "Добавить MPPT"))
+        self.listKTP_folder.setToolTip(_translate("MainWindow", "Фирма"))
+        self.btnAddPV.setToolTip(_translate("MainWindow", "Добавить оборудование"))
         self.btnAddPV.setText(_translate("MainWindow", "+"))
         self.label_4.setText(_translate("MainWindow", "Другое"))
-        self.btnAddInvertor.setToolTip(_translate("MainWindow", "Добавить MPPT"))
+        self.spinBox_numPV.setToolTip(_translate("MainWindow", "Переключение между оборудованием"))
+        self.btnAddInvertor.setToolTip(_translate("MainWindow", "Добавить оборудование"))
         self.btnAddInvertor.setText(_translate("MainWindow", "+"))
+        self.spinBox_numKTP.setToolTip(_translate("MainWindow", "Переключение между оборудованием"))
         self.label_2.setText(_translate("MainWindow", "Инвертор"))
-        self.btnDelOther.setToolTip(_translate("MainWindow", "Удалить"))
+        self.btnDelOther.setToolTip(_translate("MainWindow", "Удалить оборудование"))
         self.btnDelOther.setText(_translate("MainWindow", "🞫"))
-        self.btnDelInvertor.setToolTip(_translate("MainWindow", "Удалить"))
+        self.btnDelInvertor.setToolTip(_translate("MainWindow", "Удалить оборудование"))
         self.btnDelInvertor.setText(_translate("MainWindow", "🞫"))
         self.label_3.setText(_translate("MainWindow", "ФЭМ"))
+        self.spinBox_numInvertor.setToolTip(_translate("MainWindow", "Переключение между оборудованием"))
+        self.listPV_folder.setToolTip(_translate("MainWindow", "Фирма"))
+        self.listInvertor_folder.setToolTip(_translate("MainWindow", "Фирма"))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab), _translate("MainWindow", "Оборудование"))
         self.label_5.setText(_translate("MainWindow", "Тип опорной\n"
 " конструкции"))
         self.label_6.setText(_translate("MainWindow", "Язык"))
         self.label_7.setText(_translate("MainWindow", "P для доп\n"
 "графиков"))
-        self.btnDailyAverage.setToolTip(_translate("MainWindow", "Добавить MPPT"))
+        self.listLocale.setToolTip(_translate("MainWindow", "Язык презентации"))
+        self.btnDailyAverage.setToolTip(_translate("MainWindow", "Загрузка CSV файла с почасовой выработкой"))
         self.btnDailyAverage.setText(_translate("MainWindow", "Почасовая выработка "))
         self.label_8.setText(_translate("MainWindow", "Кол-во\n"
 "графиков"))
+        self.btnOpenPPTX.setToolTip(_translate("MainWindow", "Открыть созданную презентацию"))
         self.btnOpenPPTX.setText(_translate("MainWindow", "Открыть"))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab_summary), _translate("MainWindow", "Презентация"))
         self.checkBox_8_6.setToolTip(_translate("MainWindow", "Проект ТЗ на СЭС"))
@@ -2447,20 +2471,26 @@ class Ui_MainWindow(object):
         self.checkBox_5_3.setText(_translate("MainWindow", "5.3"))
         self.label_29.setText(_translate("MainWindow", "Номер раздела"))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab_7), _translate("MainWindow", "Cтруктура отчета"))
+        self.btnOtherTemplate.setToolTip(_translate("MainWindow", "Общий шаблон"))
         self.btnOtherTemplate.setText(_translate("MainWindow", "Другое"))
+        self.inputKTP.setToolTip(_translate("MainWindow", "Поле ввода параметров"))
         self.inputKTP.setPlaceholderText(_translate("MainWindow", "Параметры КТП"))
-        self.inputNameFileKTP.setToolTip(_translate("MainWindow", "Количество MPPT в инверторе"))
+        self.inputNameFileKTP.setToolTip(_translate("MainWindow", "Название создаваемого файла"))
         self.inputNameFileKTP.setPlaceholderText(_translate("MainWindow", "Название файла"))
-        self.btnAddKTPParams.setToolTip(_translate("MainWindow", "Добавить MPPT"))
+        self.btnAddKTPParams.setToolTip(_translate("MainWindow", "Создать файл параметров доп. оборудования"))
         self.btnAddKTPParams.setText(_translate("MainWindow", "Создать"))
+        self.btnKTPTemplate.setToolTip(_translate("MainWindow", "Шаблон для КТП"))
         self.btnKTPTemplate.setText(_translate("MainWindow", "КТП"))
         self.label_30.setText(_translate("MainWindow", "Шаблон"))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab_2), _translate("MainWindow", "Другое оборудование"))
+        self.btnLoadStructScheme.setToolTip(_translate("MainWindow", "Загрузить структурную схему"))
         self.btnLoadStructScheme.setText(_translate("MainWindow", "▼"))
-        self.btnDelStructScheme.setToolTip(_translate("MainWindow", "Удалить"))
+        self.btnDelStructScheme.setToolTip(_translate("MainWindow", "Исключить структурную схему"))
         self.btnDelStructScheme.setText(_translate("MainWindow", "🞫"))
-        self.btnDelPlaneSet.setToolTip(_translate("MainWindow", "Удалить"))
+        self.btnDelPlaneSet.setToolTip(_translate("MainWindow", "Исключить план размещения"))
         self.btnDelPlaneSet.setText(_translate("MainWindow", "🞫"))
+        self.btnLoadPlaneSet.setToolTip(_translate("MainWindow", "загрузка плана размещения"))
         self.label_21.setText(_translate("MainWindow", "План\n"
 " размещения"))
         self.label_22.setText(_translate("MainWindow", "PPTX"))
+        self.btnPPTX.setToolTip(_translate("MainWindow", "Формирование краткой презентации"))

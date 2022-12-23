@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file 'designCalcPV.ui'
+# Form implementation generated from reading ui file 'app/views/designCalcPV.ui'
 #
 # Created by: PyQt5 UI code generator 5.15.7
 #
@@ -1886,6 +1886,7 @@ class Ui_MainWindow(object):
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
         MainWindow.setWindowTitle(_translate("MainWindow", "CalcPV"))
+        self.comboBox_stcnoct.setToolTip(_translate("MainWindow", "Условие расчета"))
         self.comboBox_stcnoct.setWhatsThis(_translate("MainWindow", "<html><head/><body><p>Выьор режима</p></body></html>"))
         self.tableWidget.setToolTip(_translate("MainWindow", "*Первая цифра № метода расчета I, вторая цифра № метода расчета V"))
         self.tableWidget.setSortingEnabled(False)
@@ -2003,7 +2004,11 @@ class Ui_MainWindow(object):
         item.setText(_translate("MainWindow", "Мин. темп."))
         self.tableWidget.setSortingEnabled(__sortingEnabled)
         self.btnResult.setText(_translate("MainWindow", "Рассчитать"))
+        self.btnSave.setToolTip(_translate("MainWindow", "Сохранение таблицы с результатами в xls"))
         self.btnSave.setText(_translate("MainWindow", "Сохранить в xls"))
+        self.comboBox_city.setToolTip(_translate("MainWindow", "Город"))
+        self.listPV_file.setToolTip(_translate("MainWindow", "Модель"))
+        self.listPV_folder.setToolTip(_translate("MainWindow", "Фирма"))
         self.label_6.setText(_translate("MainWindow", "ФЭМ:"))
         self.label_11.setText(_translate("MainWindow", "Температура города:\n"
 "Условие расчета: "))
@@ -2031,7 +2036,7 @@ class Ui_MainWindow(object):
         self.label_22.setToolTip(_translate("MainWindow", "(Импортируется с RP5)"))
         self.label_22.setText(_translate("MainWindow", "Абсолютный максимум"))
         self.label_24.setText(_translate("MainWindow", "Число ФЭМ в цепочке"))
-        self.label_20.setText(_translate("MainWindow", "Расчетная максимальня \n"
+        self.label_20.setText(_translate("MainWindow", "Расчетная максимальная \n"
 "температура"))
         self.label_14.setText(_translate("MainWindow", "Imax на \n"
 "один МРРТ"))

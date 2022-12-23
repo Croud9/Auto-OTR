@@ -1,7 +1,7 @@
 import schemdraw
 import schemdraw.elements as elm
 from schemdraw import flow
-from helpers import svg_to_png, gost_frame, encode_file
+from helpers import gost_frame, encode_file
 
 width_box = 1.8
 height_box = 1.5 
@@ -16,7 +16,7 @@ class DrawStructScheme():
         self.locale_ru = {'pv': 'ФЭМ', 'invertor': 'Инвертор', 'distribution_board': 'РЩ', 'analyzer': 'Анализатор',
                             'to_commutator': 'К коммутатору', 'to_client': 'К потребителю', 'to_lan': 'К ЛВС',
                             'web_server': 'Веб сервер', 'server': 'Сервер', 'controller': 'Контроллер', 'lang': 'RU'}
-        self.locale_en = {'pv': 'PV', 'invertor': 'Invertor', 'distribution_board': 'RSH', 'analyzer': 'Analyzer',
+        self.locale_en = {'pv': 'PV', 'invertor': 'Invertor', 'distribution_board': 'Distribution cabinet (Switchgear)', 'analyzer': 'Analyzer',
                             'to_commutator': 'To the commutator', 'to_client': 'To the client', 'to_lan': 'To LAN',
                             'web_server': 'Web Server', 'server': 'Server', 'controller': 'Controller', 'lang': 'EN'}
 
@@ -24,16 +24,20 @@ class DrawStructScheme():
         if analyzer == True:
             y_ofst = 1.45
             width_box = 2.2 
-
         else:
             y_ofst = -0.5
             width_box = 1.8
+
+        if title == 'Distribution cabinet (Switchgear)':
+            x_ofst = -2
+        else:
+            x_ofst = -0.1
             
         slr += elm.Line().up().length(height_box)
         slr += (top_side_box := elm.Line().right().length(width_box))
         slr += (right_side_box := elm.Line().down().length(height_box))
         slr += (bottom_side_box := elm.Line().left().length(width_box))
-        slr += elm.Label().at(top_side_box.center).label(title, ofst=(-0.1, y_ofst))
+        slr += elm.Label().at(top_side_box.center).label(title, ofst=(x_ofst, y_ofst))
         if e_icon == True:
             self.energy_icon(slr, right_side_box)
         return {'top': top_side_box, 'bottom': bottom_side_box, 'right': right_side_box}
@@ -59,7 +63,8 @@ class DrawStructScheme():
         slr += elm.Line().left().length(end_points / 2)
         box_sides_rp = self.box(slr, self.locale['distribution_board'], True)
         slr += (end_line_rp := elm.Line(arrow='->').right().at(box_sides_rp['right'].center).length(len_to_rp).color('orange').linewidth(2).zorder(-1))
-        slr += elm.Label().at(end_line_rp.end).label(self.locale['to_client'], ofst=(2.5, 0))
+        x_ofst = 2.5 if self.locale['to_client'] == 'К потребителю' else 1.6
+        slr += elm.Label().at(end_line_rp.end).label(self.locale['to_client'], ofst=(x_ofst, 0))
 
         if local_data['controller'] == True:
             slr += (invertor_controller_connect := elm.Line().down().at(box_sides_inv['bottom'].center).length(0.5).color('blue'))
@@ -155,9 +160,7 @@ class DrawStructScheme():
         self.net(slr, num, box_sides_inv, local_data, general_scheme_data, count_all_invertors)
 
         if self.locale['lang'] == 'EN' and local_data['title_other_device'] == 'УЗИП':
-            title_other = 'UZIP'
-        elif self.locale['lang'] == 'EN':
-            title_other = local_data['title_other_device'] #транслитом написать
+            title_other = 'SPD'
         else:
             title_other = local_data['title_other_device']
 
@@ -379,7 +382,7 @@ class DrawStructScheme():
                 count_all_invertors += 1
         return {'local_keys': local_keys, 'shared_items': shared_items, 'count_all_invertors': count_all_invertors}
 
-    def draw_for_pptx(self, invertors, general_scheme_data, locale):
+    def draw_for_pptx(self, invertors, general_scheme_data, count_all_invertors, locale):
         if locale == 'ru':
             self.locale = self.locale_ru
             path = f'Data/Schemes/Structural/structural_for_pptx_ru.svg'
@@ -392,7 +395,7 @@ class DrawStructScheme():
             trgfile = 'Data/Schemes/Structural/structural_for_pptx_codec_en.svg'
 
         schemdraw.config(fontsize = 10)  
-        with schemdraw.Drawing(file = path, show = False, scale = 0.5, lw = 0.7) as slr:
+        with schemdraw.Drawing(file = path, show = False, scale = 0.5, lw = 0.7, font = 'sans-serif') as slr:
             all_r_yzip = []
             block_offset = -8 
             num = 0
@@ -409,7 +412,7 @@ class DrawStructScheme():
                         num_equal = 1
                     for i in range(repeat):
                         self.invertor_full_block(slr, num, invertors[invertor][local_data], general_scheme_data, 
-                                            invertors[invertor], calc_eq['count_all_invertors'],
+                                            invertors[invertor], count_all_invertors,
                                             all_r_yzip, repeat, num_equal)
                         slr.here = (0, block_offset)
                         block_offset -= 8
@@ -420,11 +423,15 @@ class DrawStructScheme():
         encode_file.to_utf8(srcfile, trgfile)
 
     def draw(self, invertors, gost_frame_params, general_scheme_data):
-        self.draw_for_pptx(invertors, general_scheme_data, 'ru')
-        self.draw_for_pptx(invertors, general_scheme_data, 'en')
+        count_all_invertors = 0 
+        for invertor in general_scheme_data['invertor_keys']:
+            calc_eq = self.calc_equal(invertors, invertor, general_scheme_data)
+            count_all_invertors += calc_eq['count_all_invertors']
+        self.draw_for_pptx(invertors, general_scheme_data, count_all_invertors, 'ru')
+        self.draw_for_pptx(invertors, general_scheme_data, count_all_invertors, 'en')
         self.locale = self.locale_ru
         schemdraw.config(fontsize = 10)  
-        with schemdraw.Drawing(file=f'Data/Schemes/Structural/structural.svg', show = False, scale = 0.5, lw = 0.7) as slr:
+        with schemdraw.Drawing(file=f'Data/Schemes/Structural/structural_for_pdf.svg', show = False, scale = 0.5, lw = 0.7, font = 'sans-serif') as slr:
             all_controller = []
             all_l_yzip = []
             all_r_yzip = []
@@ -443,7 +450,7 @@ class DrawStructScheme():
                         num_equal = 1
                     for i in range(repeat):
                         self.invertor_full_block(slr, num, invertors[invertor][local_data], general_scheme_data, 
-                                            invertors[invertor], calc_eq['count_all_invertors'],
+                                            invertors[invertor], count_all_invertors,
                                             all_r_yzip, repeat, num_equal)
                         slr.here = (0, block_offset)
                         block_offset -= 8
@@ -483,8 +490,8 @@ class DrawStructScheme():
             frame_data = {'width': width, 'height': height, 'title_prjct': gost_frame_params['title_project'],
                     'code_prjct': gost_frame_params['code_project'], 'controller': controller, 'type_scheme': 'Структурная схема подключения СЭС'}
             gost_frame.all_frame(slr, **frame_data)
-        srcfile = 'Data/Schemes/Structural/structural.svg'
-        trgfile = 'Data/Schemes/Structural/structural_codec.svg'
+        srcfile = 'Data/Schemes/Structural/structural_for_pdf.svg'
+        trgfile = 'Data/Schemes/Structural/structural_for_pdf_codec.svg'
         encode_file.to_utf8(srcfile, trgfile)
 
         i = 0
@@ -512,5 +519,4 @@ class DrawStructScheme():
             elif widths_imgs[i_slide] > width_img and width_img == 650:
                 widths_imgs[i_slide] = 750
             i += 1
-    
-        svg_to_png.convert(num, general_scheme_data['wifi'], widths_imgs)
+        return {'num': num, 'isWifi': general_scheme_data['wifi'], 'widths_imgs': widths_imgs}

@@ -297,6 +297,12 @@ class WindowDraw(QtWidgets.QMainWindow, designDrawSchemes.Ui_WindowDrawSchemes):
             self.spinBox_numDifferentMPPT.hide()
             self.btnDelConfig.hide()
 
+    def change_label_diff_mppt(self):
+        if self.checkDifferentMPPT.isChecked():
+            self.label_21.setText('Конфигурация\nMPPT')
+        else:
+            self.label_21.setText('Конфигурация\nинвертора')
+
     def update_console(self):
         self.textConsoleDraw.clear()
 
@@ -377,6 +383,7 @@ class WindowDraw(QtWidgets.QMainWindow, designDrawSchemes.Ui_WindowDrawSchemes):
             self.main_window.w4.up_down_invertor_selection()
         self.main_window.w6.up_down_invertor_selection()
         self.up_down_invertor_selection()
+        self.change_label_diff_mppt()
         self.statusBar.showMessage('Параметры сохранены', 2000)
         self.statusBar.setStyleSheet(styles_and_animation.status_green)
         QTimer.singleShot(2000, lambda: self.statusBar.setStyleSheet(styles_and_animation.status_white))

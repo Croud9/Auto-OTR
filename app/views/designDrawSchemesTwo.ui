@@ -22,7 +22,7 @@
    <enum>Qt::NoFocus</enum>
   </property>
   <property name="windowTitle">
-   <string>Схема подключения</string>
+   <string>Схема электрическая принципиальная</string>
   </property>
   <property name="toolTip">
    <string/>
@@ -304,6 +304,9 @@ QLineEdit:pressed{
      <font>
       <family>Arial</family>
      </font>
+    </property>
+    <property name="toolTip">
+     <string/>
     </property>
     <property name="text">
      <string>УЗИП</string>
@@ -590,7 +593,7 @@ QLineEdit:pressed{
      </font>
     </property>
     <property name="text">
-     <string>Число:</string>
+     <string>Кол-во:</string>
     </property>
    </widget>
    <widget class="QSpinBox" name="spinBox_countInvertor">
@@ -2022,6 +2025,9 @@ QLineEdit:pressed{
       <family>Arial</family>
      </font>
     </property>
+    <property name="toolTip">
+     <string/>
+    </property>
     <property name="styleSheet">
      <string notr="true">QCheckBox{
 	background-color:rgba(112, 215, 255, 0);
@@ -2189,6 +2195,9 @@ QLineEdit:pressed{
       <bold>true</bold>
      </font>
     </property>
+    <property name="toolTip">
+     <string>Переключение между оборудованием</string>
+    </property>
     <property name="styleSheet">
      <string notr="true">QSpinBox{
 	background-color:rgba(229,229,234,1); 
@@ -2249,6 +2258,9 @@ QSpinBox:down-button{
       <bold>true</bold>
      </font>
     </property>
+    <property name="toolTip">
+     <string>Переключение между оборудованием</string>
+    </property>
     <property name="styleSheet">
      <string notr="true">QSpinBox{
 	background-color:rgba(229,229,234,1); 
@@ -2296,8 +2308,8 @@ QSpinBox:down-button{
    <widget class="QPushButton" name="btnSaveConfig">
     <property name="geometry">
      <rect>
-      <x>14</x>
-      <y>10</y>
+      <x>560</x>
+      <y>250</y>
       <width>41</width>
       <height>41</height>
      </rect>
@@ -2312,6 +2324,9 @@ QSpinBox:down-button{
     </property>
     <property name="cursor">
      <cursorShape>PointingHandCursor</cursorShape>
+    </property>
+    <property name="toolTip">
+     <string>Сохранить параметры</string>
     </property>
     <property name="styleSheet">
      <string notr="true">QPushButton{
@@ -2556,8 +2571,8 @@ QPushButton:pressed{
    <widget class="QPushButton" name="btnOpenScheme">
     <property name="geometry">
      <rect>
-      <x>562</x>
-      <y>250</y>
+      <x>610</x>
+      <y>254</y>
       <width>71</width>
       <height>31</height>
      </rect>
@@ -2577,6 +2592,9 @@ QPushButton:pressed{
     </property>
     <property name="cursor">
      <cursorShape>PointingHandCursor</cursorShape>
+    </property>
+    <property name="toolTip">
+     <string>Открыть построенную схему</string>
     </property>
     <property name="styleSheet">
      <string notr="true">QPushButton{

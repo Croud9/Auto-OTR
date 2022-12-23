@@ -76,46 +76,6 @@ QComboBox QAbstractItemView {
    <property name="styleSheet">
     <string notr="true">background-color: #fff;</string>
    </property>
-   <widget class="QLabel" name="labelGithubLink">
-    <property name="geometry">
-     <rect>
-      <x>360</x>
-      <y>261</y>
-      <width>111</width>
-      <height>18</height>
-     </rect>
-    </property>
-    <property name="font">
-     <font>
-      <family>Arial</family>
-      <pointsize>9</pointsize>
-      <weight>75</weight>
-      <italic>false</italic>
-      <bold>true</bold>
-      <underline>false</underline>
-      <strikeout>false</strikeout>
-     </font>
-    </property>
-    <property name="styleSheet">
-     <string notr="true">QLabel{
-	background-color:rgba(112, 215, 255, 0);
-	color:rgba(0, 0, 0, 0.5);
-	border: none;
-	border-radius: 5;
-	border-style: outset;
-}
-QLabel:hover{
-	color: black;
-}
-</string>
-    </property>
-    <property name="text">
-     <string>Croud9</string>
-    </property>
-    <property name="alignment">
-     <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
-    </property>
-   </widget>
    <widget class="QWidget" name="layoutWidget">
     <property name="geometry">
      <rect>
@@ -143,28 +103,7 @@ QLabel:hover{
         <string notr="true"/>
        </property>
        <property name="text">
-        <string>Почта для связи: S.Melikhov@unigreen-energy.com</string>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="QLabel" name="label_6">
-       <property name="font">
-        <font>
-         <family>Arial</family>
-         <pointsize>9</pointsize>
-         <weight>75</weight>
-         <italic>false</italic>
-         <bold>true</bold>
-         <underline>false</underline>
-         <strikeout>false</strikeout>
-        </font>
-       </property>
-       <property name="styleSheet">
-        <string notr="true"/>
-       </property>
-       <property name="text">
-        <string>                                 Slavokugfk@gmail.com</string>
+        <string>Связь: S.Melikhov@unigreen-energy.com</string>
        </property>
       </widget>
      </item>
@@ -185,19 +124,19 @@ QLabel:hover{
         <string notr="true"/>
        </property>
        <property name="text">
-        <string>Версия: beta 0.5</string>
+        <string>Версия: beta 1</string>
        </property>
       </widget>
      </item>
     </layout>
    </widget>
-   <widget class="QLabel" name="label_4">
+   <widget class="QLabel" name="labelGithubLink">
     <property name="geometry">
      <rect>
-      <x>167</x>
+      <x>27</x>
       <y>261</y>
-      <width>191</width>
-      <height>18</height>
+      <width>551</width>
+      <height>20</height>
      </rect>
     </property>
     <property name="font">
@@ -212,13 +151,48 @@ QLabel:hover{
      </font>
     </property>
     <property name="styleSheet">
-     <string notr="true"/>
+     <string notr="true">QLabel{
+	background-color:rgba(112, 215, 255, 0);
+	color:rgba(0, 0, 0, 0.5);
+	border: none;
+	border-radius: 5;
+	border-style: outset;
+}
+QLabel:hover{
+	color: black;
+}
+</string>
     </property>
     <property name="text">
-     <string>Created by Svyat Melihov |</string>
+     <string>Created by Svyat Melihov | Croud9</string>
     </property>
     <property name="alignment">
-     <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+     <set>Qt::AlignCenter</set>
+    </property>
+   </widget>
+   <widget class="QLabel" name="logo">
+    <property name="geometry">
+     <rect>
+      <x>40</x>
+      <y>110</y>
+      <width>531</width>
+      <height>121</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QLabel{
+	background-color:rgba(112, 215, 255, 0);
+	color:rgba(0, 0, 0, 0.5);
+	border: none;
+	border-radius: 5;
+	border-style: outset;
+}</string>
+    </property>
+    <property name="text">
+     <string>TextLabel</string>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignCenter</set>
     </property>
    </widget>
   </widget>

@@ -24,7 +24,7 @@
    <enum>Qt::NoFocus</enum>
   </property>
   <property name="windowTitle">
-   <string>AutoOTR</string>
+   <string>Larso</string>
   </property>
   <property name="styleSheet">
    <string notr="true">QMainWindow {
@@ -133,6 +133,9 @@ p, li { white-space: pre-wrap; }
     <property name="cursor">
      <cursorShape>PointingHandCursor</cursorShape>
     </property>
+    <property name="toolTip">
+     <string>Загрузка отчета PVsyst</string>
+    </property>
     <property name="styleSheet">
      <string notr="true">QPushButton{
 	/*background-color: #196dff;*/
@@ -174,6 +177,9 @@ QPushButton:pressed{
     </property>
     <property name="cursor">
      <cursorShape>PointingHandCursor</cursorShape>
+    </property>
+    <property name="toolTip">
+     <string>Формирование отчета в PDF</string>
     </property>
     <property name="styleSheet">
      <string notr="true">QPushButton{
@@ -217,6 +223,9 @@ QPushButton:pressed{
     <property name="cursor">
      <cursorShape>PointingHandCursor</cursorShape>
     </property>
+    <property name="toolTip">
+     <string>Подгрузка погодных данных и описания нас. пункта</string>
+    </property>
     <property name="styleSheet">
      <string notr="true">QPushButton{
 	/*background-color: #196dff;*/
@@ -258,6 +267,9 @@ QPushButton:pressed{
     </property>
     <property name="cursor">
      <cursorShape>PointingHandCursor</cursorShape>
+    </property>
+    <property name="toolTip">
+     <string>Формирование схемы постоянного тока</string>
     </property>
     <property name="styleSheet">
      <string notr="true">QPushButton{
@@ -301,6 +313,9 @@ QPushButton:pressed{
     <property name="cursor">
      <cursorShape>PointingHandCursor</cursorShape>
     </property>
+    <property name="toolTip">
+     <string>Формирование принципиальной электрической схемы</string>
+    </property>
     <property name="styleSheet">
      <string notr="true">QPushButton{
 	/*background-color: #196dff;*/
@@ -343,6 +358,9 @@ QPushButton:pressed{
     <property name="cursor">
      <cursorShape>PointingHandCursor</cursorShape>
     </property>
+    <property name="toolTip">
+     <string>Загрузить принципиальной электрическую схему</string>
+    </property>
     <property name="styleSheet">
      <string notr="true">QPushButton{
 	background-color:rgba(112, 215, 255, 0);
@@ -379,6 +397,9 @@ QPushButton:hover{
     </property>
     <property name="cursor">
      <cursorShape>PointingHandCursor</cursorShape>
+    </property>
+    <property name="toolTip">
+     <string>Загрузить схему постоянного тока</string>
     </property>
     <property name="styleSheet">
      <string notr="true">QPushButton{
@@ -422,6 +443,9 @@ QPushButton:hover{
     <property name="cursor">
      <cursorShape>PointingHandCursor</cursorShape>
     </property>
+    <property name="toolTip">
+     <string>Открыть созданный отчет PDF</string>
+    </property>
     <property name="styleSheet">
      <string notr="true">QPushButton{
 	background-color:rgba(112, 215, 255, 0);
@@ -460,7 +484,7 @@ QPushButton:hover{
      <cursorShape>PointingHandCursor</cursorShape>
     </property>
     <property name="toolTip">
-     <string>Удалить</string>
+     <string>Исключить отчет PVsyst</string>
     </property>
     <property name="styleSheet">
      <string notr="true">QPushButton{
@@ -499,7 +523,7 @@ QPushButton:hover{
      <cursorShape>PointingHandCursor</cursorShape>
     </property>
     <property name="toolTip">
-     <string>Удалить</string>
+     <string>Исключить принципиальной электрическую схему</string>
     </property>
     <property name="styleSheet">
      <string notr="true">QPushButton{
@@ -539,7 +563,7 @@ QPushButton:hover{
      <cursorShape>PointingHandCursor</cursorShape>
     </property>
     <property name="toolTip">
-     <string>Удалить</string>
+     <string>Исключить схему постоянного тока</string>
     </property>
     <property name="styleSheet">
      <string notr="true">QPushButton{
@@ -734,6 +758,9 @@ color:rgba(0, 0, 0, 0.5);</string>
     </property>
     <property name="cursor">
      <cursorShape>PointingHandCursor</cursorShape>
+    </property>
+    <property name="toolTip">
+     <string>Проверка ФЭМ</string>
     </property>
     <property name="styleSheet">
      <string notr="true">QPushButton{
@@ -934,6 +961,9 @@ QPushButton:pressed{
     <property name="cursor">
      <cursorShape>PointingHandCursor</cursorShape>
     </property>
+    <property name="toolTip">
+     <string>Формирование структурной схемы</string>
+    </property>
     <property name="styleSheet">
      <string notr="true">QPushButton{
 	/*background-color: #196dff;*/
@@ -1012,8 +1042,9 @@ color:rgba(0, 0, 0, 0.5);</string>
 	color: #196dff;
 	border: none;
 	border-style: outset; 
-	border-bottom-left-radius: 12;
-	border-bottom-right-radius: 12;
+	border-radius: 12;
+	margin: 0 2 0 0;
+
 }
 QTabBar::tab:selected { 
 	color: rgba(25, 109, 255, 0.7); 
@@ -1116,7 +1147,7 @@ QLineEdit:pressed{
        </font>
       </property>
       <property name="toolTip">
-       <string>Количество MPPT в инверторе</string>
+       <string>Полный адрес проекта</string>
       </property>
       <property name="styleSheet">
        <string notr="true">QLineEdit{
@@ -1160,7 +1191,7 @@ QLineEdit:pressed{
        </font>
       </property>
       <property name="toolTip">
-       <string>Количество MPPT в инверторе</string>
+       <string>Наименование заказчика</string>
       </property>
       <property name="styleSheet">
        <string notr="true">QLineEdit{
@@ -1252,7 +1283,7 @@ QLineEdit:pressed{
        <cursorShape>PointingHandCursor</cursorShape>
       </property>
       <property name="toolTip">
-       <string>Нажмите для перехода к другому меню</string>
+       <string>Автоопределение адреса и его координат</string>
       </property>
       <property name="styleSheet">
        <string notr="true">QPushButton{
@@ -1293,7 +1324,7 @@ QPushButton:pressed{
        </font>
       </property>
       <property name="toolTip">
-       <string>Количество MPPT в инверторе</string>
+       <string>Полное название проекта</string>
       </property>
       <property name="styleSheet">
        <string notr="true">QLineEdit{
@@ -1337,7 +1368,7 @@ QLineEdit:pressed{
        </font>
       </property>
       <property name="toolTip">
-       <string>Количество MPPT в инверторе</string>
+       <string>Напряжение подключения</string>
       </property>
       <property name="styleSheet">
        <string notr="true">QLineEdit{
@@ -1425,7 +1456,7 @@ QLineEdit:pressed{
        </font>
       </property>
       <property name="toolTip">
-       <string>Количество MPPT в инверторе</string>
+       <string>Тип проекта</string>
       </property>
       <property name="styleSheet">
        <string notr="true">QLineEdit{
@@ -1599,6 +1630,9 @@ QLineEdit:pressed{
       <property name="cursor">
        <cursorShape>PointingHandCursor</cursorShape>
       </property>
+      <property name="toolTip">
+       <string>Модель</string>
+      </property>
       <property name="styleSheet">
        <string notr="true">QComboBox{
 	background-color:rgba(229,229,234,1); 
@@ -1652,7 +1686,7 @@ QComboBox:hover{
        <cursorShape>PointingHandCursor</cursorShape>
       </property>
       <property name="toolTip">
-       <string>Добавить MPPT</string>
+       <string>Добавить оборудование</string>
       </property>
       <property name="styleSheet">
        <string notr="true">QPushButton{
@@ -1690,6 +1724,9 @@ QPushButton:hover{
       </property>
       <property name="cursor">
        <cursorShape>PointingHandCursor</cursorShape>
+      </property>
+      <property name="toolTip">
+       <string>Модель</string>
       </property>
       <property name="styleSheet">
        <string notr="true">QComboBox{
@@ -1742,6 +1779,9 @@ QComboBox:hover{
       </property>
       <property name="cursor">
        <cursorShape>PointingHandCursor</cursorShape>
+      </property>
+      <property name="toolTip">
+       <string>Модель</string>
       </property>
       <property name="styleSheet">
        <string notr="true">QComboBox{
@@ -1796,7 +1836,7 @@ QComboBox:hover{
        <cursorShape>PointingHandCursor</cursorShape>
       </property>
       <property name="toolTip">
-       <string>Удалить</string>
+       <string>Удалить оборудование</string>
       </property>
       <property name="styleSheet">
        <string notr="true">QPushButton{
@@ -1833,6 +1873,9 @@ QPushButton:hover{
       </property>
       <property name="cursor">
        <cursorShape>PointingHandCursor</cursorShape>
+      </property>
+      <property name="toolTip">
+       <string>Фирма</string>
       </property>
       <property name="styleSheet">
        <string notr="true">QComboBox{
@@ -1887,7 +1930,7 @@ QComboBox:hover{
        <cursorShape>PointingHandCursor</cursorShape>
       </property>
       <property name="toolTip">
-       <string>Добавить MPPT</string>
+       <string>Добавить оборудование</string>
       </property>
       <property name="styleSheet">
        <string notr="true">QPushButton{
@@ -1945,6 +1988,9 @@ QPushButton:hover{
         <weight>75</weight>
         <bold>true</bold>
        </font>
+      </property>
+      <property name="toolTip">
+       <string>Переключение между оборудованием</string>
       </property>
       <property name="styleSheet">
        <string notr="true">QSpinBox{
@@ -2011,7 +2057,7 @@ QSpinBox:down-button{
        <cursorShape>PointingHandCursor</cursorShape>
       </property>
       <property name="toolTip">
-       <string>Добавить MPPT</string>
+       <string>Добавить оборудование</string>
       </property>
       <property name="styleSheet">
        <string notr="true">QPushButton{
@@ -2045,6 +2091,9 @@ QPushButton:hover{
         <weight>75</weight>
         <bold>true</bold>
        </font>
+      </property>
+      <property name="toolTip">
+       <string>Переключение между оборудованием</string>
       </property>
       <property name="styleSheet">
        <string notr="true">QSpinBox{
@@ -2138,7 +2187,7 @@ QSpinBox:down-button{
        <cursorShape>PointingHandCursor</cursorShape>
       </property>
       <property name="toolTip">
-       <string>Удалить</string>
+       <string>Удалить оборудование</string>
       </property>
       <property name="styleSheet">
        <string notr="true">QPushButton{
@@ -2178,7 +2227,7 @@ QPushButton:hover{
        <cursorShape>PointingHandCursor</cursorShape>
       </property>
       <property name="toolTip">
-       <string>Удалить</string>
+       <string>Удалить оборудование</string>
       </property>
       <property name="styleSheet">
        <string notr="true">QPushButton{
@@ -2236,6 +2285,9 @@ QPushButton:hover{
         <weight>75</weight>
         <bold>true</bold>
        </font>
+      </property>
+      <property name="toolTip">
+       <string>Переключение между оборудованием</string>
       </property>
       <property name="styleSheet">
        <string notr="true">QSpinBox{
@@ -2300,6 +2352,9 @@ QSpinBox:down-button{
       <property name="cursor">
        <cursorShape>PointingHandCursor</cursorShape>
       </property>
+      <property name="toolTip">
+       <string>Фирма</string>
+      </property>
       <property name="styleSheet">
        <string notr="true">QComboBox{
 	background-color:rgba(229,229,234,1); 
@@ -2350,6 +2405,9 @@ QComboBox:hover{
       </property>
       <property name="cursor">
        <cursorShape>PointingHandCursor</cursorShape>
+      </property>
+      <property name="toolTip">
+       <string>Фирма</string>
       </property>
       <property name="styleSheet">
        <string notr="true">QComboBox{
@@ -2432,6 +2490,9 @@ QComboBox:hover{
       <property name="cursor">
        <cursorShape>PointingHandCursor</cursorShape>
       </property>
+      <property name="toolTip">
+       <string/>
+      </property>
       <property name="autoFillBackground">
        <bool>false</bool>
       </property>
@@ -2512,6 +2573,9 @@ QComboBox:hover{
       </property>
       <property name="cursor">
        <cursorShape>PointingHandCursor</cursorShape>
+      </property>
+      <property name="toolTip">
+       <string/>
       </property>
       <property name="autoFillBackground">
        <bool>false</bool>
@@ -2595,6 +2659,9 @@ QComboBox:hover{
       <property name="cursor">
        <cursorShape>PointingHandCursor</cursorShape>
       </property>
+      <property name="toolTip">
+       <string>Язык презентации</string>
+      </property>
       <property name="autoFillBackground">
        <bool>false</bool>
       </property>
@@ -2654,7 +2721,7 @@ QComboBox:hover{
        <cursorShape>PointingHandCursor</cursorShape>
       </property>
       <property name="toolTip">
-       <string>Добавить MPPT</string>
+       <string>Загрузка CSV файла с почасовой выработкой</string>
       </property>
       <property name="styleSheet">
        <string notr="true">QPushButton{
@@ -2782,6 +2849,9 @@ QComboBox:hover{
       </property>
       <property name="cursor">
        <cursorShape>PointingHandCursor</cursorShape>
+      </property>
+      <property name="toolTip">
+       <string>Открыть созданную презентацию</string>
       </property>
       <property name="styleSheet">
        <string notr="true">QPushButton{
@@ -3829,6 +3899,9 @@ padding: 2;</string>
       <property name="cursor">
        <cursorShape>PointingHandCursor</cursorShape>
       </property>
+      <property name="toolTip">
+       <string>Общий шаблон</string>
+      </property>
       <property name="styleSheet">
        <string notr="true">QPushButton{
 	background-color:rgba(112, 215, 255, 0);
@@ -3867,6 +3940,9 @@ QPushButton:hover{
         <strikeout>false</strikeout>
        </font>
       </property>
+      <property name="toolTip">
+       <string>Поле ввода параметров</string>
+      </property>
       <property name="styleSheet">
        <string notr="true">QTextBrowser{
 	background-color:rgba(229,229,234,1); 
@@ -3900,7 +3976,7 @@ QPushButton:hover{
        </font>
       </property>
       <property name="toolTip">
-       <string>Количество MPPT в инверторе</string>
+       <string>Название создаваемого файла</string>
       </property>
       <property name="styleSheet">
        <string notr="true">QLineEdit{
@@ -3948,7 +4024,7 @@ QLineEdit:pressed{
        <cursorShape>PointingHandCursor</cursorShape>
       </property>
       <property name="toolTip">
-       <string>Добавить MPPT</string>
+       <string>Создать файл параметров доп. оборудования</string>
       </property>
       <property name="styleSheet">
        <string notr="true">QPushButton{
@@ -3994,6 +4070,9 @@ QPushButton:pressed{
       </property>
       <property name="cursor">
        <cursorShape>PointingHandCursor</cursorShape>
+      </property>
+      <property name="toolTip">
+       <string>Шаблон для КТП</string>
       </property>
       <property name="styleSheet">
        <string notr="true">QPushButton{
@@ -4061,6 +4140,9 @@ QPushButton:hover{
     <property name="cursor">
      <cursorShape>PointingHandCursor</cursorShape>
     </property>
+    <property name="toolTip">
+     <string>Загрузить структурную схему</string>
+    </property>
     <property name="styleSheet">
      <string notr="true">QPushButton{
 	background-color:rgba(112, 215, 255, 0);
@@ -4099,7 +4181,7 @@ QPushButton:hover{
      <cursorShape>PointingHandCursor</cursorShape>
     </property>
     <property name="toolTip">
-     <string>Удалить</string>
+     <string>Исключить структурную схему</string>
     </property>
     <property name="styleSheet">
      <string notr="true">QPushButton{
@@ -4138,7 +4220,7 @@ QPushButton:hover{
      <cursorShape>PointingHandCursor</cursorShape>
     </property>
     <property name="toolTip">
-     <string>Удалить</string>
+     <string>Исключить план размещения</string>
     </property>
     <property name="styleSheet">
      <string notr="true">QPushButton{
@@ -4175,6 +4257,9 @@ QPushButton:hover{
     </property>
     <property name="cursor">
      <cursorShape>PointingHandCursor</cursorShape>
+    </property>
+    <property name="toolTip">
+     <string>загрузка плана размещения</string>
     </property>
     <property name="styleSheet">
      <string notr="true">QPushButton{
@@ -4274,6 +4359,9 @@ color:rgba(0, 0, 0, 0.5);</string>
     </property>
     <property name="cursor">
      <cursorShape>PointingHandCursor</cursorShape>
+    </property>
+    <property name="toolTip">
+     <string>Формирование краткой презентации</string>
     </property>
     <property name="styleSheet">
      <string notr="true">QPushButton{
